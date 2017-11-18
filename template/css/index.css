@@ -1,0 +1,24 @@
+.left-padding{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.signup-form{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 50px 25px;
+  height: auto;
+  box-sizing: border-box;
+  position: relative;
+  width: auto;
+  margin: auto;
+}
+
+.center-heading{
+  text-align: center;
+}
+
+.left-padding{
+  padding-left:15px;
+}
