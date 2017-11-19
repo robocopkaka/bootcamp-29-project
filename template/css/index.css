@@ -22,3 +22,51 @@
 .left-padding{
   padding-left:15px;
 }
+
+.left-div-padding{
+  padding-left: 30px;
+}
+
+.image-padding{
+  padding-top: 20px;
+}
+
+#event-heading{
+  color: #00796b;
+  font-size: 35px;
+}
+
+#event-center{
+  font-size: 30px;
+}
+
+#event-address{
+  font-size: 20px;
+}
+
+#event-date{
+  font-size: 20px;
+}
+
+#event-time{
+  font-size: 20px;
+}
+
+.negative-padding-top{
+  margin-top: -30px;
+}
+
+#events-header-centered{
+  color: #009688;
+}
+
+#event-state{
+  color: #d32f2f;
+  font-size: 20px;
+}
+
+.show-center-heading{
+  padding-top: 20px;
+  color: #004d40;
+  font-size: 40px;
+}
