@@ -21,6 +21,10 @@
 			<li><a href="new-center.html">Add New Center</a></li>
 			<li><a href="all-centers.html">View Centers</a></li>
 		</ul>
+    <ul id="signup-dropdown" class="dropdown-content">
+      <li><a href="signup.html">Signup</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
 		<nav>
 			<div class="nav-wrapper left-padding">
 				<a href="index.html" class="brand-logo">EventManager</a>
@@ -29,7 +33,7 @@
 					<li><a href="index.html">Home</a></li>
 					<li><a class="dropdown-button" href="#!" data-activates="events-dropdown">Events<i class="material-icons right">arrow_drop_down</i></a></li>
 					<li><a class="dropdown-button" href="#!" data-activates="centers-dropdown">Centers<i class="material-icons right">arrow_drop_down</i></a></li>
-					<li><a href="signup.html">Signup</a></li>
+					<li><a class="dropdown-button" href="#!" data-activates="signup-dropdown">Signup<i class="material-icons right">arrow_drop_down</i></a></li>
 				</ul>
 
 				<ul class="side-nav" id="side-menu">
@@ -60,7 +64,19 @@
 							</li>
 						</ul>
 					</li>
-					<li><a href="signup.html">Signup</a></li>
+          <li class="left-padding">
+						<ul class="collapsible collapsible-accordion">
+							<li>
+								<a class="collapsible-header">Signup<i class="material-icons right">arrow_drop_down</i></a>
+								<div class="collapsible-body">
+									<ul>
+                    <li><a href="signup.html">Signup</a></li>
+                    <li><a href="login.html">Login</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
 	      </ul>
 			</div>
 		</nav>
