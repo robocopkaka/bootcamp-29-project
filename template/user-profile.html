@@ -6,10 +6,9 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Edit a Center</title>
+    <link type="text/css" rel="stylesheet" href="css/centers.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/events.css"  media="screen,projection"/>
+    <title>User Profile</title>
   </head>
   <body>
     <ul id="events-dropdown" class="dropdown-content">
@@ -26,7 +25,7 @@
       <li><a href="signup.html">Signup</a></li>
       <li><a href="login.html">Login</a></li>
     </ul>
-		<nav  class="navbar-purple">
+		<nav class="navbar-purple nav-extended">
 			<div class="nav-wrapper left-padding">
 				<a href="index.html" class="brand-logo">EventManager</a>
 				<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -80,54 +79,75 @@
 					</li>
 	      </ul>
 			</div>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="#all-events">All Events</a></li>
+        </ul>
+      </div>
 		</nav>
 
-    <div class="container" style="max-width:600px">
-      <div class="card">
-        <div class="container">
-          <h3 class="center-heading">Edit a Center</h3>
+    <div id="all-events" class="col s12" style="padding-left:10px;">
+      <div style="padding-top:10px;"><span class="date">Thursday, November 22</span></div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row event-row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>7:00am</span>
+              </div>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus"><a href="show-event.html">Skurge Support Group</a></span><br>
+                <span class="event-title"><a href="show-event.html">Part 1: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</a></span>
+              </div>
+            </div>
+            <div class="card-action" style="padding-top:10px;">
+              <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-center.html"><i class="material-icons">edit</i></a>
+              <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-center.html"><i class="material-icons">delete</i></a>
+            </div>
+          </div>
         </div>
-        <form class="card-content">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="center-name" type="text" class="validate" value="Kachi's Center"/>
-              <label for="center-name">Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="center-address" type="text" class="validate" value="Gowon Estate" />
-              <label for="center-address">Address</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="center-state" type="text" class="validate" value="Lagos" />
-              <label for="center-state">State</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <div class="chips chips-initial"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="file-field input-field">
-              <div class="btn navbar-purple round-btn">
-                <span>Image</span>
-                <input type="file">
+      </div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row event-row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>8:00am</span>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" value="owen shaw.jpg">
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus"><a href="show-event.html">Skurge Support Group</a></span><br>
+                <span class="event-title"><a href="show-event.html">Part 1: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</a></span>
               </div>
             </div>
+            <div class="card-action" style="padding-top:10px;">
+              <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-center.html"><i class="material-icons">edit</i></a>
+              <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-center.html"><i class="material-icons">delete</i></a>
+            </div>
           </div>
-          <div class="row center-align">
-            <button class="btn waves-effect waves-light navbar-purple round-btn" type="submit" name="action">Update
-              <i class="material-icons right">send</i>
-            </button>
+        </div>
+      </div>
+      <div style="padding-top:10px;"><span class="date">Friday, November 24</span></div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row event-row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>9:00am</span>
+              </div>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus"><a href="show-event.html">Skurge Support Group</a></span><br>
+                <span class="event-title"><a href="show-event.html">Part 1: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</a></span>
+              </div>
+            </div>
+            <div class="card-action" style="padding-top:10px;">
+              <a class="waves-effect waves-light btn navbar-purple round-btn" href="edit-center.html"><i class="material-icons">edit</i></a>
+              <a class="waves-effect waves-light btn navbar-purple round-btn" href="edit-center.html"><i class="material-icons">delete</i></a>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
