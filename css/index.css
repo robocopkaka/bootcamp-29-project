@@ -32,8 +32,7 @@
 }
 
 #event-heading{
-  color: #00796b;
-  font-size: 35px;
+  font-size: 25px;
 }
 
 #event-center{
@@ -57,7 +56,7 @@
 }
 
 #events-header-centered{
-  color: #009688;
+  color: black;
 }
 
 #event-state{
@@ -69,4 +68,53 @@
   padding-top: 20px;
   color: #004d40;
   font-size: 40px;
+}
+
+.navbar-purple{
+  background-color: #7B1FA2;
+}
+
+.dropdown-content li>a{
+  color: black;
+}
+
+.search-bar-wrap{
+  width: 100%;
+  z-index: 2;
+  position: absolute;
+  top: auto;
+  bottom: -42px;
+  display: block;
+  font-size: 16px;
+  line-height: 1.42;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+.search-bar{
+  width:960px;
+  margin: 0 auto;
+  background-color: #0f1721;
+  color: #fff;
+  display: block;
+}
+
+.unit{
+  width: 71.42%
+}
+
+.size5of7{
+  float: left;
+  min-height: 1px;
+}
+
+.search-form{
+  display: table;
+  width: 100%
+  padding:12px;
+  font-size: 0;
+  margin-bottom: 0;
+  margin: 0 0 16px;
+  color: #fff;
+
 }
