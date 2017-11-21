@@ -1,6 +1,6 @@
-.event-focus{
+.center-state{
   display: inline;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.6;
   letter-spacing: -.02em;
@@ -8,21 +8,39 @@
   color: #777F8F;
 }
 
-.event-focus a{
+/*.center-state a{
   cursor: pointer;
   text-decoration: none;
 }
 
-.event-title{
+.center-state a:link{
+  text-decoration: none!important;
+}*/
+
+a, a:link, a:visited, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*.noDecorationState, a:link, a:visited {
+    text-decoration: none;
+    color: #777F8F;
+}*/
+
+/*.center-state a:hover{
+  text-decoration: none!important;
+}*/
+
+.center-name{
   display: inline;
-  font-size: 20px;
+  font-size: 23px;
   line-height: 1.25;
   font-weight: 500;
   letter-spacing: -.02em;
   word-wrap: break-word;
 }
 
-.event-title a{
+.center-name a{
   cursor: pointer;
   text-decoration: none;
 }
@@ -40,7 +58,7 @@
 
 .eighty-five-percent{
   /*width:85%;*/
-  margin-top: -15px;
+  /*margin-top: -10px;*/
   margin-left: -50px;
   float: right;
   overflow: hidden;
@@ -52,23 +70,23 @@
   margin-top: 0px;
 }
 
-.date{
-  padding: 0 0 16px 16px;
-  text-transform: uppercase;
+.center-address{
   display: block;
   stroke: transparent;
-  fill: rgba(0,0,0,.87);
-  color: rgba(0,0,0,.87);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-  letter-spacing: -.02em;
-  word-spacing: -.1em;
-  list-style-position: outside;
+  fill: rgba(0, 0, 0, .54);
+  color: fill: rgba(0, 0, 0, .54);
+  font-size: 15px;
+  line-height: 1.45;
   text-rendering: optimizeLegibility;
+  font-weight: 400;
+  color: #8F877F;
 }
 
-a, a:link, a:visited, a:active {
-    text-decoration: none;
-    color: inherit;
+.top-padding{
+  padding-top:10px;
 }
+
+/*.btn, a:link, a:visited, a:active {
+    text-decoration: none;
+    color: #fff;
+}*/
