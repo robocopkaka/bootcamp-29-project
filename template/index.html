@@ -6,6 +6,7 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/events.css"  media="screen,projection"/>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -21,11 +22,12 @@
 			<li><a href="new-center.html">Add New Center</a></li>
 			<li><a href="all-centers.html">View Centers</a></li>
 		</ul>
+
     <ul id="signup-dropdown" class="dropdown-content">
       <li><a href="signup.html">Signup</a></li>
       <li><a href="login.html">Login</a></li>
     </ul>
-		<nav  class="navbar-purple">
+		<nav class="navbar-purple">
 			<div class="nav-wrapper left-padding">
 				<a href="index.html" class="brand-logo">EventManager</a>
 				<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -82,163 +84,78 @@
 		</nav>
 
     <div class="container">
-      <h3 class="center-heading" id="events-header-centered">All Events</h3>
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
+      <!-- Start of search bar -->
+      <div class="search-bar-wrap">
+        <div class="search-bar">
+          <div class="unit size5of7" style="display:block;">
+            <form class="search-form">
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end of search bar -->
+      <div style="padding-top:10px;"><span class="date">Thursday, November 22</span></div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row event-row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>7:00am</span>
               </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus">Skurge Support Group</span><br>
+                <span class="event-title">Part 1: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>8:00am</span>
               </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus">Skurge Support Group</span><br>
+                <span class="event-title">Part 2: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
+      <div style="padding-top:10px;"><span class="date">Friday, November 24</span></div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>9:00am</span>
               </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus">Skurge Support Group</span><br>
+                <span class="event-title">Part 3: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
+      <div class="row">
+        <div class="col s12 m9 l9">
+          <div class="card-panel horizontal">
+            <div class="row">
+              <div class="fifteen-percent col s3 m3 l3">
+                <span>9:00am</span>
               </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
-              </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row image-padding">
-        <div class="col s12 m12 l12">
-          <div class="card horizontal">
-            <div class="card-stacked">
-              <span class="card-title">
-                <h5 class="left-padding center-heading" id="event-heading">Kachi's Event: Get to learn all about Kachi's awesomeness</h5>
-              </span>
-              <div class="card-content negative-padding-top">
-                <div class="center-heading">
-                  <h6 id="event-center">Venue: Kachi's Center</h6>
-                  <span id="event-address">Address: Somewhere in Lagos</span>
-                </div>
-                <div class="center-heading">
-                  <span id="event-date">18 November, 2017</span><br>
-                  <span id="event-time">12:00</span>
-                </div>
-              </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn">View</a>
-                <a class="waves-effect waves-light btn" href="edit-event.html">Edit</a>
-                <a class="waves-effect waves-light btn  red darken-4"><i class="material-icons right">delete</i>delete</a>
+              <div class="eighty-five-percent col s9 m9 l9">
+                <span class="event-focus">Skurge Support Group</span><br>
+                <span class="event-title">Part 3: A presentation on how to survive when faced with an
+                   all-powerful evil goddess.</span>
               </div>
             </div>
           </div>
