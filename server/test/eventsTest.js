@@ -18,7 +18,8 @@ describe('POST /events', () => {
       .send({
         name: 'name',
         date: '2017-11-11',
-        time: '08:00'
+        time: '08:00',
+        centerId: 3
       })
       .then((res) => {
         res.should.have.status(201);
@@ -35,7 +36,8 @@ describe('POST /events', () => {
       .post('/api/events')
       .send({
         date: '2011-11-11',
-        time: '08:00'
+        time: '08:00',
+        centerId: 1
       })
       .then(() => {
         // console.log('gets to then');
@@ -50,7 +52,8 @@ describe('POST /events', () => {
       .post('/api/events')
       .send({
         name: 'kachi\'s event',
-        time: '08:00'
+        time: '08:00',
+        centerId: 2
       })
       .then(() => {
         // console.log('gets to then');
@@ -65,7 +68,24 @@ describe('POST /events', () => {
       .post('/api/events')
       .send({
         name: 'kachi\'s event',
-        date: '2017-11-11'
+        date: '2017-11-11',
+        centerId: 1
+      })
+      .then(() => {
+        // console.log('gets to then');
+        // throw new Error('Invalid content type!');
+      })
+      .catch((err) => {
+        err.should.have.status(400);
+      });
+  });
+  it('should return Bad request if the centerId is missing', () => {
+    chai.request(app)
+      .post('/api/events')
+      .send({
+        name: 'kachi\'s event',
+        date: '2017-11-11',
+        time: '08:00'
       })
       .then(() => {
         // console.log('gets to then');
