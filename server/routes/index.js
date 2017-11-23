@@ -5,8 +5,8 @@ module.exports = (app) => {
     message: 'Welcome to the Event Manager App'
   }));
 
-  app.post('/api/events', eventsController.create);
-  app.get('/api/events');
-  app.get('/api/events/:eventId');
-  app.put('/api/events/:eventId');
+  app.post('/events', eventsController.create);
+  app.get('/events');
+  app.get('/events/:eventId');
+  app.put('/events/:eventId');
 };

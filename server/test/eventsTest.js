@@ -14,7 +14,7 @@ describe('POST /events', () => {
 
   it('should create an event if all parameters are supplied', () => {
     chai.request(app)
-      .post('/api/events')
+      .post('/events')
       .send({
         name: 'name',
         date: '2017-11-11',
@@ -33,7 +33,7 @@ describe('POST /events', () => {
   // POST - Bad request
   it('should return Bad request if the name is missing', () => {
     chai.request(app)
-      .post('/api/events')
+      .post('/events')
       .send({
         date: '2011-11-11',
         time: '08:00',
@@ -49,7 +49,7 @@ describe('POST /events', () => {
   });
   it('should return Bad request if the name is missing', () => {
     chai.request(app)
-      .post('/api/events')
+      .post('/events')
       .send({
         name: 'kachi\'s event',
         time: '08:00',
@@ -65,7 +65,7 @@ describe('POST /events', () => {
   });
   it('should return Bad request if the time is missing', () => {
     chai.request(app)
-      .post('/api/events')
+      .post('/events')
       .send({
         name: 'kachi\'s event',
         date: '2017-11-11',
@@ -81,7 +81,7 @@ describe('POST /events', () => {
   });
   it('should return Bad request if the centerId is missing', () => {
     chai.request(app)
-      .post('/api/events')
+      .post('/events')
       .send({
         name: 'kachi\'s event',
         date: '2017-11-11',
