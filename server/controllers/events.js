@@ -25,7 +25,10 @@ module.exports = {
       res.status(400).send('Bad request');
     } else {
       event.name = req.body.name;
-      res.status(200).send(event);
+      res.status(200).send({
+        message: 'Resource updated successfully',
+        data: event
+      });
     }
   }
 };
