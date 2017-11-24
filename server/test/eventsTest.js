@@ -1,98 +1,30 @@
-// const chai = require('chai');
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-// const app = require('../app');
 import app from '../app';
 
-// const { expect } = require('chai').expect;
 chai.use(chaiHttp);
-
 chai.should();
 
-describe('POST /events', () => {
-  // this.timeout(5000);
-
-  it('should create an event if all parameters are supplied', () => {
+describe('DELETE events/<eventid>', () => {
+  it('should return a successful message if the id exists', () => {
     chai.request(app)
-      .post('/events')
-      .send({
-        name: 'name',
-        date: '2017-11-11',
-        time: '08:00',
-        centerId: 3
-      })
+      .delete('/events/1')
       .then((res) => {
-        res.should.have.status(201);
-        res.body.should.be.an('object');
+        res.should.have.status(200);
+        res.body.should.have.property('message').eql('Resource deleted successfully');
       })
       .catch((err) => {
         err.should.have.status(404);
       });
   });
-
-  // POST - Bad request
-  it('should return Bad request if the name is missing', () => {
+  it('should return a resource not found if the id doesn\'t exist', () => {
     chai.request(app)
-      .post('/events')
-      .send({
-        date: '2011-11-11',
-        time: '08:00',
-        centerId: 1
-      })
+      .delete('/events/3')
       .then(() => {
-        // console.log('gets to then');
-        // throw new Error('Invalid content type!');
+        //
       })
       .catch((err) => {
-        err.should.have.status(400);
-      });
-  });
-  it('should return Bad request if the name is missing', () => {
-    chai.request(app)
-      .post('/events')
-      .send({
-        name: 'kachi\'s event',
-        time: '08:00',
-        centerId: 2
-      })
-      .then(() => {
-        // console.log('gets to then');
-        // throw new Error('Invalid content type!');
-      })
-      .catch((err) => {
-        err.should.have.status(400);
-      });
-  });
-  it('should return Bad request if the time is missing', () => {
-    chai.request(app)
-      .post('/events')
-      .send({
-        name: 'kachi\'s event',
-        date: '2017-11-11',
-        centerId: 1
-      })
-      .then(() => {
-        // console.log('gets to then');
-        // throw new Error('Invalid content type!');
-      })
-      .catch((err) => {
-        err.should.have.status(400);
-      });
-  });
-  it('should return Bad request if the centerId is missing', () => {
-    chai.request(app)
-      .post('/events')
-      .send({
-        name: 'kachi\'s event',
-        date: '2017-11-11',
-        time: '08:00'
-      })
-      .then(() => {
-        // console.log('gets to then');
-        // throw new Error('Invalid content type!');
-      })
-      .catch((err) => {
-        err.should.have.status(400);
+        err.should.have.status(404);
       });
   });
 });
