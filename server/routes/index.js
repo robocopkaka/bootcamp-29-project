@@ -8,5 +8,6 @@ module.exports = (app) => {
   app.post('/events', eventsController.create);
   app.get('/events');
   app.get('/events/:eventId');
-  app.put('/events/:eventId');
+  app.put('/events/:eventId', eventsController.edit);
+'
 };
