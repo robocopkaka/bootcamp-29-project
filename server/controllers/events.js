@@ -14,8 +14,22 @@ const events = [
     centerId: 1
   }
 ];
+const newEvents = [];
 
 module.exports = {
+  create(req, res) {
+    if (req.body.name === undefined || req.body.date === undefined || req.body.time === undefined
+      || req.body.centerId === undefined) {
+      res.status(400).send({
+        message: 'Bad Request'
+      });
+    } else {
+      newEvents.push(req.body);
+      res.status(201).send({
+        message: 'Created successfully'
+      });
+    }
+  },
   edit(req, res) {
     const event = events.find(anEvent => anEvent.id === req.params.eventId);
     if (event === undefined) {
