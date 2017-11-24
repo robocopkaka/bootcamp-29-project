@@ -19,12 +19,13 @@ describe('DELETE events/<eventid>', () => {
   });
   it('should return a resource not found if the id doesn\'t exist', () => {
     chai.request(app)
-      .delete('/events/3')
+      .delete('/events/20')
       .then(() => {
-        //
+        throw new Error('Resource not found');
       })
       .catch((err) => {
         err.should.have.status(404);
+        err.response.body.should.have.property('message').eql('Resource not found');
       });
   });
 });
