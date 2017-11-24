@@ -1,0 +1,15 @@
+.event-date{
+  /*padding: 0 0 16px 16px;
+  text-transform: uppercase;*/
+  display: inline;
+  /*stroke: transparent;*/
+  fill: rgba(0,0,0,.87);
+  color: rgba(0,0,0,.87);
+  font-size: 14px;
+  font-weight: 400;
+  /*line-height: 1.6;*/
+  /*letter-spacing: -.02em;
+  word-spacing: -.1em;*/
+  /*list-style-position: outside;*/
+  text-rendering: optimizeLegibility;
+}
