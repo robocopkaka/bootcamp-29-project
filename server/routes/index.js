@@ -1,4 +1,5 @@
 const eventsController = require('../controllers').events;
+const centersController = require('../controllers').centers;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -9,4 +10,6 @@ module.exports = (app) => {
   app.delete('/events', eventsController.delete);
   app.get('/events/:eventId');
   app.put('/events/:eventId', eventsController.edit);
+
+  app.post('/centers', centersController.create);
 };
