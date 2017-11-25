@@ -1,6 +1,6 @@
 const centers = [
   {
-    id: '1',
+    id: 1,
     name: 'Kachi\'s center',
     detail: 'We do stuff',
     image: 'ramsey.jpg',
@@ -8,7 +8,7 @@ const centers = [
     state: 'lagos'
   },
   {
-    id: '2',
+    id: 2,
     name: 'Kachi\'s elite center',
     detail: 'We do stuff',
     image: 'ramsey.jpg',
@@ -16,8 +16,8 @@ const centers = [
     state: 'lagos'
   },
   {
-    id: '3',
-    name: 'Kachi\'s domain center',
+    id: 3,
+    name: 'the main center',
     detail: 'We do stuff',
     image: 'ramsey.jpg',
     address: 'somewhere in lagos',
