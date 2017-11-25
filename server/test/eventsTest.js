@@ -21,7 +21,7 @@ describe('DELETE events/<eventid>', () => {
     chai.request(app)
       .delete('/events/20')
       .then(() => {
-        throw new Error('Resource not found');
+        // throw new Error('Resource not found');
       })
       .catch((err) => {
         err.should.have.status(404);

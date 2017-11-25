@@ -9,6 +9,7 @@
 * Send a PUT request to 127.0.0.1:8000/events/1 with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
 * Send a POST request to 127.0.0.1:8000/events with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
 * Send a DELETE request to `127.0.0.1:8000/events/1`
+* Send a POST request to 127.0.0.1:8000/centers with this in the body `{name: "newish center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
 
 ## Tests
 > To run tests, use `npm test`
