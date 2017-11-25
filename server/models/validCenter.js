@@ -1,8 +1,9 @@
 const validCenter = {
-  name: 'The main center',
-  detail: 'We exist',
-  facilities: ['chairs', 'projectors', 'some other stuff'],
-  image: 'ramsey.jpg'
+  name: 'Kachi\'s center',
+  detail: 'We do stuff',
+  image: 'ramsey.jpg',
+  address: 'somewhere in lagos',
+  state: 'lagos'
 };
 
 module.exports = validCenter;

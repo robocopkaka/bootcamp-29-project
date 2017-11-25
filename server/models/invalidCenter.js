@@ -1,8 +1,9 @@
 const invalidCenter = {
   name: undefined,
   detail: undefined,
-  facilities: undefined,
-  image: undefined
+  image: undefined,
+  address: undefined,
+  state: undefined
 };
 
 module.exports = invalidCenter;

@@ -2,8 +2,12 @@ import centers from '../models/centers';
 
 module.exports = {
   create(req, res) {
-    console.log(req.body);
-    centers.push(req.body);
-    res.status(201).send('Resource created');
+    const center = centers.find(aCenter => aCenter.name === req.body.name);
+    if (center === undefined) {
+      centers.push(req.body);
+      res.status(201).send('Resource created');
+    } else {
+      res.status(409).send('Resource conflict');
+    }
   }
 };
