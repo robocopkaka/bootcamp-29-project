@@ -47,5 +47,8 @@ module.exports = {
   },
   get(req, res) {
     res.status(200).send(events);
+  },
+  getSingle(req, res) {
+
   }
 };

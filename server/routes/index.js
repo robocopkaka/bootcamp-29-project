@@ -2,6 +2,7 @@ import expressJoi from 'express-joi-validator';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
 import centerWithParamsSchema from '../validators/centerWithParamsValidator';
+import eventWithParamsSchema from '../validators/eventWithParamsValidator';
 
 const eventsController = require('../controllers').events;
 const centersController = require('../controllers').centers;
@@ -14,7 +15,7 @@ module.exports = (app) => {
   app.post('/events', eventsController.create);
   app.delete('/events', eventsController.delete);
   app.get('/events', eventsController.get);
-  app.get('/events/:eventId');
+  app.get('/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingle);
   app.put('/events/:eventId', eventsController.edit);
 
   app.get('/centers', centersController.get);
