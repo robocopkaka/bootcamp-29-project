@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   app.post('/events', eventsController.create);
   app.delete('/events', eventsController.delete);
+  app.get('/events', eventsController.get);
   app.get('/events/:eventId');
   app.put('/events/:eventId', eventsController.edit);
 
