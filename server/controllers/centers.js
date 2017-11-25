@@ -44,5 +44,8 @@ module.exports = {
         message: 'Resource deleted successfully'
       });
     }
+  },
+  get(req, res) {
+    res.status(200).send(centers);
   }
 };

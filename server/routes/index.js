@@ -15,6 +15,7 @@ module.exports = (app) => {
   app.get('/events/:eventId');
   app.put('/events/:eventId', eventsController.edit);
 
+  app.get('/centers', centersController.get);
   app.post('/centers', expressJoi(centerSchema), centersController.create);
   app.put('/centers/:centerId', expressJoi(centerWithIdSchema), centersController.edit);
   app.delete('/centers/:centerId', expressJoi(centerWithIdSchema), centersController.delete);
