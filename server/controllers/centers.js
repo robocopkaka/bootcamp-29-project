@@ -28,5 +28,8 @@ module.exports = {
     } else {
       res.status(409).send('Resource conflict');
     }
+  },
+  delete(req, res) {
+    
   }
 };
