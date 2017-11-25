@@ -1,6 +1,7 @@
 import expressJoi from 'express-joi-validator';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
+import centerWithParamsSchema from '../validators/centerWithParamsValidator';
 
 const eventsController = require('../controllers').events;
 const centersController = require('../controllers').centers;
@@ -16,9 +17,10 @@ module.exports = (app) => {
   app.put('/events/:eventId', eventsController.edit);
 
   app.get('/centers', centersController.get);
+  app.get('/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingle);
   app.post('/centers', expressJoi(centerSchema), centersController.create);
   app.put('/centers/:centerId', expressJoi(centerWithIdSchema), centersController.edit);
-  app.delete('/centers/:centerId', expressJoi(centerWithIdSchema), centersController.delete);
+  app.delete('/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
