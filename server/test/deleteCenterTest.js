@@ -8,9 +8,9 @@ chai.should();
 describe('DELETE /centers/<centerId>', () => {
   it('should delete a center and return a 204 if the ID is valid', () => {
     chai.request(app)
-      .delete('/centers/3')
+      .delete('/centers/2')
       .then((res) => {
-        res.should.have.status(204);
+        res.should.have.status(200);
       })
       .catch((err) => {
         err.should.have.status(404);
@@ -19,9 +19,6 @@ describe('DELETE /centers/<centerId>', () => {
   it('should return a 404 if the ID is invalid or doesn\'t exist', () => {
     chai.request(app)
       .delete('/centers/90')
-      .then(() => {
-        //
-      })
       .catch((err) => {
         err.should.have.status(404);
       });
