@@ -13,6 +13,7 @@
 * Send a PUT request to 127.0.0.1:8000/centers/1 with this in the body `{name: "newishest center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
 * Send a DELETE request to 127.0.0.1:8000/centers/1
 * Send a GET request to 127.0.0.1:8000/centers
+* Send a GET request to 127.0.0.1:8000/centers/1
 
 ## Tests
 > To run tests, use `npm test`
