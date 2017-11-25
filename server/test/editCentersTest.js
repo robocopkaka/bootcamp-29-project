@@ -10,7 +10,7 @@ chai.should();
 describe('PUT /centers/<centerId>', () => {
   it('should return a 200 if the parameters were valid', () => {
     chai.request(app)
-      .put('/centers/2')
+      .put('/centers/1')
       .send({
         name: 'The main centerssssssss',
         detail: 'We exist',
