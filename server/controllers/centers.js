@@ -28,5 +28,21 @@ module.exports = {
     } else {
       res.status(409).send('Resource conflict');
     }
+  },
+  delete(req, res) {
+    // centerId = parseInt(req.params.id, 10);
+    const center = centers.find(aCenter => aCenter.id === parseInt(req.params.centerId, 10));
+    if (center === undefined) {
+      res.status(404).send({
+        message: 'Resource not found'
+      });
+    } else {
+      const centerId = parseInt(req.params.centerId, 10);
+      const centerIndex = centers.findIndex(aCenter => aCenter.id === centerId);
+      centers.splice(centerIndex, 1);
+      res.status(200).send({
+        message: 'Resource deleted successfully'
+      });
+    }
   }
 };
