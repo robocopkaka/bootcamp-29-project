@@ -15,6 +15,7 @@
 * Send a GET request to 127.0.0.1:8000/centers
 * Send a GET request to 127.0.0.1:8000/centers/1
 * Send a GET request to 127.0.0.1:8000/events
+* Send a GET request to 127.0.0.1:8000/events/1
 
 ## Tests
 > To run tests, use `npm test`

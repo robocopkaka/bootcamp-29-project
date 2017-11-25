@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const eventWithParamsSchema = {
   params: {
-    centerId: Joi.number().required()
+    eventId: Joi.number().required()
   }
 };
 
