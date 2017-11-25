@@ -15,6 +15,7 @@ module.exports = (app) => {
   app.put('/events/:eventId', eventsController.edit);
 
   app.post('/centers', expressJoi(centerSchema), centersController.create);
+  app.put('/centers/:centerId', expressJoi(centerSchema), centersController.edit);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
