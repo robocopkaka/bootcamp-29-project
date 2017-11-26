@@ -1,4 +1,5 @@
-# bootcamp-29-project [![Build Status](https://travis-ci.org/robocopkaka/bootcamp-29-project.svg?branch=setup-travis)](https://travis-ci.org/robocopkaka/bootcamp-29-project)
+# bootcamp-29-project
+[![Build Status](https://travis-ci.org/robocopkaka/bootcamp-29-project.svg?branch=setup-travis)](https://travis-ci.org/robocopkaka/bootcamp-29-project)  [![Coverage Status](https://coveralls.io/repos/github/robocopkaka/bootcamp-29-project/badge.svg)](https://coveralls.io/github/robocopkaka/bootcamp-29-project)
 
 ## Installation steps
 * cd into the server folder
