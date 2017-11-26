@@ -64,7 +64,6 @@ describe('POST /events endpoint', () => {
       .post('/events')
       .send(validEvent)
       .catch((err) => {
-        console.log(err.response.error.text.message);
         err.should.have.status(409);
         err.response.error.text.should.eql('Resource conflict');
       });

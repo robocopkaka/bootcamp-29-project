@@ -34,7 +34,6 @@ module.exports = {
       });
     } else {
       const eventId = parseInt(req.params.centerId, 10);
-      console.log(eventId);
       const eventIndex = events.findIndex(anEvent => anEvent.id === eventId);
       events.splice(eventIndex, 1);
       res.status(200).send({
