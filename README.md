@@ -1,4 +1,4 @@
-# bootcamp-29-project
+# bootcamp-29-project [![Build Status](https://travis-ci.org/robocopkaka/bootcamp-29-project.svg?branch=setup-travis)](https://travis-ci.org/robocopkaka/bootcamp-29-project)
 
 ## Installation steps
 * cd into the server folder
