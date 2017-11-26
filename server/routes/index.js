@@ -2,6 +2,8 @@ import expressJoi from 'express-joi-validator';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
 import centerWithParamsSchema from '../validators/centerWithParamsValidator';
+import eventSchema from '../validators/eventValidator';
+import eventWithIdSchema from '../validators/eventWithIdValidator';
 import eventWithParamsSchema from '../validators/eventWithParamsValidator';
 
 const eventsController = require('../controllers').events;
@@ -12,11 +14,11 @@ module.exports = (app) => {
     message: 'Welcome to the Event Manager App'
   }));
 
-  app.post('/events', eventsController.create);
-  app.delete('/events', eventsController.delete);
+  app.post('/events', expressJoi(eventSchema), eventsController.create);
+  app.delete('/events', expressJoi(eventWithParamsSchema), eventsController.delete);
   app.get('/events', eventsController.get);
   app.get('/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingle);
-  app.put('/events/:eventId', eventsController.edit);
+  app.put('/events/:eventId', expressJoi(eventWithIdSchema), eventsController.edit);
 
   app.get('/centers', centersController.get);
   app.get('/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingle);
