@@ -5,10 +5,10 @@ import app from '../app';
 chai.use(chaiHttp);
 chai.should();
 
-describe('GET /centers/<centerId>', () => {
+describe('GET /api/v1/centers/<centerId>', () => {
   it('should return 200 and a center, if the id is valid', () => {
     chai.request(app)
-      .get('/centers/1')
+      .get('/api/v1/centers/1')
       .then((res) => {
         res.should.have.status(200);
         res.body.should.be.an('object');
@@ -17,7 +17,7 @@ describe('GET /centers/<centerId>', () => {
   });
   it('should return 404, if the id is invalid or doesn\'t exist', () => {
     chai.request(app)
-      .get('/centers/20')
+      .get('/api/v1/centers/20')
       .catch((err) => {
         err.should.have.status(404);
       });

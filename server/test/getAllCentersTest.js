@@ -6,10 +6,10 @@ import centers from '../models/centers';
 chai.use(chaiHttp);
 chai.should();
 
-describe('GET /centers', () => {
+describe('GET /api/v1/centers', () => {
   it('should return a 200 and all the centers in the system', () => {
     chai.request(app)
-      .get('/centers')
+      .get('/api/v1/centers')
       .then((res) => {
         res.should.have.status(200);
         res.body.should.be.an('array');

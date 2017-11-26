@@ -1,4 +1,4 @@
-import centers from '../models/centers';
+import centers from '../../models/centers';
 
 module.exports = {
   create(req, res) {
