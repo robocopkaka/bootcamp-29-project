@@ -1,5 +1,5 @@
 env:
-  CODECLIMATE_REPO_TOKEN: 2c69088994c72bf118aa50db292210e118f03e27fda7d93a2d72153a98dc536a
+  CODECLIMATE_REPO_TOKEN: 5ba0fafe4174fbd93d8e91e7decf4f8c3b5eb4ade63f5d136d9733481324eac3
 language: node_js
 node_js:
   - "7.8.0"
@@ -13,6 +13,6 @@ script:
   - npm test
   - npm run coverage
 after_script:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - ./cc-test-reporter after-build
 after_success:
   - npm run coveralls
