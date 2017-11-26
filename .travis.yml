@@ -5,4 +5,7 @@ before_script:
   - "cd server/"
   - "npm install"
 script:
-  - "npm test"
+  - npm test
+  - npm run coverage
+after_success:
+  - npm run coveralls
