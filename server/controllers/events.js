@@ -1,28 +1,23 @@
 import events from '../models/events';
 
-const newEvents = [];
-
 module.exports = {
   create(req, res) {
-    if (req.body.name === undefined || req.body.date === undefined || req.body.time === undefined
-      || req.body.centerId === undefined) {
-      res.status(400).send({
-        message: 'Bad Request'
-      });
-    } else {
-      newEvents.push(req.body);
+    const event = events.find(anEvent => anEvent.name === req.body.name);
+    if (event === undefined) {
+      const last = events.slice(-1);
+      req.body.id = last + 1;
+      events.push(req.body);
       res.status(201).send({
         message: 'Created successfully'
       });
+    } else {
+      res.status(409).send('Resource conflict');
     }
   },
   edit(req, res) {
     const event = events.find(anEvent => anEvent.id === req.params.eventId);
     if (event === undefined) {
       res.status(404).send('Resource not found');
-    } else if (req.body.name === undefined || req.body.date === undefined
-      || req.body.time === undefined || req.body.centerId === undefined) {
-      res.status(400).send('Bad request');
     } else {
       event.name = req.body.name;
       res.status(200).send({
@@ -38,8 +33,10 @@ module.exports = {
         message: 'Resource not found'
       });
     } else {
-      const eventId = events.findIndex(anEvent => anEvent.id === req.params.eventId);
-      events.splice(eventId, 1);
+      const eventId = parseInt(req.params.centerId, 10);
+      console.log(eventId);
+      const eventIndex = events.findIndex(anEvent => anEvent.id === eventId);
+      events.splice(eventIndex, 1);
       res.status(200).send({
         message: 'Resource deleted successfully'
       });
