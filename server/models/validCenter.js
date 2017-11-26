@@ -1,5 +1,5 @@
 const validCenter = {
-  name: 'Kachi\'s center',
+  name: 'the main center',
   detail: 'We do stuff',
   image: 'ramsey.jpg',
   address: 'somewhere in lagos',

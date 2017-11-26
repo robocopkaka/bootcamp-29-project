@@ -5,7 +5,17 @@ const centers = [
     detail: 'We do stuff',
     image: 'ramsey.jpg',
     address: 'somewhere in lagos',
-    state: 'lagos'
+    state: 'lagos',
+    facilities: ['rolls, paste, soap'],
+    events: [
+      {
+        id: 1,
+        name: 'kachi\'s event',
+        date: '2011-11-11',
+        time: '08:00',
+        centerId: '1'
+      },
+    ]
   },
   {
     id: 2,
@@ -13,7 +23,17 @@ const centers = [
     detail: 'We do stuff',
     image: 'ramsey.jpg',
     address: 'somewhere in lagos',
-    state: 'lagos'
+    state: 'lagos',
+    facilities: ['rolls, paste, soap'],
+    events: [
+      {
+        id: 1,
+        name: 'kachi\'s major event',
+        date: '2011-11-11',
+        time: '08:00',
+        centerId: '2'
+      },
+    ]
   },
   {
     id: 3,

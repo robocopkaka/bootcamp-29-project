@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('DELETE events/<eventid>', () => {
-  it('should return a successful message if the id exists', () => {
+  it('should return a successful message and a 200 if the id exists', () => {
     chai.request(app)
       .delete('/events/1')
       .then((res) => {
@@ -20,7 +20,7 @@ describe('DELETE events/<eventid>', () => {
         err.should.have.status(404);
       });
   });
-  it('should return a resource not found if the id doesn\'t exist', () => {
+  it('should return a resource not found and a 404 if the id doesn\'t exist', () => {
     chai.request(app)
       .delete('/events/20')
       .then(() => {
@@ -64,7 +64,6 @@ describe('POST /events endpoint', () => {
       .post('/events')
       .send(validEvent)
       .catch((err) => {
-        console.log(err.response.error.text.message);
         err.should.have.status(409);
         err.response.error.text.should.eql('Resource conflict');
       });
