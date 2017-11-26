@@ -19,14 +19,14 @@ module.exports = {
     const exist = centers.find(aCenter => aCenter.name === req.body.name);
     if (center === undefined) {
       res.status(404).send('Resource not found');
+    } else if (exist !== undefined && center !== undefined) {
+      res.status(409).send('Resource conflict');
     } else if (exist === undefined && center !== undefined) {
       centers[centerIndex].name = req.body.name;
       res.status(200).send({
         message: 'Resource updated',
         data: centers[centerIndex]
       });
-    } else {
-      res.status(409).send('Resource conflict');
     }
   },
   delete(req, res) {

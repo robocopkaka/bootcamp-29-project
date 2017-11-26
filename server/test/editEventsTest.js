@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('PUT /events/<eventid>', () => {
-  it('should edit an event if the parameters supplied are valid', () => {
+  it('should edit an event if the parameters supplied are valid and return a 200', () => {
     chai.request(app)
       .put('/events/1')
       .send(validEvent)
@@ -22,7 +22,7 @@ describe('PUT /events/<eventid>', () => {
         err.should.have.status(400);
       });
   });
-  it('should return resource not found if the id doesn\'t exist yet', () => {
+  it('should return resource not found and a 404 if the id doesn\'t exist yet', () => {
     chai.request(app)
       .put('/events/10')
       .send(newEvent)
@@ -30,7 +30,7 @@ describe('PUT /events/<eventid>', () => {
         err.should.have.status(404);
       });
   });
-  it('should not edit an event if the parameters supplied are invalid', () => {
+  it('should not edit an event if the parameters supplied are invalid and return a 400', () => {
     chai.request(app)
       .put('/events/1')
       .send(invalidEvent)
@@ -41,7 +41,7 @@ describe('PUT /events/<eventid>', () => {
         err.should.have.status(400);
       });
   });
-  it('should not edit an event if a malformed request is passed', () => {
+  it('should not edit an event if a malformed request is passed  and return a 400', () => {
     chai.request(app)
       .put('/events/1')
       .send({

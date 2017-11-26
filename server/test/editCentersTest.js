@@ -35,6 +35,10 @@ describe('PUT /centers/<centerId>', () => {
     chai.request(app)
       .put('/centers/3')
       .send(validCenter)
+      .then((res) => {
+        console.log(res);
+        // res.should.have.status(409);
+      })
       .catch((err) => {
         err.should.have.status(409);
         err.response.error.text.should.eql('Resource conflict');
