@@ -15,7 +15,7 @@ module.exports = (app) => {
   }));
 
   app.post('/events', expressJoi(eventSchema), eventsController.create);
-  app.delete('/events', expressJoi(eventWithParamsSchema), eventsController.delete);
+  app.delete('/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.delete);
   app.get('/events', eventsController.get);
   app.get('/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingle);
   app.put('/events/:eventId', expressJoi(eventWithIdSchema), eventsController.edit);

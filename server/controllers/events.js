@@ -20,9 +20,6 @@ module.exports = {
     const event = events.find(anEvent => anEvent.id === req.params.eventId);
     if (event === undefined) {
       res.status(404).send('Resource not found');
-    } else if (req.body.name === undefined || req.body.date === undefined
-      || req.body.time === undefined || req.body.centerId === undefined) {
-      res.status(400).send('Bad request');
     } else {
       event.name = req.body.name;
       res.status(200).send({
@@ -38,8 +35,10 @@ module.exports = {
         message: 'Resource not found'
       });
     } else {
-      const eventId = events.findIndex(anEvent => anEvent.id === req.params.eventId);
-      events.splice(eventId, 1);
+      const eventId = parseInt(req.params.centerId, 10);
+      console.log(eventId);
+      const eventIndex = events.findIndex(anEvent => anEvent.id === eventId);
+      events.splice(eventIndex, 1);
       res.status(200).send({
         message: 'Resource deleted successfully'
       });
