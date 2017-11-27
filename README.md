@@ -7,16 +7,16 @@
 * Run npm run start:dev to start the server
 
 ## Testing with POSTMAN
-* Send a PUT request to 127.0.0.1:8000/events/1 with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
-* Send a POST request to 127.0.0.1:8000/events with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
+* Send a PUT request to 127.0.0.1:8000/api/v1/events/1 with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
+* Send a POST request to 127.0.0.1:8000/api/v1/events with this in the body `{name: "anything", date: "2017-11-11", time: "08:00", centerId: 1}`
 * Send a DELETE request to `127.0.0.1:8000/events/1`
-* Send a POST request to 127.0.0.1:8000/centers with this in the body `{name: "newish center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
-* Send a PUT request to 127.0.0.1:8000/centers/1 with this in the body `{name: "newishest center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
-* Send a DELETE request to 127.0.0.1:8000/centers/1
-* Send a GET request to 127.0.0.1:8000/centers
-* Send a GET request to 127.0.0.1:8000/centers/1
-* Send a GET request to 127.0.0.1:8000/events
-* Send a GET request to 127.0.0.1:8000/events/1
+* Send a POST request to 127.0.0.1:8000/api/v1/centers with this in the body `{name: "newish center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
+* Send a PUT request to 127.0.0.1:8000/api/v1/centers/1 with this in the body `{name: "newishest center", detail: "they do stuff", image: "you.jpg", address: "somewhere", state: "somewhere"}`
+* Send a DELETE request to 127.0.0.1:8000/api/v1/centers/1
+* Send a GET request to 127.0.0.1:8000/api/v1/centers
+* Send a GET request to 127.0.0.1:8000/api/v1/centers/1
+* Send a GET request to 127.0.0.1:8000/api/v1/events
+* Send a GET request to 127.0.0.1:8000/api/v1/events/1
 
 ## Tests
 > To run tests, use `npm test`
