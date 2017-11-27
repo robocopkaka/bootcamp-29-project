@@ -6,10 +6,10 @@ import events from '../models/events';
 chai.use(chaiHttp);
 chai.should();
 
-describe('GET /events', () => {
+describe('GET /api/v1/events', () => {
   it('should return a 200 and all the centers in the system', () => {
     chai.request(app)
-      .get('/events')
+      .get('/api/v1/events')
       .then((res) => {
         res.should.have.status(200);
         res.body.should.be.an('array');
