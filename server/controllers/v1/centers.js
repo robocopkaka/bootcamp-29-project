@@ -33,9 +33,7 @@ module.exports = {
     // centerId = parseInt(req.params.id, 10);
     const center = centers.find(aCenter => aCenter.id === parseInt(req.params.centerId, 10));
     if (center === undefined) {
-      res.status(404).send({
-        message: 'Resource not found'
-      });
+      res.status(404).send('Resource not found');
     } else {
       const centerId = parseInt(req.params.centerId, 10);
       const centerIndex = centers.findIndex(aCenter => aCenter.id === centerId);
