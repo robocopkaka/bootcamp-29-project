@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 // Set up the express app
 const app = express();
@@ -22,7 +23,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./routes/*.js'],
+  apis: ['./controllers/v1/*.js'],
 };
 
 // initialize swagger-jsdoc
@@ -33,6 +34,8 @@ app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // Log requests to the console.
 app.use(logger('dev'));
