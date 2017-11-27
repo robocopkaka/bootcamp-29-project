@@ -171,7 +171,7 @@ module.exports = {
   * /api/v1/events/:id:
   *   get:
   *     tags:
-  *       - Centers
+  *       - Events
   *     description: Get a single event
   *     produces:
   *       - application/json
