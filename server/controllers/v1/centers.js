@@ -35,8 +35,8 @@ module.exports = {
     if (center === undefined) {
       res.status(404).send('Resource not found');
     } else {
-      const centerId = parseInt(req.params.centerId, 10);
-      const centerIndex = centers.findIndex(aCenter => aCenter.id === centerId);
+      const centerIndex = centers.findIndex(aCenter => aCenter.id ===
+        parseInt(req.params.centerId, 10));
       centers.splice(centerIndex, 1);
       res.status(200).send({
         message: 'Resource deleted successfully'
