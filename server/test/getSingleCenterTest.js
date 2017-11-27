@@ -12,7 +12,7 @@ describe('GET /api/v1/centers/<centerId>', () => {
       .then((res) => {
         res.should.have.status(200);
         res.body.should.be.an('object');
-        res.body.should.have.property('id').eql(1);
+        res.body.data.should.have.property('id').eql(1);
       });
   });
   it('should return 404, if the id is invalid or doesn\'t exist', () => {

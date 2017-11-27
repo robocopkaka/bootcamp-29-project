@@ -51,11 +51,12 @@ module.exports = {
   getSingleCenter(req, res) {
     const center = centers.find(aCenter => aCenter.id === parseInt(req.params.centerId, 10));
     if (center === undefined) {
-      res.status(404).send({
-        message: 'Resource not found'
-      });
+      res.status(404).send('Resource not found');
     } else {
-      res.status(200).send(center);
+      res.status(200).send({
+        message: 'Found',
+        data: center
+      });
     }
   }
 };
