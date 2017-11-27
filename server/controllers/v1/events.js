@@ -44,7 +44,7 @@ module.exports = {
   get(req, res) {
     res.status(200).send(events);
   },
-  getSingle(req, res) {
+  getSingleEvent(req, res) {
     const event = events.find(aEvent => aEvent.id === parseInt(req.params.eventId, 10));
     if (event === undefined) {
       res.status(404).send({

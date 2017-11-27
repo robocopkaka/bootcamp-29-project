@@ -48,7 +48,7 @@ module.exports = {
   get(req, res) {
     res.status(200).send(centers);
   },
-  getSingle(req, res) {
+  getSingleCenter(req, res) {
     const center = centers.find(aCenter => aCenter.id === parseInt(req.params.centerId, 10));
     if (center === undefined) {
       res.status(404).send({

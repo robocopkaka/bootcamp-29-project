@@ -17,11 +17,11 @@ module.exports = (app) => {
   app.post('/api/v1/events', expressJoi(eventSchema), eventsController.create);
   app.delete('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.delete);
   app.get('/api/v1/events', eventsController.get);
-  app.get('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingle);
+  app.get('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingleEvent);
   app.put('/api/v1/events/:eventId', expressJoi(eventWithIdSchema), eventsController.edit);
 
   app.get('/api/v1/centers', centersController.get);
-  app.get('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingle);
+  app.get('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingleCenter);
   app.post('/api/v1/centers', expressJoi(centerSchema), centersController.create);
   app.put('/api/v1/centers/:centerId', expressJoi(centerWithIdSchema), centersController.edit);
   app.delete('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
