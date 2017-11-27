@@ -8,15 +8,15 @@ import newCenter from '../models/newCenter';
 chai.use(chaiHttp);
 chai.should();
 
-describe('POST /centers endpoint', () => {
+describe('POST /api/v1/centers endpoint', () => {
   it('should return \'Resource created\' and a 201 if the center parameters are valid', () => {
     chai.request(app)
-      .post('/centers')
+      .post('/api/v1/centers')
       .send(newCenter)
       .then((res) => {
         res.should.have.status(201);
         res.body.should.have.property('id');
-        res.body.should.have.property('message').eql('Resource created');
+        res.body.should.have.property('message').eql('Center created');
       })
       .catch(() => {
         // console.log(err.status);
@@ -25,7 +25,7 @@ describe('POST /centers endpoint', () => {
   });
   it('should return \'Bad request\' and a 400 if the center parameters are invalid', () => {
     chai.request(app)
-      .post('/centers')
+      .post('/api/v1/centers')
       .send(invalidCenter)
       .then(() => {
         //
@@ -37,7 +37,7 @@ describe('POST /centers endpoint', () => {
   });
   it('should return a 409 if the center name is already in the database', () => {
     chai.request(app)
-      .post('/centers')
+      .post('/api/v1/centers')
       .send(validCenter)
       .catch((err) => {
         err.should.have.status(409);
