@@ -28,16 +28,16 @@ module.exports = {
   },
   delete(req, res) {
     const event = events.find(anEvent => anEvent.id === req.params.eventId);
-    if (event === undefined) {
-      res.status(404).send({
-        message: 'Resource not found'
-      });
-    } else {
+    if (event !== undefined) {
       const eventId = parseInt(req.params.centerId, 10);
       const eventIndex = events.findIndex(anEvent => anEvent.id === eventId);
       events.splice(eventIndex, 1);
       res.status(200).send({
         message: 'Resource deleted successfully'
+      });
+    } else {
+      res.status(404).send({
+        message: 'Resource not found'
       });
     }
   },
