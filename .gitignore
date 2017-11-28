@@ -1,4 +1,6 @@
 node_modules/
-server/coverage/
-server/.nyc_output/
+coverage/
+.nyc_output/
 .coveralls.yml
+server/coverage
+server/.nyc_output/
