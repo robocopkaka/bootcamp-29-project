@@ -7,6 +7,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'event-manager-dev',
     host: '127.0.0.1',
+    port: 5432,
     dialect: 'postgres'
   },
   test: {
@@ -14,6 +15,7 @@ module.exports = {
     password: process.env.DB_USER,
     database: 'event-manager-test',
     host: '127.0.0.1',
+    port: 5432,
     dialect: 'postgres'
   },
   production: {

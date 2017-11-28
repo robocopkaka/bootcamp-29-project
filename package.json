@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "babel-node": "babel-node --presets=latest",
-    "start:dev": "nodemon --exec npm run babel-node ./bin/www",
+    "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "build": "babel src -d dist",
     "mocha": "mocha --compilers js:babel-core/register",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --exit",
@@ -24,6 +24,7 @@
     "express": "^4.16.2",
     "express-joi-validator": "^2.0.0",
     "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",

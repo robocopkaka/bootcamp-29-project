@@ -15,7 +15,7 @@ describe('POST /users', () => {
         password: 'tests'
       })
       .then((res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         // check if a token was created
       });
   });
