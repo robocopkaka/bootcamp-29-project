@@ -1,9 +1,41 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 // Set up the express app
 const app = express();
+
+// swagger definition
+const swaggerDefinition = {
+  info: {
+    title: 'Node Swagger API',
+    version: '1.0.0',
+    description: 'Demonstrating how to describe a RESTful API with Swagger',
+  },
+  host: 'localhost:8000',
+  basePath: '/',
+};
+
+// options for the swagger docs
+const options = {
+  // import swaggerDefinitions
+  swaggerDefinition,
+  // path to the API docs
+  apis: ['./controllers/v1/*.js'],
+};
+
+// initialize swagger-jsdoc
+const swaggerSpec = swaggerJSDoc(options);
+
+// serve swagger
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // Log requests to the console.
 app.use(logger('dev'));
