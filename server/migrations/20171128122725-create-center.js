@@ -17,15 +17,27 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        default: '/template/img/ramsey.jpg'
+        defaultValue: '/template/img/ramsey.jpg'
       },
       chairs: {
         type: Sequelize.INTEGER,
-        default: 0
+        defaultValue: 0
       },
       projector: {
         type: Sequelize.INTEGER,
-        default: 0
+        defaultValue: 0
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      detail: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

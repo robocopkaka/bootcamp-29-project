@@ -17,12 +17,12 @@ module.exports = {
         unique: true
       },
       password: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(500),
         allowNull: false,
       },
       isAdmin: {
         type: Sequelize.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
