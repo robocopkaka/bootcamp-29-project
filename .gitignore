@@ -4,3 +4,4 @@ coverage/
 .coveralls.yml
 server/coverage
 server/.nyc_output/
+.env
