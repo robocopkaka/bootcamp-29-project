@@ -1,4 +1,4 @@
-import centers from '../../models/centers';
+import centers from '../../schemas/centers';
 
 module.exports = {
   /**

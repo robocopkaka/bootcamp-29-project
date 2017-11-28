@@ -10,15 +10,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      default: '/template/img/ramsey.jpg'
+      defaultValue: '/template/img/ramsey.jpg'
     },
     chairs: {
       type: DataTypes.INTEGER,
-      default: 0
+      defaultValue: 0
     },
     projector: {
       type: DataTypes.INTEGER,
-      default: 0
+      defaultValue: 0
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    detail: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   });
 

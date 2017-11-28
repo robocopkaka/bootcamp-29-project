@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.ENUM,
       values: ['open', 'closed'],
-      default: 'open'
+      defaultValue: 'open'
     },
     guests: {
       type: DataTypes.INTEGER

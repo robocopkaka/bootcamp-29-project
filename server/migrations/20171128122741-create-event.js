@@ -15,7 +15,7 @@ module.exports = {
       status: {
         type: Sequelize.ENUM,
         values: ['open', 'closed'],
-        default: 'open'
+        defaultValue: 'open'
       },
       guests: {
         type: Sequelize.INTEGER
