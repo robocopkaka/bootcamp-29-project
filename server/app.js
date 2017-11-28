@@ -1,4 +1,5 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
