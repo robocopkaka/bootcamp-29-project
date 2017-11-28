@@ -47,7 +47,8 @@
     "istanbul-coveralls": "^1.0.3",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
-    "nyc": "^11.3.0"
+    "nyc": "^11.3.0",
+    "sequelize-mock": "^0.10.1"
   },
   "babel": {
     "presets": [
