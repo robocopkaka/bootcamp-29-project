@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import validCenter from '../models/validCenter';
-import invalidCenter from '../models/invalidCenter';
+import validCenter from '../schemas/validCenter';
+import invalidCenter from '../schemas/invalidCenter';
 
 chai.use(chaiHttp);
 chai.should();

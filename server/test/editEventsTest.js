@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import validEvent from '../models/validEvent';
-import invalidEvent from '../models/invalidEvent';
-import newEvent from '../models/newEvent';
+import validEvent from '../schemas/validEvent';
+import invalidEvent from '../schemas/invalidEvent';
+import newEvent from '../schemas/newEvent';
 
 chai.use(chaiHttp);
 chai.should();

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import centers from '../models/centers';
+import centers from '../schemas/centers';
 
 chai.use(chaiHttp);
 chai.should();
