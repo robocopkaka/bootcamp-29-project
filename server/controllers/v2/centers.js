@@ -7,9 +7,9 @@ module.exports = {
         where: { id: req.decoded.id }
       })
       .then((user) => {
-        if (user.isAdmin) {
+        if (!user.isAdmin) {
           res.status(403).send('User is not an admin');
-        } else if (!user.isAdmin) {
+        } else if (user.isAdmin) {
           db.Center
             .create({
               name: req.body.name,
