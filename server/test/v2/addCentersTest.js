@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import Sequelize from 'sequelize';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
+
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYm9jb3BrYWthQGdtYWlsLmNvbSIsImlkIjoxLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTExOTYwNTAxLCJleHAiOjE1MTIwNDY5MDF9.VP4O9UCI_zGS4E0riLqEoit1YFAk_bDIKROZ5YdImPo';
 
 chai.use(chaiHttp);
