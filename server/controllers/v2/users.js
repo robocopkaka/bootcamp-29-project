@@ -19,24 +19,33 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
   login(req, res) {
-    db.user.findOne({
-      email: req.body.email
+    db.User.findOne({
+      where: { email: req.body.email }
     })
       .then((user) => {
         if (!user) {
           res.status(404).send('User not found');
         } else if (user) {
-          console.log(user);
           if (!bcrypt.compareSync(req.body.password, user.password)) {
             res.status(401).send('Authentication failed');
           } else {
-            const payload = { email: user.email, name: user.fullName, id: user.id };
-            res.json({ token: jwt.sign(payload, process.env.secret) });
+            const payload = {
+              email: user.email,
+              name: user.fullName,
+              id: user.id,
+              isAdmin: user.isAdmin
+            };
+            const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
+            res.json({
+              success: true,
+              message: 'Here\'s your token',
+              token,
+            });
           }
         }
       })
-      .catch(() => {
-        res.status(404).send('Resource not found');
+      .catch((error) => {
+        res.status(500).send(error);
       });
   }
 };

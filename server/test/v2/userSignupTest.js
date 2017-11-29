@@ -15,9 +15,9 @@ describe('POST /users', () => {
     chai.request(app)
       .post('/api/v2/users')
       .send({
-        name: 'kkkddqwkkkk',
-        email: 'test@test.com',
-        password: 'tests'
+        name: 'kkkddqwks',
+        email: 'testss@testss.com',
+        password: 'testssssss'
       })
       .then((res) => {
         res.should.have.status(201);

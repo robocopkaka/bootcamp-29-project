@@ -19,13 +19,14 @@ describe('/users/login', () => {
       .post('/api/v2/users/login')
       .send({
         email: 'robocopkaka@gmail.com',
-        password: 'tests'
+        password: 'onyekachi'
       })
       .then((res) => {
+        console.log(res);
         res.should.have.status(200);
       });
   });
-  it('should return a 403 if the credentials are invalid', () => {
+  it('should return a 400 if the credentials are invalid', () => {
     chai.request(app)
       .post('/api/v2/users/login')
       .send({
@@ -33,7 +34,18 @@ describe('/users/login', () => {
         password: undefined
       })
       .catch((err) => {
-        err.should.have.status(403);
+        err.should.have.status(400);
+      });
+  });
+  it('should return a 404 if the user isn\'t found', () => {
+    chai.request(app)
+      .post('/api/v2/users/login')
+      .send({
+        email: 'riri@rir.com',
+        password: 'thththt'
+      })
+      .catch((err) => {
+        err.should.have.status(404);
       });
   });
 });
