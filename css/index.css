@@ -141,6 +141,12 @@
   color: white;
 }
 
-/*.white-color > a, a:link, a:visited, a:active{
+.white-color:link, .white-color:visited, .white-color:active{
   color: #fff;
-}*/
+}
+
+.index-footer{
+  padding-bottom: 40px;
+  padding-top: 40px;
+  margin-top: -40px;
+}
