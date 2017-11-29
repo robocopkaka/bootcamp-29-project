@@ -9,10 +9,12 @@ import eventWithIdSchema from '../validators/eventWithIdValidator';
 import eventWithParamsSchema from '../validators/eventWithParamsValidator';
 import userSchema from '../validators/userSchema';
 import userLoginSchema from '../validators/userLogin';
+import centerDBSchema from '../validators/centerDBSchema';
 
 const eventsController = require('../controllers/v1').events;
 const centersController = require('../controllers/v1').centers;
 const usersController = require('../controllers/v2').users;
+const centersDBController = require('../controllers/v2').centers;
 
 const apiRoutes = express.Router();
 
@@ -35,6 +37,7 @@ module.exports = (app) => {
   app.delete('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
 
   // v2 routes
+  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
 
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
