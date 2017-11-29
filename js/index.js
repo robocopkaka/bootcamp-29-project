@@ -2,6 +2,9 @@ $( document ).ready(function(){
   Materialize.updateTextFields();
   $(".button-collapse").sideNav();
   $(".dropdown-button").dropdown();
+  $('.modal').modal();
+  $('.materialboxed').materialbox();
+  $('.slider').slider();
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15, // Creates a dropdown of 15 years to control year,
