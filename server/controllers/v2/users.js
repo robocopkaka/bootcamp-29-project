@@ -30,7 +30,8 @@ module.exports = {
           if (!bcrypt.compareSync(req.body.password, user.password)) {
             res.status(401).send('Authentication failed');
           } else {
-            res.json({ token: jwt.sign({ email: user.email, name: user.fullName, id: user.id }) });
+            const payload = { email: user.email, name: user.fullName, id: user.id };
+            res.json({ token: jwt.sign(payload, process.env.secret) });
           }
         }
       })
