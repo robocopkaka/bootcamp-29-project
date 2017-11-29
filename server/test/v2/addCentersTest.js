@@ -49,4 +49,12 @@ describe('POST /api/v2/centers endpoint', () => {
         err.response.request.res.should.have.property('text').eql('Resource conflict');
       });
   });
+  it('should return a 200 and all the centers in the system', () => {
+    chai.request(app)
+      .get('/api/v1/centers')
+      .then((res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('array');
+      });
+  });
 });
