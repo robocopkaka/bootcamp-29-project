@@ -44,5 +44,16 @@ module.exports = {
         }
       })
       .catch(error => res.status(400).send(error));
+  },
+  getAllCenters(req, res) {
+    db.Center
+      .findAll({})
+      .then((users) => {
+        if (!users) {
+          res.status(404).send('There are no users yet');
+        } else if (users) {
+          res.status(200).send(users);
+        }
+      });
   }
 };
