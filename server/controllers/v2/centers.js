@@ -32,32 +32,17 @@ module.exports = {
       });
   },
   getSingleCenter(req, res) {
-    db.User
+    db.Center
       .findOne({
-        where: { id: req.decoded.id }
+        where: { id: parseInt(req.params.centerId, 10) }
       })
-      .then((user) => {
-        if (!user) {
-          res.status(404).send('User not found');
-        } else if (user) {
-          if (user.isAdmin) {
-            res.status(403).send('User is not an admin');
-          } else if (!user.isAdmin) {
-            db.Center
-              .findOne({
-                where: { id: parseInt(req.params.centerId, 10) }
-              })
-              .then((center) => {
-                if (!center) {
-                  res.status(404).send('Center not found');
-                } else if (center) {
-                  res.status(200).send(center);
-                }
-              })
-              .catch(error => res.status(400).send(error));
-          }
+      .then((center) => {
+        if (!center) {
+          res.status(404).send('Center not found');
+        } else if (center) {
+          res.status(200).send(center);
         }
       })
-      .catch(error => res.status(500).send(error));
+      .catch(error => res.status(400).send(error));
   }
 };

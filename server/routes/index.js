@@ -41,7 +41,7 @@ module.exports = (app) => {
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
 
   app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
-  app.get('/api/v2/centers/:centerId', apiRoutes, centersDBController.getSingleCenter);
+  app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
