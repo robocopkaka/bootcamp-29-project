@@ -37,10 +37,11 @@ module.exports = (app) => {
   app.delete('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
 
   // v2 routes
-  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
-
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
+
+  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
+  app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
