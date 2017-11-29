@@ -8,7 +8,7 @@
     "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "build": "babel src -d dist",
     "mocha": "mocha --compilers js:babel-core/register",
-    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --exit",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 5000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },

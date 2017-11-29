@@ -6,7 +6,7 @@ import app from '../../app';
 chai.use(chaiHttp);
 chai.should();
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYm9jb3BrYWthQGdtYWlsLmNvbSIsImlkIjoxLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTExOTYwNTAxLCJleHAiOjE1MTIwNDY5MDF9.VP4O9UCI_zGS4E0riLqEoit1YFAk_bDIKROZ5YdImPo';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYm9jb3BrYWthQGdtYWlsLmNvbSIsImlkIjoxLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTExOTY5MTYzLCJleHAiOjE1MTIwNTU1NjN9.VjkqZpi94dUpdmNCmBYeTB4pitO4klegrcz-LT3ThB4';
 const sequelize = new Sequelize(`postgres://${process.env.DB_TEST_USER}:${process.env.DB_TEST_USER}@localhost:5432/event-manager-test`, { logging: false });
 
 describe('GET /api/v2/centers/<centerId>', () => {
