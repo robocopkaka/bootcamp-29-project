@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 
 // Set up the express app
 const app = express();
+const auth = express.Router();
 
 // swagger definition
 const swaggerDefinition = {

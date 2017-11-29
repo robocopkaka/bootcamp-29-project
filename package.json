@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "babel-node": "babel-node --presets=latest",
-    "start:dev": "nodemon --exec npm run babel-node ./bin/www",
+    "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "build": "babel src -d dist",
     "mocha": "mocha --compilers js:babel-core/register",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --exit",
@@ -19,11 +19,13 @@
     "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-joi-validator": "^2.0.0",
     "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
@@ -47,7 +49,8 @@
     "istanbul-coveralls": "^1.0.3",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
-    "nyc": "^11.3.0"
+    "nyc": "^11.3.0",
+    "sequelize-mock": "^0.10.1"
   },
   "babel": {
     "presets": [
