@@ -5,3 +5,4 @@ coverage/
 server/coverage
 server/.nyc_output/
 .env
+dist/
