@@ -200,7 +200,7 @@ module.exports = {
       .catch(() => {
         res.status(400).send({
           success: false,
-          message: 'An error code'
+          message: 'An error occured'
         });
       });
   }
