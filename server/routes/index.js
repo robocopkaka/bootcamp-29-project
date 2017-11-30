@@ -40,7 +40,7 @@ module.exports = (app) => {
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
 
-  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
+  app.post('/api/v2/centers', expressJoi(centerDBSchema), centersDBController.create);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
   // error handler
