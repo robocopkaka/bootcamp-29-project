@@ -47,7 +47,7 @@ module.exports = {
 */
   /**
  * @swagger
- * /api/v1/centers:
+ * /api/v2/centers:
  *   post:
  *     tags:
  *       - V2 Centers
@@ -66,7 +66,7 @@ module.exports = {
  *       403:
  *         description: User is not an admin
  *         schema:
- *           $ref: '#definitions/InvalidCenterV2'
+ *           $ref: '#definitions/ValidCenterV2'
  *       500:
  *         description: Server error
  *         schema:
@@ -103,6 +103,22 @@ module.exports = {
         }
       });
   },
+  /**
+  * @swagger
+  * /api/v2/centers/:
+  *   get:
+  *     tags:
+  *       - V2 Centers
+  *     description: Get all centers
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An array of centers
+  *       404:
+  *         description: Resource not found
+  */
+  /**/
   getSingleCenter(req, res) {
     db.Center
       .findOne({
@@ -117,6 +133,22 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  /**
+  * @swagger
+  * /api/v2/centers/:id:
+  *   get:
+  *     tags:
+  *       - V2 Centers
+  *     description: Get a single center
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An object with a center in it
+  *       404:
+  *         description: Resource not found
+  */
+  /**/
   getAllCenters(req, res) {
     db.Center
       .findAll({})
