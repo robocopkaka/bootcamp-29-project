@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+// import bcrypt from 'bcryptjs';
+// import jwt from 'jsonwebtoken';
 import db from '../../models/index';
 
 const saltRounds = 10;
@@ -30,21 +30,26 @@ module.exports = {
             message: 'User not found'
           });
         } else if (user) {
-          if (!bcrypt.compareSync(req.body.password, user.password)) {
-            res.status(401).send({
-              success: false,
-              message: 'Authentication failed'
-            });
-          } else {
-            const payload = {
-              email: user.email,
-              name: user.fullName,
-              id: user.id,
-              isAdmin: user.isAdmin
-            };
-            const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
-            res.status(200).send('Signed in successfully');
-          }
+          // if (!bcrypt.compareSync(req.body.password, user.password)) {
+          //   res.status(401).send({
+          //     success: false,
+          //     message: 'Authentication failed'
+          //   });
+          // } else {
+          //   const payload = {
+          //     email: user.email,
+          //     name: user.fullName,
+          //     id: user.id,
+          //     isAdmin: user.isAdmin
+          //   };
+          //   const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
+          //   res.status(200).send({
+          //     success: true,
+          //     message: 'Signed in successfully',
+          //     token,
+          //   });
+          // }
+          res.status(200).send('token')
         }
       })
       .catch((error) => {
