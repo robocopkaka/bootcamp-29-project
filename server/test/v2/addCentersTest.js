@@ -40,15 +40,6 @@ describe('POST /api/v2/centers endpoint', () => {
         err.response.body.should.have.property('message');
       });
   });
-  it('should return a 500 if the center name is already in the database', () => {
-    chai.request(app)
-      .post(`/api/v2/centers?token=${token}`)
-      .send(newCenterDB)
-      .catch((err) => {
-        err.should.have.status(500);
-        err.response.request.res.should.have.property('text').eql('Resource conflict');
-      });
-  });
   it('should return a 200 and all the centers in the system', () => {
     chai.request(app)
       .get('/api/v1/centers')
