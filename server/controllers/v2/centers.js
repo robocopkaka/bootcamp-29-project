@@ -76,30 +76,53 @@ module.exports = {
   create(req, res) {
     db.User
       .findOne({
-        where: { id: 1 }
+        where: { id: req.decoded.id }
       })
       .then((user) => {
         if (!user.isAdmin) {
-          res.status(403).send('User is not an admin');
+          res.status(401).send({
+            success: false,
+            message: 'User is not an admin'
+          });
         } else if (user.isAdmin) {
           db.Center
-            .create({
-              name: req.body.name,
-              detail: req.body.detail,
-              capacity: req.body.capacity,
-              address: req.body.address,
-              state: req.body.state,
-              userId: 1
+            .findOne({
+              where: { name: req.body.name }
             })
             .then((center) => {
-              res.status(201).send({
-                status: 201,
-                success: true,
-                message: 'center created successfully',
-                center
-              });
+              if (center) {
+                res.status(409).send({
+                  success: false,
+                  message: 'Center already exists'
+                });
+              } else if (!center) {
+                db.Center
+                  .create({
+                    name: req.body.name,
+                    detail: req.body.detail,
+                    capacity: req.body.capacity,
+                    address: req.body.address,
+                    state: req.body.state,
+                    userId: req.decoded.id
+                  })
+                  .then(() => {
+                    res.status(201).send({
+                      success: true,
+                      message: 'Center created successfully'
+                    });
+                  })
+                  .catch(() => res.status(400).send({
+                    success: false,
+                    message: 'Center not created'
+                  }));
+              }
             })
-            .catch(error => res.status(400).send(error));
+            .catch(() => {
+              res.status(400).send({
+                success: false,
+                message: 'An error occured'
+              });
+            });
         }
       });
   },
@@ -131,10 +154,16 @@ module.exports = {
             message: 'Center not found'
           });
         } else if (center) {
-          res.status(200).send(center);
+          res.status(200).send({
+            success: true,
+            center
+          });
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        success: false,
+        error
+      }));
   },
   /**
   * @swagger
@@ -162,7 +191,10 @@ module.exports = {
             message: 'There are no users yet'
           });
         } else if (users) {
-          res.status(200).send(users);
+          res.status(200).send({
+            success: true,
+            users
+          });
         }
       });
   }
