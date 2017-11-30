@@ -19,31 +19,43 @@
 		</ul>
 
     <ul id="profile-dropdown" class="dropdown-content">
-      <li><a href="admin-profile.html">Profile</a></li>
+      <li><a href="user-profile.html">Profile</a></li>
       <li><a href="#">Logout</a></li>
     </ul>
-		<nav class="navbar-purple">
+		<nav class="navbar-purple nav-extended">
 			<div class="nav-wrapper left-padding">
 				<a href="index.html" class="brand-logo">EventManager</a>
 				<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li><a href="index.html">Home</a></li>
-					<li><a href="all-events.html">Events</a></li>
+					<li><a class="dropdown-button" href="#!" data-activates="events-dropdown">Events<i class="material-icons right">arrow_drop_down</i></a></li>
 					<li><a href="all-centers.html">Centers</a></li>
-					<li class="acrive"><a class="dropdown-button" href="#!" data-activates="profile-dropdown">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+					<li class="active"><a class="dropdown-button" href="#!" data-activates="profile-dropdown">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
 				</ul>
 
 				<ul class="side-nav" id="side-menu">
 	        <li><a href="index.html">Home</a></li>
-          <li><a href="all-events.html">Events</a></li>
+          <li class="left-padding">
+						<ul class="collapsible collapsible-accordion">
+							<li>
+								<a class="collapsible-header">Events<i class="material-icons right">arrow_drop_down</i></a>
+								<div class="collapsible-body">
+									<ul>
+										<li><a href="new-event.html">Add New Event</a></li>
+										<li><a href="all-events.html">View Events</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
 					<li><a href="all-centers.html">Centers</a></li>
           <li class="left-padding">
 						<ul class="collapsible collapsible-accordion">
-							<li class="active">
+							<li>
 								<a class="collapsible-header">Profile<i class="material-icons right">arrow_drop_down</i></a>
 								<div class="collapsible-body">
 									<ul>
-                    <li><a href="admin-profile.html">Profile</a></li>
+                    <li><a href="user-profile.html">Profile</a></li>
                     <li><a href="#">Logout</a></li>
 									</ul>
 								</div>
@@ -52,6 +64,11 @@
 					</li>
 	      </ul>
 			</div>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="#all-events">All Events</a></li>
+        </ul>
+      </div>
 		</nav>
 
     <div id="all-events" class="col s12" style="padding-left:10px;">
@@ -83,7 +100,8 @@
                   <span class="fifteen-percent">7:00am</span>
                 </div>
                 <div class="card-action">
-                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="show-event.html">View</a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-event.html"><i class="material-icons">edit</i></a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="#"><i class="material-icons">delete</i></a>
                 </div>
             </div>
           </div>
@@ -103,7 +121,8 @@
                   <span class="fifteen-percent">7:00am</span>
                 </div>
                 <div class="card-action">
-                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="show-event.html">View</a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-event.html"><i class="material-icons">edit</i></a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="#"><i class="material-icons">delete</i></a>
                 </div>
             </div>
           </div>
@@ -120,7 +139,8 @@
                   <span class="fifteen-percent">7:00am</span>
                 </div>
                 <div class="card-action">
-                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="show-event.html">View</a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-event.html"><i class="material-icons">edit</i></a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="#"><i class="material-icons">delete</i></a>
                 </div>
             </div>
           </div>
@@ -136,7 +156,8 @@
                   <span class="fifteen-percent">7:00am</span>
                 </div>
                 <div class="card-action">
-                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="show-event.html">View</a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="edit-event.html"><i class="material-icons">edit</i></a>
+                  <a class="waves-effect waves-light btn navbar-purple round-btn white-color" href="#"><i class="material-icons">delete</i></a>
                 </div>
             </div>
           </div>
@@ -151,7 +172,7 @@
       </div>
     </div>
 
-    <footer class="page-footer navbar-purple"  style="margin-top:80px;padding-bottom:40px;">
+    <footer class="page-footer navbar-purple" style="margin-top:80px;">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
