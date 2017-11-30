@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../../models/index';
 
@@ -7,17 +7,20 @@ const salt = bcrypt.genSaltSync(saltRounds);
 
 module.exports = {
   create(req, res) {
-    db.User
-      .create({
-        name: req.body.name,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, salt),
-        isAdmin: req.body.isAdmin
-      })
-      .then((user) => {
-        res.status(200).send(user);
-      })
-      .catch(err => res.status(400).send(err));
+    // Generate hash with bcrypt's async
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
+      db.User
+        .create({
+          name: req.body.name,
+          email: req.body.email,
+          password: hash,
+          isAdmin: req.body.isAdmin
+        })
+        .then((user) => {
+          res.status(200).send(user);
+        })
+        .catch(err => res.status(400).send(err));
+    });
   },
   login(req, res) {
     db.User.findOne({
@@ -30,29 +33,34 @@ module.exports = {
             message: 'User not found'
           });
         } else if (user) {
-          if (!bcrypt.compareSync(req.body.password, user.password)) {
-            res.status(401).send({
-              success: false,
-              message: 'Authentication failed'
-            });
-          } else {
-            const payload = {
-              email: user.email,
-              name: user.fullName,
-              id: user.id,
-              isAdmin: user.isAdmin
-            };
-            const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
-            res.status(200).send({
-              success: true,
-              message: 'Signed in successfully',
-              token,
-            });
-          }
+          bcrypt.compare(req.body.password, user.password, (err, hash) => {
+            if (!hash) {
+              res.status(400).send({
+                success: false,
+                message: 'Password mismatch'
+              });
+            } else if (hash) {
+              const payload = {
+                email: user.email,
+                name: user.fullName,
+                id: user.id,
+                isAdmin: user.isAdmin
+              };
+              const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
+              res.status(200).send({
+                success: true,
+                message: 'Signed in successfully',
+                token,
+              });
+            }
+          });
         }
       })
       .catch((error) => {
-        res.status(400).send(error);
+        res.status(400).send({
+          success: false,
+          error
+        });
       });
   }
 };
