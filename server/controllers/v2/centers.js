@@ -160,9 +160,9 @@ module.exports = {
           });
         }
       })
-      .catch(error => res.status(400).send({
+      .catch(() => res.status(400).send({
         success: false,
-        error
+        message: 'An error occured'
       }));
   },
   /**
@@ -196,6 +196,12 @@ module.exports = {
             users
           });
         }
+      })
+      .catch(() => {
+        res.status(400).send({
+          success: false,
+          message: 'An error code'
+        });
       });
   }
 };
