@@ -4,17 +4,20 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import path from 'path';
 
 // Set up the express app
 const app = express();
 const auth = express.Router();
+const swaggerPath = path.join(__dirname, './controllers/v1/*.js');
+const swaggerPathV2 = path.join(__dirname, './controllers/v2/*.js');
 
 // swagger definition
 const swaggerDefinition = {
   info: {
-    title: 'Node Swagger API',
+    title: 'Event Manager Documentation',
     version: '1.0.0',
-    description: 'Demonstrating how to describe a RESTful API with Swagger',
+    description: 'Event Manager App',
   },
   host: 'localhost:8000',
   basePath: '/',
@@ -25,7 +28,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./controllers/v1/*.js'],
+  apis: [swaggerPath, swaggerPathV2],
 };
 
 // initialize swagger-jsdoc

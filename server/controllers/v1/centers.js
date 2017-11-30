@@ -42,7 +42,7 @@ module.exports = {
  * /api/v1/centers:
  *   post:
  *     tags:
- *       - Centers
+ *       - V1 Centers
  *     description: Create a new center
  *     produces:
  *       - application/json
@@ -78,7 +78,7 @@ module.exports = {
   * /api/v1/centers/:id:
   *   put:
   *     tags:
-  *       - Centers
+  *       - V1 Centers
   *     description: Edit a center
   *     produces:
   *       - application/json
@@ -120,7 +120,7 @@ module.exports = {
   * /api/v1/centers/:id:
   *   delete:
   *     tags:
-  *       - Centers
+  *       - V1 Centers
   *     description: Delete a center
   *     produces:
   *       - application/json
@@ -150,7 +150,7 @@ module.exports = {
   * /api/v1/centers/:
   *   get:
   *     tags:
-  *       - Centers
+  *       - V1 Centers
   *     description: Get all centers
   *     produces:
   *       - application/json
@@ -169,7 +169,7 @@ module.exports = {
   * /api/v1/centers/:id:
   *   get:
   *     tags:
-  *       - Centers
+  *       - V1 Centers
   *     description: Get a single center
   *     produces:
   *       - application/json
