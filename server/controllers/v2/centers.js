@@ -1,6 +1,78 @@
 import db from '../../models/index';
 
 module.exports = {
+  /**
+ * @swagger
+ * definitions:
+ *   CenterV2:
+ *     properties:
+ *       name:
+ *         type: string
+ *       detail:
+ *         type: string
+ *       image:
+ *         type: integer
+ *       address:
+ *         type: string
+ *       state:
+ *         type: string
+ *       projector:
+ *         type: number
+ *       chairs:
+ *         type: number
+ *       capacity:
+ *         type: number
+ */
+  /**
+* @swagger
+* definitions:
+*   InvalidCenterV2:
+*     properties:
+*       name:
+*         type: undefined
+*       detail:
+*         type: undefined
+*       image:
+*         type: undefined
+*       address:
+*         type: undefined
+*       state:
+*         type: undefined
+*       projector:
+*         type: undefined
+*       chairs:
+*         type: undefined
+*       capacity:
+*         type: undefined
+*/
+  /**
+ * @swagger
+ * /api/v1/centers:
+ *   post:
+ *     tags:
+ *       - V2 Centers
+ *     description: Create a new center
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: A successful message
+ *         schema:
+ *           $ref: '#/definitions/CenterV2'
+ *       400:
+ *         description: Bad requests
+ *         schema:
+ *           $ref: '#definitions/InvalidCenter'
+ *       403:
+ *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/InvalidCenterV2'
+ *       500:
+ *         description: Server error
+ *         schema:
+ *           $ref: '#definitions/ValidCenterV2'
+ */
+  /**/
   create(req, res) {
     db.User
       .findOne({

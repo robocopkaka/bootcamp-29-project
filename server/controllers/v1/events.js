@@ -46,7 +46,7 @@ module.exports = {
   * /api/v1/events:
   *   post:
   *     tags:
-  *       - Events
+  *       - V1 Events
   *     description: Create a new event
   *     produces:
   *       - application/json
@@ -83,7 +83,7 @@ module.exports = {
   * /api/v1/events/:id:
   *   put:
   *     tags:
-  *       - Events
+  *       - V1 Events
   *     description: Edit an event
   *     produces:
   *       - application/json
@@ -121,7 +121,7 @@ module.exports = {
   * /api/v1/events/:id:
   *   delete:
   *     tags:
-  *       - Events
+  *       - V1 Events
   *     description: Delete an event
   *     produces:
   *       - application/json
@@ -152,7 +152,7 @@ module.exports = {
   * /api/v1/events/:
   *   get:
   *     tags:
-  *       - Events
+  *       - V1 Events
   *     description: Get all events
   *     produces:
   *       - application/json
@@ -171,7 +171,7 @@ module.exports = {
   * /api/v1/events/:id:
   *   get:
   *     tags:
-  *       - Events
+  *       - V1 Events
   *     description: Get a single event
   *     produces:
   *       - application/json
