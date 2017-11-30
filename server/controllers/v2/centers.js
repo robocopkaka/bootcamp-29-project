@@ -99,7 +99,7 @@ module.exports = {
                 center
               });
             })
-            .catch(error => res.status(500).send(error));
+            .catch(error => res.status(400).send(error));
         }
       });
   },
@@ -126,7 +126,10 @@ module.exports = {
       })
       .then((center) => {
         if (!center) {
-          res.status(404).send('Center not found');
+          res.status(404).send({
+            success: false,
+            message: 'Center not found'
+          });
         } else if (center) {
           res.status(200).send(center);
         }
@@ -154,7 +157,10 @@ module.exports = {
       .findAll({})
       .then((users) => {
         if (!users) {
-          res.status(404).send('There are no users yet');
+          res.status(404).send({
+            success: false,
+            message: 'There are no users yet'
+          });
         } else if (users) {
           res.status(200).send(users);
         }

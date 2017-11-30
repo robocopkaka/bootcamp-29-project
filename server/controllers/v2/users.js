@@ -25,10 +25,16 @@ module.exports = {
     })
       .then((user) => {
         if (!user) {
-          res.status(404).send('User not found');
+          res.status(404).send({
+            success: false,
+            message: 'User not found'
+          });
         } else if (user) {
           if (!bcrypt.compareSync(req.body.password, user.password)) {
-            res.status(401).send('Authentication failed');
+            res.status(401).send({
+              success: false,
+              message: 'Authentication failed'
+            });
           } else {
             const payload = {
               email: user.email,
@@ -37,16 +43,16 @@ module.exports = {
               isAdmin: user.isAdmin
             };
             const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
-            res.json({
+            res.status(200).send({
               success: true,
-              message: 'Here\'s your token',
+              message: 'Signed in successfully',
               token,
             });
           }
         }
       })
       .catch((error) => {
-        res.status(500).send(error);
+        res.status(400).send(error);
       });
   }
 };
