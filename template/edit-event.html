@@ -12,67 +12,33 @@
     <title>Edit an Event</title>
   </head>
   <body>
-    <ul id="events-dropdown" class="dropdown-content">
-			<li><a href="new-event.html">Add New Event</a></li>
-			<li><a href="all-events.html">View Events</a></li>
-		</ul>
-
-		<ul id="centers-dropdown" class="dropdown-content">
-			<li><a href="new-center.html">Add New Center</a></li>
-			<li><a href="all-centers.html">View Centers</a></li>
-		</ul>
-
     <ul id="signup-dropdown" class="dropdown-content">
-      <li><a href="signup.html">Signup</a></li>
       <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Signup</a></li>
     </ul>
-		<nav  class="navbar-purple">
+		<nav class="navbar-purple">
 			<div class="nav-wrapper left-padding">
 				<a href="index.html" class="brand-logo">EventManager</a>
-				<a href="index.html" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+				<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li><a href="index.html">Home</a></li>
-					<li><a class="dropdown-button" href="#!" data-activates="events-dropdown">Events<i class="material-icons right">arrow_drop_down</i></a></li>
-					<li><a class="dropdown-button" href="#!" data-activates="centers-dropdown">Centers<i class="material-icons right">arrow_drop_down</i></a></li>
-					<li><a class="dropdown-button" href="#!" data-activates="signup-dropdown">Signup<i class="material-icons right">arrow_drop_down</i></a></li>
+					<li><a href="all-events.html">Events</a></li>
+					<li><a href="all-centers.html">Centers</a></li>
+					<li><a class="dropdown-button" href="#!" data-activates="signup-dropdown">Login<i class="material-icons right">arrow_drop_down</i></a></li>
 				</ul>
 
 				<ul class="side-nav" id="side-menu">
-	        <li><a href="#">Home</a></li>
+	        <li><a href="index.html">Home</a></li>
+          <li><a href="all-events.html">Events</a></li>
+					<li><a href="all-centers.html">Centers</a></li>
           <li class="left-padding">
 						<ul class="collapsible collapsible-accordion">
 							<li>
-								<a class="collapsible-header">Events<i class="material-icons right">arrow_drop_down</i></a>
+								<a class="collapsible-header">Login<i class="material-icons right">arrow_drop_down</i></a>
 								<div class="collapsible-body">
 									<ul>
-										<li><a href="new-event.html">Add New Event</a></li>
-										<li><a href="all-events.html">View Events</a></li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</li>
-					<li class="left-padding">
-						<ul class="collapsible collapsible-accordion">
-							<li>
-								<a class="collapsible-header">Centers<i class="material-icons right">arrow_drop_down</i></a>
-								<div class="collapsible-body">
-									<ul>
-										<li><a href="new-center.html">Add New Center</a></li>
-										<li><a href="all-centers.html">View Centers</a></li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</li>
-          <li class="left-padding">
-						<ul class="collapsible collapsible-accordion">
-							<li>
-								<a class="collapsible-header">Signup<i class="material-icons right">arrow_drop_down</i></a>
-								<div class="collapsible-body">
-									<ul>
-                    <li><a href="signup.html">Signup</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Login</a></li>
+                    <li><a href="login.html">Signup</a></li>
 									</ul>
 								</div>
 							</li>
@@ -107,7 +73,7 @@
             </div>
           </div>
           <div class="row center-align">
-            <button class="btn waves-effect waves-light navbar-purple round-btn" type="submit" name="action">Update
+            <button class="btn waves-effect waves-light navbar-purple round-btn" type="submit" name="action">Update Event
               <i class="material-icons right">send</i>
             </button>
           </div>
@@ -115,7 +81,7 @@
       </div>
     </div>
 
-    <footer class="page-footer navbar-purple">
+    <footer class="page-footer navbar-purple"  style="margin-top:80px;padding-bottom:40px;">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -125,15 +91,10 @@
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Useful links</h5>
             <ul>
-              <li><a class="white-text" href="admin-profile.html">Admin Profile</a></li>
-              <li><a class="white-text" href="user-profile.html">User Profile</a></li>
+              <li><a class="white-text" href="all-events.html">All Events</a></li>
+              <li><a class="white-text" href="all-centers.html">All Centers</a></li>
             </ul>
           </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">
-          © 2017 Copyright Text
         </div>
       </div>
     </footer>
