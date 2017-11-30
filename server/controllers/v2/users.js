@@ -11,7 +11,8 @@ module.exports = {
       .create({
         name: req.body.name,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, salt)
+        password: bcrypt.hashSync(req.body.password, salt),
+        isAdmin: req.body.isAdmin
       })
       .then((user) => {
         res.status(200).send(user);

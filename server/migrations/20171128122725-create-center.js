@@ -16,16 +16,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       image: {
-        type: Sequelize.STRING,
-        defaultValue: '/template/img/ramsey.jpg'
+        type: Sequelize.STRING
       },
       chairs: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
       },
       projector: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
       },
       address: {
         type: Sequelize.STRING,
