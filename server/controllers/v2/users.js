@@ -43,11 +43,7 @@ module.exports = {
               isAdmin: user.isAdmin
             };
             const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
-            res.status(200).send({
-              success: true,
-              message: 'Signed in successfully',
-              token,
-            });
+            res.status(200).send('Signed in successfully');
           }
         }
       })
