@@ -1,4 +1,6 @@
 import db from '../../models/index';
+// import { User } from '../../models/index';
+// import { Center } from '../../models/index';
 
 module.exports = {
   /**
@@ -184,16 +186,16 @@ module.exports = {
   getAllCenters(req, res) {
     db.Center
       .findAll({})
-      .then((users) => {
-        if (!users) {
+      .then((centers) => {
+        if (!centers) {
           res.status(404).send({
             success: false,
             message: 'There are no users yet'
           });
-        } else if (users) {
+        } else if (centers) {
           res.status(200).send({
             success: true,
-            users
+            centers
           });
         }
       })
@@ -201,6 +203,82 @@ module.exports = {
         res.status(400).send({
           success: false,
           message: 'An error occured'
+        });
+      });
+  },
+  edit(req, res) {
+    db.User
+      .findOne({
+        where: { id: req.decoded.id }
+      })
+      .then((user) => {
+        if (!user.isAdmin) {
+          res.status(401).send({
+            success: false,
+            message: 'User is not an admin'
+          });
+        } else if (user.isAdmin) {
+          console.log(req.params);
+          db.Center
+            .findOne({
+              where: { id: parseInt(req.params.centerId, 10) }
+            })
+            .then((center) => {
+              if (!center) {
+                res.status(404).send({
+                  success: false,
+                  message: 'Center not found'
+                });
+              } else if (center) {
+                db.Center
+                  .findOne({
+                    where: { name: req.body.name }
+                  })
+                  .then((exists) => {
+                    if (exists) {
+                      res.status(409).send({
+                        success: false,
+                        message: 'Center name exists'
+                      });
+                    } else if (!exists) {
+                      db.Center
+                        .update({ name: req.body.name }, {
+                          where: { id: parseInt(req.params.centerId, 10) }
+                        })
+                        .then(() => {
+                          res.status(200).send({
+                            success: true,
+                            message: 'Center updated successfully'
+                          });
+                        })
+                        .catch(() => {
+                          res.status(400).send({
+                            success: false,
+                            message: 'An error occured in the centers update'
+                          });
+                        });
+                    }
+                  })
+                  .catch(() => {
+                    res.status(400).send({
+                      success: false,
+                      message: 'An error occured finding if a center exists'
+                    });
+                  });
+              }
+            })
+            .catch(() => {
+              res.status(400).send({
+                success: false,
+                message: 'An error occured in finding the center'
+              });
+            });
+        }
+      })
+      .catch(() => {
+        res.status(400).send({
+          success: false,
+          message: 'An error occured in finding users'
         });
       });
   }

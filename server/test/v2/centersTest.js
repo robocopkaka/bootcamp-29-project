@@ -3,8 +3,9 @@ import chaiHttp from 'chai-http';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
 import db from '../../models/index';
+// import centersDB from '../../schemas/centersDB';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2ExNjYwQGdtYWlsLmNvbSIsImlkIjo2LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1MTIwNjQwODMsImV4cCI6MTUxMjE1MDQ4M30.WW8WfZfNjzf6ELaM4HvFn5fjny4lbpvoM_rE2RbMUe4';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2ExNjYwQGdtYWlsLmNvbSIsImlkIjo2LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1MTIxNTA4MzcsImV4cCI6MTUxMjIzNzIzN30.BQMcYipyEXDiKBkLzU8LgFH9ugtY5BTxbkPaP-xxp5k';
 
 chai.use(chaiHttp);
 chai.should();
@@ -50,7 +51,7 @@ describe('GET /api/v2/centers', () => {
       .get('/api/v2/centers')
       .then((res) => {
         res.should.have.status(200);
-        res.body.users.should.be.an('array');
+        res.body.centers.should.be.an('array');
       });
   });
 });
@@ -75,7 +76,7 @@ describe('GET /api/v2/centers/<centerId>', () => {
 describe('PUT /api/v1/centers/<centerId>', () => {
   it('should return a 200 if the parameters were valid', () => {
     chai.request(app)
-      .put('/api/v2/centers/1')
+      .put(`/api/v2/centers/1?token=${token}`)
       .send({
         name: 'The main centerssssssss',
         detail: 'We exist',
@@ -100,7 +101,14 @@ describe('PUT /api/v1/centers/<centerId>', () => {
   it('should return a 409 if there\'s a resource conflict with center names', () => {
     chai.request(app)
       .put('/api/v2/centers/1')
-      .send(newCenterDB)
+      .send({
+        name: 'The main centerssssssss',
+        detail: 'We exist',
+        image: 'ramsey.jpg',
+        address: 'somewhere in lagos',
+        state: 'lagos',
+        capacity: 1000
+      })
       .then(() => {
         // res.should.have.status(409);
       })
