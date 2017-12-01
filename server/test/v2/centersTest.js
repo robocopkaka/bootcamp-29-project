@@ -3,17 +3,21 @@ import chaiHttp from 'chai-http';
 import Sequelize from 'sequelize';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
+import db from '../../models/index';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYm9jb3BrYWthQGdtYWlsLmNvbSIsImlkIjoxLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTExOTYwNTAxLCJleHAiOjE1MTIwNDY5MDF9.VP4O9UCI_zGS4E0riLqEoit1YFAk_bDIKROZ5YdImPo';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2ExNjYwQGdtYWlsLmNvbSIsImlkIjo2LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1MTIwNjQwODMsImV4cCI6MTUxMjE1MDQ4M30.WW8WfZfNjzf6ELaM4HvFn5fjny4lbpvoM_rE2RbMUe4';
 
 chai.use(chaiHttp);
 chai.should();
-const sequelize = new Sequelize(`postgres://${process.env.DB_TEST_USER}:${process.env.DB_TEST_USER}@localhost:5432/event-manager-test`, { logging: false });
+const { sequelize } = db;
 
-describe('POST /api/v2/centers endpoint', () => {
+describe('drop tables', () => {
   beforeEach((done) => {
     sequelize.sync({ force: true }).then(() => { done(); });
   });
+});
+
+describe('POST /api/v2/centers endpoint', () => {
   it('should return \'Resource created\' and a 201 if the center parameters are valid', () => {
     chai.request(app)
       .post(`/api/v2/centers?token=${token}`)
@@ -40,12 +44,32 @@ describe('POST /api/v2/centers endpoint', () => {
         err.response.body.should.have.property('message');
       });
   });
+
+});
+describe('GET /api/v2/centers', () => {
   it('should return a 200 and all the centers in the system', () => {
     chai.request(app)
-      .get('/api/v1/centers')
+      .get('/api/v2/centers')
       .then((res) => {
         res.should.have.status(200);
         res.body.should.be.an('array');
+      });
+  });
+});
+
+describe('GET /api/v2/centers/<centerId>', () => {
+  it('should return 200 and a center, if the id is valid', () => {
+    chai.request(app)
+      .get('/api/v2/centers/1')
+      .then((res) => {
+        res.should.have.status(200);
+      });
+  });
+  it('should return 404, if the id is invalid or doesn\'t exist', () => {
+    chai.request(app)
+      .get('/api/v2/centers/190888')
+      .catch((err) => {
+        err.should.have.status(404);
       });
   });
 });
