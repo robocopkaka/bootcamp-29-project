@@ -1,6 +1,5 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import Sequelize from 'sequelize';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
 import db from '../../models/index';
@@ -44,7 +43,6 @@ describe('POST /api/v2/centers endpoint', () => {
         err.response.body.should.have.property('message');
       });
   });
-
 });
 describe('GET /api/v2/centers', () => {
   it('should return a 200 and all the centers in the system', () => {
@@ -52,7 +50,7 @@ describe('GET /api/v2/centers', () => {
       .get('/api/v2/centers')
       .then((res) => {
         res.should.have.status(200);
-        res.body.should.be.an('array');
+        res.body.users.should.be.an('array');
       });
   });
 });
