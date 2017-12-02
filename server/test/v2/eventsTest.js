@@ -6,7 +6,7 @@ import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
 
 // const { sequelize } = db;
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2ExNjYwQGdtYWlsLmNvbSIsImlkIjo2LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1MTIxNTA4MzcsImV4cCI6MTUxMjIzNzIzN30.BQMcYipyEXDiKBkLzU8LgFH9ugtY5BTxbkPaP-xxp5k';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2ExNjYwQGdtYWlsLmNvbSIsImlkIjo2LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1MTIyMzczMjUsImV4cCI6MTUxMjMyMzcyNX0.MpMnDy8O0YVrOw32MtKHp6ympKx669UlzUjNyGf2guw';
 chai.should();
 describe('Events', () => {
   describe('POST /events', () => {
@@ -93,6 +93,26 @@ describe('Events', () => {
         .expect(403)
         .end((err, res) => {
           res.should.have.status(403);
+          err.should.have.status(404);
+        });
+    });
+  });
+  describe('DELETE /events/:eventId', () => {
+    it('should return a 200 if the ID is valid', () => {
+      request(app)
+        .delete('/api/v2/events/1')
+        .expect(200)
+        .end((err, res) => {
+          res.should.have.status(200);
+          err.should.have.status(404);
+        });
+    });
+    it('should return a 404 if the ID is valid', () => {
+      request(app)
+        .delete(`/api/v2/events/dfdfdfd?token=${token}`)
+        .expect(200)
+        .end((err, res) => {
+          res.should.have.status(200);
           err.should.have.status(404);
         });
     });
