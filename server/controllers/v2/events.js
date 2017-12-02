@@ -198,5 +198,61 @@ module.exports = {
           message: 'An error occured finding the user'
         });
       });
+  },
+  delete(req, res) {
+    User
+      .findOne({
+        where: { id: req.decoded.id }
+      })
+      .then((user) => {
+        if (!user) {
+          res.send(401).send({
+            success: false,
+            message: 'User is not an admin'
+          });
+        } else {
+          Event
+            .findOne({
+              where: { id: req.params.eventId }
+            })
+            .then((event) => {
+              if (!event) {
+                res.status(404).send({
+                  success: false,
+                  message: 'Event not found'
+                });
+              } else {
+                Event
+                  .destroy({
+                    where: { id: req.params.eventId }
+                  })
+                  .then(() => {
+                    res.status(200).send({
+                      success: true,
+                      message: 'Event deleted successfully'
+                    });
+                  })
+                  .catch(() => {
+                    res.status(404).send({
+                      success: false,
+                      message: 'Event deleted successfully'
+                    });
+                  });
+              }
+            })
+            .catch(() => {
+              res.status(400).send({
+                success: false,
+                message: 'An error occured finding the event'
+              });
+            });
+        }
+      })
+      .catch(() => {
+        res.status(400).send({
+          success: false,
+          message: 'An error occured finding the user'
+        });
+      });
   }
 };
