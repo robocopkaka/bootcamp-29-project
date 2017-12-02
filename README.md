@@ -3,8 +3,9 @@
 
 ## DOCS
 https://rocky-meadow-55707.herokuapp.com/docs/
+
 ## Installation steps
-* `cd` into the server folder
+* Clone this repo
 * Run `npm install` to install all dependencies
 * Run `npm run start:dev` to start the dev server
 
