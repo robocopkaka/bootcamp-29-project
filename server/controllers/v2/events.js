@@ -28,9 +28,7 @@ module.exports = {
                 });
               } else if (center) {
                 const dates = center.events.map(event => event.date);
-                // console.log(center);
-                console.log(dates);
-                if (dates.indexOf(req.body.date) !== -1) {
+                if (dates.map(Number).indexOf(+new Date(req.body.date)) !== -1) {
                   res.status(409).send({
                     success: false,
                     message: 'Oops, date already taken. Try another'
@@ -43,7 +41,7 @@ module.exports = {
                     .then((event) => {
                       if (event) {
                         res.status(409).send({
-                          success: true,
+                          success: false,
                           message: 'Event name already exists'
                         });
                       } else {

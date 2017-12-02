@@ -10,7 +10,6 @@ chai.should();
 // const sequelize = new Sequelize(`postgres://${process.env.DB_TEST_USER}:${process.env.DB_TEST_USER}@localhost:5432/event-manager-test`, { logging: false });
 // const { sequelize } = db;
 describe('POST /users', () => {
-  afterEach((done) => { done(); });
   it('should return a 200 if the parameters are valid', () => {
     chai.request(app)
       .post('/api/v2/users')
