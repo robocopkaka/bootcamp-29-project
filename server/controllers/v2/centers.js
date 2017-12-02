@@ -68,11 +68,11 @@ module.exports = {
  *       403:
  *         description: User is not an admin
  *         schema:
- *           $ref: '#definitions/ValidCenterV2'
+ *           $ref: '#definitions/CenterV2'
  *       500:
  *         description: Server error
  *         schema:
- *           $ref: '#definitions/ValidCenterV2'
+ *           $ref: '#definitions/CenterV2'
  */
   /**/
   create(req, res) {
@@ -206,6 +206,34 @@ module.exports = {
         });
       });
   },
+  /**
+ * @swagger
+ * /api/v2/centers/:centerId:
+ *   put:
+ *     tags:
+ *       - V2 Centers
+ *     description: Update center
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: A successful message
+ *         schema:
+ *           $ref: '#/definitions/CenterV2'
+ *       400:
+ *         description: Bad requests
+ *         schema:
+ *           $ref: '#definitions/InvalidCenter'
+ *       403:
+ *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/CenterV2'
+ *       404:
+ *         description: Center not found
+ *         schema:
+ *           $ref: '#definitions/CenterV2'
+ */
+  /**/
   edit(req, res) {
     db.User
       .findOne({
