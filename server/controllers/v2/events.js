@@ -148,7 +148,8 @@ module.exports = {
                               Event
                                 .update({
                                   name: req.body.name,
-                                  date: new Date(req.body.date)
+                                  date: new Date(req.body.date),
+                                  categoryId: 1
                                 }, {
                                   where: { id: parseInt(req.params.eventId, 10) }
                                 })
