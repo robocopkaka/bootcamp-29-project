@@ -15,6 +15,7 @@ const eventsController = require('../controllers/v1').events;
 const centersController = require('../controllers/v1').centers;
 const usersController = require('../controllers/v2').users;
 const centersDBController = require('../controllers/v2').centers;
+const eventsDBController = require('../controllers/v2').events;
 
 const apiRoutes = express.Router();
 
@@ -44,6 +45,7 @@ module.exports = (app) => {
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBSchema), apiRoutes, centersDBController.edit);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
+  app.post('/api/v2/events', apiRoutes, eventsDBController.create);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {

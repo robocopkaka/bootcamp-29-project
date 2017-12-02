@@ -218,7 +218,6 @@ module.exports = {
             message: 'User is not an admin'
           });
         } else if (user.isAdmin) {
-          console.log(req.params);
           db.Center
             .findOne({
               where: { id: parseInt(req.params.centerId, 10) }
