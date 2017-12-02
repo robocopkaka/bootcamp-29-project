@@ -1,7 +1,6 @@
 const newEventDB = {
-  name: 'kachi\'s ultra mega event',
-  date: '2011-11-11',
-  time: '08:00',
+  name: 'kachi\'s ultra mega second event',
+  date: '2019-11-11',
   centerId: 1,
   userId: 1,
   categoryId: 1,

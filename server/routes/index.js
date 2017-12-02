@@ -10,6 +10,8 @@ import eventWithParamsSchema from '../validators/eventWithParamsValidator';
 import userSchema from '../validators/userSchema';
 import userLoginSchema from '../validators/userLogin';
 import centerDBSchema from '../validators/centerDBSchema';
+import eventDBSchema from '../validators/eventDBSchema';
+import eventDBWithParams from '../validators/eventDBWithParams';
 
 const eventsController = require('../controllers/v1').events;
 const centersController = require('../controllers/v1').centers;
@@ -45,8 +47,8 @@ module.exports = (app) => {
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBSchema), apiRoutes, centersDBController.edit);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
-  app.post('/api/v2/events', apiRoutes, eventsDBController.create);
-  app.put('/api/v2/events/:eventId', apiRoutes, eventsDBController.edit);
+  app.post('/api/v2/events', expressJoi(eventDBSchema), apiRoutes, eventsDBController.create);
+  app.put('/api/v2/events/:eventId', expressJoi(eventDBWithParams), apiRoutes, eventsDBController.edit);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {

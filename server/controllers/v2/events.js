@@ -52,7 +52,7 @@ module.exports = {
                             guests: 1000,
                             userId: req.decoded.id,
                             centerId: center.id,
-                            categoryId: 1
+                            categoryId: req.body.categoryId
                           })
                           .then(() => {
                             res.status(201).send({
@@ -169,7 +169,7 @@ module.exports = {
                         })
                         .catch(() => {
                           res.status(400).send({
-                            success: true,
+                            success: false,
                             message: 'An error occured find the center'
                           });
                         });
