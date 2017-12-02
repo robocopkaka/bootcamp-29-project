@@ -83,7 +83,12 @@ module.exports = {
         .then((user) => {
           res.status(200).send(user);
         })
-        .catch(err => res.status(400).send(err));
+        .catch(() => {
+          res.status(400).send({
+            success: false,
+            message: 'Email address has likely been taken. Try again with a new email address'
+          });
+        });
     });
   },
   /**
