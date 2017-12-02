@@ -1,6 +1,58 @@
 import { Event, Center, User } from '../../models/index';
 
 module.exports = {
+  /**
+ * @swagger
+ * definitions:
+ *   EventV2:
+ *     properties:
+ *       name:
+ *         type: string
+ *       date:
+ *         type: date
+ *       centerId:
+ *         type: number
+ *       categoryId:
+ *         type: number
+ */
+  /**
+* @swagger
+* definitions:
+*   InvalidEventV2:
+*     properties:
+*       name:
+*         type: undefined
+*       date:
+*         type: undefined
+*       centerId:
+*         type: undefined
+*       categoryId:
+*         type: undefined
+*/
+  /**
+ * @swagger
+ * /api/v2/events:
+ *   post:
+ *     tags:
+ *       - V2 Events
+ *     description: Create a new event
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: A successful message
+ *         schema:
+ *           $ref: '#/definitions/EventV2'
+ *       400:
+ *         description: Bad requests
+ *         schema:
+ *           $ref: '#definitions/InvalidEventV2'
+ *       403:
+ *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ */
+  /**/
   create(req, res) {
     User
       .findOne({
@@ -86,6 +138,30 @@ module.exports = {
         });
       });
   },
+  /**
+ * @swagger
+ * /api/v2/events/:eventId:
+ *   put:
+ *     tags:
+ *       - V2 Events
+ *     description: Edit an event
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: A successful message
+ *         schema:
+ *           $ref: '#/definitions/EventV2'
+ *       400:
+ *         description: Bad requests
+ *         schema:
+ *           $ref: '#definitions/InvalidEventV2'
+ *       403:
+ *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ */
+  /**/
   edit(req, res) {
     User
       .findOne({
@@ -199,6 +275,24 @@ module.exports = {
         });
       });
   },
+  /**
+ * @swagger
+ * /api/v2/events/:eventId:
+ *   delete:
+ *     tags:
+ *       - V2 Events
+ *     description: Delete an event
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: A successful message
+ *       404:
+ *         description: Not found
+ *       403:
+ *         description: User is not an admin
+ */
+  /**/
   delete(req, res) {
     User
       .findOne({
