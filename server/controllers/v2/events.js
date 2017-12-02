@@ -139,7 +139,6 @@ module.exports = {
                             });
                           } else if (center) {
                             const dates = center.events.map(anEvent => anEvent.date);
-                            console.log(dates);
                             if (dates.map(Number).indexOf(+(new Date(req.body.date))) !== -1) {
                               res.status(409).send({
                                 success: false,
