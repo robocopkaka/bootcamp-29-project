@@ -43,11 +43,22 @@ describe('Events', () => {
           err.should.have.status(404);
         });
     });
+    it('should return a 403 if the token is missing', () => {
+      request(app)
+        .post('/api/v2/events')
+        .send(newEventDB)
+        .expect(403)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          err.should.have.status(404);
+        });
+    });
   });
   describe('PUT /events/<eventId>', () => {
     it('should return a 200 if the update is successful', () => {
       request(app)
-        .put(`/api/v2/events?token=${token}`)
+        .put(`/api/v2/events/1?token=${token}`)
         .send(editEventDB)
         .expect(200)
         .end((err, res) => {
@@ -57,7 +68,7 @@ describe('Events', () => {
     });
     it('should return a 400 if an empty object is sent', () => {
       request(app)
-        .put(`/api/v2/events?token=${token}`)
+        .put(`/api/v2/events/1?token=${token}`)
         .send({})
         .expect(400)
         .end((err, res) => {
@@ -67,11 +78,21 @@ describe('Events', () => {
     });
     it('should return a 409 if an event name ', () => {
       request(app)
-        .put(`/api/v2/events?token=${token}`)
+        .put(`/api/v2/events/1?token=${token}`)
         .send({})
         .expect(409)
         .end((err, res) => {
           res.should.have.status(409);
+          err.should.have.status(404);
+        });
+    });
+    it('should return a 403 if the token is missing', () => {
+      request(app)
+        .post('/api/v2/events/1')
+        .send(newEventDB)
+        .expect(403)
+        .end((err, res) => {
+          res.should.have.status(403);
           err.should.have.status(404);
         });
     });

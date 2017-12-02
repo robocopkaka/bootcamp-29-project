@@ -46,6 +46,7 @@ module.exports = (app) => {
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
   app.post('/api/v2/events', apiRoutes, eventsDBController.create);
+  app.put('/api/v2/events/:eventId', apiRoutes, eventsDBController.edit);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
