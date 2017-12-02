@@ -1,6 +1,21 @@
+body {
+    min-height: 100vh;
+    padding: 0;
+    margin: 0
+}
+
+
 .left-padding{
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.left-ten-padding{
+  padding-left: 10px;
+}
+
+.top-thirty-padding{
+  padding-top: 30px;
 }
 
 .signup-form{
@@ -31,6 +46,9 @@
   padding-top: 20px;
 }
 
+.top-forty-padding{
+  padding-top: 40px;
+}
 #event-heading{
   font-size: 25px;
 }
@@ -72,6 +90,14 @@
 
 .navbar-purple{
   background-color: #7B1FA2;
+}
+
+.navbar-purple:link, .navbar-purple:active{
+  background-color: #7B1FA2;
+}
+
+.navbar-purple:visited{
+  background-color: #9425C2;
 }
 
 .dropdown-content li>a{
@@ -149,4 +175,21 @@
   padding-bottom: 40px;
   padding-top: 40px;
   margin-top: -40px;
+}
+
+.footer-padding{
+  margin-top:80px;
+  padding-bottom:40px;
+}
+
+.top-ten-padding{
+  padding-top: 10px;
+}
+
+.max-width-six-hundred{
+  max-width: 600px;
+}
+
+.color-black{
+  color: black;
 }

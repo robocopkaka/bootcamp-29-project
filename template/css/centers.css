@@ -86,7 +86,17 @@ a, a:link, a:visited, a:active {
   padding-top:10px;
 }
 
-/*.btn, a:link, a:visited, a:active {
-    text-decoration: none;
-    color: #fff;
-}*/
+/*show center styles*/
+.show-center-top{
+  padding-top: 30px;
+}
+
+#show-center-address{
+  font-size: 20px;
+  font-weight: 300;
+}
+
+#show-center-state{
+  font-size: 20px;
+  font-weight: 400;
+}
