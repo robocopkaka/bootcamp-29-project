@@ -100,30 +100,29 @@ module.exports = {
         } else if (user.isAdmin) {
           Event
             .findOne({
-              where: { id: req.params.eventId },
-              include: [
-                { model: Center }
-              ]
+              where: { name: req.body.name }
             })
-            .then((event) => {
-              if (!event) {
-                res.status(404).send({
+            .then((exists) => {
+              if (exists) {
+                res.status(409).send({
                   success: false,
-                  message: 'Event not found'
+                  message: 'Event name already exists'
                 });
-              } else if (event) {
-                // console.log(event.Center.id);
+              } else {
                 Event
                   .findOne({
-                    where: { name: req.body.name }
+                    where: { id: req.params.eventId },
+                    include: [
+                      { model: Center }
+                    ]
                   })
-                  .then((exists) => {
-                    if (exists) {
-                      res.status(409).send({
+                  .then((event) => {
+                    if (!event) {
+                      res.status(404).send({
                         success: false,
-                        message: 'Event name already exists'
+                        message: 'Event not found'
                       });
-                    } else if (!exists) {
+                    } else if (event) {
                       const centerId = event.Center.id;
                       Center
                         .findOne({
@@ -140,7 +139,8 @@ module.exports = {
                             });
                           } else if (center) {
                             const dates = center.events.map(anEvent => anEvent.date);
-                            if (dates.map(Number).indexOf(+new Date(req.body.date)) !== -1) {
+                            console.log(dates);
+                            if (dates.map(Number).indexOf(+(new Date(req.body.date))) !== -1) {
                               res.status(409).send({
                                 success: false,
                                 message: 'Oops. Date has already been taken'
@@ -148,7 +148,8 @@ module.exports = {
                             } else {
                               Event
                                 .update({
-                                  name: req.body.name
+                                  name: req.body.name,
+                                  date: new Date(req.body.date)
                                 }, {
                                   where: { id: parseInt(req.params.eventId, 10) }
                                 })
@@ -170,7 +171,7 @@ module.exports = {
                         .catch(() => {
                           res.status(400).send({
                             success: false,
-                            message: 'An error occured find the center'
+                            message: 'An error occured finding the center'
                           });
                         });
                     }
@@ -178,7 +179,7 @@ module.exports = {
                   .catch(() => {
                     res.status(400).send({
                       success: false,
-                      message: 'An error occured finding if the event exists'
+                      message: 'An error occured finding the event'
                     });
                   });
               }
@@ -186,7 +187,7 @@ module.exports = {
             .catch(() => {
               res.status(400).send({
                 success: false,
-                message: 'An error occured finding the event'
+                message: 'An error occured finding if the event exists'
               });
             });
         }
