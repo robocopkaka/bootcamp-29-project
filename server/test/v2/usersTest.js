@@ -41,40 +41,40 @@ describe('/Users', () => {
     ));
   });
 
-  // describe('/users/login', () => {
-  //   it('should return a 200 if the credentials are valid', () => {
-  //     chai.request(app)
-  //       .post('/api/v2/users/login')
-  //       .send({
-  //         email: 'testss@estss.com',
-  //         password: 'testssssss'
-  //       })
-  //       .then((res) => {
-  //         // console.log(res);
-  //         res.should.have.status(200);
-  //       });
-  //   });
-  //   it('should return a 400 if the credentials are invalid', () => {
-  //     chai.request(app)
-  //       .post('/api/v2/users/login')
-  //       .send({
-  //         email: undefined,
-  //         password: undefined
-  //       })
-  //       .catch((err) => {
-  //         err.should.have.status(400);
-  //       });
-  //   });
-  //   it('should return a 404 if the user isn\'t found', () => {
-  //     chai.request(app)
-  //       .post('/api/v2/users/login')
-  //       .send({
-  //         email: 'riri@rir.com',
-  //         password: 'thththt'
-  //       })
-  //       .catch((err) => {
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  // });
+  describe('/users/login', () => {
+    it('should return a 200 if the credentials are valid', () => (
+      chai.request(app)
+        .post('/api/v2/users/login')
+        .send({
+          email: 'kachi@kachi.com',
+          password: 'password'
+        })
+        .then((res) => {
+          // console.log(res);
+          res.should.have.status(200);
+        })
+    ));
+    it('should return a 400 if the credentials are invalid', () => (
+      chai.request(app)
+        .post('/api/v2/users/login')
+        .send({
+          email: undefined,
+          password: undefined
+        })
+        .catch((err) => {
+          err.should.have.status(400);
+        })
+    ));
+    it('should return a 404 if the user isn\'t found', () => (
+      chai.request(app)
+        .post('/api/v2/users/login')
+        .send({
+          email: 'riri@rir.com',
+          password: 'thththt'
+        })
+        .catch((err) => {
+          err.should.have.status(404);
+        })
+    ));
+  });
 });
