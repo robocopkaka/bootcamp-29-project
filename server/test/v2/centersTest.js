@@ -70,22 +70,22 @@ describe('Centers endpoints', () => {
     ));
   });
 
-  // describe('GET /api/v2/centers/<centerId>', () => {
-  //   it('should return 200 and a center, if the id is valid', () => {
-  //     chai.request(app)
-  //       .get('/api/v2/centers/1')
-  //       .then((res) => {
-  //         res.should.have.status(200);
-  //       });
-  //   });
-  //   it('should return 404, if the id is invalid or doesn\'t exist', () => {
-  //     chai.request(app)
-  //       .get('/api/v2/centers/190888')
-  //       .catch((err) => {
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  // });
+  describe('GET /api/v2/centers/<centerId>', () => {
+    it('should return 200 and a center, if the id is valid', () => (
+      chai.request(app)
+        .get('/api/v2/centers/1')
+        .then((res) => {
+          res.should.have.status(200);
+        })
+    ));
+    it('should return 404, if the id is invalid or doesn\'t exist', () => (
+      chai.request(app)
+        .get('/api/v2/centers/190888')
+        .catch((err) => {
+          err.should.have.status(404);
+        })
+    ));
+  });
 
   // describe('PUT /api/v1/centers/<centerId>', () => {
   //   it('should return a 200 if the parameters were valid', () => {
