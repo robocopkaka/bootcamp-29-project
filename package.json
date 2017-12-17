@@ -10,7 +10,7 @@
     "build": "babel lib -d dist --presets=latest",
     "serve": "node dist/index.js",
     "mocha": "mocha --compilers js:babel-core/register",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 5000 --exit",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 10000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
