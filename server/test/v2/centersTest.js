@@ -56,21 +56,19 @@ describe('Centers endpoints', () => {
         .send(newCenterDB)
         .catch((res) => {
           res.should.have.status(409);
-          // res.body.should.have.property('id');
-          // res.body.should.have.property('message').eql('Center created');
         })
     ));
   });
-  // describe('GET /api/v2/centers', () => {
-  //   it('should return a 200 and all the centers in the system', () => {
-  //     chai.request(app)
-  //       .get('/api/v2/centers')
-  //       .then((res) => {
-  //         res.should.have.status(200);
-  //         res.body.centers.should.be.an('array');
-  //       });
-  //   });
-  // });
+  describe('GET /api/v2/centers', () => {
+    it('should return a 200 and all the centers in the system', () => (
+      request(app)
+        .get('/api/v2/centers')
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.centers.should.be.an('array');
+        })
+    ));
+  });
 
   // describe('GET /api/v2/centers/<centerId>', () => {
   //   it('should return 200 and a center, if the id is valid', () => {
