@@ -13,6 +13,7 @@ import db from '../../models/index';
 // // module.exports = initializeTest;
 let token;
 before((done) => {
+  db.Category.sync({ force: true }).then(() => {});
   db.User.sync({ force: true })
     .then(() => {
       request(app)
@@ -24,7 +25,6 @@ before((done) => {
           isAdmin: true
         })
         .then(() => {});
-      db.Category.sync({ force: true }).then(() => {});
       db.Center.sync({ force: true }).then(() => {
         db.Event.sync({ force: true }).then(() => {});
       });
