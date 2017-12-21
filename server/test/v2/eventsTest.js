@@ -108,26 +108,24 @@ describe('Events endpoints', () => {
         })
     ));
   });
-  // describe('DELETE /events/:eventId', () => {
-  //   it('should return a 200 if the ID is valid', () => {
-  //     request(app)
-  //       .delete('/api/v2/events/1')
-  //       .set('x-access-token', token)
-  //       .expect(200)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  //   it('should return a 404 if the ID is valid', () => {
-  //     request(app)
-  //       .delete('/api/v2/events/dfdfdfd')
-  //       .set('x-access-token', token)
-  //       .expect(200)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  // });
+  describe('DELETE /events/:eventId', () => {
+    it('should return a 200 if the ID is valid', () => (
+      request(app)
+        .delete('/api/v2/events/1')
+        .set('x-access-token', token)
+        .expect(200)
+        .then((res) => {
+          res.should.have.status(200);
+        })
+    ));
+    it('should return a 404 if the ID isn\'t in the database', () => (
+      request(app)
+        .delete('/api/v2/events/2000000000000')
+        .set('x-access-token', token)
+        .expect(404)
+        .catch((err) => {
+          err.should.have.status(404);
+        })
+    ));
+  });
 });
