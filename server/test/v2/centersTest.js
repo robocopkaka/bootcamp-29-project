@@ -3,6 +3,7 @@ import request from 'supertest';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
 import './initialize';
+import db from '../../models/index';
 
 chai.should();
 // const { sequelize } = db;
@@ -71,7 +72,8 @@ describe('Centers endpoints', () => {
         .get('/api/v2/centers/1')
         .then((res) => {
           res.should.have.status(200);
-          res.body.should.have.property('events').should.be.an('array');
+          res.body.center.should.have.property('events');
+          res.body.center.events.should.be.an('array');
         })
     ));
     it('should return 404, if the id is invalid or doesn\'t exist', () => (
