@@ -81,7 +81,7 @@ module.exports = {
           isAdmin: req.body.isAdmin
         })
         .then((user) => {
-          res.status(200).send(user);
+          res.status(201).send(user);
         })
         .catch(() => {
           res.status(400).send({

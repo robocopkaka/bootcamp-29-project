@@ -1,9 +1,20 @@
 env:
+  global:
+    secret: "somewwsqwdswadrandkojdwsopdjwopjshidswdwsrt"
   CODECLIMATE_REPO_TOKEN: 5ba0fafe4174fbd93d8e91e7decf4f8c3b5eb4ade63f5d136d9733481324eac3
 language: node_js
 node_js:
   - "7.8.0"
+services:
+  - postgresql
+addons:
+  - jwt:
+      secure: "somereallyhshdjsbjdsarandkeyddsdsdcsdcxsa"
+before_install:
+  - sudo /etc/init.d/postgresql start
 before_script:
+  - psql -c "CREATE DATABASE \"event-manager-test\";" -U postgres
+  - psql -c "CREATE USER robocopkaka WITH PASSWORD 'annabeth';" -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
