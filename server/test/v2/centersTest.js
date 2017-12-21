@@ -67,14 +67,15 @@ describe('Centers endpoints', () => {
 
   describe('GET /api/v2/centers/<centerId>', () => {
     it('should return 200 and a center, if the id is valid', () => (
-      chai.request(app)
+      request(app)
         .get('/api/v2/centers/1')
         .then((res) => {
           res.should.have.status(200);
+          res.body.should.have.property('events').should.be.an('array');
         })
     ));
     it('should return 404, if the id is invalid or doesn\'t exist', () => (
-      chai.request(app)
+      request(app)
         .get('/api/v2/centers/190888')
         .catch((err) => {
           err.should.have.status(404);
