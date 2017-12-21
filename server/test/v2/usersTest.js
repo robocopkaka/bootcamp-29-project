@@ -2,16 +2,10 @@ import chai from 'chai';
 // import chaiHttp from 'chai-http';
 import request from 'supertest';
 import app from '../../app';
-import db from '../../models/index';
+import './initialize';
 
-require('./initialize');
-// import User from '../../models/user';
-
-// chai.use(chaiHttp);
 chai.should();
 
-// const sequelize = new Sequelize(`postgres://${process.env.DB_TEST_USER}:${process.env.DB_TEST_USER}@localhost:5432/event-manager-test`, { logging: false });
-// const { sequelize } = db;
 describe('/Users', () => {
   describe('POST /users', () => {
     it('should return a 201 if the parameters are valid', () => (

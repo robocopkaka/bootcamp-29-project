@@ -1,14 +1,9 @@
 import chai from 'chai';
 import request from 'supertest';
-// import chaiHttp from 'chai-http';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
-// import db from '../../models/index';
+import './initialize';
 
-require('./initialize');
-// import centersDB from '../../schemas/centers
-
-// chai.use(chaiHttp);
 chai.should();
 // const { sequelize } = db;
 let token;

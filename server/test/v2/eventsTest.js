@@ -3,8 +3,7 @@ import request from 'supertest';
 import app from '../../app';
 import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
-
-require('./initialize');
+import './initialize';
 
 // const { sequelize } = db;
 chai.should();
