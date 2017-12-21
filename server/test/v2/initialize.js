@@ -24,7 +24,10 @@ before((done) => {
           isAdmin: true
         })
         .then(() => {});
-      db.Center.sync({ force: true }).then(() => {});
+      db.Category.sync({ force: true }).then(() => {});
+      db.Center.sync({ force: true }).then(() => {
+        db.Event.sync({ force: true }).then(() => {});
+      });
       done();
     });
 });
