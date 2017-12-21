@@ -13,7 +13,16 @@ import db from '../../models/index';
 // // module.exports = initializeTest;
 let token;
 before((done) => {
-  db.Category.sync({ force: true }).then(() => {});
+  db.Category.sync({ force: true }).then(() => {
+    db.Category
+      .create({
+        name: 'wedding'
+      })
+      .then(() => {})
+      .catch((err) => {
+        throw err;
+      });
+  });
   db.User.sync({ force: true })
     .then(() => {
       request(app)

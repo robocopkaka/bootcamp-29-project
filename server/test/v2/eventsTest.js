@@ -22,54 +22,50 @@ describe('Events endpoints', () => {
       })
   ));
   describe('POST /events', () => {
-    it('should return a 201 if the event is created successfully', () => {
+    it('should return a 201 if the event is created successfully', () => (
       request(app)
         .post('/api/v2/events')
         .set('x-access-token', token)
         .send(newEventDB)
         .expect(201)
-        .end((err, res) => {
+        .then((res) => {
           res.should.have.status(201);
           res.body.should.be.an('object');
-          err.should.have.status(404);
-        });
-    });
-    it('should return a 409 if the event date is already taken', () => {
+        })
+    ));
+    it('should return a 409 if the event date is already taken', () => (
       request(app)
         .post('/api/v2/events')
         .set('x-access-token', token)
         .send(newEventDB)
         .expect(409)
-        .end((err, res) => {
-          res.should.have.status(409);
-          res.body.should.be.an('object');
-          err.should.have.status(404);
-        });
-    });
-    it('should return a 400 if the parameters are undefined', () => {
+        .catch((err) => {
+          err.should.have.status(409);
+          err.body.should.be.an('object');
+        })
+    ));
+    it('should return a 400 if the parameters are undefined', () => (
       request(app)
         .post('/api/v2/events')
         .set('x-access-token', token)
-        .send(newEventDB)
+        .send({})
         .expect(400)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.an('object');
-          err.should.have.status(404);
-        });
-    });
-    it('should return a 403 if the token is missing', () => {
+        .catch((err) => {
+          err.should.have.status(400);
+          err.body.should.be.an('object');
+        })
+    ));
+    it('should return a 403 if the token is missing', () => (
       request(app)
         .post('/api/v2/events')
         .set('x-access-token', '')
         .send(newEventDB)
         .expect(403)
-        .end((err, res) => {
-          res.should.have.status(403);
-          res.body.should.be.an('object');
-          err.should.have.status(404);
-        });
-    });
+        .catch((err) => {
+          err.should.have.status(403);
+          err.body.should.be.an('object');
+        })
+    ));
   });
   // describe('PUT /events/<eventId>', () => {
   //   it('should return a 200 if the update is successful', () => {
