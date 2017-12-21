@@ -67,52 +67,47 @@ describe('Events endpoints', () => {
         })
     ));
   });
-  // describe('PUT /events/<eventId>', () => {
-  //   it('should return a 200 if the update is successful', () => {
-  //     request(app)
-  //       .put('/api/v2/events/1')
-  //       .set('x-access-token', token)
-  //       .send(editEventDB)
-  //       .expect(200)
-  //       .end((err, res) => {
-  //         res.body.should.be.an('object');
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  //   it('should return a 400 if an empty object is sent', () => {
-  //     request(app)
-  //       .put('/api/v2/events/1')
-  //       .set('x-access-token', token)
-  //       .send({})
-  //       .expect(400)
-  //       .end((err, res) => {
-  //         res.should.have.status(400);
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  //   it('should return a 409 if an event name already exists', () => {
-  //     request(app)
-  //       .put('/api/v2/events/1')
-  //       .set('x-access-token', token)
-  //       .send({})
-  //       .expect(409)
-  //       .end((err, res) => {
-  //         res.should.have.status(409);
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  //   it('should return a 403 if the token is missing', () => {
-  //     request(app)
-  //       .post('/api/v2/events/1')
-  //       .set('x-access-token', token)
-  //       .send(newEventDB)
-  //       .expect(403)
-  //       .end((err, res) => {
-  //         res.should.have.status(403);
-  //         err.should.have.status(404);
-  //       });
-  //   });
-  // });
+  describe('PUT /events/<eventId>', () => {
+    it('should return a 200 if the update is successful', () => (
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send(editEventDB)
+        .expect(200)
+        .then((res) => {
+          res.should.have.status(200);
+        })
+    ));
+    it('should return a 400 if an empty object is sent', () => (
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send({})
+        .expect(400)
+        .catch((err) => {
+          err.should.have.status(400);
+        })
+    ));
+    it('should return a 409 if an event name already exists', () => (
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send(editEventDB)
+        .expect(409)
+        .catch((err) => {
+          err.should.have.status(409);
+        })
+    ));
+    it('should return a 403 if the token is missing', () => (
+      request(app)
+        .put('/api/v2/events/1')
+        .send(editEventDB)
+        .expect(403)
+        .catch((err) => {
+          err.should.have.status(403);
+        })
+    ));
+  });
   // describe('DELETE /events/:eventId', () => {
   //   it('should return a 200 if the ID is valid', () => {
   //     request(app)

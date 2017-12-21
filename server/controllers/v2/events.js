@@ -169,7 +169,7 @@ module.exports = {
       })
       .then((user) => {
         if (!user.isAdmin) {
-          res.status(401).send({
+          res.status(403).send({
             success: false,
             message: 'User is not an admin'
           });

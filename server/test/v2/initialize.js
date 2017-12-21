@@ -35,7 +35,15 @@ before((done) => {
         })
         .then(() => {});
       db.Center.sync({ force: true }).then(() => {
-        db.Event.sync({ force: true }).then(() => {});
+        db.Event.sync({ force: true }).then(() => {
+          db.Event
+            .create({
+              name: 'kachi\'s ultra event',
+              date: '2019-11-1',
+              categoryId: 1,
+              centerId: 1
+            });
+        });
       });
       done();
     });
