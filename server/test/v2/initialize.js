@@ -35,13 +35,35 @@ before((done) => {
         })
         .then(() => {});
       db.Center.sync({ force: true }).then(() => {
+        db.Center
+          .create({
+            name: 'Center4',
+            detail: 'We exist',
+            image: 'ramsey.jpg',
+            address: 'somewhere in lagos',
+            chairs: 10,
+            projector: 1,
+            capacity: 1000,
+            state: 'state'
+          })
+          .then(() => {});
         db.Event.sync({ force: true }).then(() => {
-          db.Event
-            .create({
-              name: 'kachi\'s ultra event',
-              date: '2019-11-1',
-              categoryId: 1,
-              centerId: 1
+          db.Center
+            .findOne({
+              where: { id: 1 },
+              include: [
+                { model: db.Event, as: 'events' }
+              ]
+            })
+            .then((center) => {
+              db.Event
+                .create({
+                  name: 'new event',
+                  date: '2020-01-01',
+                  categoryId: 1,
+                  centerId: center.id
+                })
+                .then(() => {});
             });
         });
       });
