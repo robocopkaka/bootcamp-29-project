@@ -1,4 +1,4 @@
-import db from '../../models/index';
+import { Event, Center, User } from '../../models/index';
 // import { User } from '../../models/index';
 // import { Center } from '../../models/index';
 
@@ -76,7 +76,7 @@ module.exports = {
  */
   /**/
   create(req, res) {
-    db.User
+    User
       .findOne({
         where: { id: req.decoded.id }
       })
@@ -87,7 +87,7 @@ module.exports = {
             message: 'User is not an admin'
           });
         } else if (user.isAdmin) {
-          db.Center
+          Center
             .findOne({
               where: { name: req.body.name }
             })
@@ -98,7 +98,7 @@ module.exports = {
                   message: 'Center already exists'
                 });
               } else if (!center) {
-                db.Center
+                Center
                   .create({
                     name: req.body.name,
                     detail: req.body.detail,
@@ -145,9 +145,12 @@ module.exports = {
   */
   /**/
   getSingleCenter(req, res) {
-    db.Center
+    Center
       .findOne({
-        where: { id: parseInt(req.params.centerId, 10) }
+        where: { id: parseInt(req.params.centerId, 10) },
+        include: [
+          { model: Event, as: 'events' }
+        ]
       })
       .then((center) => {
         if (!center) {
@@ -184,7 +187,7 @@ module.exports = {
   */
   /**/
   getAllCenters(req, res) {
-    db.Center
+    Center
       .findAll({})
       .then((centers) => {
         if (!centers) {
@@ -235,7 +238,7 @@ module.exports = {
  */
   /**/
   edit(req, res) {
-    db.User
+    User
       .findOne({
         where: { id: req.decoded.id }
       })
@@ -246,7 +249,7 @@ module.exports = {
             message: 'User is not an admin'
           });
         } else if (user.isAdmin) {
-          db.Center
+          Center
             .findOne({
               where: { id: parseInt(req.params.centerId, 10) }
             })
@@ -257,7 +260,7 @@ module.exports = {
                   message: 'Center not found'
                 });
               } else if (center) {
-                db.Center
+                Center
                   .findOne({
                     where: { name: req.body.name }
                   })
@@ -268,7 +271,7 @@ module.exports = {
                         message: 'Center name exists'
                       });
                     } else if (!exists) {
-                      db.Center
+                      Center
                         .update({ name: req.body.name }, {
                           where: { id: parseInt(req.params.centerId, 10) }
                         })

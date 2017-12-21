@@ -56,14 +56,18 @@ before((done) => {
               ]
             })
             .then((center) => {
-              db.Event
-                .create({
-                  name: 'new event',
-                  date: '2020-01-01',
-                  categoryId: 1,
-                  centerId: center.id
-                })
-                .then(() => {});
+              if (!center) {
+                // do stuff
+              } else {
+                db.Event
+                  .create({
+                    name: 'new event',
+                    date: '2020-01-01',
+                    categoryId: 1,
+                    centerId: center.id
+                  })
+                  .then(() => {});
+              }
             });
         });
       });
