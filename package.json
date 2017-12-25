@@ -6,6 +6,7 @@
   "scripts": {
     "babel-node": "babel-node --presets=latest",
     "start": "nodemon --exec npm run babel-node ./server/bin/www",
+    "start:react": "webpack-dev-server",
     "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "build": "babel lib -d dist --presets=latest",
     "serve": "node dist/index.js",
