@@ -19,8 +19,11 @@
   "license": "ISC",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
@@ -57,10 +60,5 @@
     "nyc": "^11.3.0",
     "sequelize-mock": "^0.10.1",
     "supertest": "^3.0.0"
-  },
-  "babel": {
-    "presets": [
-      "latest"
-    ]
   }
 }
