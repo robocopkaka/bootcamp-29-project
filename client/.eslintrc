@@ -1,6 +1,15 @@
 {
   "root": true,
-  "extends": "airbnb-base",
+  "extends": "airbnb",
+  "plugins": [
+    "import", "jsx-a11y", "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    }
+  },
   "env": {
     "node": true,
     "es6": true,
@@ -24,9 +33,9 @@
     }],
     "require-jsdoc": ["error", {
         "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
+            "FunctionDeclaration": false,
+            "MethodDefinition": false,
+            "ClassDeclaration": false
         }
     }]
   }
