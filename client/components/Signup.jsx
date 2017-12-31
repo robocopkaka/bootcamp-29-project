@@ -1,4 +1,6 @@
 import React from 'react';
+import '../../template/css/materialize.min.css';
+import '../../template/css/index.css';
 
 const Signup = () => (
   <div className="container">
@@ -14,29 +16,29 @@ const Signup = () => (
                   <label for="first_name">First Name</label>
                 </div>
                 <div className="input-field col s6">
-                  <input id="last_name" type="text" class="validate" />
+                  <input id="last_name" type="text" className="validate" />
                   <label for="last_name">Last Name</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="email" type="email" class="validate" />
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="email" type="email" className="validate" />
                   <label for="email">Email</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="password" type="password" class="validate" />
+              <div className="row">
+                <div className="input-field col s6">
+                  <input id="password" type="password" className="validate" />
                   <label for="password">Password</label>
                 </div>
-                <div class="input-field col s6">
-                  <input id="password_confirmation" type="password" class="validate" />
+                <div className="input-field col s6">
+                  <input id="password_confirmation" type="password" className="validate" />
                   <label for="password_confirmation">Password Confirmation</label>
                 </div>
               </div>
-              <div class="row center-align">
-                <button class="btn waves-effect waves-light navbar-purple round-btn" type="submit" name="action">Signup
-                  <i class="material-icons right">send</i>
+              <div className="row center-align">
+                <button className="btn waves-effect waves-light navbar-purple round-btn" type="submit" name="action">Signup
+                  <i className="material-icons right">send</i>
                 </button>
               </div>
             </form>
