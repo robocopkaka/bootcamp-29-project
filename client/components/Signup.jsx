@@ -1,6 +1,4 @@
 import React from 'react';
-import '../../template/css/materialize.min.css';
-import '../../template/css/index.css';
 
 const Signup = () => (
   <div className="container">
