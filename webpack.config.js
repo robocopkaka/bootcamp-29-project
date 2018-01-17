@@ -16,8 +16,19 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'style-loader'},
+      { test: /\.css$/, loader: 'css-loader', query: {
+        modules: true,
+        localIdentName: '[name]__[local]___[hash:base64:5]'
+      }}
     ]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
+  resolve: {
+    extensions: ['.js', '.css', '.jsx'],
+    modules: [
+      'node_modules'
+    ]
+  }
 }
