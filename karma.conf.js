@@ -1,8 +1,23 @@
+var path = require('path');
+var webpackConfig = require('./webpack.config');
+
 // Karma configuration
 // Generated on Mon Jan 15 2018 20:27:11 GMT+0100 (WAT)
 
 module.exports = function(config) {
   config.set({
+    files: [
+      'tests.webpack.js'
+    ],
+    preprocessors: {
+      'tests.webpack.js': ['webpack', 'sourcemap']
+    },
+    reporters: ['spec'],
+    frameworks: ['mocha', 'chai'],
+    webpack: webpackConfig,
+    webpackServer: {
+      noInfo: true
+    },
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -63,6 +78,15 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    plugins: [
+      'karma-mocha',
+      'karma-chai',
+      'karma-webpack',
+      'karma-phantomjs-launcher',
+      'karma-spec-reporter',
+      'karma-sourcemap-loader'
+    ]
   })
 }
