@@ -1,6 +1,7 @@
 import expressJoi from 'express-joi-validator';
 import jwt from 'jsonwebtoken';
 import express from 'express';
+import cors from 'cors';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
 import centerWithParamsSchema from '../validators/centerWithParamsValidator';
@@ -57,6 +58,8 @@ module.exports = (app) => {
       return res.status(err.output.statusCode).json(err.output.payload);
     }
   });
+
+  app.use(cors());
 
   // Authentication
   apiRoutes.use((req, res, next) => {
