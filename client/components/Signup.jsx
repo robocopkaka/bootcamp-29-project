@@ -31,9 +31,9 @@ class Signup extends React.Component {
   handlePasswordConfirmationChange(e) {
     this.setState({ passwordConfirmation: e.target.value });
   }
-  register() {
-    const self = this;
-    alert('Account created');
+  register(event) {
+    alert(`Your email is ${this.state.email}`);
+    event.preventDefault();
   }
   render() {
     return (
@@ -101,7 +101,13 @@ class Signup extends React.Component {
                     </div>
                   </div>
                   <div className="row center-align">
-                    <button className="btn waves-effect waves-light navbar-purple round-btn" onClick={this.register} type="submit" name="action">Signup
+                    <button
+                      className="btn waves-effect waves-light navbar-purple round-btn"
+                      onClick={this.register}
+                      type="submit"
+                      name="action"
+                    >
+                      Signup
                       <i className="material-icons right">send</i>
                     </button>
                   </div>
