@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Signup extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
+    this.register = this.register.bind(this);
     this.state = {
       firstName: '',
       lastName: '',
@@ -32,7 +34,19 @@ class Signup extends React.Component {
     this.setState({ passwordConfirmation: e.target.value });
   }
   register(event) {
-    alert(`Your email is ${this.state.email}`);
+    axios.post('http://localhost:8000/api/v2/users', {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      passwordConfirmation: this.state.passwordConfirmation
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     event.preventDefault();
   }
   render() {
