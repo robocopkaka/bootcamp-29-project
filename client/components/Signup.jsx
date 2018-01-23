@@ -34,15 +34,17 @@ class Signup extends React.Component {
     this.setState({ passwordConfirmation: e.target.value });
   }
   register(event) {
-    axios.post('http://localhost:8000/api/v2/users', {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      passwordConfirmation: this.state.passwordConfirmation
-    })
+    axios.post(
+      'http://localhost:8000/api/v2/users',
+      JSON.stringify({
+        name: `${this.state.firstName} ${this.state.lastName}`,
+        email: this.state.email,
+        password: this.state.password
+      }),
+      { headers: { 'Content-Type': 'application/json' } }
+    )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.status);
       })
       .catch((err) => {
         console.log(err);
