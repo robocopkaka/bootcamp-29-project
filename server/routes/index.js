@@ -25,6 +25,8 @@ const apiRoutes = express.Router();
 
 
 module.exports = (app) => {
+  app.use(cors());
+  app.options('*', cors());
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Event Manager App'
   }));
@@ -59,7 +61,6 @@ module.exports = (app) => {
     }
   });
 
-  app.use(cors());
 
   // Authentication
   apiRoutes.use((req, res, next) => {
