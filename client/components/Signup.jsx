@@ -17,6 +17,7 @@ class Signup extends React.Component {
       password: '',
       passwordConfirmation: ''
     };
+    const passwordsMatch = this.state.password === this.state.passwordConfirmation;
   }
   handleFirstNameChange(e) {
     this.setState({ firstName: e.target.value });
