@@ -32,7 +32,20 @@ class Signup extends React.Component {
   }
   handlePasswordConfirmationChange(e) {
     this.setState({ passwordConfirmation: e.target.value });
+    // if (this.state.passwordConfirmation === this.state.password) {
+    //   alert('Passwords don\'t match');
+    // }
   }
+  clearFields() {
+    this.setState({ firstName: '' });
+    this.setState({ lastName: '' });
+    this.setState({ email: '' });
+    this.setState({ password: '' });
+    this.setState({ passwordConfirmation: '' });
+  }
+  // comparePasswords() {
+  //
+  // }
   register(event) {
     axios.post(
       'http://localhost:8000/api/v2/users',
@@ -43,8 +56,9 @@ class Signup extends React.Component {
       }),
       { headers: { 'Content-Type': 'application/json' } }
     )
-      .then((res) => {
-        console.log(res.status);
+      .then(() => {
+        alert(`Your account was created successfully, ${this.state.firstName} ${this.state.lastName}`);
+        this.clearFields();
       })
       .catch((err) => {
         console.log(err);
