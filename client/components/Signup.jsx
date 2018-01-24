@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
+import validator from 'validator';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -61,27 +62,48 @@ class Signup extends React.Component {
       }
     });
   }
-  // comparePasswords() {
-  //
-  // }
+  formIsValid() {
+    const state = Object.assign({}, this.state);
+    if (!validator.isEmail(state.email.value)) {
+      state.email.isValid = false;
+      state.email.message = 'Email is not valid';
+
+      this.setState(state);
+      return false;
+    }
+    return true;
+  }
+  resetValidationStates() {
+    const state = Object.assign({}, this.state);
+
+    Object.keys(state).map((key) => {
+      if (state[key].hasOwnProperty('isValid')) {
+        state[key].isValid = true;
+        state[key].message = '';
+      }
+    });
+    this.setState(state);
+  }
   register(event) {
-    axios.post(
-      'http://localhost:8000/api/v2/users',
-      JSON.stringify({
-        name: `${this.state.firstName.value} ${this.state.lastName.value}`,
-        email: this.state.email.value,
-        password: this.state.password.value
-      }),
-      { headers: { 'Content-Type': 'application/json' } }
-    )
-      .then(() => {
-        alert(`Your account was created successfully, ${this.state.firstName.value}`);
-        this.clearFields();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     event.preventDefault();
+    if (this.formIsValid()) {
+      axios.post(
+        'http://localhost:8000/api/v2/users',
+        JSON.stringify({
+          name: `${this.state.firstName.value} ${this.state.lastName.value}`,
+          email: this.state.email.value,
+          password: this.state.password.value
+        }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+        .then(() => {
+          alert(`Your account was created successfully, ${this.state.firstName.value}`);
+          this.clearFields();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
   render() {
     const firstNameClasses = classNames('input-field col s6', { 'has-error': !this.state.firstName.isValid });
