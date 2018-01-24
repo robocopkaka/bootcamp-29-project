@@ -84,6 +84,17 @@ class Signup extends React.Component {
     event.preventDefault();
   }
   render() {
+    const firstNameClasses = classNames('input-field col s6', { 'has-error': !this.state.firstName.isValid });
+    const lastNameClasses = classNames(
+      'input-field col s6',
+      { 'has-error': !this.state.lastName.isValid }
+    );
+    const emailClasses = classNames('input-field col s12', { 'has-error': !this.state.email.isValid });
+    const passwordClasses = classNames('input-field col s6', { 'has-error': !this.state.password.isValid });
+    const passwordConfirmationClasses = classNames(
+      'input-field col s6',
+      { 'has-error': !this.state.passwordConfirmation.isValid }
+    );
     return (
       <div className="container">
         <div className="row signup-form">
@@ -93,7 +104,7 @@ class Signup extends React.Component {
                 <span className="card-title"><h3 className="center-heading">Sign Up</h3></span>
                 <form className="container">
                   <div className="row">
-                    <div className="input-field col s6">
+                    <div className={firstNameClasses}>
                       <input
                         id="first_name"
                         value={this.state.firstName.value}
@@ -102,8 +113,9 @@ class Signup extends React.Component {
                         onChange={this.handleFirstNameChange}
                       />
                       <label for="first_name">First Name</label>
+                      <span className="help-block">{this.state.firstName.message}</span>
                     </div>
-                    <div className="input-field col s6">
+                    <div className={lastNameClasses}>
                       <input
                         id="last_name"
                         value={this.state.lastName.value}
@@ -112,10 +124,11 @@ class Signup extends React.Component {
                         onChange={this.handleLastNameChange}
                       />
                       <label for="last_name">Last Name</label>
+                      <span className="help-block">{this.state.lastName.message}</span>
                     </div>
                   </div>
                   <div className="row">
-                    <div className="input-field col s12">
+                    <div className={emailClasses}>
                       <input
                         id="email"
                         value={this.state.email.value}
@@ -124,10 +137,11 @@ class Signup extends React.Component {
                         onChange={this.handleEmailChange}
                       />
                       <label for="email">Email</label>
+                      <span className="help-block">{this.state.email.message}</span>
                     </div>
                   </div>
                   <div className="row">
-                    <div className="input-field col s6">
+                    <div className={passwordClasses}>
                       <input
                         id="password"
                         value={this.state.password.value}
@@ -136,8 +150,9 @@ class Signup extends React.Component {
                         onChange={this.handlePasswordChange}
                       />
                       <label for="password">Password</label>
+                      <span className="help-block">{this.state.password.message}</span>
                     </div>
-                    <div className="input-field col s6">
+                    <div className={passwordConfirmationClasses}>
                       <input
                         id="password_confirmation"
                         value={this.state.passwordConfirmation.value}
@@ -146,6 +161,7 @@ class Signup extends React.Component {
                         onChange={this.handlePasswordConfirmationChange}
                       />
                       <label for="password_confirmation">Password Confirmation</label>
+                      <span className="help-block">{this.state.passwordConfirmation.message}</span>
                     </div>
                   </div>
                   <div className="row center-align">
