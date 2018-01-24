@@ -21,7 +21,6 @@ class Signup extends React.Component {
         value: '', isValid: true, matches: false, message: ''
       }
     };
-    const passwordsMatch = this.state.password === this.state.passwordConfirmation;
   }
   handleFirstNameChange(e) {
     const firstName = Object.assign({}, this.state.firstName);
@@ -36,20 +35,39 @@ class Signup extends React.Component {
   handleEmailChange(e) {
     const email = Object.assign({}, this.state.email);
     email.value = e.target.value;
+    if (!validator.isEmail(email.value)) {
+      email.isValid = false;
+      email.message = 'Email is not valid';
+    } else {
+      email.isValid = true;
+      email.message = '';
+    }
     this.setState({ email });
   }
   handlePasswordChange(e) {
     const password = Object.assign({}, this.state.password);
     password.value = e.target.value;
+    if (!validator.isLength(password.value, { min: 6 })) {
+      password.isValid = false;
+      password.message = 'Password should have at least 6 characters';
+    } else {
+      password.isValid = true;
+      password.message = '';
+    }
     this.setState({ password });
   }
   handlePasswordConfirmationChange(e) {
     const passwordConfirmation = Object.assign({}, this.state.passwordConfirmation);
+    const password = Object.assign({}, this.state.password);
     passwordConfirmation.value = e.target.value;
+    if (!validator.equals(password.value, passwordConfirmation.value)) {
+      passwordConfirmation.isValid = false;
+      passwordConfirmation.message = 'Passwords don\'t match';
+    } else {
+      passwordConfirmation.isValid = true;
+      passwordConfirmation.message = '';
+    }
     this.setState({ passwordConfirmation });
-    // if (this.state.passwordConfirmation === this.state.password) {
-    //   alert('Passwords don\'t match');
-    // }
   }
   clearFields() {
     this.setState({ firstName: { value: '', isValid: true, message: '' } });
@@ -63,12 +81,44 @@ class Signup extends React.Component {
     });
   }
   formIsValid() {
+    let fieldCheck = true;
     const state = Object.assign({}, this.state);
     if (!validator.isEmail(state.email.value)) {
       state.email.isValid = false;
       state.email.message = 'Email is not valid';
 
+      this.setState({ email: state.email });
+      fieldCheck = false;
+    }
+    if (!validator.isLength(state.password.value, { min: 6 })) {
+      state.password.isValid = false;
+      state.password.message = 'Password should have at least 6 characters';
+
+      this.setState({ password: state.password });
+      fieldCheck = false;
+    }
+    if (!validator.equals(state.password.value, state.passwordConfirmation.value)) {
+      state.passwordConfirmation.isValid = false;
+      state.passwordConfirmation.message = 'Passwords don\'t match';
+
+      this.setState({ passwordConfirmation: state.passwordConfirmation });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.firstName.value)) {
+      state.firstName.isValid = false;
+      state.firstName.message = 'First name must not be empty';
+
       this.setState(state);
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.lastName.value)) {
+      state.lastName.isValid = false;
+      state.lastName.message = 'Last name must not be empty';
+
+      this.setState(state);
+      fieldCheck = false;
+    }
+    if (fieldCheck === false) {
       return false;
     }
     return true;
@@ -107,15 +157,15 @@ class Signup extends React.Component {
     }
   }
   render() {
-    const firstNameClasses = classNames('input-field col s6', { 'has-error': !this.state.firstName.isValid });
+    const firstNameClasses = classNames('help-block', { 'has-error': !this.state.firstName.isValid });
     const lastNameClasses = classNames(
-      'input-field col s6',
+      'help-block',
       { 'has-error': !this.state.lastName.isValid }
     );
-    const emailClasses = classNames('input-field col s12', { 'has-error': !this.state.email.isValid });
-    const passwordClasses = classNames('input-field col s6', { 'has-error': !this.state.password.isValid });
+    const emailClasses = classNames('help-block', { 'has-error': !this.state.email.isValid });
+    const passwordClasses = classNames('help-block', { 'has-error': !this.state.password.isValid });
     const passwordConfirmationClasses = classNames(
-      'input-field col s6',
+      'help-block',
       { 'has-error': !this.state.passwordConfirmation.isValid }
     );
     return (
@@ -127,7 +177,7 @@ class Signup extends React.Component {
                 <span className="card-title"><h3 className="center-heading">Sign Up</h3></span>
                 <form className="container">
                   <div className="row">
-                    <div className={firstNameClasses}>
+                    <div className="input-field col s6">
                       <input
                         id="first_name"
                         value={this.state.firstName.value}
@@ -136,9 +186,9 @@ class Signup extends React.Component {
                         onChange={this.handleFirstNameChange}
                       />
                       <label for="first_name">First Name</label>
-                      <span className="help-block">{this.state.firstName.message}</span>
+                      <span className={firstNameClasses}>{this.state.firstName.message}</span>
                     </div>
-                    <div className={lastNameClasses}>
+                    <div className="input-field col s6">
                       <input
                         id="last_name"
                         value={this.state.lastName.value}
@@ -147,11 +197,11 @@ class Signup extends React.Component {
                         onChange={this.handleLastNameChange}
                       />
                       <label for="last_name">Last Name</label>
-                      <span className="help-block">{this.state.lastName.message}</span>
+                      <span className={lastNameClasses}>{this.state.lastName.message}</span>
                     </div>
                   </div>
                   <div className="row">
-                    <div className={emailClasses}>
+                    <div className="input-field col s12">
                       <input
                         id="email"
                         value={this.state.email.value}
@@ -160,11 +210,11 @@ class Signup extends React.Component {
                         onChange={this.handleEmailChange}
                       />
                       <label for="email">Email</label>
-                      <span className="help-block">{this.state.email.message}</span>
+                      <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
                   <div className="row">
-                    <div className={passwordClasses}>
+                    <div className="input-field col s6">
                       <input
                         id="password"
                         value={this.state.password.value}
@@ -173,9 +223,9 @@ class Signup extends React.Component {
                         onChange={this.handlePasswordChange}
                       />
                       <label for="password">Password</label>
-                      <span className="help-block">{this.state.password.message}</span>
+                      <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
-                    <div className={passwordConfirmationClasses}>
+                    <div className="input-field col s6">
                       <input
                         id="password_confirmation"
                         value={this.state.passwordConfirmation.value}
@@ -184,7 +234,11 @@ class Signup extends React.Component {
                         onChange={this.handlePasswordConfirmationChange}
                       />
                       <label for="password_confirmation">Password Confirmation</label>
-                      <span className="help-block">{this.state.passwordConfirmation.message}</span>
+                      <span
+                        className={passwordConfirmationClasses}
+                      >
+                        {this.state.passwordConfirmation.message}
+                      </span>
                     </div>
                   </div>
                   <div className="row center-align">
