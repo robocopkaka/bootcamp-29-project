@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -11,38 +12,54 @@ class Signup extends React.Component {
     this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
     this.register = this.register.bind(this);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      passwordConfirmation: ''
+      firstName: { value: '', isValid: true, message: '' },
+      lastName: { value: '', isValid: true, message: '' },
+      email: { value: '', isValid: true, message: '' },
+      password: { value: '', isValid: true, message: '' },
+      passwordConfirmation: {
+        value: '', isValid: true, matches: false, message: ''
+      }
     };
     const passwordsMatch = this.state.password === this.state.passwordConfirmation;
   }
   handleFirstNameChange(e) {
-    this.setState({ firstName: e.target.value });
+    const firstName = Object.assign({}, this.state.firstName);
+    firstName.value = e.target.value;
+    this.setState({ firstName });
   }
   handleLastNameChange(e) {
-    this.setState({ lastName: e.target.value });
+    const lastName = Object.assign({}, this.state.lastName);
+    lastName.value = e.target.value;
+    this.setState({ lastName });
   }
   handleEmailChange(e) {
-    this.setState({ email: e.target.value });
+    const email = Object.assign({}, this.state.email);
+    email.value = e.target.value;
+    this.setState({ email });
   }
   handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+    const password = Object.assign({}, this.state.password);
+    password.value = e.target.value;
+    this.setState({ password });
   }
   handlePasswordConfirmationChange(e) {
-    this.setState({ passwordConfirmation: e.target.value });
+    const passwordConfirmation = Object.assign({}, this.state.passwordConfirmation);
+    passwordConfirmation.value = e.target.value;
+    this.setState({ passwordConfirmation });
     // if (this.state.passwordConfirmation === this.state.password) {
     //   alert('Passwords don\'t match');
     // }
   }
   clearFields() {
-    this.setState({ firstName: '' });
-    this.setState({ lastName: '' });
-    this.setState({ email: '' });
-    this.setState({ password: '' });
-    this.setState({ passwordConfirmation: '' });
+    this.setState({ firstName: { value: '', isValid: true, message: '' } });
+    this.setState({ lastName: { value: '', isValid: true, message: '' } });
+    this.setState({ email: { value: '', isValid: true, message: '' } });
+    this.setState({ password: { value: '', isValid: true, message: '' } });
+    this.setState({
+      passwordConfirmation: {
+        value: '', isValid: true, message: '', matches: false
+      }
+    });
   }
   // comparePasswords() {
   //
@@ -51,14 +68,14 @@ class Signup extends React.Component {
     axios.post(
       'http://localhost:8000/api/v2/users',
       JSON.stringify({
-        name: `${this.state.firstName} ${this.state.lastName}`,
-        email: this.state.email,
-        password: this.state.password
+        name: `${this.state.firstName.value} ${this.state.lastName.value}`,
+        email: this.state.email.value,
+        password: this.state.password.value
       }),
       { headers: { 'Content-Type': 'application/json' } }
     )
       .then(() => {
-        alert(`Your account was created successfully, ${this.state.firstName} ${this.state.lastName}`);
+        alert(`Your account was created successfully, ${this.state.firstName.value}`);
         this.clearFields();
       })
       .catch((err) => {
@@ -79,7 +96,7 @@ class Signup extends React.Component {
                     <div className="input-field col s6">
                       <input
                         id="first_name"
-                        value={this.state.firstName}
+                        value={this.state.firstName.value}
                         type="text"
                         className="validate"
                         onChange={this.handleFirstNameChange}
@@ -89,7 +106,7 @@ class Signup extends React.Component {
                     <div className="input-field col s6">
                       <input
                         id="last_name"
-                        value={this.state.lastName}
+                        value={this.state.lastName.value}
                         type="text"
                         className="validate"
                         onChange={this.handleLastNameChange}
@@ -101,7 +118,7 @@ class Signup extends React.Component {
                     <div className="input-field col s12">
                       <input
                         id="email"
-                        value={this.state.email}
+                        value={this.state.email.value}
                         type="email"
                         className="validate"
                         onChange={this.handleEmailChange}
@@ -113,7 +130,7 @@ class Signup extends React.Component {
                     <div className="input-field col s6">
                       <input
                         id="password"
-                        value={this.state.password}
+                        value={this.state.password.value}
                         type="password"
                         className="validate"
                         onChange={this.handlePasswordChange}
@@ -123,7 +140,7 @@ class Signup extends React.Component {
                     <div className="input-field col s6">
                       <input
                         id="password_confirmation"
-                        value={this.state.passwordConfirmation}
+                        value={this.state.passwordConfirmation.value}
                         type="password"
                         className="validate"
                         onChange={this.handlePasswordConfirmationChange}
