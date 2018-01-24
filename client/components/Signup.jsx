@@ -77,7 +77,7 @@ class Signup extends React.Component {
     const state = Object.assign({}, this.state);
 
     Object.keys(state).map((key) => {
-      if (state[key].hasOwnProperty('isValid')) {
+      if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
       }
@@ -86,6 +86,7 @@ class Signup extends React.Component {
   }
   register(event) {
     event.preventDefault();
+    this.resetValidationStates();
     if (this.formIsValid()) {
       axios.post(
         'http://localhost:8000/api/v2/users',
