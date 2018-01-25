@@ -22,7 +22,12 @@ class Login extends React.Component {
                   <div className="row">
                     <div className="input-field col s12">
                       <label htmlFor="email">
-                        <input id="email" type="email" className="validate" />
+                        <input
+                          id="email"
+                          type="email"
+                          className="validate"
+                          onChange={this.handleEmailChange}
+                        />
                         Email
                       </label>
                     </div>
@@ -30,7 +35,12 @@ class Login extends React.Component {
                   <div className="row">
                     <div className="input-field col s12">
                       <label htmlFor="password">
-                        <input id="password" type="password" className="validate" />
+                        <input
+                          id="password"
+                          type="password"
+                          className="validate"
+                          onChange={this.handlePasswordChange}
+                        />
                         Password
                       </label>
                     </div>
