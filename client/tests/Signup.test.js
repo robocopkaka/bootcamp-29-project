@@ -22,4 +22,24 @@ describe('<Signup />', () => {
       target: {value: 's'}
     })).to.be.defined;
   });
+  it('should have a method that handles lastName change', () => {
+    expect(wrapper.instance().handleLastNameChange({
+      target: {value: 's'}
+    })).to.be.defined;
+  });
+  it('should have a method that handles email change', () => {
+    expect(wrapper.instance().handleEmailChange({
+      target: {value: 's'}
+    })).to.be.defined;
+  });
+  it('should have a method that handles password change', () => {
+    expect(wrapper.instance().handlePasswordChange({
+      target: {value: 's'}
+    })).to.be.defined;
+  });
+  it('should have a method that handles passwordConfirmation change', () => {
+    expect(wrapper.instance().handlePasswordConfirmationChange({
+      target: {value: 's'}
+    })).to.be.defined;
+  });
 });
