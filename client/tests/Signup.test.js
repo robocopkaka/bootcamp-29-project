@@ -19,7 +19,7 @@ describe('<Signup />', () => {
   });
   it('should have a method that handles firstName change', () => {
     expect(wrapper.instance().handleFirstNameChange({
-      target: {value: 's'}
+      target: { value: 's' }
     })).to.be.defined;
   });
   it('should have a method that handles lastName change', () => {
