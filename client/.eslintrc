@@ -27,6 +27,7 @@
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
