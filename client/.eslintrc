@@ -26,7 +26,7 @@
     "import/no-unresolved": [2, { commonjs: true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 2
+    "chai-friendly/no-unused-expressions": 2,
     "valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
