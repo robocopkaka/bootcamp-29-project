@@ -17,4 +17,9 @@ describe('<Signup />', () => {
   it('should have a button', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
+  it('should have a method that handles firstName change', () => {
+    expect(wrapper.instance().handleFirstNameChange({
+      target: {value: 's'}
+    })).to.be.defined;
+  });
 });
