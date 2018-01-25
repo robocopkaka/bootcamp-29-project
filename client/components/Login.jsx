@@ -6,9 +6,20 @@ import validator from 'validator';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: { value: '', isValid: true, message: '' },
+      password: { value: '', isValid: true, message: '' }
+    };
   }
-  login() {
-    const self = this;
+  handleEmailChange(e) {
+    const email = Object.assign({}, this.state.email);
+    email.value = e.target.vale;
+    this.setState({ email });
+  }
+  handlePasswordChange(e) {
+    const password = Object.assign({}, this.state.password);
+    password.value = e.target.value;
+    this.setState({ password });
   }
   render() {
     return (
@@ -24,6 +35,7 @@ class Login extends React.Component {
                       <label htmlFor="email">
                         <input
                           id="email"
+                          value={this.state.email.value}
                           type="email"
                           className="validate"
                           onChange={this.handleEmailChange}
@@ -37,6 +49,7 @@ class Login extends React.Component {
                       <label htmlFor="password">
                         <input
                           id="password"
+                          value={this.state.password.value}
                           type="password"
                           className="validate"
                           onChange={this.handlePasswordChange}
