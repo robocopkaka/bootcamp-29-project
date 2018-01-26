@@ -10,6 +10,8 @@ class Login extends React.Component {
       email: { value: '', isValid: true, message: '' },
       password: { value: '', isValid: true, message: '' }
     };
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
   handleEmailChange(e) {
     const email = Object.assign({}, this.state.email);
@@ -20,6 +22,9 @@ class Login extends React.Component {
     const password = Object.assign({}, this.state.password);
     password.value = e.target.value;
     this.setState({ password });
+  }
+  login() {
+    // s
   }
   render() {
     return (

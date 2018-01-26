@@ -27,4 +27,7 @@ describe('<Login />', () => {
       target: { value: 's' }
     })).to.be.defined;
   });
+  it('should have a method that logins a user', () => {
+    expect(wrapper.instance().login()).to.be.defined;
+  });
 });
