@@ -55,9 +55,27 @@ class Login extends React.Component {
       this.setState({ password: state.password });
       fieldCheck = false;
     }
+    if (!fieldCheck) {
+      return false;
+    }
+    return true;
   }
-  login() {
+  resetValidationStates() {
+    const state = Object.assign({}, this.state);
 
+    Object.keys(state).map((key) => {
+      if ({}.hasOwnProperty.call(state[key], 'isValid')) {
+        state[key].isValid = true;
+        state[key].message = '';
+      }
+    });
+    this.setState(state);
+  }
+  login(event) {
+    if (this.formIsValid()) {
+      event.preventDefault();
+      this.resetValidationStates();
+    }
   }
   render() {
     return (
