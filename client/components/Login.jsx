@@ -72,9 +72,24 @@ class Login extends React.Component {
     this.setState(state);
   }
   login(event) {
+    event.preventDefault();
+    this.resetValidationStates();
     if (this.formIsValid()) {
-      event.preventDefault();
-      this.resetValidationStates();
+      axios.post(
+        'http//:localhost:8000/api/v2/users/login',
+        JSON.stringify({
+          email: this.state.email.value,
+          password: this.state.password.value
+        }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+        .then((res) => {
+          alert('You\'ve been logged in successfully');
+          return res;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
   render() {
