@@ -12,10 +12,11 @@ class Login extends React.Component {
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.login = this.login.bind(this);
   }
   handleEmailChange(e) {
     const email = Object.assign({}, this.state.email);
-    email.value = e.target.vale;
+    email.value = e.target.value;
     this.setState({ email });
   }
   handlePasswordChange(e) {
@@ -34,7 +35,7 @@ class Login extends React.Component {
       this.setState({ email: state.email });
       fieldCheck = false;
     }
-    if (!validator.isEmpty(state.email.value)) {
+    if (validator.isEmpty(state.email.value)) {
       state.email.isValid = false;
       state.email.message = 'Email must not be empty';
 
@@ -48,7 +49,7 @@ class Login extends React.Component {
       this.setState({ password: state.password });
       fieldCheck = false;
     }
-    if (!validator.isEmpty(state.password.value)) {
+    if (validator.isEmpty(state.password.value)) {
       state.password.isValid = false;
       state.password.message = 'Password must not be empty';
 
@@ -76,7 +77,7 @@ class Login extends React.Component {
     this.resetValidationStates();
     if (this.formIsValid()) {
       axios.post(
-        'http//:localhost:8000/api/v2/users/login',
+        'http://localhost:8000/api/v2/users/login',
         JSON.stringify({
           email: this.state.email.value,
           password: this.state.password.value
@@ -85,7 +86,7 @@ class Login extends React.Component {
       )
         .then((res) => {
           alert('You\'ve been logged in successfully');
-          return res;
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -93,6 +94,8 @@ class Login extends React.Component {
     }
   }
   render() {
+    const emailClasses = classNames('help-block', { 'has-error': !this.state.email.isValid });
+    const passwordClasses = classNames('help-block', { 'has-error': !this.state.password.isValid });
     return (
       <div className="container">
         <div className="row signup-form center-align valign-wrapper">
@@ -111,6 +114,7 @@ class Login extends React.Component {
                         onChange={this.handleEmailChange}
                       />
                       <label for="email">Email</label>
+                      <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
                   <div className="row">
@@ -123,6 +127,7 @@ class Login extends React.Component {
                         onChange={this.handlePasswordChange}
                       />
                       <label htmlFor="password">Password</label>
+                      <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
                   </div>
                   <div className="row center-align">
@@ -130,6 +135,7 @@ class Login extends React.Component {
                       className="btn waves-effect waves-light navbar-purple round-btn"
                       type="submit"
                       name="action"
+                      onClick={this.login}
                     >Login
                       <i className="material-icons right">send</i>
                     </button>
