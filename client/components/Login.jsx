@@ -23,8 +23,41 @@ class Login extends React.Component {
     password.value = e.target.value;
     this.setState({ password });
   }
+  formIsValid() {
+    let fieldCheck = true;
+    const state = Object.assign({}, this.state);
+
+    if (!validator.isEmail(state.email.value)) {
+      state.email.isValid = false;
+      state.email.message = 'Email is invalid';
+
+      this.setState({ email: state.email });
+      fieldCheck = false;
+    }
+    if (!validator.isEmpty(state.email.value)) {
+      state.email.isValid = false;
+      state.email.message = 'Email must not be empty';
+
+      this.setState({ email: state.email });
+      fieldCheck = false;
+    }
+    if (!validator.isLength(state.password.value, { min: 6 })) {
+      state.password.isValid = false;
+      state.password.message = 'Password must have at least 6 characters';
+
+      this.setState({ password: state.password });
+      fieldCheck = false;
+    }
+    if (!validator.isEmpty(state.password.value)) {
+      state.password.isValid = false;
+      state.password.message = 'Password must not be empty';
+
+      this.setState({ password: state.password });
+      fieldCheck = false;
+    }
+  }
   login() {
-    // s
+
   }
   render() {
     return (
