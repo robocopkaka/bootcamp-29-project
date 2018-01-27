@@ -103,30 +103,26 @@ class Login extends React.Component {
                 <form className="container">
                   <div className="row">
                     <div className="input-field col s12">
-                      <label htmlFor="email">
-                        <input
-                          id="email"
-                          value={this.state.email.value}
-                          type="email"
-                          className="validate"
-                          onChange={this.handleEmailChange}
-                        />
-                        Email
-                      </label>
+                      <input
+                        id="email"
+                        value={this.state.email.value}
+                        type="email"
+                        className="validate"
+                        onChange={this.handleEmailChange}
+                      />
+                      <label for="email">Email</label>
                     </div>
                   </div>
                   <div className="row">
                     <div className="input-field col s12">
-                      <label htmlFor="password">
-                        <input
-                          id="password"
-                          value={this.state.password.value}
-                          type="password"
-                          className="validate"
-                          onChange={this.handlePasswordChange}
-                        />
-                        Password
-                      </label>
+                      <input
+                        id="password"
+                        value={this.state.password.value}
+                        type="password"
+                        className="validate"
+                        onChange={this.handlePasswordChange}
+                      />
+                      <label htmlFor="password">Password</label>
                     </div>
                   </div>
                   <div className="row center-align">
