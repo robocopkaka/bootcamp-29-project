@@ -30,4 +30,10 @@ describe('<Login />', () => {
   it('should have a method that logins a user', () => {
     expect(wrapper.instance().login()).to.be.defined;
   });
+  it('should return a token when the user has logged in', () => {
+    expect(wrapper.instance().login()).to.have.key('token');
+  });
+  it('should have a method that validates a form', () => {
+    expect(wrapper.instance().formIsValid()).to.be.defined;
+  });
 });
