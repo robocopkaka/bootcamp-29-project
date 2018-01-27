@@ -24,6 +24,10 @@ class Login extends React.Component {
     password.value = e.target.value;
     this.setState({ password });
   }
+  clearFields() {
+    this.setState({ email: { value: '', isValid: true, message: '' } });
+    this.setState({ password: { value: '', isValid: true, message: '' } });
+  }
   formIsValid() {
     let fieldCheck = true;
     const state = Object.assign({}, this.state);
@@ -87,6 +91,7 @@ class Login extends React.Component {
         .then((res) => {
           alert('You\'ve been logged in successfully');
           console.log(res);
+          this.clearFields();
         })
         .catch((err) => {
           console.log(err);
