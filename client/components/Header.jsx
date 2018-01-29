@@ -39,7 +39,7 @@ const Header = () => {
             <li className="left-padding">
               <ul className="collapsible collapsible-accordion">
                 <li>
-                  <a className="collapsible-header" href="login.html">Login
+                  <a className="collapsible-header" href="#">Login
                     <i className="material-icons right">arrow_drop_down</i>
                   </a>
                   <div className="collapsible-body">
