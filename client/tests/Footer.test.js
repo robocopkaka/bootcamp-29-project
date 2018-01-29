@@ -21,21 +21,22 @@ describe('<Footer />', () => {
     expect(wrapper.find('.container').find('.row').children().length).to.equal(2);
   });
   it('should have a child with a h5 tag saying EventManager in the first div child of the .row div', () => {
-    expect(wrapper.find('.container').find('.row').children()
-      .first()
-      .find('h5')
-      .text()).to.be('EventManager');
+    expect(wrapper.find('.container').find('.row')
+      .find('.col .l6 .s12')
+      .children('h5')
+      .text()).to.equal('EventManager');
   });
   it('should have a child with a p tag saying \'Find centers for your events\' in the first div child of the .row div', () => {
-    expect(wrapper.find('.container').find('.row').children()
+    expect(wrapper.find('.container').find('.row')
       .first()
       .find('p')
-      .text()).to.be('Find centers for your events');
+      .at(0)
+      .text()).to.equal('Find centers for your events');
   });
   it('should have a child with a h5 tag saying \'Useful links\' in the second div child of the .row div', () => {
     expect(wrapper.find('.container').find('.row').find('.l4')
-      .first()
-      .text()).to.be('Useful links');
+      .children('h5')
+      .text()).to.equal('Useful links');
   });
   it('should have a ul element in the second div child of the .row div', () => {
     expect(wrapper.find('.container').find('.row').find('.l4')
@@ -51,17 +52,15 @@ describe('<Footer />', () => {
   it('should have the text in the first li element in the ul element inside the second div child of the .row div have a text matching \'All Events\'', () => {
     expect(wrapper.find('.container').find('.row').find('.l4')
       .find('ul')
-      .children()
-      .find('li')
+      .children('li')
       .at(0)
-      .text()).to.be('All Events');
+      .text()).to.equal('All Events');
   });
   it('should have the text in the second li element in the ul element inside the second div child of the .row div have a text matching \'All Centers\'', () => {
     expect(wrapper.find('.container').find('.row').find('.l4')
       .find('ul')
-      .children()
-      .find('li')
+      .children('li')
       .at(1)
-      .text()).to.be('All Centers');
+      .text()).to.equal('All Centers');
   });
 });
