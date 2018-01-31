@@ -27,9 +27,9 @@ describe('<Home />', () => {
     expect(wrapper.find('li').at(0).text()).to.equal('Kachi\'s Event Manager');
   });
   it('should have the text in the first li element be \'Find centers that suit you\'', () => {
-    expect(wrapper.find('li').at(0).text()).to.equal('Find centers that suit you');
+    expect(wrapper.find('li').at(1).text()).to.equal('Find centers that suit you');
   });
   it('should have the text in the first li element be \'Find centers that suit you\'', () => {
-    expect(wrapper.find('li').at(0).text()).to.equal('And events you\'ll want to attend');
+    expect(wrapper.find('li').at(2).text()).to.equal('And events you\'ll want to attend');
   });
 });
