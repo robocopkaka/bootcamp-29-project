@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
 
 const Header = () => {
   return (
     <div>
       <ul id="signup-dropdown" className="dropdown-content">
-        <li><a href="login.html">Login</a></li>
+        <li><Link to="/">Login</Link></li>
         <li><a href="signup.html">Signup</a></li>
       </ul>
       <nav className="navbar-purple">
@@ -54,6 +58,9 @@ const Header = () => {
           </ul>
         </div>
       </nav>
+      <Route exact path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
     </div>
   );
 };
