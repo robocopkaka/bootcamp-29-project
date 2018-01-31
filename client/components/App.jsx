@@ -1,16 +1,23 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 
-import styles from './styles.module.css';
 
 const App = () => (
-  <div className={styles.wrapper}>
-    <h1>Hello World</h1>
+  <div>
+    <Header />
+    <Home />
+    <Footer />
+
+    <Route path="/" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
   </div>
+
 );
 
 export default App;
