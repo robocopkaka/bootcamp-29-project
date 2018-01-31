@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
-import Signup from './Signup';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -58,9 +55,6 @@ const Header = () => {
           </ul>
         </div>
       </nav>
-      <Route exact path="/" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
     </div>
   );
 };
