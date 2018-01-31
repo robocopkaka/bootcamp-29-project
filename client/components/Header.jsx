@@ -8,12 +8,12 @@ const Header = () => {
   return (
     <div>
       <ul id="signup-dropdown" className="dropdown-content">
-        <li><Link to="/">Login</Link></li>
-        <li><a href="signup.html">Signup</a></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">Signup</Link></li>
       </ul>
       <nav className="navbar-purple">
         <div className="nav-wrapper left-padding">
-          <a href="index.html" className="brand-logo">EventManager</a>
+          <Link to="/" className="brand-logo">EventManager</Link>
           <a
             href="index.html"
             data-activates="side-menu"
@@ -22,7 +22,7 @@ const Header = () => {
             <i className="material-icons">menu</i>
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li className="active"><a href="index.html">Home</a></li>
+            <li className="active"><Link to="/">Home</Link></li>
             <li><a href="all-events.html">Events</a></li>
             <li><a href="all-centers.html">Centers</a></li>
             <li>
@@ -37,7 +37,7 @@ const Header = () => {
           </ul>
 
           <ul className="side-nav" id="side-menu">
-            <li className="active"><a href="index.html">Home</a></li>
+            <li className="active"><Link to="/">Home</Link></li>
             <li><a href="all-events.html">Events</a></li>
             <li><a href="all-centers.html">Centers</a></li>
             <li className="left-padding">
@@ -48,8 +48,8 @@ const Header = () => {
                   </a>
                   <div className="collapsible-body">
                     <ul>
-                      <li><a href="signup.html">Login</a></li>
-                      <li><a href="login.html">Signup</a></li>
+                      <li><Link to="/login">Login</Link></li>
+                      <li><Link to="/signup">Signup</Link></li>
                     </ul>
                   </div>
                 </li>
