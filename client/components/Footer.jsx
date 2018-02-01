@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => (
   <footer className="page-footer navbar-purple index-footer footer-padding">
     <div className="container">
       <div className="row">
         <div className="col l6 s12">
-          <h5 className="white-text">EventManager</h5>
+          <Link to="/"><h5 className="white-text">EventManager</h5></Link>
           <p className="grey-text text-lighten-4">Find centers for your events</p>
         </div>
         <div className="col l4 offset-l2 s12">
