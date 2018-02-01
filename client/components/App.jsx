@@ -1,11 +1,15 @@
 import React from 'react';
-
-import styles from './styles.module.css';
+import Footer from './Footer';
+import Header from './Header';
+import Main from './Main';
 
 const App = () => (
-  <div className={styles.wrapper}>
-    <h1>Hello World</h1>
+  <div>
+    <Header />
+    <Main />
+    <Footer />
   </div>
+
 );
 
 export default App;
