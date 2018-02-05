@@ -7,10 +7,10 @@ export function loginSuccess() {
 }
 
 export function loginUser(credentials) {
-  return function(dispatch) {
+  return function (dispatch) {
     return sessionApi.login(credentials)
       .then((response) => {
-        sessionStorage.setItem('jwt', response.token);
+        sessionStorage.setItem('jwt', response.data.token);
         dispatch(loginSuccess());
       })
       .catch((error) => {

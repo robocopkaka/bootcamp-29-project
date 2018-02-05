@@ -1,4 +1,5 @@
 import initialState from './initialState';
+import history from '../history';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 

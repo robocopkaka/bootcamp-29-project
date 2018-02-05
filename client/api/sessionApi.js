@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class SessionApi {
   static login(credentials) {
-    axios.post(
+    return axios.post(
       'http://localhost:8000/api/v2/users/login',
       JSON.stringify({
         email: credentials.email,
