@@ -142,10 +142,12 @@ class Signup extends React.Component {
     this.resetValidationStates();
     if (this.formIsValid()) {
       const credentials = {
+        name: `${this.state.firstName.value} ${this.state.lastName.value}`,
         email: this.state.email.value,
         password: this.state.password.value
       };
       this.props.actions.registerUser(credentials);
+      this.clearFields();
     }
   }
   render() {

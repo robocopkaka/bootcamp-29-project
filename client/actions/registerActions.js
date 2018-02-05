@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import registerApi from '../api/registerApi';
+import RegisterApi from '../api/registerApi';
 
 export function registerSuccess() {
   return { type: types.registerApi };
@@ -7,7 +7,7 @@ export function registerSuccess() {
 
 export function registerUser(credentials) {
   return function(dispatch) {
-    return registerApi.register(credentials)
+    return RegisterApi.register(credentials)
       .then((response) => {
         dispatch(registerSuccess());
       })
