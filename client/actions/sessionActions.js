@@ -1,9 +1,9 @@
 import sessionApi from '../api/sessionApi';
+import * as types from './actionTypes';
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export function loginSuccess() {
-  return { type: LOGIN_SUCCESS };
+  return { type: types.LOGIN_SUCCESS };
 }
 
 export function loginUser(credentials) {
