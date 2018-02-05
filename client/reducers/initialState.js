@@ -1,4 +1,4 @@
 export default {
   session: !!sessionStorage.jwt,
-  isRegistered: false
+  isRegistered: !!sessionStorage.registered
 };

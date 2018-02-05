@@ -6,7 +6,7 @@ export default function registerReducer(state = initialState.isRegistered, actio
   switch (action.type) {
     case 'REGISTER_SUCCESS':
       history.push('/');
-      return true;
+      return !!sessionStorage.registered;
     default:
       return state;
   }
