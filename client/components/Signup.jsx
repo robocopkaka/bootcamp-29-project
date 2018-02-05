@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 import validator from 'validator';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as registerActions from '../actions/registerActions';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -138,22 +141,11 @@ class Signup extends React.Component {
     event.preventDefault();
     this.resetValidationStates();
     if (this.formIsValid()) {
-      axios.post(
-        'http://localhost:8000/api/v2/users',
-        JSON.stringify({
-          name: `${this.state.firstName.value} ${this.state.lastName.value}`,
-          email: this.state.email.value,
-          password: this.state.password.value
-        }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-        .then(() => {
-          alert(`Your account was created successfully, ${this.state.firstName.value}`);
-          this.clearFields();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const credentials = {
+        email: this.state.email.value,
+        password: this.state.password.value
+      };
+      this.props.actions.registerUser(credentials);
     }
   }
   render() {
@@ -261,4 +253,9 @@ class Signup extends React.Component {
     )
   }
 }
-export default Signup;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(registerActions, dispatch)
+  };
+}
+export default connect(null, mapDispatchToProps)(Signup);
