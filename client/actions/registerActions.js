@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import RegisterApi from '../api/registerApi';
 
 export function registerSuccess() {
-  return { type: types.registerApi };
+  return { type: types.REGISTER_SUCCESS };
 }
 
 export function registerUser(credentials) {

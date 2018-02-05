@@ -4,7 +4,7 @@ import initialState from './initialState';
 
 export default function registerReducer(state = initialState.isRegistered, action) {
   switch (action.type) {
-    case 'REGISTER_SUCCESS':
+    case types.REGISTER_SUCCESS:
       history.push('/');
       return !!sessionStorage.registered;
     default:
