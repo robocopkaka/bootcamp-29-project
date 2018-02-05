@@ -14,7 +14,7 @@ export function loginUser(credentials) {
         dispatch(loginSuccess());
       })
       .catch((error) => {
-        throw(error);
+        throw (error);
       });
   };
 }
