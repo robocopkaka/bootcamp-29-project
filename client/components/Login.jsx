@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import classNames from 'classnames';
 import validator from 'validator';
 import * as sessionActions from '../actions/sessionActions';
@@ -88,6 +88,7 @@ class Login extends React.Component {
     }
     if (this.formIsValid()) {
       this.props.actions.loginUser(credentials);
+      this.clearFields();
     }
   }
   render() {
