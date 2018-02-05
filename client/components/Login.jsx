@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import classNames from 'classnames';
 import validator from 'validator';
+import * as sessionActions from '../actions/sessionActions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -79,23 +82,12 @@ class Login extends React.Component {
   login(event) {
     event.preventDefault();
     this.resetValidationStates();
+    const credentials = {
+      email: this.state.email.value,
+      password: this.state.password.value
+    }
     if (this.formIsValid()) {
-      axios.post(
-        'http://localhost:8000/api/v2/users/login',
-        JSON.stringify({
-          email: this.state.email.value,
-          password: this.state.password.value
-        }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-        .then((res) => {
-          alert('You\'ve been logged in successfully');
-          console.log(res);
-          this.clearFields();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.props.actions.loginUser(credentials);
     }
   }
   render() {
@@ -154,4 +146,9 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sessionActions, dispatch)
+  };
+}
+export default connect(null, mapDispatchToProps)(Login);
