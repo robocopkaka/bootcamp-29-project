@@ -38,6 +38,7 @@
     "express": "^4.16.2",
     "express-joi-validator": "^2.0.0",
     "foreman": "^2.0.0",
+    "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "joi": "^13.0.2",
     "jsonwebtoken": "^8.1.0",

@@ -7,7 +7,6 @@ export default function sessionReducer(state = initialState.session, action) {
     case LOGIN_SUCCESS:
       history.push('/');
       return !!sessionStorage.jwt;
-      break;
     default:
       return state;
   }
