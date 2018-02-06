@@ -1,3 +1,3 @@
-export const events = './events.jpeg';
-export const owenShaw = './owen shaw.jpg';
-export const ramsey = 'ramsey.jpg';
+export events from './events.jpeg';
+export owenShaw from './owen shaw.jpg';
+export ramsey from 'ramsey.jpg';
