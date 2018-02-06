@@ -5,7 +5,7 @@ const Home = () => {
     <div className="slider">
       <ul className="slides">
         <li>
-          <img src="../../template/img/events.jpeg" alt="" />
+          <img src={require('../../template/img/events.jpeg')} alt="" />
           <div className="caption center-align">
             <h3 className="color-black">Kachi&#39;s Event Manager</h3>
           </div>
@@ -17,7 +17,7 @@ const Home = () => {
           </div>
         </li>
         <li>
-          <img src="../../template/img/events.jpeg" alt="" />
+          <img src={require('../../template/img/events.jpeg')} alt="" />
           <div className="caption right-align">
             <h3 className="color-black">And events you&#39;ll want to attend</h3>
           </div>
