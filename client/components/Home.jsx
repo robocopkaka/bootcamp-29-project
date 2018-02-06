@@ -11,7 +11,7 @@ const Home = () => {
           </div>
         </li>
         <li>
-          <img src="../../template/img/events.jpeg" alt="" />
+          <img src={require('../../template/img/events.jpeg')} alt="" />
           <div className="caption left-align">
             <h3 className="color-black">Find centers that suit you</h3>
           </div>
