@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -106,7 +107,7 @@ class AddCenter extends Component {
       image: this.state.image.value,
     };
     if (this.formIsValid()) {
-      this.props.actions.addCenter(values);
+      this.props.centerActions.addCenter(values);
       this.clearFields();
     }
   }
@@ -235,9 +236,12 @@ class AddCenter extends Component {
     );
   }
 }
+AddCenter.propTypes = {
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
+};
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(centerActions, dispatch)
+    centerActions: bindActionCreators(centerActions, dispatch)
   };
 }
 export default connect(null, mapDispatchToProps)(AddCenter);
