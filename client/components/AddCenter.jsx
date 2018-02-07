@@ -9,33 +9,16 @@ class AddCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: {
-        value: '', isValid: true, message: '', name: 'name'
-      },
-      capacity: {
-        value: '', isValid: true, message: '', name: 'address'
-      },
-      address: {
-        value: '', isValid: true, message: '', name: 'address'
-      },
-      state: {
-        value: '', isValid: true, message: '', name: 'state'
-      },
-      detail: {
-        value: '', isValid: true, message: '', name: 'detail'
-      },
-      chairs: {
-        value: '', isValid: true, message: '', name: 'chairs'
-      },
-      projector: {
-        value: '', isValid: true, message: '', name: 'projector'
-      },
-      image: {
-        value: '', isValid: true, message: '', name: 'image'
-      }
+      name: { value: '', isValid: true, message: '' },
+      capacity: { value: '', isValid: true, message: '' },
+      address: { value: '', isValid: true, message: '' },
+      state: { value: '', isValid: true, message: '' },
+      detail: { value: '', isValid: true, message: '' },
+      chairs: { value: '', isValid: true, message: '' },
+      projector: { value: '', isValid: true, message: '' },
+      image: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleNameChange = this.handleNameChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
   handleChange(event) {
@@ -53,41 +36,13 @@ class AddCenter extends Component {
         value: '', isValid: true, message: ''
       }
     });
-    this.setState({
-      capacity: {
-        value: '', isValid: true, message: '', name: 'capacity'
-      }
-    });
-    this.setState({
-      address: {
-        value: '', isValid: true, message: '', name: 'address'
-      }
-    });
-    this.setState({
-      state: {
-        value: '', isValid: true, message: '', name: 'state'
-      }
-    });
-    this.setState({
-      detail: {
-        value: '', isValid: true, message: '', name: 'detail'
-      }
-    });
-    this.setState({
-      chairs: {
-        value: '', isValid: true, message: '', name: 'chairs'
-      }
-    });
-    this.setState({
-      projector: {
-        value: '', isValid: true, message: '', name: 'projector'
-      }
-    });
-    this.setState({
-      image: {
-        value: '', isValid: true, message: '', name: 'image'
-      }
-    });
+    this.setState({ capacity: { value: '', isValid: true, message: '' } });
+    this.setState({ address: { value: '', isValid: true, message: '' } });
+    this.setState({ state: { value: '', isValid: true, message: '' } });
+    this.setState({ detail: { value: '', isValid: true, message: '' } });
+    this.setState({ chairs: { value: '', isValid: true, message: '' } });
+    this.setState({ projector: { value: '', isValid: true, message: '' } });
+    this.setState({ image: { value: '', isValid: true, message: '' } });
   }
   formIsValid() {
     let fieldCheck = true;
@@ -243,7 +198,7 @@ class AddCenter extends Component {
                   onChange={this.handleChange}
                 ></textarea>
                 <label for="center-state">Detail</label>
-                <span className={detailClasses}>{this.state.state.message}</span>
+                <span className={detailClasses}>{this.state.detail.message}</span>
               </div>
             </div>
             <div className="row">
