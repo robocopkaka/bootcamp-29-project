@@ -27,6 +27,9 @@ class AddCenter extends Component {
     this.setState({ address: { value: '', isValid: true, message: '' } });
     this.setState({ state: { value: '', isValid: true, message: '' } });
     this.setState({ detail: { value: '', isValid: true, message: '' } });
+    this.setState({ chairs: { value: '', isValid: true, message: '' } });
+    this.setState({ projector: { value: '', isValid: true, message: '' } });
+    this.setState({ image: { value: '', isValid: true, message: '' } });
   }
   formIsValid() {
     let fieldCheck = true;
@@ -75,5 +78,23 @@ class AddCenter extends Component {
       }
     });
     this.setState(state);
+  }
+  addCenter(event) {
+    event.preventDefault();
+    event.resetValidationStates();
+    const values = {
+      name: this.state.name.value,
+      capacity: this.state.capacity.value,
+      address: this.state.address.value,
+      state: this.state.state.value,
+      chairs: this.state.chairs.value,
+      projector: this.state.projector.value,
+      detail: this.state.detail.value,
+      image: this.state.image.value,
+    }
+    if (this.formIsValid()) {
+      this.props.actions.addCenter(values);
+      this.clearFields();
+    }
   }
 }
