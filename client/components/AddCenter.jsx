@@ -34,24 +34,23 @@ class AddCenter extends Component {
         value: '', isValid: true, message: '', name: 'image'
       }
     };
-    // this.handleChange = this.handleChange.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    // this.handleNameChange = this.handleNameChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
-  // handleChange(event) {
-  //   const state = Object.assign({}, this.state);
-  //   state[event.target.name] = event.target.value;
-  //   this.setState(state);
-  // }
-  handleNameChange(e) {
-    const name = Object.assign({}, this.state.name);
-    name.value = e.target.value;
-    this.setState({ name });
+  handleChange(event) {
+    const { state } = this;
+    const { name, value } = event.target;
+    const field = state[name];
+    field.value = value;
+    this.setState({
+      [field]: [field]
+    });
   }
   clearFields() {
     this.setState({
       name: {
-        value: '', isValid: true, message: '', name: 'name'
+        value: '', isValid: true, message: ''
       }
     });
     this.setState({
@@ -140,7 +139,7 @@ class AddCenter extends Component {
   }
   addCenter(event) {
     event.preventDefault();
-    event.resetValidationStates();
+    this.resetValidationStates();
     const values = {
       name: this.state.name.value,
       capacity: this.state.capacity.value,
@@ -176,7 +175,7 @@ class AddCenter extends Component {
                   value={this.state.name.value}
                   type="text"
                   className="validate"
-                  onChange={this.handleNameChange}
+                  onChange={this.handleChange}
                 />
                 <label for="center-name">Name</label>
                 <span className={nameClasses}>{this.state.name.message}</span>
