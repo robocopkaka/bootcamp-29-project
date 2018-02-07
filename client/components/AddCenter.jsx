@@ -15,8 +15,10 @@ class AddCenter extends Component {
       state: { value: '', isValid: true, message: '' },
       detail: { value: '', isValid: true, message: '' }
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.addCenter = this.addCenter.bind(this);
   }
-  onChange(event) {
+  handleChange(event) {
     const { state } = this;
     state[event.target.name] = event.target.value;
     this.setState(state);
@@ -111,35 +113,73 @@ class AddCenter extends Component {
           <form className="card-content">
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-name" type="text" className="validate" />
+                <input
+                  id="center-name"
+                  value={this.state.name.value}
+                  type="text"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
                 <label for="center-name">Name</label>
+                <span className={nameClasses}>{this.state.name.message}</span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-address" type="text" className="validate" />
+                <input
+                  id="center-address"
+                  value={this.state.address.value}
+                  type="text"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
                 <label for="center-address">Address</label>
+                <span className={addressClasses}>{this.state.address.message}</span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-state" type="text" className="validate" />
+                <input
+                  id="center-state"
+                  value={this.state.state.value}
+                  type="text"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
                 <label for="center-state">State</label>
+                <span className={stateClasses}>{this.state.email.message}</span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s6">
-                <input id="center-chairs" type="number" className="validate" />
+                <input
+                  id="center-chairs"
+                  value={this.state.chairs.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
                 <label for="center-state">Chairs</label>
               </div>
               <div className="input-field col s6">
-                <input id="center-projector" type="number" className="validate" />
+                <input
+                  id="center-projector"
+                  value={this.state.projector.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
                 <label for="center-projector">Projector</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <textarea id="center-detail" className="materialize-textarea"></textarea>
+                <textarea
+                  id="center-detail"
+                  value={this.state.detail.value}
+                  className="materialize-textarea validate"
+                  onChange={this.handleChange}
+                ></textarea>
                 <label for="center-state">State</label>
               </div>
             </div>
@@ -150,7 +190,12 @@ class AddCenter extends Component {
                   <input type="file" />
                 </div>
                 <div className="file-path-wrapper">
-                  <input className="file-path validate" type="text" />
+                  <input
+                    className="file-path validate"
+                    value={this.state.image.value}
+                    type="text"
+                    onChange={this.handleChange}
+                  />
                 </div>
               </div>
             </div>
@@ -159,6 +204,7 @@ class AddCenter extends Component {
                 className="btn waves-effect waves-light navbar-purple round-btn"
                 type="submit"
                 name="action"
+                onClick={this.addCenter}
               >
                 Add Center
                 <i className="material-icons right">send</i>
