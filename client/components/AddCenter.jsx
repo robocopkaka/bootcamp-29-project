@@ -9,29 +9,86 @@ class AddCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: { value: '', isValid: true, message: '' },
-      capacity: { value: '', isValid: true, message: '' },
-      address: { value: '', isValid: true, message: '' },
-      state: { value: '', isValid: true, message: '' },
-      detail: { value: '', isValid: true, message: '' }
+      name: {
+        value: '', isValid: true, message: '', name: 'name'
+      },
+      capacity: {
+        value: '', isValid: true, message: '', name: 'address'
+      },
+      address: {
+        value: '', isValid: true, message: '', name: 'address'
+      },
+      state: {
+        value: '', isValid: true, message: '', name: 'state'
+      },
+      detail: {
+        value: '', isValid: true, message: '', name: 'detail'
+      },
+      chairs: {
+        value: '', isValid: true, message: '', name: 'chairs'
+      },
+      projector: {
+        value: '', isValid: true, message: '', name: 'projector'
+      },
+      image: {
+        value: '', isValid: true, message: '', name: 'image'
+      }
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
-  handleChange(event) {
-    const { state } = this;
-    state[event.target.name] = event.target.value;
-    this.setState(state);
+  // handleChange(event) {
+  //   const state = Object.assign({}, this.state);
+  //   state[event.target.name] = event.target.value;
+  //   this.setState(state);
+  // }
+  handleNameChange(e) {
+    const name = Object.assign({}, this.state.name);
+    name.value = e.target.value;
+    this.setState({ name });
   }
   clearFields() {
-    this.setState({ name: { value: '', isValid: true, message: '' } });
-    this.setState({ capacity: { value: '', isValid: true, message: '' } });
-    this.setState({ address: { value: '', isValid: true, message: '' } });
-    this.setState({ state: { value: '', isValid: true, message: '' } });
-    this.setState({ detail: { value: '', isValid: true, message: '' } });
-    this.setState({ chairs: { value: '', isValid: true, message: '' } });
-    this.setState({ projector: { value: '', isValid: true, message: '' } });
-    this.setState({ image: { value: '', isValid: true, message: '' } });
+    this.setState({
+      name: {
+        value: '', isValid: true, message: '', name: 'name'
+      }
+    });
+    this.setState({
+      capacity: {
+        value: '', isValid: true, message: '', name: 'capacity'
+      }
+    });
+    this.setState({
+      address: {
+        value: '', isValid: true, message: '', name: 'address'
+      }
+    });
+    this.setState({
+      state: {
+        value: '', isValid: true, message: '', name: 'state'
+      }
+    });
+    this.setState({
+      detail: {
+        value: '', isValid: true, message: '', name: 'detail'
+      }
+    });
+    this.setState({
+      chairs: {
+        value: '', isValid: true, message: '', name: 'chairs'
+      }
+    });
+    this.setState({
+      projector: {
+        value: '', isValid: true, message: '', name: 'projector'
+      }
+    });
+    this.setState({
+      image: {
+        value: '', isValid: true, message: '', name: 'image'
+      }
+    });
   }
   formIsValid() {
     let fieldCheck = true;
@@ -48,7 +105,7 @@ class AddCenter extends Component {
       state.address.isValid = false;
       state.address.message = 'Address must not be empty';
 
-      this.setState({ email: state.address });
+      this.setState({ address: state.address });
       fieldCheck = false;
     }
     if (validator.isEmpty(state.state.value)) {
@@ -60,9 +117,9 @@ class AddCenter extends Component {
     }
     if (validator.isEmpty(state.detail.value)) {
       state.detail.isValid = false;
-      state.detail.message = 'Email must not be empty';
+      state.detail.message = 'Detail must not be empty';
 
-      this.setState({ email: state.detail });
+      this.setState({ detail: state.detail });
       fieldCheck = false;
     }
     if (!fieldCheck) {
@@ -93,7 +150,7 @@ class AddCenter extends Component {
       projector: this.state.projector.value,
       detail: this.state.detail.value,
       image: this.state.image.value,
-    }
+    };
     if (this.formIsValid()) {
       this.props.actions.addCenter(values);
       this.clearFields();
@@ -115,10 +172,11 @@ class AddCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-name"
+                  name="name"
                   value={this.state.name.value}
                   type="text"
                   className="validate"
-                  onChange={this.handleChange}
+                  onChange={this.handleNameChange}
                 />
                 <label for="center-name">Name</label>
                 <span className={nameClasses}>{this.state.name.message}</span>
@@ -128,6 +186,7 @@ class AddCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-address"
+                  name="address"
                   value={this.state.address.value}
                   type="text"
                   className="validate"
@@ -141,19 +200,21 @@ class AddCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-state"
+                  name="state"
                   value={this.state.state.value}
                   type="text"
                   className="validate"
                   onChange={this.handleChange}
                 />
                 <label for="center-state">State</label>
-                <span className={stateClasses}>{this.state.email.message}</span>
+                <span className={stateClasses}>{this.state.state.message}</span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s6">
                 <input
                   id="center-chairs"
+                  name="chair"
                   value={this.state.chairs.value}
                   type="number"
                   className="validate"
@@ -164,6 +225,7 @@ class AddCenter extends Component {
               <div className="input-field col s6">
                 <input
                   id="center-projector"
+                  name="projector"
                   value={this.state.projector.value}
                   type="number"
                   className="validate"
@@ -176,11 +238,13 @@ class AddCenter extends Component {
               <div className="input-field col s12">
                 <textarea
                   id="center-detail"
+                  name="detail"
                   value={this.state.detail.value}
                   className="materialize-textarea validate"
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="center-state">State</label>
+                <label for="center-state">Detail</label>
+                <span className={detailClasses}>{this.state.state.message}</span>
               </div>
             </div>
             <div className="row">
@@ -192,6 +256,7 @@ class AddCenter extends Component {
                 <div className="file-path-wrapper">
                   <input
                     className="file-path validate"
+                    name="image"
                     value={this.state.image.value}
                     type="text"
                     onChange={this.handleChange}
