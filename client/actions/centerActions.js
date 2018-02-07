@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import centerApi from '../api/centerApi';
+import CenterApi from '../api/centerApi';
 
 export function addCenterSuccess() {
   return { type: types.ADD_CENTER_SUCCESS };
