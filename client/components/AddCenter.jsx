@@ -97,4 +97,76 @@ class AddCenter extends Component {
       this.clearFields();
     }
   }
+  render() {
+    const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
+    const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
+    const addressClasses = classNames('help-block', { 'has-error': !this.state.address.isValid });
+    const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
+    return (
+      <div className="container max-width-six-hundred">
+        <div className="card">
+          <div className="container">
+            <h3 className="center-heading">Add a Center</h3>
+          </div>
+          <form className="card-content">
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="center-name" type="text" className="validate" />
+                <label for="center-name">Name</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="center-address" type="text" className="validate" />
+                <label for="center-address">Address</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="center-state" type="text" className="validate" />
+                <label for="center-state">State</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s6">
+                <input id="center-chairs" type="number" className="validate" />
+                <label for="center-state">Chairs</label>
+              </div>
+              <div className="input-field col s6">
+                <input id="center-projector" type="number" className="validate" />
+                <label for="center-projector">Projector</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <textarea id="center-detail" className="materialize-textarea"></textarea>
+                <label for="center-state">State</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="file-field input-field">
+                <div className="btn navbar-purple round-btn">
+                  <span>Image</span>
+                  <input type="file" />
+                </div>
+                <div className="file-path-wrapper">
+                  <input className="file-path validate" type="text" />
+                </div>
+              </div>
+            </div>
+            <div className="row center-align">
+              <button
+                className="btn waves-effect waves-light navbar-purple round-btn"
+                type="submit"
+                name="action"
+              >
+                Add Center
+                <i className="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
