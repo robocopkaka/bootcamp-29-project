@@ -170,3 +170,9 @@ class AddCenter extends Component {
     );
   }
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(centerActions, dispatch)
+  };
+}
+export default connect(null, mapDispatchToProps)(AddCenter);
