@@ -96,7 +96,7 @@ class AddCenter extends Component {
   addCenter(event) {
     event.preventDefault();
     this.resetValidationStates();
-    const values = {
+    const center = {
       name: this.state.name.value,
       capacity: this.state.capacity.value,
       address: this.state.address.value,
@@ -107,7 +107,7 @@ class AddCenter extends Component {
       image: this.state.image.value,
     };
     if (this.formIsValid()) {
-      this.props.centerActions.addCenter(values);
+      this.props.centerActions.addCenter(center);
       this.clearFields();
     }
   }
@@ -169,7 +169,7 @@ class AddCenter extends Component {
               <div className="input-field col s6">
                 <input
                   id="center-chairs"
-                  name="chair"
+                  name="chairs"
                   value={this.state.chairs.value}
                   type="number"
                   className="validate"

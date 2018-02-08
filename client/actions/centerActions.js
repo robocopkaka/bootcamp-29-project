@@ -6,13 +6,13 @@ export function addCenterSuccess(center) {
 }
 
 export function addCenter(values) {
-  return function(dispatch) {
+  return function (dispatch) {
     return CenterApi.create(values)
       .then((response) => {
         dispatch(addCenterSuccess(response));
       })
       .catch((error) => {
-        throw (error);
+        console.log(error);
       });
-  }
+  };
 }
