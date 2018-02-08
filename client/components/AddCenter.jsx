@@ -77,6 +77,13 @@ class AddCenter extends Component {
       this.setState({ detail: state.detail });
       fieldCheck = false;
     }
+    if (validator.isEmpty(state.capacity.value)) {
+      state.capacity.isValid = false;
+      state.capacity.message = 'Capacity must not be empty';
+
+      this.setState({ detail: state.detail });
+      fieldCheck = false;
+    }
     if (!fieldCheck) {
       return false;
     }
@@ -116,6 +123,7 @@ class AddCenter extends Component {
     const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
     const addressClasses = classNames('help-block', { 'has-error': !this.state.address.isValid });
     const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
+    const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
     return (
       <div className="container max-width-six-hundred">
         <div className="card">
@@ -166,7 +174,19 @@ class AddCenter extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s6">
+              <div className="input-field col s4">
+                <input
+                  id="center-capacity"
+                  name="capacity"
+                  value={this.state.capacity.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
+              <label for="center-capacity">Capacity</label>
+                <span className={capacityClasses}>{this.state.capacity.message}</span>
+              </div>
+              <div className="input-field col s4">
                 <input
                   id="center-chairs"
                   name="chairs"
@@ -177,7 +197,7 @@ class AddCenter extends Component {
                 />
                 <label for="center-state">Chairs</label>
               </div>
-              <div className="input-field col s6">
+              <div className="input-field col s4">
                 <input
                   id="center-projector"
                   name="projector"
