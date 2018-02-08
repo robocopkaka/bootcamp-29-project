@@ -9,7 +9,7 @@ export function addCenter(values) {
   return function (dispatch) {
     return CenterApi.create(values)
       .then((response) => {
-        dispatch(addCenterSuccess(response));
+        dispatch(addCenterSuccess(response.data));
       })
       .catch((error) => {
         console.log(error);
