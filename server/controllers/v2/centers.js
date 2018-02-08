@@ -105,12 +105,16 @@ module.exports = {
                     capacity: req.body.capacity,
                     address: req.body.address,
                     state: req.body.state,
-                    userId: req.decoded.id
+                    userId: req.decoded.id,
+                    image: req.body.image,
+                    chairs: req.body.chairs,
+                    projector: req.body.projector
                   })
-                  .then(() => {
+                  .then((response) => {
                     res.status(201).send({
                       success: true,
-                      message: 'Center created successfully'
+                      message: 'Center created successfully',
+                      center: response
                     });
                   })
                   .catch(() => res.status(400).send({
