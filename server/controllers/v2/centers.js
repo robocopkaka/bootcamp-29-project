@@ -114,7 +114,17 @@ module.exports = {
                     res.status(201).send({
                       success: true,
                       message: 'Center created successfully',
-                      center: response
+                      center: {
+                        id: response.id,
+                        name: response.name,
+                        address: response.address,
+                        state: response.state,
+                        capacity: response.capacity,
+                        detail: response.detail,
+                        chairs: response.chairs,
+                        projector: response.projector,
+                        image: response.image
+                      }
                     });
                   })
                   .catch(() => res.status(400).send({
