@@ -21,13 +21,16 @@ describe('Centers endpoints', () => {
       })
   ));
   describe('POST /api/v2/centers endpoint', () => {
-    it('should return \'Resource created\' and a 201 if the center parameters are valid', () => (
+    it('should return \'Resource created\', a center object and a 201 if the center parameters are valid', () => (
       request(app)
         .post('/api/v2/centers')
         .set('x-access-token', token)
         .send(newCenterDB)
         .then((res) => {
           res.should.have.status(201);
+          res.body.should.have.property('center');
+          res.body.should.have.property('center').should.be.an('object');
+          // res.property('center').should.be.an('object');
           // res.body.should.have.property('id');
           // res.body.should.have.property('message').eql('Center created');
         })
