@@ -10,7 +10,7 @@ class CenterApi {
         capacity: center.capacity,
         state: center.state,
         detail: center.detail,
-        chairs: center.chair,
+        chairs: center.chairs,
         projector: center.projector
       }),
       {
