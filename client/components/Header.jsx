@@ -20,7 +20,7 @@ const Header = () => (
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li className="active"><Link to="/">Home</Link></li>
           <li><a href="all-events.html">Events</a></li>
-          <li><a href="all-centers.html">Centers</a></li>
+          <li><Link to="/add-center">Centers</Link></li>
           <li>
             <a
               className="dropdown-button"
@@ -35,7 +35,7 @@ const Header = () => (
         <ul className="side-nav" id="side-menu">
           <li className="active"><Link to="/">Home</Link></li>
           <li><a href="all-events.html">Events</a></li>
-          <li><a href="all-centers.html">Centers</a></li>
+          <li><Link to="/add-center">Centers</Link></li>
           <li className="left-padding">
             <ul className="collapsible collapsible-accordion">
               <li>
