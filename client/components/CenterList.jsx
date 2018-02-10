@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as styles from '../css/centers.css';
+import * as styles from '../css/centers.module.css';
 
 const CenterList = ({ centers }) => {
   return (
@@ -15,10 +15,10 @@ const CenterList = ({ centers }) => {
               <span className={styles['center-name']}>
                 <a href="show-center.html">{center.name}</a>
               </span><br />
-              <span className="center-state">
+              <span className={styles['center-state']}>
                 <a href="show-center.html">{center.state}</a>
               </span><br />
-              <span className="center-address">{center.address}</span>
+              <span className={styles['center-address']}>{center.address}</span>
             </div>
             <div className="card-action">
               <a
