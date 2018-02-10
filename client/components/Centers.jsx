@@ -17,9 +17,9 @@ class Centers extends Component {
     return (
       <div className="container">
         <Search />
-        <div class="top-ten-padding"></div>
+        <div className="top-ten-padding" />
         <div className="row">
-          <div  className="col s12 m6 l4">
+          <div className="col s12 m6 l4">
             <CenterList centers={this.props.centers} />
           </div>
         </div>
@@ -34,7 +34,8 @@ class Centers extends Component {
 }
 
 Centers.propTypes = {
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
 function mapStateToProps(state, ownProps) {
