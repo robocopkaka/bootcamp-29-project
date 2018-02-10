@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as styles from '../css/centers.css';
 
 const CenterList = ({ centers }) => {
   return (
@@ -11,7 +12,7 @@ const CenterList = ({ centers }) => {
               <a href="show-center.html"><img src={center.image} alt="" /></a>
             </div>
             <div className="card-content">
-              <span className="center-name">
+              <span className={styles['center-name']}>
                 <a href="show-center.html">{center.name}</a>
               </span><br />
               <span className="center-state">
