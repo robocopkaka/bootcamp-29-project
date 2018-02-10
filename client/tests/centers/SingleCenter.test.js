@@ -14,8 +14,8 @@ describe('<SingleCenter />', () => {
   it('should have a CenterDetail component rendered inside it', () => {
     expect(wrapper.find('CenterDetail').length).to.equal(1);
   });
-  it('should have a EventList component rendered inside it', () => {
-    expect(wrapper.find('EventList').length).to.equal(1);
+  it('should have a EventsList component rendered inside it', () => {
+    expect(wrapper.find('EventsList').length).to.equal(1);
   });
   it('should have a div with a .container class', () => {
     expect(wrapper.find('.container').length).to.equal(1);
