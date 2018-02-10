@@ -10,6 +10,8 @@ export default function centerReducer(state = initialState.centers, action) {
         ...state.filter(center => center.id !== action.center.id),
         Object.assign({}, action.center)
       ];
+    case types.FETCH_CENTERS_SUCCESS:
+      return action.centers;
     default:
       return state;
   }
