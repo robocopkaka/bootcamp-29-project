@@ -28,5 +28,22 @@ class CenterApi {
         return err;
       });
   }
+  static getAll() {
+    return axios.get(
+      'http://localhost:8000/api/v2/centers',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        console.log('CATCH = ', err.response);
+        return err;
+      });
+  }
 }
 export default CenterApi;

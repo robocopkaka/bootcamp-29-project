@@ -8,11 +8,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import history from './history';
+import { fetchCenters } from './actions/centerActions';
 
 const createStoreWithMiddleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware))(createStore);
 
 const store = createStoreWithMiddleware(rootReducer);
+store.dispatch(fetchCenters());
 
 ReactDOM.render(
   <Provider store={store}>
