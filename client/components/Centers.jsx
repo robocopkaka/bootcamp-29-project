@@ -19,9 +19,7 @@ class Centers extends Component {
         <Search />
         <div className="top-ten-padding" />
         <div className="row">
-          <div className="col s12 m6 l4">
-            <CenterList centers={this.props.centers} />
-          </div>
+          <CenterList centers={this.props.centers} />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <a className="btn-floating btn-large red white-color" href="new-center.html">
