@@ -9,9 +9,9 @@ import Search from './Search';
 
 class Centers extends Component {
   componentWillMount() {
-    // if (this.props.centers.length === 0) {
-    this.props.centerActions.fetchCenters();
-    // }
+    if (this.props.centers.length === 0) {
+      this.props.centerActions.fetchCenters();
+    }
   }
   render() {
     return (
@@ -36,7 +36,7 @@ Centers.propTypes = {
   centerActions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     centers: state.centers
   };
