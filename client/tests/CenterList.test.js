@@ -12,12 +12,12 @@ describe('<Centers />', () => {
     wrapper = shallow(<CenterList />);
   });
   it('should have a div with a .container class', () => {
-    expect(wrapper.find('container').length).to.equal(1);
+    expect(wrapper.find('.container').length).to.equal(1);
   });
   it('should have a div with a .card class', () => {
-    expect(wrapper.find('card').length).to.equal(1);
+    expect(wrapper.find('.card').length).to.equal(1);
   });
   it('should have three divs inside the .card div', () => {
-    expect(wrapper.find('card').children().length).to.equal(3);
+    expect(wrapper.find('.card').children().length).to.equal(3);
   });
 });
