@@ -18,7 +18,7 @@ class SingleCenter extends Component {
         </div>
         <div className="row">
           <div className="col s12 m8 l8 left-div-padding">
-            <EventsList events={this.props.center.events} />
+            <EventsList events={this.props.center.events.groupBy('date')} />
           </div>
         </div>
       </div>
@@ -41,5 +41,13 @@ function mapDispatchToProps(dispatch) {
   return {
     centerActions: bindActionCreators(centerActions, dispatch)
   };
+}
+Array.prototype.groupBy = function(prop) {
+  return this.reduce(function(groups, item) {
+    const val = item[prop]
+    groups[val] = groups[val] || []
+    groups[val].push(item)
+    return groups
+  }, {})
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCenter);
