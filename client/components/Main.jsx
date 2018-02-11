@@ -13,7 +13,6 @@ const Main = () => (
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route path="/centers" component={Centers} />
-    <Route path="/centers/:id" component={SingleCenter} />
     <Route path="/add-center" component={AddCenter} />
   </Switch>
 );

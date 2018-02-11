@@ -8,7 +8,7 @@ import * as singleCenterActions from '../../actions/singleCenterActions';
 
 class SingleCenter extends Component {
   componentDidMount() {
-    this.props.singleCenterActions.fetchSingleCenter(this.props.centerId);
+    this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
   }
   render() {
     return (
