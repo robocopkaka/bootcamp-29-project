@@ -4,12 +4,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import EventsList from '../events/EventsList';
 import CenterDetail from './CenterDetail';
+import * as centerActions from '../../actions/centerActions';
 
 class SingleCenter extends Component {
+  componentWillMount() {
+    this.props.centerActions.getCenter();
+  }
   render() {
     return (
       <div className=".container">
-        <div class="valign-wrapper center-align show-center-top">
+        <div className="valign-wrapper center-align show-center-top">
           <CenterDetail center={this.props.center} />
         </div>
         <div className="row">
@@ -19,27 +23,33 @@ class SingleCenter extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 SingleCenter.propTypes = {
-  center: PropTypes.objectOf(),
+  center: PropTypes.objectOf().isRequired,
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
 };
-function mapStateToProps(state, ownProps) {
-  let center = {
-    name: '',
-    capacity: '',
-    detail: '',
-    address: '',
-    state: '',
-    chairs: '',
-    projector: '',
-    image: '',
-    events: {}
+// function mapStateToProps(state, ownProps) {
+//   let center = {
+//     name: '',
+//     capacity: '',
+//     detail: '',
+//     address: '',
+//     state: '',
+//     chairs: '',
+//     projector: '',
+//     image: '',
+//     events: {}
+//   };
+//   const centerId = ownProps.params.id;
+//   if (state.centers.length > 0) {
+//     center = Object.assign({}, state.centers.find(center => center.id === centerId));
+//   }
+//   return { center };
+// }
+function mapDispatchToProps(dispatch) {
+  return {
+    centerActions: bindActionCreators(centerActions, dispatch)
   };
-  const centerId = ownProps.params.id;
-  if (state.centers.length > 0) {
-    center = Object.assign({}, state.centers.find(center => center.id === centerId));
-  }
-  return { center };
 }
-export default connect(mapStateToProps)(SingleCenter);
+export default connect(mapDispatchToProps)(SingleCenter);
