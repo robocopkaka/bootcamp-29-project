@@ -8,7 +8,7 @@ import * as centerActions from '../../actions/centerActions';
 
 class SingleCenter extends Component {
   componentWillMount() {
-    this.props.centerActions.getCenter();
+    this.props.centerActions.getCenter(this.props.centerId);
   }
   render() {
     return (
@@ -27,29 +27,16 @@ class SingleCenter extends Component {
 }
 SingleCenter.propTypes = {
   center: PropTypes.objectOf().isRequired,
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  centerId: PropTypes.number.isRequired
 };
-// function mapStateToProps(state, ownProps) {
-//   let center = {
-//     name: '',
-//     capacity: '',
-//     detail: '',
-//     address: '',
-//     state: '',
-//     chairs: '',
-//     projector: '',
-//     image: '',
-//     events: {}
-//   };
-//   const centerId = ownProps.params.id;
-//   if (state.centers.length > 0) {
-//     center = Object.assign({}, state.centers.find(center => center.id === centerId));
-//   }
-//   return { center };
-// }
+function mapStateToProps(state, ownProps) {
+  const centerId = ownProps.params.id;
+  return centerId;
+}
 function mapDispatchToProps(dispatch) {
   return {
     centerActions: bindActionCreators(centerActions, dispatch)
   };
 }
-export default connect(mapDispatchToProps)(SingleCenter);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCenter);
