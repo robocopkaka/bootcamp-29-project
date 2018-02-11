@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as styles from '../css/centers.module.css';
 
 const CenterList = ({ centers }) => (
@@ -8,7 +9,7 @@ const CenterList = ({ centers }) => (
       <div className="col s12 m6 l4" key={center.id}>
         <div className="card">
           <div className="card-image">
-            <a href="show-center.html"><img src={center.image} alt="" /></a>
+            <Link to={`/centers/${center.id}`}><img src={center.image} alt="" /></Link>
           </div>
           <div className="card-content">
             <span className={styles['center-name']}>
@@ -20,12 +21,12 @@ const CenterList = ({ centers }) => (
             <span className={styles['center-address']}>{center.address}</span>
           </div>
           <div className="card-action">
-            <a
+            <Link
+              to={`/centers/${center.id}`}
               className="waves-effect waves-light btn navbar-purple round-btn white-color"
-              href="show-center.html"
             >
               View
-            </a>
+            </Link>
           </div>
         </div>
       </div>

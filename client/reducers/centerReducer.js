@@ -13,6 +13,7 @@ export default function centerReducer(state = initialState, action) {
     case types.FETCH_CENTERS_SUCCESS:
       return action.centers;
     case types.FETCH_SINGLE_CENTER_SUCCESS:
+      history.push(`/centers/${action.center.id}`);
       return action.center;
     default:
       return state;
