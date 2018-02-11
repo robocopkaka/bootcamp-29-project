@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import EventsList from '../events/EventsList';
 import CenterDetail from './CenterDetail';
-import * as centerActions from '../../actions/centerActions';
+import * as singleCenterActions from '../../actions/singleCenterActions';
 
 class SingleCenter extends Component {
-  componentWillMount() {
-    this.props.centerActions.fetchSingleCenter(this.props.centerId);
+  componentDidMount() {
+    this.props.singleCenterActions.fetchSingleCenter(this.props.centerId);
   }
   render() {
     return (
@@ -27,19 +27,34 @@ class SingleCenter extends Component {
 }
 SingleCenter.propTypes = {
   center: PropTypes.objectOf().isRequired,
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
   centerId: PropTypes.number.isRequired
 };
 function mapStateToProps(state, ownProps) {
   const centerId = ownProps.params.id;
+  let center;
+  if (state.center.name === '') {
+    center = {
+      name: '',
+      capacity: '',
+      state: '',
+      address: '',
+      chairs: '',
+      detail: '',
+      projector: '',
+      image: ''
+    };
+  } else {
+    center = state.center;
+  }
   return {
     centerId,
-    center: state.center
+    center
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    centerActions: bindActionCreators(centerActions, dispatch)
+    singleCenterActions: bindActionCreators(singleCenterActions, dispatch)
   };
 }
 Array.prototype.groupBy = function(prop) {
