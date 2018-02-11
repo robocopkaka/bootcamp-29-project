@@ -32,7 +32,10 @@ SingleCenter.propTypes = {
 };
 function mapStateToProps(state, ownProps) {
   const centerId = ownProps.params.id;
-  return centerId;
+  return {
+    centerId,
+    center: state.center
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
