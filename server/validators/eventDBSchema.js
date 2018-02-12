@@ -3,6 +3,7 @@ import Joi from 'joi';
 const eventDBSchema = {
   body: {
     name: Joi.string().required(),
+    detail: Joi.string().required(),
     date: Joi.string().required(),
     centerId: Joi.number().required(),
     categoryId: Joi.number().required()
