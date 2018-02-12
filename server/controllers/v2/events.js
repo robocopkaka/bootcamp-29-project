@@ -100,6 +100,7 @@ module.exports = {
                         Event
                           .create({
                             name: req.body.name,
+                            detail: req.body.detail,
                             date: req.body.date,
                             guests: 1000,
                             userId: req.decoded.id,
