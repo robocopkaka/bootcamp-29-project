@@ -63,6 +63,7 @@ before((done) => {
                   .create({
                     name: 'new event',
                     date: '2020-01-01',
+                    detail: 'Awesome event',
                     categoryId: 1,
                     centerId: center.id
                   })

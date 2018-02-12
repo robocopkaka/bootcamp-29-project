@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      detail: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       status: {
         type: Sequelize.ENUM,
         values: ['open', 'closed'],
