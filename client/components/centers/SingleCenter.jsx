@@ -9,21 +9,16 @@ import * as singleCenterActions from '../../actions/singleCenterActions';
 class SingleCenter extends Component {
   componentDidMount() {
     this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
+    console.log(this.props);
   }
-  // componentWillUnmount() {
-  //   this.props.center = {
-  //     id: '',
-  //     name: '',
-  //     capacity: '',
-  //     state: '',
-  //     address: '',
-  //     chairs: '',
-  //     detail: '',
-  //     projector: '',
-  //     image: '',
-  //     events: []
-  //   };
-  // }
+  groupByDate() {
+    this.props.center.events.reduce((events, item) => {
+      const key = 'date';
+      events[key] = events[key] || [];
+      events[key].push(item);
+      return events;
+    }, {});
+  }
   render() {
     return (
       <div className=".container">
@@ -32,7 +27,7 @@ class SingleCenter extends Component {
         </div>
         <div className="row">
           <div className="col s12 m8 l8 left-div-padding">
-            { /* <EventsList events={this.props.center.events} /> */ }
+            { /* <EventsList events={this.groupByDate()} /> */ }
           </div>
         </div>
       </div>
@@ -46,6 +41,7 @@ SingleCenter.propTypes = {
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
   let center;
+  let events;
   if (state.center.id === '') {
     center = {
       id: '',
@@ -62,8 +58,14 @@ function mapStateToProps(state) {
   } else {
     center = state.center;
   }
+  if (state.center && state.center.events) {
+    events = state.center.events;
+  } else {
+    events = [];
+  }
   return {
-    center
+    center,
+    events
   };
 }
 function mapDispatchToProps(dispatch) {
