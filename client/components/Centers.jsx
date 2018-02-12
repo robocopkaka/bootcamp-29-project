@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
 import * as centerActions from '../actions/centerActions';
 import CenterList from './CenterList';
 import Search from './Search';
-import SingleCenter from './centers/SingleCenter';
 
 class Centers extends Component {
   componentWillMount() {
@@ -30,10 +28,6 @@ class Centers extends Component {
             </a>
           </div>
         </div>
-        <Switch>
-          <Route exact path="/centers" component={Centers} />
-          <Route path="/centers/:id" component={SingleCenter} />
-        </Switch>
       </div>
     );
   }

@@ -18,7 +18,7 @@ class SingleCenter extends Component {
         </div>
         <div className="row">
           <div className="col s12 m8 l8 left-div-padding">
-            <EventsList events={this.props.center.events.groupBy('date')} />
+            // <EventsList events={this.props.center.events} />
           </div>
         </div>
       </div>
@@ -26,15 +26,15 @@ class SingleCenter extends Component {
   }
 }
 SingleCenter.propTypes = {
-  center: PropTypes.objectOf().isRequired,
-  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  centerId: PropTypes.number.isRequired
+  center: PropTypes.objectOf(PropTypes.object).isRequired,
+  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired
 };
-function mapStateToProps(state, ownProps) {
-  const centerId = ownProps.params.id;
+function mapStateToProps(state) {
+  // const centerId = ownProps.params.id;
   let center;
   if (state.center.name === '') {
     center = {
+      id: '',
       name: '',
       capacity: '',
       state: '',
@@ -48,7 +48,6 @@ function mapStateToProps(state, ownProps) {
     center = state.center;
   }
   return {
-    centerId,
     center
   };
 }

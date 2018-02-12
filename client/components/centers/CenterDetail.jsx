@@ -25,7 +25,7 @@ const CenterDetail = ({ center }) => (
     </div>
   </div>
 );
-CenterDetail.propTypes = {
-  center: PropTypes.objectOf.isRequired
-};
+// CenterDetail.propTypes = {
+//   center: PropTypes.objectOf().isRequired
+// };
 export default CenterDetail;
