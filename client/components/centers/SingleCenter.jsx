@@ -10,6 +10,20 @@ class SingleCenter extends Component {
   componentDidMount() {
     this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
   }
+  // componentWillUnmount() {
+  //   this.props.center = {
+  //     id: '',
+  //     name: '',
+  //     capacity: '',
+  //     state: '',
+  //     address: '',
+  //     chairs: '',
+  //     detail: '',
+  //     projector: '',
+  //     image: '',
+  //     events: []
+  //   };
+  // }
   render() {
     return (
       <div className=".container">
@@ -18,7 +32,7 @@ class SingleCenter extends Component {
         </div>
         <div className="row">
           <div className="col s12 m8 l8 left-div-padding">
-            // <EventsList events={this.props.center.events} />
+            { /* <EventsList events={this.props.center.events} /> */ }
           </div>
         </div>
       </div>
@@ -32,7 +46,7 @@ SingleCenter.propTypes = {
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
   let center;
-  if (state.center.name === '') {
+  if (state.center.id === '') {
     center = {
       id: '',
       name: '',
@@ -42,7 +56,8 @@ function mapStateToProps(state) {
       chairs: '',
       detail: '',
       projector: '',
-      image: ''
+      image: '',
+      events: []
     };
   } else {
     center = state.center;
