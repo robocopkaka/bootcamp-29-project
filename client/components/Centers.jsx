@@ -15,16 +15,18 @@ class Centers extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <Search />
-        <div className="top-ten-padding" />
-        <div className="row">
-          <CenterList centers={this.props.centers} />
-        </div>
-        <div className="fixed-action-btn horizontal click-to-toggle">
-          <a className="btn-floating btn-large red white-color" href="new-center.html">
-            <i className="material-icons">add</i>
-          </a>
+      <div>
+        <div className="container">
+          <Search />
+          <div className="top-ten-padding" />
+          <div className="row">
+            <CenterList centers={this.props.centers} />
+          </div>
+          <div className="fixed-action-btn horizontal click-to-toggle">
+            <a className="btn-floating btn-large red white-color" href="new-center.html">
+              <i className="material-icons">add</i>
+            </a>
+          </div>
         </div>
       </div>
     );

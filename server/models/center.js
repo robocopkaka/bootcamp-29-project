@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      defaultValue: './template/img/ramsey.jpg'
+      defaultValue: '/template/img/ramsey.jpg'
     },
     chairs: {
       type: DataTypes.INTEGER,
