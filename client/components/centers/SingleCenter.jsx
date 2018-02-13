@@ -14,7 +14,6 @@ class SingleCenter extends Component {
   // }
   componentDidMount() {
     this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
-    console.log(this.props);
   }
   render() {
     const { events = [] } = this.props.center;
@@ -41,7 +40,8 @@ SingleCenter.propTypes = {
     chairs: PropTypes.number,
     projector: PropTypes.number,
     address: PropTypes.string,
-    state: PropTypes.string
+    state: PropTypes.string,
+    events: PropTypes.array
   }).isRequired,
   singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
   match: PropTypes.shape({
