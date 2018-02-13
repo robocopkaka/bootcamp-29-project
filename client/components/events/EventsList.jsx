@@ -37,6 +37,6 @@ const EventsList = ({ events }) => {
   );
 };
 EventsList.propTypes = {
-  events: PropTypes.objectOf.isRequired
+  events: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 export default EventsList;
