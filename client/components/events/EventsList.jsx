@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as styles from '../../css/events.module.css';
@@ -17,7 +18,7 @@ const EventsList = ({ events }) => {
             <div className="card-panel horizontal">
               <div className="row">
                 <div className={fifteenPercentClasses}>
-                  <span>{event.date}</span>
+                  <span>{moment(event.date).format('MMMM Do YYYY, h:mm:ss a')}</span>
                 </div>
                 <div className={eightFivePercentClasses}>
                   <span className={styles['event-focus']}>
