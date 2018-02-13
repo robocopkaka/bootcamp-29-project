@@ -33,8 +33,22 @@ class SingleCenter extends Component {
   }
 }
 SingleCenter.propTypes = {
-  center: PropTypes.objectOf(PropTypes.object).isRequired,
-  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired
+  center: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    capacity: PropTypes.number,
+    detail: PropTypes.string,
+    chairs: PropTypes.number,
+    projector: PropTypes.number,
+    address: PropTypes.string,
+    state: PropTypes.string
+  }).isRequired,
+  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired
 };
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
