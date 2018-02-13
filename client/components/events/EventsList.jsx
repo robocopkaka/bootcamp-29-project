@@ -13,7 +13,7 @@ const EventsList = ({ events }) => {
       */ }
       <div className="row">
         {events.map(event => (
-          <div className="col s12 m12 l12">
+          <div className="col s12 m12 l12" key={event.id}>
             <div className="card-panel horizontal">
               <div className="row">
                 <div className={fifteenPercentClasses}>
@@ -34,7 +34,7 @@ const EventsList = ({ events }) => {
       </div>
     </div>
   );
-}
+};
 EventsList.propTypes = {
   events: PropTypes.objectOf.isRequired
 };
