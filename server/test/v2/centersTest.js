@@ -78,6 +78,9 @@ describe('Centers endpoints', () => {
           res.body.center.should.have.property('events');
           res.body.center.events.should.be.an('array');
         })
+        .catch((err) => {
+          console.log(err);
+        })
     ));
     it('should return 404, if the id is invalid or doesn\'t exist', () => (
       request(app)
@@ -91,7 +94,7 @@ describe('Centers endpoints', () => {
   describe('PUT /api/v1/centers/<centerId>', () => {
     it('should return a 200 if the parameters were valid', () => (
       request(app)
-        .put('/api/v2/centers/1')
+        .put('/api/v2/centers/2')
         .set('x-access-token', token)
         .send({
           name: 'The main centerssssssss',
@@ -111,16 +114,18 @@ describe('Centers endpoints', () => {
         .put('/api/v2/centers/1')
         .set('x-access-token', token)
         .send({
-          name: 'The main centerssssssss',
-          detail: 'We exis',
+          name: 'Center4',
+          detail: 'We exist',
           image: 'ramsey.jpg',
           address: 'somewhere in lagos',
-          state: 'lagos',
-          capacity: 1000
+          chairs: 10,
+          projector: 1,
+          capacity: 1000,
+          state: 'state'
         })
-        .catch((err) => {
-          err.should.have.status(200);
-          err.response.body.should.have.property('message').eql('Center updated successfully');
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.should.have.property('message').eql('Center updated successfully');
         })
     ));
     it('should return a 400 if the parameters were invalid', () => (

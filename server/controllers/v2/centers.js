@@ -180,10 +180,10 @@ module.exports = {
           });
         }
       })
-      .catch(() => res.status(400).send({
-        success: false,
-        message: 'An error occured'
-      }));
+      // .catch(() => res.status(400).send({
+      //   success: false,
+      //   message: 'An error occured'
+      // }));
   },
   /**
   * @swagger
@@ -275,11 +275,12 @@ module.exports = {
                   message: 'Center not found'
                 });
               } else if (center) {
-                console.log(center.dataValues);
+                // console.log(center.dataValues);
                 let fetchedCenter = center.dataValues;
                 delete fetchedCenter.createdAt;
                 delete fetchedCenter.updatedAt;
                 delete fetchedCenter.id;
+                delete fetchedCenter.userId;
                 if (deepEqual(fetchedCenter, req.body)) {
                   Center
                     .update({
@@ -307,6 +308,52 @@ module.exports = {
                       res.status(400).send({
                         success: false,
                         message: 'An error occured in the centers update'
+                      });
+                    });
+                } else {
+                  Center
+                    .findOne({
+                      where: { name: req.body.name }
+                    })
+                    .then((exists) => {
+                      if (exists) {
+                        res.status(409).send({
+                          success: false,
+                          message: 'Center name exists'
+                        });
+                      } else if (!exists) {
+                        Center
+                          .update({
+                            name: req.body.name,
+                            detail: req.body.detail,
+                            address: req.body.address,
+                            state: req.body.state,
+                            chairs: req.body.chairs,
+                            projector: req.body.projector,
+                            image: req.body.image,
+                            userId: req.decoded.id,
+                            capacity: req.body.capacity
+                          }, {
+                            where: { id: parseInt(req.params.centerId, 10) }
+                          })
+                          .then(() => {
+                            res.status(200).send({
+                              success: true,
+                              message: 'Center updated successfully'
+                            });
+                          })
+                          .catch(() => {
+                            res.status(400).send({
+                              success: false,
+                              message: 'An error occured in the centers update'
+                            });
+                          });
+                      }
+                    })
+                    .catch(() => {
+                      res.status(400).send({
+                        success: false,
+                        message: 'An error occured finding if a center exists'
                       });
                     });
                 }
