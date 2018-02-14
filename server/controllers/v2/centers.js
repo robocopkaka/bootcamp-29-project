@@ -1,3 +1,4 @@
+import deepEqual from 'deep-equal';
 import { Event, Center, User } from '../../models/index';
 // import { User } from '../../models/index';
 // import { Center } from '../../models/index';
@@ -274,41 +275,41 @@ module.exports = {
                   message: 'Center not found'
                 });
               } else if (center) {
-                Center
-                  .findOne({
-                    where: { name: req.body.name }
-                  })
-                  .then((exists) => {
-                    if (exists) {
-                      res.status(409).send({
-                        success: false,
-                        message: 'Center name exists'
+                console.log(center.dataValues);
+                let fetchedCenter = center.dataValues;
+                delete fetchedCenter.createdAt;
+                delete fetchedCenter.updatedAt;
+                delete fetchedCenter.id;
+                if (deepEqual(fetchedCenter, req.body)) {
+                  Center
+                    .update({
+                      name: req.body.name,
+                      detail: req.body.detail,
+                      address: req.body.address,
+                      state: req.body.state,
+                      chairs: req.body.chairs,
+                      projector: req.body.projector,
+                      image: req.body.image,
+                      userId: req.decoded.id,
+                      capacity: req.body.capacity
+                    }, {
+                      returning: true,
+                      where: { id: parseInt(req.params.centerId, 10) }
+                    })
+                    .then(([rowsUpdate, [updatedCenter]]) => {
+                      res.status(200).send({
+                        success: true,
+                        message: 'Center updated successfully',
+                        center: updatedCenter
                       });
-                    } else if (!exists) {
-                      Center
-                        .update({ name: req.body.name }, {
-                          where: { id: parseInt(req.params.centerId, 10) }
-                        })
-                        .then(() => {
-                          res.status(200).send({
-                            success: true,
-                            message: 'Center updated successfully'
-                          });
-                        })
-                        .catch(() => {
-                          res.status(400).send({
-                            success: false,
-                            message: 'An error occured in the centers update'
-                          });
-                        });
-                    }
-                  })
-                  .catch(() => {
-                    res.status(400).send({
-                      success: false,
-                      message: 'An error occured finding if a center exists'
+                    })
+                    .catch(() => {
+                      res.status(400).send({
+                        success: false,
+                        message: 'An error occured in the centers update'
+                      });
                     });
-                  });
+                }
               }
             })
             .catch(() => {
