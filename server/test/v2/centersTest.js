@@ -106,6 +106,23 @@ describe('Centers endpoints', () => {
           res.body.should.have.property('message').eql('Center updated successfully');
         })
     ));
+    it('should return a 200 if the request body deep equals a row with the params ID in the database', () => (
+      chai.request(app)
+        .put('/api/v2/centers/1')
+        .set('x-access-token', token)
+        .send({
+          name: 'The main centerssssssss',
+          detail: 'We exis',
+          image: 'ramsey.jpg',
+          address: 'somewhere in lagos',
+          state: 'lagos',
+          capacity: 1000
+        })
+        .catch((err) => {
+          err.should.have.status(200);
+          err.response.body.should.have.property('message').eql('Center updated successfully');
+        })
+    ));
     it('should return a 400 if the parameters were invalid', () => (
       chai.request(app)
         .put('/api/v2/centers/1')
@@ -121,7 +138,7 @@ describe('Centers endpoints', () => {
         .set('x-access-token', token)
         .send({
           name: 'The main centerssssssss',
-          detail: 'We exist',
+          detail: 'We existed',
           image: 'ramsey.jpg',
           address: 'somewhere in lagos',
           state: 'lagos',
