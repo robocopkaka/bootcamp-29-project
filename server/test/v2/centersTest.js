@@ -78,6 +78,9 @@ describe('Centers endpoints', () => {
           res.body.center.should.have.property('events');
           res.body.center.events.should.be.an('array');
         })
+        .catch((err) => {
+          console.log(err);
+        })
     ));
     it('should return 404, if the id is invalid or doesn\'t exist', () => (
       request(app)
@@ -91,7 +94,7 @@ describe('Centers endpoints', () => {
   describe('PUT /api/v1/centers/<centerId>', () => {
     it('should return a 200 if the parameters were valid', () => (
       request(app)
-        .put('/api/v2/centers/1')
+        .put('/api/v2/centers/2')
         .set('x-access-token', token)
         .send({
           name: 'The main centerssssssss',
@@ -100,6 +103,25 @@ describe('Centers endpoints', () => {
           address: 'somewhere in lagos',
           state: 'lagos',
           capacity: 1000
+        })
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.should.have.property('message').eql('Center updated successfully');
+        })
+    ));
+    it('should return a 200 if the request body deep equals a row with the params ID in the database', () => (
+      chai.request(app)
+        .put('/api/v2/centers/1')
+        .set('x-access-token', token)
+        .send({
+          name: 'Center4',
+          detail: 'We exist',
+          image: 'ramsey.jpg',
+          address: 'somewhere in lagos',
+          chairs: 10,
+          projector: 1,
+          capacity: 1000,
+          state: 'state'
         })
         .then((res) => {
           res.should.have.status(200);
@@ -121,7 +143,7 @@ describe('Centers endpoints', () => {
         .set('x-access-token', token)
         .send({
           name: 'The main centerssssssss',
-          detail: 'We exist',
+          detail: 'We existed',
           image: 'ramsey.jpg',
           address: 'somewhere in lagos',
           state: 'lagos',
