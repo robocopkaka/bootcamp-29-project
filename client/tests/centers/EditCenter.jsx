@@ -10,7 +10,14 @@ class EditCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      center: this.props.center
+      name: { value: this.props.center.name, isValid: true, message: '' },
+      capacity: { value: this.props.center.capacity, isValid: true, message: '' },
+      address: { value: this.props.center.address, isValid: true, message: '' },
+      state: { value: this.props.center.state, isValid: true, message: '' },
+      detail: { value: this.props.center.detail, isValid: true, message: '' },
+      chairs: { value: this.props.center.chairs, isValid: true, message: '' },
+      projector: { value: this.props.center.projector, isValid: true, message: '' },
+      image: { value: this.props.center.image, isValid: true, message: '' }
     };
   }
   render() {
@@ -23,25 +30,74 @@ class EditCenter extends Component {
           <form className="card-content">
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-name" type="text" className="validate" value="Kachi's Center" />
+                <input
+                  id="center-name"
+                  type="text"
+                  className="validate"
+                  value={this.state.name.value}
+                  onChange={this.handleChange}
+                />
                 <label htmlFor="center-name">Name</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-address" type="text" className="validate" value="Gowon Estate" />
+                <input
+                  id="center-address"
+                  type="text"
+                  className="validate"
+                  value={this.state.address.value}
+                  onChange={this.handleChange}
+                />
                 <label htmlFor="center-address">Address</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input id="center-state" type="text" className="validate" value="Lagos" />
+                <input
+                  id="center-state"
+                  type="text"
+                  className="validate"
+                  value={this.state.state.value}
+                  onChange={this.handleChange}
+                />
                 <label htmlFor="center-state">State</label>
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s12">
-                <div className="chips chips-initial"></div>
+              <div className="input-field col s4">
+                <input
+                  id="center-capacity"
+                  name="capacity"
+                  value={this.state.capacity.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
+              <label for="center-capacity">Capacity</label>
+                <span className={capacityClasses}>{this.state.capacity.message}</span>
+              </div>
+              <div className="input-field col s4">
+                <input
+                  id="center-chairs"
+                  name="chairs"
+                  value={this.state.chairs.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
+                <label for="center-state">Chairs</label>
+              </div>
+              <div className="input-field col s4">
+                <input
+                  id="center-projector"
+                  name="projector"
+                  value={this.state.projector.value}
+                  type="number"
+                  className="validate"
+                  onChange={this.handleChange}
+                />
+                <label for="center-projector">Projector</label>
               </div>
             </div>
             <div clasNames="row">
