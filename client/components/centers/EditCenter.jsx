@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import * as centerActions from '../../actions/centerActions';
+import * as singleCenterActions from '../../actions/singleCenterActions';
 
 class EditCenter extends Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class EditCenter extends Component {
       image: { value: this.props.center.image, isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.center.id !== nextProps.center.id) {
@@ -227,7 +231,13 @@ EditCenter.propTypes = {
     image: PropTypes.string,
     events: PropTypes.array
   }).isRequired,
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired
 };
 function mapStateToProps(state) {
   let center;
