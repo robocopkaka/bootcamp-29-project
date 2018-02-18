@@ -41,6 +41,7 @@ SingleCenter.propTypes = {
     projector: PropTypes.number,
     address: PropTypes.string,
     state: PropTypes.string,
+    image: PropTypes.string,
     events: PropTypes.array
   }).isRequired,
   singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,

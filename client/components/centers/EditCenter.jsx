@@ -20,6 +20,15 @@ class EditCenter extends Component {
       image: { value: this.props.center.image, isValid: true, message: '' }
     };
   }
+  handleChange(event) {
+    const { state } = this;
+    const { name, value } = event.target;
+    const field = state[name];
+    field.value = value;
+    this.setState({
+      [field]: [field]
+    });
+  }
   render() {
     return (
       <div className="container max-width-six-hundred">
@@ -136,6 +145,7 @@ EditCenter.propTypes = {
     projector: PropTypes.number,
     address: PropTypes.string,
     state: PropTypes.string,
+    image: PropTypes.string,
     events: PropTypes.array
   }).isRequired
 };
