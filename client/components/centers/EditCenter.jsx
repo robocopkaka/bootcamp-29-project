@@ -90,6 +90,24 @@ class EditCenter extends Component {
     });
     this.setState(state);
   }
+  updateCenter(event) {
+    event.preventDefault();
+    this.resetValidationStates();
+    const center = {
+      name: this.state.name.value,
+      capacity: this.state.capacity.value,
+      address: this.state.address.value,
+      state: this.state.state.value,
+      chairs: this.state.chairs.value,
+      projector: this.state.projector.value,
+      detail: this.state.detail.value,
+      image: this.state.image.value,
+    };
+    if (this.formIsValid()) {
+      this.props.centerActions.updateCenter(center);
+      this.clearFields();
+    }
+  }
   render() {
     return (
       <div className="container max-width-six-hundred">
@@ -208,7 +226,8 @@ EditCenter.propTypes = {
     state: PropTypes.string,
     image: PropTypes.string,
     events: PropTypes.array
-  }).isRequired
+  }).isRequired,
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 function mapStateToProps(state) {
   let center;
