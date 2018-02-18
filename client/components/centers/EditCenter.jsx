@@ -263,7 +263,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(centerActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, singleCenterActions, centerActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditCenter);
