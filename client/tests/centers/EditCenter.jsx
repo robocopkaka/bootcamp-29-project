@@ -9,7 +9,9 @@ import * as singleCenterActions from '../../actions/singleCenterActions';
 class EditCenter extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      center: this.props.center
+    };
   }
   render() {
     return (
@@ -69,7 +71,17 @@ class EditCenter extends Component {
   }
 }
 EditCenter.propTypes = {
-
+  center: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    capacity: PropTypes.number,
+    detail: PropTypes.string,
+    chairs: PropTypes.number,
+    projector: PropTypes.number,
+    address: PropTypes.string,
+    state: PropTypes.string,
+    events: PropTypes.array
+  }).isRequired
 };
 function mapStateToProps(state) {
   let center;
