@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
-import * as singleCenterActions from '../../actions/singleCenterActions';
+import * as centerActions from '../../actions/centerActions';
 
 class EditCenter extends Component {
   constructor(props) {
@@ -20,6 +20,11 @@ class EditCenter extends Component {
       image: { value: this.props.center.image, isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.center.id !== nextProps.center.id) {
+      this.setState({ center: nextProps.center });
+    }
   }
   handleChange(event) {
     const { state } = this;
@@ -229,7 +234,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(singleCenterActions, dispatch)
+    actions: bindActionCreators(centerActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditCenter);
