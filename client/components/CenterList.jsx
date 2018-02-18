@@ -27,6 +27,12 @@ const CenterList = ({ centers }) => (
             >
               View
             </Link>
+            <Link
+              to={`/centers/${center.id}/edit`}
+              className="waves-effect waves-light btn navbar-purple round-btn white-color"
+            >
+              <i className="material-icons">edit</i>
+            </Link>
           </div>
         </div>
       </div>

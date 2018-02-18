@@ -14,9 +14,9 @@ const Main = () => (
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route exact path="/centers" component={Centers} />
-    <Route path="/centers/:id" component={SingleCenter} />
+    <Route exact path="/centers/:id" component={SingleCenter} />
     <Route path="/add-center" component={AddCenter} />
-    <Route path="/centers/:id/edit" component={EditCenter} />
+    <Route exact path="/centers/:id/edit" component={EditCenter} />
   </Switch>
 );
 export default Main;

@@ -113,6 +113,11 @@ class EditCenter extends Component {
     }
   }
   render() {
+    const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
+    const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
+    const addressClasses = classNames('help-block', { 'has-error': !this.state.address.isValid });
+    const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
+    const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
     return (
       <div className="container max-width-six-hundred">
         <div className="card">
@@ -130,6 +135,7 @@ class EditCenter extends Component {
                   onChange={this.handleChange}
                 />
                 <label htmlFor="center-name">Name</label>
+                <span className={nameClasses}>{this.state.name.message}</span>
               </div>
             </div>
             <div className="row">
@@ -142,6 +148,7 @@ class EditCenter extends Component {
                   onChange={this.handleChange}
                 />
                 <label htmlFor="center-address">Address</label>
+                <span className={addressClasses}>{this.state.address.message}</span>
               </div>
             </div>
             <div className="row">
@@ -154,6 +161,7 @@ class EditCenter extends Component {
                   onChange={this.handleChange}
                 />
                 <label htmlFor="center-state">State</label>
+                <span className={stateClasses}>{this.state.state.message}</span>
               </div>
             </div>
             <div className="row">
@@ -192,14 +200,32 @@ class EditCenter extends Component {
                 <label for="center-projector">Projector</label>
               </div>
             </div>
-            <div clasNames="row">
+            <div className="row">
+              <div className="input-field col s12">
+                <textarea
+                  id="center-detail"
+                  name="detail"
+                  value={this.state.detail.value}
+                  className="materialize-textarea validate"
+                  onChange={this.handleChange}
+                ></textarea>
+                <label for="center-state">Detail</label>
+                <span className={detailClasses}>{this.state.detail.message}</span>
+              </div>
+            </div>
+            <div className="row">
               <div className="file-field input-field">
                 <div className="btn navbar-purple round-btn">
                   <span>Image</span>
                   <input type="file" />
                 </div>
                 <div className="file-path-wrapper">
-                  <input className="file-path validate" type="text" value="owen shaw.jpg" />
+                  <input
+                    className="file-path validate"
+                    type="text"
+                    value="owen shaw.jpg"
+                    onChange={this.handleChange}
+                  />
                 </div>
               </div>
             </div>
@@ -255,7 +281,7 @@ function mapStateToProps(state) {
       events: []
     };
   } else {
-    center = { state };
+    center = state.center;
   }
   return {
     center
