@@ -23,7 +23,7 @@ class EditCenter extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
+    this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.center.id !== nextProps.center.id) {
@@ -108,7 +108,7 @@ class EditCenter extends Component {
       image: this.state.image.value,
     };
     if (this.formIsValid()) {
-      this.props.centerActions.updateCenter(center);
+      this.props.actions.updateCenter(center);
       this.clearFields();
     }
   }
@@ -257,8 +257,7 @@ EditCenter.propTypes = {
     image: PropTypes.string,
     events: PropTypes.array
   }).isRequired,
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.node,
