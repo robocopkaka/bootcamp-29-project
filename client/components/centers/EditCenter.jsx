@@ -11,23 +11,39 @@ class EditCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: { value: this.props.center.name, isValid: true, message: '' },
-      capacity: { value: this.props.center.capacity, isValid: true, message: '' },
-      address: { value: this.props.center.address, isValid: true, message: '' },
-      state: { value: this.props.center.state, isValid: true, message: '' },
-      detail: { value: this.props.center.detail, isValid: true, message: '' },
-      chairs: { value: this.props.center.chairs, isValid: true, message: '' },
-      projector: { value: this.props.center.projector, isValid: true, message: '' },
-      image: { value: this.props.center.image, isValid: true, message: '' }
+      name: { value: '', isValid: true, message: '' },
+      capacity: { value: '', isValid: true, message: '' },
+      address: { value: '', isValid: true, message: '' },
+      state: { value: '', isValid: true, message: '' },
+      detail: { value: '', isValid: true, message: '' },
+      chairs: { value: '', isValid: true, message: '' },
+      projector: { value: '', isValid: true, message: '' },
+      image: { value: '', isValid: true, message: '' },
     };
     this.handleChange = this.handleChange.bind(this);
+    this.updateCenter = this.updateCenter.bind(this);
   }
   componentDidMount() {
     this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.center.id !== nextProps.center.id) {
-      this.setState({ center: nextProps.center });
+      this.setState({
+        name: Object.assign({}, this.state.name, { value: nextProps.center.name }),
+        address: Object.assign({}, this.state.address, { value: nextProps.center.address }),
+        state: Object.assign({}, this.state.state, { value: nextProps.center.state }),
+        detail: Object.assign({}, this.state.detail, { value: nextProps.center.detail }),
+        chairs: Object.assign({}, this.state.chairs, {
+          value: (nextProps.center.chairs).toString()
+        }),
+        projector: Object.assign({}, this.state.projector, {
+          value: (nextProps.center.projector).toString()
+        }),
+        capacity: Object.assign({}, this.state.capacity, {
+          value: (nextProps.center.capacity).toString()
+        }),
+        image: Object.assign({}, this.state.image, { value: nextProps.center.image }),
+      });
     }
   }
   handleChange(event) {
@@ -95,9 +111,11 @@ class EditCenter extends Component {
     this.setState(state);
   }
   updateCenter(event) {
+    console.log(this.state);
     event.preventDefault();
     this.resetValidationStates();
     const center = {
+      id: this.props.match.params.id,
       name: this.state.name.value,
       capacity: this.state.capacity.value,
       address: this.state.address.value,
@@ -109,7 +127,6 @@ class EditCenter extends Component {
     };
     if (this.formIsValid()) {
       this.props.actions.updateCenter(center);
-      this.clearFields();
     }
   }
   render() {
@@ -129,12 +146,13 @@ class EditCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-name"
+                  name="name"
                   type="text"
                   className="validate"
                   value={this.state.name.value}
                   onChange={this.handleChange}
                 />
-                <label htmlFor="center-name">Name</label>
+              <label htmlFor="center-name" className="active">Name</label>
                 <span className={nameClasses}>{this.state.name.message}</span>
               </div>
             </div>
@@ -142,12 +160,13 @@ class EditCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-address"
+                  name="address"
                   type="text"
                   className="validate"
                   value={this.state.address.value}
                   onChange={this.handleChange}
                 />
-                <label htmlFor="center-address">Address</label>
+                <label htmlFor="center-address" className="active">Address</label>
                 <span className={addressClasses}>{this.state.address.message}</span>
               </div>
             </div>
@@ -155,12 +174,13 @@ class EditCenter extends Component {
               <div className="input-field col s12">
                 <input
                   id="center-state"
+                  name="state"
                   type="text"
                   className="validate"
                   value={this.state.state.value}
                   onChange={this.handleChange}
                 />
-                <label htmlFor="center-state">State</label>
+                <label htmlFor="center-state" className="active">State</label>
                 <span className={stateClasses}>{this.state.state.message}</span>
               </div>
             </div>
@@ -174,7 +194,7 @@ class EditCenter extends Component {
                   className="validate"
                   onChange={this.handleChange}
                 />
-              <label for="center-capacity">Capacity</label>
+              <label for="center-capacity" className="active">Capacity</label>
                 <span className={capacityClasses}>{this.state.capacity.message}</span>
               </div>
               <div className="input-field col s4">
@@ -186,7 +206,7 @@ class EditCenter extends Component {
                   className="validate"
                   onChange={this.handleChange}
                 />
-                <label for="center-state">Chairs</label>
+                <label for="center-state" className="active">Chairs</label>
               </div>
               <div className="input-field col s4">
                 <input
@@ -197,7 +217,7 @@ class EditCenter extends Component {
                   className="validate"
                   onChange={this.handleChange}
                 />
-                <label for="center-projector">Projector</label>
+                <label for="center-projector" className="active">Projector</label>
               </div>
             </div>
             <div className="row">
@@ -209,7 +229,7 @@ class EditCenter extends Component {
                   className="materialize-textarea validate"
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="center-state">Detail</label>
+              <label for="center-detail" className="active">Detail</label>
                 <span className={detailClasses}>{this.state.detail.message}</span>
               </div>
             </div>
@@ -223,7 +243,7 @@ class EditCenter extends Component {
                   <input
                     className="file-path validate"
                     type="text"
-                    value="owen shaw.jpg"
+                    value={this.state.image.value}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -234,6 +254,7 @@ class EditCenter extends Component {
                 className="btn waves-effect waves-light navbar-purple round-btn"
                 type="submit"
                 name="action"
+                onClick={this.updateCenter}
               >Update Center
                 <i className="material-icons right">send</i>
               </button>
