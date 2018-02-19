@@ -46,6 +46,7 @@ class CenterApi {
       });
   }
   static update(center) {
+    console.log(center);
     return axios.put(
       `http://localhost:8000/api/v2/centers/${parseInt(center.id, 10)}`,
       JSON.stringify({
@@ -55,7 +56,8 @@ class CenterApi {
         state: center.state,
         detail: center.detail,
         chairs: center.chairs,
-        projector: center.projector
+        projector: center.projector,
+        image: center.image
       }),
       {
         headers: {
