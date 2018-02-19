@@ -34,13 +34,13 @@ class EditCenter extends Component {
         state: Object.assign({}, this.state.state, { value: nextProps.center.state }),
         detail: Object.assign({}, this.state.detail, { value: nextProps.center.detail }),
         chairs: Object.assign({}, this.state.chairs, {
-          value: (nextProps.center.chairs).toString()
+          value: nextProps.center.chairs
         }),
         projector: Object.assign({}, this.state.projector, {
-          value: (nextProps.center.projector).toString()
+          value: nextProps.center.projector
         }),
         capacity: Object.assign({}, this.state.capacity, {
-          value: (nextProps.center.capacity).toString()
+          value: nextProps.center.capacity
         }),
         image: Object.assign({}, this.state.image, { value: nextProps.center.image }),
       });
@@ -87,13 +87,13 @@ class EditCenter extends Component {
       this.setState({ detail: state.detail });
       fieldCheck = false;
     }
-    if (validator.isEmpty(state.capacity.value)) {
-      state.capacity.isValid = false;
-      state.capacity.message = 'Capacity must not be empty';
-
-      this.setState({ detail: state.detail });
-      fieldCheck = false;
-    }
+    // if (validator.isEmpty(state.capacity.value)) {
+    //   state.capacity.isValid = false;
+    //   state.capacity.message = 'Capacity must not be empty';
+    //
+    //   this.setState({ detail: state.detail });
+    //   fieldCheck = false;
+    // }
     if (!fieldCheck) {
       return false;
     }
@@ -111,7 +111,6 @@ class EditCenter extends Component {
     this.setState(state);
   }
   updateCenter(event) {
-    console.log(this.state);
     event.preventDefault();
     this.resetValidationStates();
     const center = {

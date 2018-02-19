@@ -48,11 +48,21 @@ class CenterApi {
   static update(center) {
     return axios.put(
       `http://localhost:8000/api/v2/centers/${parseInt(center.id, 10)}`,
+      JSON.stringify({
+        name: center.name,
+        address: center.address,
+        capacity: center.capacity,
+        state: center.state,
+        detail: center.detail,
+        chairs: center.chairs,
+        projector: center.projector
+      }),
       {
         headers: {
           'Content-Type': 'application/json',
+          'x-access-token': `${sessionStorage.jwt}`
         }
-      }
+      },
     )
       .then((response) => {
         return response;

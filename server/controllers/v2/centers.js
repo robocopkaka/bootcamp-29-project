@@ -334,12 +334,14 @@ module.exports = {
                             userId: req.decoded.id,
                             capacity: req.body.capacity
                           }, {
+                            returning: true,
                             where: { id: parseInt(req.params.centerId, 10) }
                           })
-                          .then(() => {
+                          .then(([rowsUpdate, [updatedCenter]]) => {
                             res.status(200).send({
                               success: true,
-                              message: 'Center updated successfully'
+                              message: 'Center updated successfully',
+                              center: updatedCenter
                             });
                           })
                           .catch(() => {

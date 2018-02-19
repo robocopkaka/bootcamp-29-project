@@ -36,7 +36,7 @@ export function updateCenter(center) {
   return function (dispatch) {
     return CenterApi.update(center)
       .then((response) => {
-        dispatch(updateCenterSuccess(response.date.center));
+        dispatch(updateCenterSuccess(response.data.center));
       })
       .catch((error) => console.log(error));
   };
