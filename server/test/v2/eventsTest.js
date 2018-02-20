@@ -140,10 +140,11 @@ describe('Events endpoints', () => {
   describe('GET /api/v2/events/<eventId>', () => {
     it('should return 200 and an event, if the id is valid', () => (
       request(app)
-        .get('/api/v2/events/1')
+        .get('/api/v2/events/2')
         .then((res) => {
           res.should.have.status(200);
           res.body.event.should.have.property('id');
+          res.body.event.should.have.property('Center').should.be.an('object');
           res.body.event.should.be.an('object');
         })
         .catch((err) => {
