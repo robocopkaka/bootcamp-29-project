@@ -3,11 +3,13 @@ import session from './sessionReducer';
 import register from './registerReducer';
 import centers from './centerReducer';
 import center from './singleCenterReducer';
+import events from './eventReducer';
 
 const rootReducer = combineReducers({
   session,
   register,
   centers,
-  center
+  center,
+  events,
 });
 export default rootReducer;
