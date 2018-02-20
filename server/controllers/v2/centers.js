@@ -187,7 +187,7 @@ module.exports = {
   },
   /**
   * @swagger
-  * /api/v2/centers/:id:
+  * /api/v2/centers/:
   *   get:
   *     tags:
   *       - V2 Centers
@@ -208,7 +208,7 @@ module.exports = {
         if (!centers) {
           res.status(404).send({
             success: false,
-            message: 'There are no users yet'
+            message: 'There are no centers yet'
           });
         } else if (centers) {
           res.status(200).send({
