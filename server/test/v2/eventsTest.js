@@ -127,4 +127,14 @@ describe('Events endpoints', () => {
         })
     ));
   });
+  describe('GET /api/v2/events', () => {
+    it('should return a 200 and all the events in the system', () => (
+      request(app)
+        .get('/api/v2/events')
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.events.should.be.an('array');
+        })
+    ));
+  });
 });

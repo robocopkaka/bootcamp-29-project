@@ -349,5 +349,46 @@ module.exports = {
           message: 'An error occured finding the user'
         });
       });
+  },
+  /**
+  * @swagger
+  * /api/v2/events/:
+  *   get:
+  *     tags:
+  *       - V2 Events
+  *     description: Get all events
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An array with all the events in it
+  *       404:
+  *         description: Resource not found
+  *       400:
+  *         description: An error occured
+  */
+  /**/
+  getAllEvents(req, res) {
+    Event
+      .findAll({})
+      .then((events) => {
+        if (!events) {
+          res.status(404).send({
+            success: false,
+            message: 'There are no events yet'
+          });
+        } else if (events) {
+          res.status(200).send({
+            success: true,
+            events
+          });
+        }
+      })
+      .catch(() => {
+        res.status(400).send({
+          success: false,
+          message: 'An error occured fetching the events'
+        });
+      });
   }
 };
