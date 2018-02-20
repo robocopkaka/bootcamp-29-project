@@ -19,7 +19,7 @@ const Header = () => (
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li className="active"><Link to="/">Home</Link></li>
-          <li><a href="all-events.html">Events</a></li>
+          <li><Link to="/events">Events</Link></li>
           <li><Link to="/centers">Centers</Link></li>
           <li>
             <a
@@ -34,7 +34,7 @@ const Header = () => (
 
         <ul className="side-nav" id="side-menu">
           <li className="active"><Link to="/">Home</Link></li>
-          <li><a href="all-events.html">Events</a></li>
+          <li><Link to="/events">Events</Link></li>
           <li><Link to="/centers">Centers</Link></li>
           <li className="left-padding">
             <ul className="collapsible collapsible-accordion">
