@@ -133,7 +133,7 @@ describe('Events endpoints', () => {
         .get('/api/v2/events')
         .then((res) => {
           res.should.have.status(200);
-          res.body.centers.should.be.an('array');
+          res.body.events.should.be.an('array');
         })
     ));
   });
