@@ -18,7 +18,7 @@ describe('<AddCenter />', () => {
     expect(wrapper.find('.container').at(1).children('h3').text()).to.equal('Add a Center');
   });
   it('should have a form element', () => {
-    expect(wrapper.find('form').length).to.equual(1);
+    expect(wrapper.find('form').length).to.equal(1);
   });
   it('should have six divs with .row classes in the form element', () => {
     expect(wrapper.find('form').children().length).to.equal(6);

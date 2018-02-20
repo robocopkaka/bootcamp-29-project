@@ -6,6 +6,7 @@ import Signup from './Signup';
 import AddCenter from './AddCenter';
 import Centers from './Centers';
 import SingleCenter from './centers/SingleCenter';
+import EditCenter from './centers/EditCenter';
 
 const Main = () => (
   <Switch>
@@ -13,8 +14,9 @@ const Main = () => (
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route exact path="/centers" component={Centers} />
-    <Route path="/centers/:id" component={SingleCenter} />
+    <Route exact path="/centers/:id" component={SingleCenter} />
     <Route path="/add-center" component={AddCenter} />
+    <Route exact path="/centers/:id/edit" component={EditCenter} />
   </Switch>
 );
 export default Main;

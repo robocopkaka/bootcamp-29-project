@@ -45,22 +45,33 @@ class CenterApi {
         return err;
       });
   }
-  // static getOne(centerId) {
-  //   return axios.get(
-  //     `http://localhost:8000/api/v2/centers/${centerId}`,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     }
-  //   )
-  //     .then((response) => {
-  //       return response;
-  //     })
-  //     .catch((error) => {
-  //       console.log('CATCH = ', error.response);
-  //       return error;
-  //     });
-  // }
+  static update(center) {
+    return axios.put(
+      `http://localhost:8000/api/v2/centers/${parseInt(center.id, 10)}`,
+      JSON.stringify({
+        name: center.name,
+        address: center.address,
+        capacity: center.capacity,
+        state: center.state,
+        detail: center.detail,
+        chairs: center.chairs,
+        projector: center.projector,
+        image: center.image
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': `${sessionStorage.jwt}`
+        }
+      },
+    )
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log('CATCH = ', error.response);
+        return error;
+      });
+  }
 }
 export default CenterApi;
