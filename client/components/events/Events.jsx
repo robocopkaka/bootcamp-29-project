@@ -8,7 +8,7 @@ import Search from '../Search';
 
 class Events extends Component {
   componentDidMount() {
-    this.props.actions.fetchAllEvents();
+    this.props.actions.fetchEvents();
   }
   render() {
     return (
@@ -16,7 +16,7 @@ class Events extends Component {
         <Search />
         <div className="top-ten-padding"></div>
         <div className="row">
-          <EventsListWithImage />
+          <EventsListWithImage events={this.props.events} />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <a className="btn-floating btn-large red white-color" href="new-center.html">
@@ -31,15 +31,15 @@ class Events extends Component {
 Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired
-}
+};
 
 function mapStateToProps(state) {
-  let centers = {};
-  if (state.centers && state.centers.length > 0) {
-    centers = state.centers;
+  let events = {};
+  if (state.events && state.events.length > 0) {
+    events = state.events;
   }
   return {
-    centers
+    events
   };
 }
 function mapDispatchToProps(dispatch) {

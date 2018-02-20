@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import * as styles from '../../css/events.module.css';
 
 const EventsListWithImage = ({ events }) => {
   return (
@@ -13,14 +14,14 @@ const EventsListWithImage = ({ events }) => {
               <a href="show-event.html"><img src="img/owen shaw.jpg" alt="" /></a>
             </div>
             <div className="card-content">
-              <span className="event-focus"><a href="show-event.html">{event.name}</a></span><br />
+              <span className={styles['event-focus']}><a href="show-event.html">{event.name}</a></span><br />
               <span
-                className="event-title"
+                className={styles['event-title']}
               >
                 <a href="show-event.html">{event.detail}</a>
               </span><br />
-              <span className="event-date">{moment(event.date).format('LL')}</span><br />
-              <span className="fifteen-percent">{moment(event.date).format('h:mm a')}</span>
+            <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
+              <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
             </div>
             <div className="card-action">
               <a
