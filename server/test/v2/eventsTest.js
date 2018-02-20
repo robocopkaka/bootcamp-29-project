@@ -137,4 +137,25 @@ describe('Events endpoints', () => {
         })
     ));
   });
+  describe('GET /api/v2/events/<eventId>', () => {
+    it('should return 200 and an event, if the id is valid', () => (
+      request(app)
+        .get('/api/v2/events/1')
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.event.should.have.property('id');
+          res.body.event.should.be.an('object');
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    ));
+    it('should return 404, if the id is doesn\'t exist', () => (
+      request(app)
+        .get('/api/v2/events/190888')
+        .catch((err) => {
+          err.should.have.status(404);
+        })
+    ));
+  });
 });
