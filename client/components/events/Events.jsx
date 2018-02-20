@@ -8,7 +8,9 @@ import Search from '../Search';
 
 class Events extends Component {
   componentDidMount() {
-    this.props.actions.fetchEvents();
+    if (this.props.events.length === 0) {
+      this.props.actions.fetchEvents();
+    }
   }
   render() {
     return (

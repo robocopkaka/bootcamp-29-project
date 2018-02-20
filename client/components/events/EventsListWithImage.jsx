@@ -37,3 +37,4 @@ const EventsListWithImage = ({ events }) => {
     </div>
   );
 };
+export default EventsListWithImage;

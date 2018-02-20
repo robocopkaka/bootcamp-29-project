@@ -9,7 +9,7 @@ import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import history from './history';
 import { fetchCenters } from './actions/centerActions';
-import { fetchEvents } from './actions/eventsActions';
+import { fetchEvents } from './actions/eventActions';
 
 const createStoreWithMiddleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware))(createStore);
