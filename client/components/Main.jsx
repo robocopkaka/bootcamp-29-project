@@ -7,6 +7,7 @@ import AddCenter from './AddCenter';
 import Centers from './Centers';
 import SingleCenter from './centers/SingleCenter';
 import EditCenter from './centers/EditCenter';
+import Events from './events/Events';
 
 const Main = () => (
   <Switch>
@@ -17,6 +18,7 @@ const Main = () => (
     <Route exact path="/centers/:id" component={SingleCenter} />
     <Route path="/add-center" component={AddCenter} />
     <Route exact path="/centers/:id/edit" component={EditCenter} />
+    <Route exact path="/events" component={Events} />
   </Switch>
 );
 export default Main;
