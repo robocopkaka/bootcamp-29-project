@@ -46,7 +46,6 @@ class CenterApi {
       });
   }
   static update(center) {
-    console.log(center);
     return axios.put(
       `http://localhost:8000/api/v2/centers/${parseInt(center.id, 10)}`,
       JSON.stringify({

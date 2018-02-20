@@ -281,7 +281,7 @@ module.exports = {
                 delete fetchedCenter.updatedAt;
                 delete fetchedCenter.id;
                 delete fetchedCenter.userId;
-                if (deepEqual(fetchedCenter, req.body)) {
+                if (deepEqual(fetchedCenter, req.body) || req.body.name === fetchedCenter.name) {
                   Center
                     .update({
                       name: req.body.name,
