@@ -390,5 +390,47 @@ module.exports = {
           message: 'An error occured fetching the events'
         });
       });
-  }
+  },
+  /**
+  * @swagger
+  * /api/v2/events/:
+  *   get:
+  *     tags:
+  *       - V2 Events
+  *     description: Get a single event
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An object containing the event
+  *       404:
+  *         description: Resource not found
+  */
+  /**/
+  getSingleEvent(req, res) {
+    Event
+      .findOne({
+        where: { id: parseInt(req.params.eventId, 10) },
+        include: [
+          Center
+        ]
+      })
+      .then((event) => {
+        if (!event) {
+          res.status(404).send({
+            success: false,
+            message: 'Event not found'
+          });
+        } else if (event) {
+          res.status(200).send({
+            success: true,
+            event
+          });
+        }
+      });
+    // .catch(() => res.status(400).send({
+    //   success: false,
+    //   message: 'An error occured'
+    // }));
+  },
 };

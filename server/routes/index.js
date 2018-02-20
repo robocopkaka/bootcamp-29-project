@@ -54,6 +54,7 @@ module.exports = (app) => {
   app.post('/api/v2/events', expressJoi(eventDBSchema), apiRoutes, eventsDBController.create);
   app.put('/api/v2/events/:eventId', expressJoi(eventDBWithParams), apiRoutes, eventsDBController.edit);
   app.get('/api/v2/events', eventsDBController.getAllEvents);
+  app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
   // error handler
   app.use((err, req, res, next) => {
