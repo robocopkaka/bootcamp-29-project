@@ -18,7 +18,8 @@ const EventDetails = ({ event, center }) => (
             <span id={centerStyles['show-center-state']}>
               Venue: {center.address}, {center.state}
             </span><br />
-            <span className={eventStyles['event-date']}>{moment(event.date).format('LT')}</span>
+            <span className={eventStyles['event-date']}>{moment(event.date).format('LT')}</span><br />
+            <span className={eventStyles['event-date']}>Guests: {event.guests}</span>
           </div>
         </div>
       </div>
