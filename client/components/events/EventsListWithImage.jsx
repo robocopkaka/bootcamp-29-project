@@ -11,10 +11,10 @@ const EventsListWithImage = ({ events }) => (
       <div className="col s12 m6 l4" key={event.id}>
         <div className="card">
           <div className="card-image">
-            <a href="show-event.html"><img src={owenShaw} alt="" /></a>
+            <Link to={`/events/${event.id}`}><img src={owenShaw} alt="" /></Link>
           </div>
           <div className="card-content">
-            <span className={styles['event-focus']}><a href="show-event.html">{event.name}</a></span><br />
+            <span className={styles['event-focus']}><Link to={`/events/${event.id}`}>{event.name}</Link></span><br />
             <span
               className={styles['event-title']}
             >
@@ -24,12 +24,13 @@ const EventsListWithImage = ({ events }) => (
             <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
           </div>
           <div className="card-action">
-            <a
+            <Link
+              to={`/events/${event.id}`}
               className="waves-effect waves-light btn navbar-purple round-btn white-color"
               href="show-event.html"
             >
               View
-            </a>
+            </Link>
           </div>
         </div>
       </div>

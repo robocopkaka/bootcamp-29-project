@@ -10,10 +10,11 @@ class SingleEvent extends Component {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.id, 10));
   }
   render() {
+    const { event = [] } = this.props;
     return (
       <div className="show-center-top">
         <div className="row valign-wrapper">
-          <EventDetails event={this.props.event} />
+          <EventDetails event={event} />
         </div>
       </div>
     );
