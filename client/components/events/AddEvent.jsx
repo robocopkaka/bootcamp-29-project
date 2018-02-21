@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import validator from 'validator';
 import classNames from 'classnames';
 import * as eventActions from '../../actions/eventActions';
 
@@ -47,6 +48,50 @@ class AddEvent extends Component {
     this.setState({
       [field]: [field]
     });
+  }
+  formIsValid() {
+    let fieldCheck = true;
+    const state = Object.assign({}, this.state);
+
+    if (validator.isEmpty(state.name.value)) {
+      state.name.isValid = false;
+      state.name.message = 'Name must not be empty';
+
+      this.setState({ name: state.name });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.guests.value)) {
+      state.state.isValid = false;
+      state.state.message = 'Guests must not be empty';
+
+      this.setState({ state: state.guests });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.detail.value)) {
+      state.detail.isValid = false;
+      state.detail.message = 'Detail must not be empty';
+
+      this.setState({ detail: state.detail });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.date.value)) {
+      state.capacity.isValid = false;
+      state.capacity.message = 'Date must not be empty';
+
+      this.setState({ detail: state.date });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.time.value)) {
+      state.capacity.isValid = false;
+      state.capacity.message = 'Time must not be empty';
+
+      this.setState({ detail: state.time });
+      fieldCheck = false;
+
+    if (!fieldCheck) {
+      return false;
+    }
+    return true;
   }
   render() {
     const containerClasses = classNames('container max-width-six-hundred');
