@@ -19,6 +19,7 @@ class AddEvent extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
@@ -28,9 +29,11 @@ class AddEvent extends Component {
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
+      closeOnSelect: true, // Close upon selecting a date,
       onSet: this.handleDateChange
     });
+    const time = $('#event-time');
+    // const value = $('#event-time').attr('value');
     $('.timepicker').pickatime({
       default: 'now', // Set default time: 'now', '1:30AM', '16:30'
       fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
@@ -40,8 +43,10 @@ class AddEvent extends Component {
       canceltext: 'Cancel', // Text for cancel-button
       autoclose: false, // automatic close timepicker
       ampmclickable: true, // make AM PM clickable
-      onSet: this.handleChange,
-      aftershow: function (){} //Function for after opening timepicker
+      aftershow: () => {},
+    });
+    $('.timepicker').on('change', () => {
+      this.handleTimeChange(time.val())
     });
   }
   handleChange(event) {
@@ -56,6 +61,11 @@ class AddEvent extends Component {
   handleDateChange(e) {
     this.setState({
       date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
+    });
+  }
+  handleTimeChange(e) {
+    this.setState({
+      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('LT') })
     });
   }
   formIsValid() {
@@ -191,7 +201,6 @@ class AddEvent extends Component {
                   type="text"
                   className="datepicker"
                   id="event-date"
-                  onChange={this.handleDateChange}
                 />
                 <label for="event-date">Date</label>
                 <span className={dateClasses}>{this.state.date.message}</span>
@@ -205,7 +214,7 @@ class AddEvent extends Component {
                   value={this.state.time.value}
                   className="timepicker"
                   type="text"
-                  onChange={this.handleChange}
+                  onChange={this.handleTimeChange}
                 />
                 <label for="event-time">Time</label>
                 <span className={timeClasses}>{this.state.time.message}</span>
