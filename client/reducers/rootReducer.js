@@ -4,6 +4,7 @@ import register from './registerReducer';
 import centers from './centerReducer';
 import center from './singleCenterReducer';
 import events from './eventReducer';
+import event from './singleEventReducer';
 
 const rootReducer = combineReducers({
   session,
@@ -11,5 +12,6 @@ const rootReducer = combineReducers({
   centers,
   center,
   events,
+  event
 });
 export default rootReducer;
