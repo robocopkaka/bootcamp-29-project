@@ -88,10 +88,22 @@ class AddEvent extends Component {
       this.setState({ detail: state.time });
       fieldCheck = false;
 
-    if (!fieldCheck) {
-      return false;
+      if (!fieldCheck) {
+        return false;
+      }
+      return true;
     }
-    return true;
+  }
+  resetValidationStates() {
+    const state = Object.assign({}, this.state);
+
+    Object.keys(state).map((key) => {
+      if ({}.hasOwnProperty.call(state[key], 'isValid')) {
+        state[key].isValid = true;
+        state[key].message = '';
+      }
+    });
+    this.setState(state);
   }
   render() {
     const containerClasses = classNames('container max-width-six-hundred');
