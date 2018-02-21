@@ -18,6 +18,7 @@ class AddEvent extends Component {
       time: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
+    this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
     $('.datepicker').pickadate({
@@ -104,6 +105,20 @@ class AddEvent extends Component {
       }
     });
     this.setState(state);
+  }
+  addEvent(event) {
+    event.preventDefault();
+    this.resetValidationStates();
+    const eventObject = {
+      name: this.state.name.value,
+      detail: this.state.detail.value,
+      guests: this.state.guests.value,
+      date: this.state.date.value,
+      time: this.state.time.value,
+    };
+    if (this.formIsValid()) {
+      this.props.actions.addEvent(eventObject);
+    }
   }
   render() {
     const containerClasses = classNames('container max-width-six-hundred');
