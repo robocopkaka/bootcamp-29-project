@@ -18,6 +18,7 @@ class AddEvent extends Component {
       time: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
@@ -27,7 +28,8 @@ class AddEvent extends Component {
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
-      closeOnSelect: false // Close upon selecting a date,
+      closeOnSelect: false, // Close upon selecting a date,
+      onSet: this.handleDateChange
     });
     $('.timepicker').pickatime({
       default: 'now', // Set default time: 'now', '1:30AM', '16:30'
@@ -38,6 +40,7 @@ class AddEvent extends Component {
       canceltext: 'Cancel', // Text for cancel-button
       autoclose: false, // automatic close timepicker
       ampmclickable: true, // make AM PM clickable
+      onSet: this.handleChange,
       aftershow: function (){} //Function for after opening timepicker
     });
   }
@@ -48,6 +51,11 @@ class AddEvent extends Component {
     field.value = value;
     this.setState({
       [field]: [field]
+    });
+  }
+  handleDateChange(e) {
+    this.setState({
+      date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
     });
   }
   formIsValid() {
@@ -183,7 +191,7 @@ class AddEvent extends Component {
                   type="text"
                   className="datepicker"
                   id="event-date"
-                  onChange={this.handleChange}
+                  onChange={this.handleDateChange}
                 />
                 <label for="event-date">Date</label>
                 <span className={dateClasses}>{this.state.date.message}</span>
