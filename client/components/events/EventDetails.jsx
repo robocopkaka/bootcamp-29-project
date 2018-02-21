@@ -10,7 +10,7 @@ const EventDetails = ({ event, center }) => (
       <div className="col s12 m8 l8">
         <div className="card">
           <div className="card-image">
-            <img src="img/owen shaw.jpg" alt="" className="responsive-img" />
+            <img src={center.image} alt="" className="responsive-img" />
             <span className="card-title">{event.name}</span>
           </div>
           <div className="card-content">
@@ -32,10 +32,21 @@ EventDetails.propTypes = {
     guests: PropTypes.number,
     detail: PropTypes.string,
     status: PropTypes.string,
-    centerId: PropTypes.string,
-    categoryId: PropTypes.string,
-    userId: PropTypes.string,
+    centerId: PropTypes.number,
+    categoryId: PropTypes.number,
+    userId: PropTypes.number,
     Center: PropTypes.object
   }).isRequired,
+  center: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    capacity: PropTypes.number,
+    detail: PropTypes.string,
+    chairs: PropTypes.number,
+    projector: PropTypes.number,
+    address: PropTypes.string,
+    state: PropTypes.string,
+    image: PropTypes.string,
+  }).isRequired
 };
 export default EventDetails;

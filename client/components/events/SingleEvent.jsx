@@ -8,7 +8,6 @@ import EventDetails from './EventDetails';
 class SingleEvent extends Component {
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
-    console.log(this.props.event);
   }
   render() {
     const { event = [] } = this.props;
@@ -29,9 +28,9 @@ SingleEvent.propTypes = {
     guests: PropTypes.number,
     detail: PropTypes.string,
     status: PropTypes.string,
-    centerId: PropTypes.string,
-    categoryId: PropTypes.string,
-    userId: PropTypes.string,
+    centerId: PropTypes.number,
+    categoryId: PropTypes.number,
+    userId: PropTypes.number,
     Center: PropTypes.object
   }).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
