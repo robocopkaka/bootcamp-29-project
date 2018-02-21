@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 import * as eventActions from '../../actions/eventActions';
 
 class AddEvent extends Component {
@@ -15,6 +16,7 @@ class AddEvent extends Component {
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' }
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     $('.datepicker').pickadate({
@@ -36,6 +38,99 @@ class AddEvent extends Component {
       ampmclickable: true, // make AM PM clickable
       aftershow: function (){} //Function for after opening timepicker
     });
+  }
+  handleChange(event) {
+    const { state } = this;
+    const { name, value } = event.target;
+    const field = state[name];
+    field.value = value;
+    this.setState({
+      [field]: [field]
+    });
+  }
+  render() {
+    const containerClasses = classNames('container max-width-six-hundred');
+    return (
+      <div className={containerClasses}>
+        <div className="card">
+          <div className="container">
+            <h3 className="center-heading">Add an Event</h3>
+          </div>
+          <form className="card-content">
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="event-name"
+                  name="name"
+                  value={this.state.name.value}
+                  type="text"
+                  className="validate"
+                />
+                <label for="event-name">Name</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <textarea
+                  id="event-detail"
+                  name="detail"
+                  value={this.state.detail.value}
+                  className="materialize-textarea validate"
+                  onChange={this.handleChange}
+                ></textarea>
+              <label for="center-detail">Detail</label>
+                <span className={detailClasses}>{this.state.detail.message}</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  id="event-guests"
+                  name="guests"
+                  value={this.state.guests.value}
+                  type="number"
+                  className="validate"
+                />
+                <label for="event-guests">Guests</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  name="date"
+                  value={this.state.date.value}
+                  type="text"
+                  className="datepicker"
+                  id="event-date"
+                />
+                <label for="event-date">Date</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="event-time"
+                  name="time"
+                  value={this.state.time.value}
+                  className="timepicker"
+                  type="text"
+                />
+                <label for="event-time">Time</label>
+              </div>
+            </div>
+            <div className="row center-align">
+              <button
+                className="btn waves-effect waves-light navbar-purple round-btn"
+                type="submit"
+                name="action"
+              >Add Event
+                <i className="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
   }
 }
 AddEvent.propTypes = {
