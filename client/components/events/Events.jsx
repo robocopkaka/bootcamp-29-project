@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as eventActions from '../../actions/eventActions';
 import EventsListWithImage from './EventsListWithImage';
 import Search from '../Search';
@@ -21,9 +22,12 @@ class Events extends Component {
           <EventsListWithImage events={this.props.events} />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
-          <a className="btn-floating btn-large red white-color" href="new-center.html">
+          <Link
+            to="/add-event"
+            className="btn-floating btn-large red white-color"
+          >
             <i className="material-icons">add</i>
-          </a>
+          </Link>
         </div>
       </div>
     );
