@@ -3,5 +3,6 @@ export default {
   isRegistered: !!sessionStorage.registered,
   centers: [],
   events: [],
-  center: {}
+  center: {},
+  event: {}
 };
