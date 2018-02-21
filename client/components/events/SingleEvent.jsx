@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as singleEventActions from '../../actions/singleEventActions';
+import * as eventActions from '../../actions/eventActions';
 import EventDetails from './EventDetails';
 
 class SingleEvent extends Component {
@@ -42,7 +42,7 @@ SingleEvent.propTypes = {
 };
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(singleEventActions, dispatch)
+    actions: bindActionCreators(eventActions, dispatch)
   };
 }
 function mapStateToProps(state) {
