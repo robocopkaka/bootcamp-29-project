@@ -7,14 +7,16 @@ import EventDetails from './EventDetails';
 
 class SingleEvent extends Component {
   componentDidMount() {
-    this.props.actions.fetchSingleEvent(parseInt(this.props.match.id, 10));
+    this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
+    console.log(this.props.event);
   }
   render() {
     const { event = [] } = this.props;
+    const { Center = {} } = this.props.event;
     return (
       <div className="show-center-top">
         <div className="row valign-wrapper">
-          <EventDetails event={event} />
+          <EventDetails event={event} center={Center} />
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ export function fetchSingleEventSuccess(event) {
 
 export function fetchSingleEvent(eventId) {
   return function (dispatch) {
-    return EventApi.getOne(id)
+    return EventApi.getOne(eventId)
       .then((response) => {
         dispatch(fetchSingleEventSuccess(response.data.event));
       })

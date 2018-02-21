@@ -4,7 +4,7 @@ import moment from 'moment';
 import * as eventStyles from '../../css/events.module.css';
 import * as centerStyles from '../../css/centers.module.css';
 
-const EventDetails = ({ event }) => (
+const EventDetails = ({ event, center }) => (
   <div className="col s12 m8 l8">
     <div className="row">
       <div className="col s12 m8 l8">
@@ -16,7 +16,7 @@ const EventDetails = ({ event }) => (
           <div className="card-content">
             <p id={centerStyles['show-center-address']}>{event.detail}</p><br />
             <span id={centerStyles['show-center-state']}>
-              Venue: {event.Center.address}, {event.Center.state}
+              Venue: {center.address}, {center.state}
             </span><br />
             <span className={eventStyles['event-date']}>{moment(event.date).format('LT')}</span>
           </div>
