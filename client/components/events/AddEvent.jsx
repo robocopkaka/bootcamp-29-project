@@ -121,6 +121,11 @@ class AddEvent extends Component {
     }
   }
   render() {
+    const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
+    const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
+    const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
+    const dateClasses = classNames('help-block', { 'has-error': !this.state.date.isValid });
+    const timeClasses = classNames('help-block', { 'has-error': !this.state.time.isValid });
     const containerClasses = classNames('container max-width-six-hundred');
     return (
       <div className={containerClasses}>
@@ -137,8 +142,10 @@ class AddEvent extends Component {
                   value={this.state.name.value}
                   type="text"
                   className="validate"
+                  onChange={this.handleChange}
                 />
                 <label for="event-name">Name</label>
+                <span className={nameClasses}>{this.state.name.message}</span>
               </div>
             </div>
             <div className="row">
@@ -150,7 +157,7 @@ class AddEvent extends Component {
                   className="materialize-textarea validate"
                   onChange={this.handleChange}
                 ></textarea>
-              <label for="center-detail">Detail</label>
+                <label for="center-detail">Detail</label>
                 <span className={detailClasses}>{this.state.detail.message}</span>
               </div>
             </div>
@@ -162,8 +169,10 @@ class AddEvent extends Component {
                   value={this.state.guests.value}
                   type="number"
                   className="validate"
+                  onChange={this.handleChange}
                 />
                 <label for="event-guests">Guests</label>
+                <span className={guestsClasses}>{this.state.guests.message}</span>
               </div>
             </div>
             <div className="row">
@@ -174,8 +183,10 @@ class AddEvent extends Component {
                   type="text"
                   className="datepicker"
                   id="event-date"
+                  onChange={this.handleChange}
                 />
                 <label for="event-date">Date</label>
+                <span className={dateClasses}>{this.state.date.message}</span>
               </div>
             </div>
             <div className="row">
@@ -186,8 +197,10 @@ class AddEvent extends Component {
                   value={this.state.time.value}
                   className="timepicker"
                   type="text"
+                  onChange={this.handleChange}
                 />
                 <label for="event-time">Time</label>
+                <span className={timeClasses}>{this.state.time.message}</span>
               </div>
             </div>
             <div className="row center-align">
