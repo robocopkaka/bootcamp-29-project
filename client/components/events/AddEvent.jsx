@@ -15,11 +15,14 @@ class AddEvent extends Component {
       detail: { value: '', isValid: true, message: '' },
       guests: { value: '', isValid: true, message: '' },
       date: { value: '', isValid: true, message: '' },
-      time: { value: '', isValid: true, message: '' }
+      time: { value: '', isValid: true, message: '' },
+      center: { value: '', isValid: true, message: '' },
+      centers: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
@@ -46,10 +49,21 @@ class AddEvent extends Component {
       aftershow: () => {},
     });
     $('.timepicker').on('change', () => {
-      this.handleTimeChange(time.val())
+      this.handleTimeChange(time.val());
+    });
+    $('select').material_select();
+    const center = $('#event-center');
+    $('#event-center').on('change', () => {
+      this.handleSelectChange(center.val());
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.centers.length > 0) {
+      this.setState({ centers: nextProps.centers });
+    }
+  }
   handleChange(event) {
+    console.log(event.target);
     const { state } = this;
     const { name, value } = event.target;
     const field = state[name];
@@ -61,6 +75,11 @@ class AddEvent extends Component {
   handleDateChange(e) {
     this.setState({
       date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
+    });
+  }
+  handleSelectChange(e) {
+    this.setState({
+      center: Object.assign({}, this.state.center, { value: e })
     });
   }
   handleTimeChange(e) {
@@ -139,6 +158,7 @@ class AddEvent extends Component {
     }
   }
   render() {
+    const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
     const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
     const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
@@ -220,6 +240,26 @@ class AddEvent extends Component {
                 <span className={timeClasses}>{this.state.time.message}</span>
               </div>
             </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <select
+                  name="center"
+                  value={this.state.center.value}
+                  onClick={this.handleSelectChange}
+                  id="event-center"
+                >
+                  <option value="">Pick a Center</option>
+                  {centers.map(center => (
+                    <option
+                      key={center.id}
+                      value={center.id}
+                    >{center.name}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="event-center">Center</label>
+              </div>
+            </div>
             <div className="row center-align">
               <button
                 className="btn waves-effect waves-light navbar-purple round-btn"
@@ -236,11 +276,21 @@ class AddEvent extends Component {
   }
 }
 AddEvent.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired
 };
+function mapStateToProps(state) {
+  let centers = [];
+  if (state.centers && state.centers.length > 0) {
+    centers = state.centers;
+  }
+  return {
+    centers
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(eventActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(AddEvent)
+export default connect(mapStateToProps, mapDispatchToProps)(AddEvent)
