@@ -64,6 +64,7 @@ before((done) => {
                     name: 'new event',
                     date: '2020-01-01',
                     detail: 'Awesome event',
+                    guests: 1000,
                     categoryId: 1,
                     centerId: center.id
                   })
