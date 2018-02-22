@@ -109,8 +109,8 @@ class AddEvent extends Component {
       fieldCheck = false;
     }
     if (validator.isEmpty(state.guests.value)) {
-      state.state.isValid = false;
-      state.state.message = 'Guests must not be empty';
+      state.guests.isValid = false;
+      state.guests.message = 'Guests must not be empty';
 
       this.setState({ state: state.guests });
       fieldCheck = false;
@@ -123,15 +123,15 @@ class AddEvent extends Component {
       fieldCheck = false;
     }
     if (validator.isEmpty(state.date.value)) {
-      state.capacity.isValid = false;
-      state.capacity.message = 'Date must not be empty';
+      state.date.isValid = false;
+      state.date.message = 'Date must not be empty';
 
       this.setState({ detail: state.date });
       fieldCheck = false;
     }
     if (validator.isEmpty(state.time.value)) {
-      state.capacity.isValid = false;
-      state.capacity.message = 'Time must not be empty';
+      state.time.isValid = false;
+      state.time.message = 'Time must not be empty';
 
       this.setState({ detail: state.time });
       fieldCheck = false;
