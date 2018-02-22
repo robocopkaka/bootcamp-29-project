@@ -112,7 +112,7 @@ class AddEvent extends Component {
       state.guests.isValid = false;
       state.guests.message = 'Guests must not be empty';
 
-      this.setState({ state: state.guests });
+      this.setState({ guests: state.guests });
       fieldCheck = false;
     }
     if (validator.isEmpty(state.detail.value)) {
@@ -126,21 +126,34 @@ class AddEvent extends Component {
       state.date.isValid = false;
       state.date.message = 'Date must not be empty';
 
-      this.setState({ detail: state.date });
+      this.setState({ date: state.date });
       fieldCheck = false;
     }
     if (validator.isEmpty(state.time.value)) {
       state.time.isValid = false;
       state.time.message = 'Time must not be empty';
 
-      this.setState({ detail: state.time });
+      this.setState({ time: state.time });
       fieldCheck = false;
-
-      if (!fieldCheck) {
-        return false;
-      }
-      return true;
     }
+    if (validator.isEmpty(state.center.value)) {
+      state.center.isValid = false;
+      state.center.message = 'Select a center';
+
+      this.setState({ center: state.center });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.category.value)) {
+      state.category.isValid = false;
+      state.category.message = 'Select a category';
+
+      this.setState({ category: state.category });
+      fieldCheck = false;
+    }
+    if (!fieldCheck) {
+      return false;
+    }
+    return true;
   }
   resetValidationStates() {
     const state = Object.assign({}, this.state);
@@ -152,6 +165,19 @@ class AddEvent extends Component {
       }
     });
     this.setState(state);
+  }
+  clearFields() {
+    this.setState({
+      name: {
+        value: '', isValid: true, message: ''
+      }
+    });
+    this.setState({ guests: { value: '', isValid: true, message: '' } });
+    this.setState({ date: { value: '', isValid: true, message: '' } });
+    this.setState({ time: { value: '', isValid: true, message: '' } });
+    this.setState({ detail: { value: '', isValid: true, message: '' } });
+    this.setState({ center: { value: '', isValid: true, message: '' } });
+    this.setState({ category: { value: '', isValid: true, message: '' } });
   }
   addEvent(e) {
     e.preventDefault();
@@ -165,10 +191,10 @@ class AddEvent extends Component {
       centerId: this.state.center.value,
       categoryId: this.state.category.value
     };
-    console.log(eventObject);
-    // if (this.formIsValid()) {
+    if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject);
-    // }
+      this.clearFields();
+    }
   }
   render() {
     const { centers = [] } = this.props;
@@ -177,6 +203,8 @@ class AddEvent extends Component {
     const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
     const dateClasses = classNames('help-block', { 'has-error': !this.state.date.isValid });
     const timeClasses = classNames('help-block', { 'has-error': !this.state.time.isValid });
+    const centerClasses = classNames('help-block', { 'has-error': !this.state.center.isValid });
+    const categoryClasses = classNames('help-block', { 'has-error': !this.state.category.isValid });
     const containerClasses = classNames('container max-width-six-hundred');
     return (
       <div className={containerClasses}>
@@ -271,6 +299,7 @@ class AddEvent extends Component {
                   ))}
                 </select>
                 <label htmlFor="event-center">Center</label>
+                <span className={centerClasses}>{this.state.center.message}</span>
               </div>
               <div className="input-field col s16">
                 <select
@@ -282,6 +311,7 @@ class AddEvent extends Component {
                   <option value="1">General</option>
                 </select>
                 <label htmlFor="event-category">Category</label>
+                <span className={categoryClasses}>{this.state.category.message}</span>
               </div>
             </div>
             <div className="row center-align">
