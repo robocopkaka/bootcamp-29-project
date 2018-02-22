@@ -16,13 +16,15 @@ class AddEvent extends Component {
       guests: { value: '', isValid: true, message: '' },
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' },
-      center: { value: '', isValid: true, message: '' },
+      center: { value: '1', isValid: true, message: '' },
+      category: { value: '', isValid: true, message: '' },
       centers: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
+    this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
@@ -53,8 +55,12 @@ class AddEvent extends Component {
     });
     $('select').material_select();
     const center = $('#event-center');
+    const category = $('#event-category');
     $('#event-center').on('change', () => {
-      this.handleSelectChange(center.val());
+      this.handleSelectCenterChange(center.val());
+    });
+    $('#event-category').on('change', () => {
+      this.handleSelectCategoryChange(category.val());
     });
   }
   componentWillReceiveProps(nextProps) {
@@ -63,7 +69,6 @@ class AddEvent extends Component {
     }
   }
   handleChange(event) {
-    console.log(event.target);
     const { state } = this;
     const { name, value } = event.target;
     const field = state[name];
@@ -77,9 +82,14 @@ class AddEvent extends Component {
       date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
     });
   }
-  handleSelectChange(e) {
+  handleSelectCenterChange(e) {
     this.setState({
       center: Object.assign({}, this.state.center, { value: e })
+    });
+  }
+  handleSelectCategoryChange(e) {
+    this.setState({
+      category: Object.assign({}, this.state.category, { value: e })
     });
   }
   handleTimeChange(e) {
@@ -241,11 +251,11 @@ class AddEvent extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field col s16">
                 <select
                   name="center"
                   value={this.state.center.value}
-                  onClick={this.handleSelectChange}
+                  onChange={this.handleSelectCenterChange}
                   id="event-center"
                 >
                   <option value="">Pick a Center</option>
@@ -258,6 +268,17 @@ class AddEvent extends Component {
                   ))}
                 </select>
                 <label htmlFor="event-center">Center</label>
+              </div>
+              <div className="input-field col s16">
+                <select
+                  name="category"
+                  value={this.state.category.value}
+                  onChange={this.handleSelectCategoryChange}
+                  id="event-category"
+                >
+                  <option value="1">General</option>
+                </select>
+                <label htmlFor="event-category">Category</label>
               </div>
             </div>
             <div className="row center-align">
