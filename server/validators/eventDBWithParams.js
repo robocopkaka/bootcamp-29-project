@@ -5,6 +5,7 @@ const eventDBWithParamsSchema = {
     name: Joi.string().required(),
     detail: Joi.string().required(),
     date: Joi.string().required(),
+    guests: Joi.number().required(),
     categoryId: Joi.number().required()
   },
   params: {

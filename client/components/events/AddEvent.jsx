@@ -166,9 +166,9 @@ class AddEvent extends Component {
       categoryId: this.state.category.value
     };
     console.log(eventObject);
-    if (this.formIsValid()) {
+    // if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject);
-    }
+    // }
   }
   render() {
     const { centers = [] } = this.props;
@@ -318,4 +318,4 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(eventActions, dispatch)
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AddEvent)
+export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);

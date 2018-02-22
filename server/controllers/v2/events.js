@@ -102,15 +102,24 @@ module.exports = {
                             name: req.body.name,
                             detail: req.body.detail,
                             date: req.body.date,
-                            guests: 1000,
+                            guests: req.body.guests,
                             userId: req.decoded.id,
                             centerId: center.id,
                             categoryId: req.body.categoryId
                           })
-                          .then(() => {
+                          .then((response) => {
                             res.status(201).send({
                               success: true,
-                              message: 'Event created successfully'
+                              message: 'Event created successfully',
+                              event: {
+                                id: response.id,
+                                name: response.name,
+                                detail: response.detail,
+                                guests: response.guests,
+                                date: response.date,
+                                centerId: response.centerId,
+                                categoryId: response.categoryId
+                              }
                             });
                           })
                           .catch(() => {
