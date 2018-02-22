@@ -218,7 +218,7 @@ class AddCenter extends Component {
                   className="materialize-textarea validate"
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="center-state">Detail</label>
+              <label for="center-detail">Detail</label>
                 <span className={detailClasses}>{this.state.detail.message}</span>
               </div>
             </div>
