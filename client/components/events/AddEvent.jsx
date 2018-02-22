@@ -94,7 +94,7 @@ class AddEvent extends Component {
   }
   handleTimeChange(e) {
     this.setState({
-      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('LT') })
+      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
     });
   }
   formIsValid() {
@@ -153,16 +153,19 @@ class AddEvent extends Component {
     });
     this.setState(state);
   }
-  addEvent(event) {
-    event.preventDefault();
+  addEvent(e) {
+    e.preventDefault();
     this.resetValidationStates();
+    const datetime = `${this.state.date.value} ${this.state.time.value}`;
     const eventObject = {
       name: this.state.name.value,
       detail: this.state.detail.value,
       guests: this.state.guests.value,
-      date: this.state.date.value,
-      time: this.state.time.value,
+      date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
+      centerId: this.state.center.value,
+      categoryId: this.state.category.value
     };
+    console.log(eventObject);
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject);
     }
@@ -286,6 +289,7 @@ class AddEvent extends Component {
                 className="btn waves-effect waves-light navbar-purple round-btn"
                 type="submit"
                 name="action"
+                onClick={this.addEvent}
               >Add Event
                 <i className="material-icons right">send</i>
               </button>

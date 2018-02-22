@@ -31,3 +31,19 @@ export function fetchSingleEvent(eventId) {
       });
   };
 }
+
+export function addEventSuccess(event) {
+  return { type: types.ADD_EVENT_SUCCESS, event };
+}
+
+export function addEvent(eventObject) {
+  return function (dispatch) {
+    return EventApi.create(eventObject)
+      .then((response) => {
+        dispatch(addEventSuccess(response.data.event));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
