@@ -96,6 +96,16 @@ class EditEvent extends Component {
       time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
     });
   }
+  handleSelectCenterChange(e) {
+    this.setState({
+      center: Object.assign({}, this.state.center, { value: e })
+    });
+  }
+  handleSelectCategoryChange(e) {
+    this.setState({
+      category: Object.assign({}, this.state.category, { value: e })
+    });
+  }
   render() {
     const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
