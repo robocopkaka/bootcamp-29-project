@@ -188,6 +188,23 @@ class EditEvent extends Component {
     this.setState({ center: { value: '', isValid: true, message: '' } });
     this.setState({ category: { value: '', isValid: true, message: '' } });
   }
+  updateEvent(e) {
+    e.preventDefault();
+    this.resetValidationStates();
+    const datetime = `${this.state.date.value} ${this.state.time.value}`;
+    const eventObject = {
+      name: this.state.name.value,
+      detail: this.state.detail.value,
+      guests: this.state.guests.value,
+      date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
+      centerId: this.state.center.value,
+      categoryId: this.state.category.value
+    };
+    if (this.formIsValid()) {
+      this.props.actions.updateEvent(eventObject);
+      this.clearFields();
+    }
+  }
   render() {
     const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
