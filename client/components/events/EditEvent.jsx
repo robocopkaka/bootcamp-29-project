@@ -20,6 +20,7 @@ class EditEvent extends Component {
       category: { value: '', isValid: true, message: '' },
       // centers: {}
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
@@ -83,6 +84,16 @@ class EditEvent extends Component {
     field.value = value;
     this.setState({
       [field]: [field]
+    });
+  }
+  handleDateChange(e) {
+    this.setState({
+      date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
+    });
+  }
+  handleTimeChange(e) {
+    this.setState({
+      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
     });
   }
   render() {
