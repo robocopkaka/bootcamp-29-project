@@ -193,6 +193,7 @@ class EditEvent extends Component {
     this.resetValidationStates();
     const datetime = `${this.state.date.value} ${this.state.time.value}`;
     const eventObject = {
+      id: parseInt(this.props.match.params.id, 10),
       name: this.state.name.value,
       detail: this.state.detail.value,
       guests: this.state.guests.value,
