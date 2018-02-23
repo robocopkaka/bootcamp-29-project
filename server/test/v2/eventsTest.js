@@ -91,10 +91,44 @@ describe('Events endpoints', () => {
       request(app)
         .put('/api/v2/events/1')
         .set('x-access-token', token)
-        .send(editEventDB)
+        .send({
+          name: 'kachi\'s ultra mega second event',
+          detail: 'Awesome events',
+          guests: 1000,
+          date: '2018-11-30',
+          categoryId: 1,
+          centerId: 1
+        })
         .expect(409)
         .catch((err) => {
           err.should.have.status(409);
+        })
+    ));
+    it('should return a 409 if an event date already exists', () => (
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send({
+          name: 'kachi\'s ultra dupy event',
+          detail: 'Awesome event',
+          guests: 1000,
+          date: '2019-11-11',
+          categoryId: 1,
+          centerId: 1
+        })
+        .expect(409)
+        .catch((err) => {
+          err.should.have.status(409);
+        })
+    ));
+    it('should return a 200 if the request body deep equals a row with the params ID in the database', () => (
+      request(app)
+        .put('/api/v2/events/2')
+        .set('x-access-token', token)
+        .send(newEventDB)
+        .expect(200)
+        .catch((err) => {
+          err.should.have.status(200);
         })
     ));
     it('should return a 403 if the token is missing', () => (

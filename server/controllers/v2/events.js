@@ -1,3 +1,4 @@
+import deepEqual from 'deep-equal';
 import { Event, Center, User } from '../../models/index';
 
 module.exports = {
@@ -186,94 +187,161 @@ module.exports = {
         } else if (user.isAdmin) {
           Event
             .findOne({
-              where: { name: req.body.name }
+              where: { id: req.params.eventId },
+              include: [
+                { model: Center }
+              ]
             })
-            .then((exists) => {
-              if (exists) {
-                res.status(409).send({
+            .then((event) => {
+              if (!event) {
+                res.status(404).send({
                   success: false,
-                  message: 'Event name already exists'
+                  message: 'Event not found'
                 });
-              } else {
-                Event
-                  .findOne({
-                    where: { id: req.params.eventId },
-                    include: [
-                      { model: Center }
-                    ]
-                  })
-                  .then((event) => {
-                    if (!event) {
-                      res.status(404).send({
-                        success: false,
-                        message: 'Event not found'
+              } else if (event) {
+                const fetchedEvent = event.dataValues;
+                delete fetchedEvent.createdAt;
+                delete fetchedEvent.updatedAt;
+                delete fetchedEvent.Center;
+                delete fetchedEvent.id;
+                // figure out how to handle status later
+                delete fetchedEvent.status;
+                delete fetchedEvent.userId;
+                // console.log(fetchedEvent);
+
+                if (deepEqual(fetchedEvent, req.body) || fetchedEvent.name === req.body.name) {
+                  Event
+                    .update({
+                      name: req.body.name,
+                      guests: req.body.guests,
+                      centerId: req.body.centerId,
+                      detail: req.body.detail,
+                      date: new Date(req.body.date),
+                      categoryId: req.body.categoryId
+                    }, {
+                      returning: true,
+                      where: { id: parseInt(req.params.eventId, 10) }
+                    })
+                    .then(([rowsUpdate, [updatedEvent]]) => {
+                      res.status(200).send({
+                        success: true,
+                        message: 'Event updated successfully',
+                        event: updatedEvent
                       });
-                    } else if (event) {
-                      const centerId = event.Center.id;
-                      Center
-                        .findOne({
-                          where: { id: centerId },
-                          include: [
-                            { model: Event, as: 'events' }
-                          ]
-                        })
-                        .then((center) => {
-                          if (!center) {
-                            res.status(404).send({
-                              success: false,
-                              message: 'Center not found'
-                            });
-                          } else if (center) {
-                            const dates = center.events.map(anEvent => anEvent.date);
-                            if (dates.map(Number).indexOf(+(new Date(req.body.date))) !== -1) {
-                              res.status(409).send({
+                    })
+                    .catch(() => {
+                      res.status(400).send({
+                        success: false,
+                        message: 'An error occured updating event'
+                      });
+                    });
+                } else {
+                  Event
+                    .findOne({
+                      where: { name: req.body.name }
+                    })
+                    .then((exists) => {
+                      if (exists) {
+                        res.status(409).send({
+                          success: false,
+                          message: 'Event name already exists'
+                        });
+                      } else {
+                        Event
+                          .findOne({
+                            where: { id: req.params.eventId },
+                            include: [
+                              { model: Center }
+                            ]
+                          })
+                          .then((event) => {
+                            if (!event) {
+                              res.status(404).send({
                                 success: false,
-                                message: 'Oops. Date has already been taken'
+                                message: 'Event not found'
                               });
-                            } else {
-                              Event
-                                .update({
-                                  name: req.body.name,
-                                  date: new Date(req.body.date),
-                                  categoryId: 1
-                                }, {
-                                  where: { id: parseInt(req.params.eventId, 10) }
+                            } else if (event) {
+                              const centerId = event.Center.id;
+                              Center
+                                .findOne({
+                                  where: { id: centerId },
+                                  include: [
+                                    { model: Event, as: 'events' }
+                                  ]
                                 })
-                                .then(() => {
-                                  res.status(200).send({
-                                    success: true,
-                                    message: 'Event updated successfully'
-                                  });
+                                .then((center) => {
+                                  if (!center) {
+                                    res.status(404).send({
+                                      success: false,
+                                      message: 'Center not found'
+                                    });
+                                  } else if (center) {
+                                    const dates = center.events.map(anEvent => anEvent.date);
+                                    if (
+                                      dates.map(Number).indexOf(+(new Date(req.body.date))) !== -1
+                                    ) {
+                                      res.status(409).send({
+                                        success: false,
+                                        message: 'Oops. Date has already been taken'
+                                      });
+                                    } else {
+                                      Event
+                                        .update({
+                                          name: req.body.name,
+                                          detail: req.body.detail,
+                                          guests: req.body.guests,
+                                          centerId: req.body.centerId,
+                                          date: new Date(req.body.date),
+                                          categoryId: req.body.categoryId
+                                        }, {
+                                          returning: true,
+                                          where: { id: parseInt(req.params.eventId, 10) }
+                                        })
+                                        .then(([rowsUpdate, [updatedEvent]]) => {
+                                          res.status(200).send({
+                                            success: true,
+                                            message: 'Event updated successfully',
+                                            event: updatedEvent
+                                          });
+                                        })
+                                        .catch(() => {
+                                          res.status(400).send({
+                                            success: false,
+                                            message: 'An error occured updating event'
+                                          });
+                                        });
+                                    }
+                                  }
                                 })
                                 .catch(() => {
                                   res.status(400).send({
                                     success: false,
-                                    message: 'An error occured updating event'
+                                    message: 'An error occured finding the center'
                                   });
                                 });
                             }
-                          }
-                        })
-                        .catch(() => {
-                          res.status(400).send({
-                            success: false,
-                            message: 'An error occured finding the center'
+                          })
+                          .catch(() => {
+                            res.status(400).send({
+                              success: false,
+                              message: 'An error occured finding the event'
+                            });
                           });
-                        });
-                    }
-                  })
-                  .catch(() => {
-                    res.status(400).send({
-                      success: false,
-                      message: 'An error occured finding the event'
+                      }
+                    })
+                    .catch(() => {
+                      res.status(400).send({
+                        success: false,
+                        message: 'An error occured finding if the event exists'
+                      });
                     });
-                  });
+                }
               }
             })
             .catch(() => {
               res.status(400).send({
                 success: false,
-                message: 'An error occured finding if the event exists'
+                message: 'An error occured finding the event'
               });
             });
         }
