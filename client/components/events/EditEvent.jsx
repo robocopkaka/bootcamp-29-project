@@ -71,7 +71,7 @@ class EditEvent extends Component {
         category: Object.assign({}, this.state.category, {
           value: (nextProps.event.categoryId).toString()
         })
-      })
+      });
     }
     // if (nextProps.centers.length > 0) {
     //   this.setState({ centers: nextProps.centers });
@@ -105,6 +105,75 @@ class EditEvent extends Component {
     this.setState({
       category: Object.assign({}, this.state.category, { value: e })
     });
+  }
+  formIsValid() {
+    let fieldCheck = true;
+    const state = Object.assign({}, this.state);
+
+    if (validator.isEmpty(state.name.value)) {
+      state.name.isValid = false;
+      state.name.message = 'Name must not be empty';
+
+      this.setState({ name: state.name });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.guests.value)) {
+      state.guests.isValid = false;
+      state.guests.message = 'Guests must not be empty';
+
+      this.setState({ guests: state.guests });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.detail.value)) {
+      state.detail.isValid = false;
+      state.detail.message = 'Detail must not be empty';
+
+      this.setState({ detail: state.detail });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.date.value)) {
+      state.date.isValid = false;
+      state.date.message = 'Date must not be empty';
+
+      this.setState({ date: state.date });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.time.value)) {
+      state.time.isValid = false;
+      state.time.message = 'Time must not be empty';
+
+      this.setState({ time: state.time });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.center.value)) {
+      state.center.isValid = false;
+      state.center.message = 'Select a center';
+
+      this.setState({ center: state.center });
+      fieldCheck = false;
+    }
+    if (validator.isEmpty(state.category.value)) {
+      state.category.isValid = false;
+      state.category.message = 'Select a category';
+
+      this.setState({ category: state.category });
+      fieldCheck = false;
+    }
+    if (!fieldCheck) {
+      return false;
+    }
+    return true;
+  }
+  resetValidationStates() {
+    const state = Object.assign({}, this.state);
+
+    Object.keys(state).map((key) => {
+      if ({}.hasOwnProperty.call(state[key], 'isValid')) {
+        state[key].isValid = true;
+        state[key].message = '';
+      }
+    });
+    this.setState(state);
   }
   render() {
     const { centers = [] } = this.props;
