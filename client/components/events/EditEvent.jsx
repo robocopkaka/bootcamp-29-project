@@ -53,7 +53,7 @@ class EditEvent extends Component {
       <div className={containerClasses}>
         <div className="card">
           <div className="container">
-            <h3 className="center-heading">Add an Event</h3>
+            <h3 className="center-heading">Edit an Event</h3>
           </div>
           <form className="card-content">
             <div className="row">
@@ -203,7 +203,22 @@ EditEvent.propTypes = {
   }).isRequired
 };
 function mapStateToProps(state) {
-
+  let event = {
+    id: '',
+    name: '',
+    detail: '',
+    guests: '',
+    centerId: '',
+    categoryId: '',
+    date: '',
+    Center: {}
+  };
+  if (state.event && state.event.id !== '') {
+    event = state.event;
+  }
+  return {
+    event
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
