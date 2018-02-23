@@ -3,7 +3,8 @@ const editEventDB = {
   detail: 'Awesome event',
   guests: 1000,
   date: '2018-11-2',
-  categoryId: 1
+  categoryId: 1,
+  centerId: 1
 };
 
 module.exports = editEventDB;
