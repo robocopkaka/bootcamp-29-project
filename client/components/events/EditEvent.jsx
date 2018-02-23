@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import clasNames from 'classnames';
+import classNames from 'classnames';
 import validator from 'validator';
 import moment from 'moment';
 import * as eventActions from '../../actions/eventActions';
@@ -18,7 +18,7 @@ class EditEvent extends Component {
       time: { value: '', isValid: true, message: '' },
       center: { value: '1', isValid: true, message: '' },
       category: { value: '', isValid: true, message: '' },
-      centers: {}
+      // centers: {}
     };
   }
   componentDidMount() {
@@ -31,7 +31,7 @@ class EditEvent extends Component {
         detail: Object.assign({}, this.state.detail, { value: nextProps.event.detail }),
         guests: Object.assign({}, this.state.guests, { value: nextProps.event.guests }),
         center: Object.assign({}, this.state.center, {
-          value:( nextProps.event.centerId).toString()
+          value: (nextProps.event.centerId).toString()
         }),
         category: Object.assign({}, this.state.category, {
           value: (nextProps.event.categoryId).toString()
@@ -174,7 +174,33 @@ class EditEvent extends Component {
   }
 }
 EditEvent.propTypes = {
-
+  event: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    guests: PropTypes.number,
+    detail: PropTypes.string,
+    date: PropTypes.string,
+    centerId: PropTypes.number,
+    categoryId: PropTypes.number,
+    Center: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      capacity: PropTypes.number,
+      detail: PropTypes.string,
+      chairs: PropTypes.number,
+      projector: PropTypes.number,
+      address: PropTypes.string,
+      state: PropTypes.string,
+      image: PropTypes.string,
+      events: PropTypes.array
+    })
+  }).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired
 };
 function mapStateToProps(state) {
 
