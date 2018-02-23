@@ -10,6 +10,7 @@ import EditCenter from './centers/EditCenter';
 import Events from './events/Events';
 import SingleEvent from './events/SingleEvent';
 import AddEvent from './events/AddEvent';
+import EditEvent from './events/EditEvent';
 
 const Main = () => (
   <Switch>
@@ -23,6 +24,7 @@ const Main = () => (
     <Route exact path="/events" component={Events} />
     <Route exact path="/events/:id" component={SingleEvent} />
     <Route path="/add-event" component={AddEvent} />
+    <Route exact path="/events/:id/edit" component={EditEvent} />
   </Switch>
 );
 export default Main;
