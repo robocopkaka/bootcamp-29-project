@@ -38,6 +38,18 @@ class EditEvent extends Component {
         })
       })
     }
+    // if (nextProps.centers.length > 0) {
+    //   this.setState({ centers: nextProps.centers });
+    // }
+  }
+  handleChange(e) {
+    const { state } = this;
+    const { name, value } = e.target;
+    const field = state[name];
+    field.value = value;
+    this.setState({
+      [field]: [field]
+    });
   }
   render() {
     const { centers = [] } = this.props;
@@ -200,9 +212,11 @@ EditEvent.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.node,
     }).isRequired,
-  }).isRequired
+  }).isRequired,
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 function mapStateToProps(state) {
+  let centers = [];
   let event = {
     id: '',
     name: '',
@@ -216,8 +230,12 @@ function mapStateToProps(state) {
   if (state.event && state.event.id !== '') {
     event = state.event;
   }
+  if (state.centers && state.centers.length > 0) {
+    centers = state.centers;
+  }
   return {
-    event
+    event,
+    centers
   };
 }
 function mapDispatchToProps(dispatch) {
