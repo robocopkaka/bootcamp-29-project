@@ -175,6 +175,19 @@ class EditEvent extends Component {
     });
     this.setState(state);
   }
+  clearFields() {
+    this.setState({
+      name: {
+        value: '', isValid: true, message: ''
+      }
+    });
+    this.setState({ guests: { value: '', isValid: true, message: '' } });
+    this.setState({ date: { value: '', isValid: true, message: '' } });
+    this.setState({ time: { value: '', isValid: true, message: '' } });
+    this.setState({ detail: { value: '', isValid: true, message: '' } });
+    this.setState({ center: { value: '', isValid: true, message: '' } });
+    this.setState({ category: { value: '', isValid: true, message: '' } });
+  }
   render() {
     const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
