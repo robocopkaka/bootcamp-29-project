@@ -202,7 +202,6 @@ class EditEvent extends Component {
     this.setState({ category: { value: '', isValid: true, message: '' } });
   }
   updateEvent(e) {
-    console.log(this);
     e.preventDefault();
     this.resetValidationStates();
     const datetime = `${this.state.date.value} ${this.state.time.value}`;
