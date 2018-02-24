@@ -21,6 +21,11 @@ class EditEvent extends Component {
       // centers: {}
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
+    this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
+    this.updateEvent = this.updateEvent.bind(this);
   }
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
@@ -64,7 +69,9 @@ class EditEvent extends Component {
       this.setState({
         name: Object.assign({}, this.state.name, { value: nextProps.event.name }),
         detail: Object.assign({}, this.state.detail, { value: nextProps.event.detail }),
-        guests: Object.assign({}, this.state.guests, { value: nextProps.event.guests }),
+        guests: Object.assign({}, this.state.guests, {
+          value: (nextProps.event.guests).toString()
+        }),
         center: Object.assign({}, this.state.center, {
           value: (nextProps.event.centerId).toString()
         }),
@@ -195,6 +202,7 @@ class EditEvent extends Component {
     this.setState({ category: { value: '', isValid: true, message: '' } });
   }
   updateEvent(e) {
+    console.log(this);
     e.preventDefault();
     this.resetValidationStates();
     const datetime = `${this.state.date.value} ${this.state.time.value}`;
@@ -335,7 +343,7 @@ class EditEvent extends Component {
                 className="btn waves-effect waves-light navbar-purple round-btn"
                 type="submit"
                 name="action"
-                onClick={this.addEvent}
+                onClick={this.updateEvent}
               >Update Event
                 <i className="material-icons right">send</i>
               </button>

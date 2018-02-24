@@ -216,7 +216,7 @@ module.exports = {
                       guests: req.body.guests,
                       centerId: req.body.centerId,
                       detail: req.body.detail,
-                      date: new Date(req.body.date),
+                      date: req.body.date,
                       categoryId: req.body.categoryId
                     }, {
                       returning: true,
@@ -291,7 +291,7 @@ module.exports = {
                                           detail: req.body.detail,
                                           guests: req.body.guests,
                                           centerId: req.body.centerId,
-                                          date: new Date(req.body.date),
+                                          date: req.body.date,
                                           categoryId: req.body.categoryId
                                         }, {
                                           returning: true,
