@@ -47,3 +47,18 @@ export function addEvent(eventObject) {
       });
   };
 }
+
+export function updateEventSuccess(event) {
+  return { type: types.UPDATE_EVENT_SUCCESS, event };
+}
+export function updateEvent(eventObject) {
+  return function (dispatch) {
+    return EventApi.update(eventObject)
+      .then((response) => {
+        dispatch(updateEventSuccess(response.data.event));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}

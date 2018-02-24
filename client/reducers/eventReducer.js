@@ -12,6 +12,12 @@ export default function eventReducer(state = initialState.events, action) {
         ...state.filter(event => event.id !== action.event.id),
         Object.assign({}, action.event)
       ];
+    case types.UPDATE_EVENT_SUCCESS:
+      history.push(`/events/${action.event.id}`);
+      return [
+        ...state.filter(event => event.id !== action.event.id),
+        Object.assign({}, action.event)
+      ];
     default:
       return state;
   }

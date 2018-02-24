@@ -61,5 +61,31 @@ class EventApi {
         return error;
       });
   }
+  static update(eventObject) {
+    return axios.put(
+      `http://localhost:8000/api/v2/events/${eventObject.id}`,
+      JSON.stringify({
+        name: eventObject.name,
+        detail: eventObject.detail,
+        date: eventObject.date,
+        guests: eventObject.guests,
+        centerId: eventObject.centerId,
+        categoryId: eventObject.categoryId
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': `${sessionStorage.jwt}`
+        }
+      }
+    )
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log('CATCH = ', error.response);
+        return error;
+      });
+  }
 }
 export default EventApi;

@@ -31,6 +31,12 @@ const EventsListWithImage = ({ events }) => (
             >
               View
             </Link>
+            <Link
+              to={`/events/${event.id}/edit`}
+              className="waves-effect waves-light btn navbar-purple round-btn white-color"
+            >
+              <i className="material-icons">edit</i>
+            </Link>
           </div>
         </div>
       </div>
