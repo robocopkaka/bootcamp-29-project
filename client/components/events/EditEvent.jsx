@@ -70,6 +70,12 @@ class EditEvent extends Component {
         }),
         category: Object.assign({}, this.state.category, {
           value: (nextProps.event.categoryId).toString()
+        }),
+        date: Object.assign({}, this.state.name, {
+          value: moment(nextProps.event.date).format('LL')
+        }),
+        time: Object.assign({}, this.state.name, {
+          value: moment(nextProps.event.date).format('LT')
         })
       });
     }
@@ -233,7 +239,7 @@ class EditEvent extends Component {
                   className="validate"
                   onChange={this.handleChange}
                 />
-                <label for="event-name">Name</label>
+                <label for="event-name" className="active">Name</label>
                 <span className={nameClasses}>{this.state.name.message}</span>
               </div>
             </div>
@@ -246,7 +252,7 @@ class EditEvent extends Component {
                   className="materialize-textarea validate"
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="center-detail">Detail</label>
+                <label for="center-detail" className="active">Detail</label>
                 <span className={detailClasses}>{this.state.detail.message}</span>
               </div>
             </div>
@@ -260,7 +266,7 @@ class EditEvent extends Component {
                   className="validate"
                   onChange={this.handleChange}
                 />
-                <label for="event-guests">Guests</label>
+                <label for="event-guests" className="active">Guests</label>
                 <span className={guestsClasses}>{this.state.guests.message}</span>
               </div>
             </div>
@@ -273,7 +279,7 @@ class EditEvent extends Component {
                   className="datepicker"
                   id="event-date"
                 />
-                <label for="event-date">Date</label>
+                <label for="event-date" className="active">Date</label>
                 <span className={dateClasses}>{this.state.date.message}</span>
               </div>
             </div>
@@ -287,7 +293,7 @@ class EditEvent extends Component {
                   type="text"
                   onChange={this.handleTimeChange}
                 />
-                <label for="event-time">Time</label>
+                <label for="event-time" className="active">Time</label>
                 <span className={timeClasses}>{this.state.time.message}</span>
               </div>
             </div>
@@ -308,7 +314,7 @@ class EditEvent extends Component {
                     </option>
                   ))}
                 </select>
-                <label htmlFor="event-center">Center</label>
+                <label htmlFor="event-center" className="active">Center</label>
                 <span className={centerClasses}>{this.state.center.message}</span>
               </div>
               <div className="input-field col s16">
@@ -320,7 +326,7 @@ class EditEvent extends Component {
                 >
                   <option value="1">General</option>
                 </select>
-                <label htmlFor="event-category">Category</label>
+                <label htmlFor="event-category" className="active">Category</label>
                 <span className={categoryClasses}>{this.state.category.message}</span>
               </div>
             </div>
