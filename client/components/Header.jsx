@@ -17,13 +17,12 @@ class Header extends React.Component {
   }
   render() {
     const navClasses = classNames('navbar-purple', 'nav-extended');
-    console.log(this);
     if (this.props.logged_in) {
       return (
         <div>
           <ul id="signup-dropdown" className="dropdown-content">
             <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
-            <li><Link to="/signup">Profile</Link></li>
+            <li><Link to="/admin">Profile</Link></li>
           </ul>
           <nav className={this.props.isAdmin ? navClasses : 'navbar-purple'}>
             <div className="nav-wrapper left-padding">
@@ -63,7 +62,7 @@ class Header extends React.Component {
                       <div className="collapsible-body">
                         <ul>
                           <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
-                          <li><Link to="/signup">Profile</Link></li>
+                          <li><Link to="/admin">Profile</Link></li>
                         </ul>
                       </div>
                     </li>

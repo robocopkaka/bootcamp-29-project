@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as actions from '../actions/utilityActions';
+import * as utilityActions from '../actions/utilityActions';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
 
 class AdminProfile extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
-    this.props.actions.setConponentName('AdminProfile');
+    console.log(this.props);
+    this.props.actions.setComponentName('AdminProfile');
   }
   render() {
     const { centers = [] } = this.props;
@@ -33,11 +37,6 @@ AdminProfile.propTypes = {
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   events: PropTypes.arrayOf(PropTypes.object).isRequired
 };
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
 function mapStateToProps(state) {
   let centers = [];
   let events = [];
@@ -50,6 +49,11 @@ function mapStateToProps(state) {
   return {
     centers,
     events
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(utilityActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProfile);
