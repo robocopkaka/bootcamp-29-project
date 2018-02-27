@@ -134,12 +134,12 @@ Header.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired
 };
 function mapStateToProps(state) {
-  return { logged_in: state.session };
+  return { logged_in: state.session.jwt };
 }
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch)
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

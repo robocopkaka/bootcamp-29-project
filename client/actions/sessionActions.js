@@ -1,3 +1,4 @@
+import decode from 'jwt-decode';
 import sessionApi from '../api/sessionApi';
 import * as types from './actionTypes';
 
@@ -10,7 +11,10 @@ export function loginUser(credentials) {
   return function (dispatch) {
     return sessionApi.login(credentials)
       .then((response) => {
+        const decodedToken = decode(response.data.token);
+        console.log(decodedToken);
         sessionStorage.setItem('jwt', response.data.token);
+        sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
         dispatch(loginSuccess());
       })
       .catch((error) => {
@@ -21,5 +25,6 @@ export function loginUser(credentials) {
 
 export function logOutUser() {
   sessionStorage.removeItem('jwt');
+  sessionStorage.removeItem('isAdmin');
   return { type: types.LOGOUT_SUCCESS };
 }
