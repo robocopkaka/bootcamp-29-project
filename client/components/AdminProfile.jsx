@@ -6,7 +6,7 @@ import * as actions from '../actions/utilityActions';
 
 class AdminProfile extends Component {
   componentDidMount() {
-    this.props.actions.setConponentName();
+    this.props.actions.setConponentName('AdminProfile');
   }
 }
 AdminProfile.propTypes = {
