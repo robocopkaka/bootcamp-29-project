@@ -18,3 +18,8 @@ export function loginUser(credentials) {
       });
   };
 }
+
+export function logOutUser() {
+  sessionStorage.removeItem('jwt');
+  return { type: types.LOGOUT_SUCCESS };
+}
