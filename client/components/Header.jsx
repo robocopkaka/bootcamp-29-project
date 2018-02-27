@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import * as actions from '../actions/sessionActions';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.stuff = false;
+    this.logOut = this.logOut.bind(this);
+  }
+  logOut(e) {
+    e.preventDefault();
+    this.props.actions.logOutUser();
   }
   render() {
     if (this.props.logged_in) {
       return(
         <div>
           <ul id="signup-dropdown" className="dropdown-content">
-            <li><Link to="/login">Logout</Link></li>
+            <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
             <li><Link to="/signup">Profile</Link></li>
           </ul>
           <nav className="navbar-purple">
@@ -52,7 +59,7 @@ class Header extends React.Component {
                       </a>
                       <div className="collapsible-body">
                         <ul>
-                          <li><Link to="/login">Logout</Link></li>
+                          <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
                           <li><Link to="/signup">Profile</Link></li>
                         </ul>
                       </div>
@@ -123,6 +130,9 @@ class Header extends React.Component {
     }
   }
 }
+Header.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired
+};
 function mapStateToProps(state) {
   return { logged_in: state.session };
 }
