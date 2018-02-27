@@ -3,14 +3,35 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/utilityActions';
+import Search from './Search';
+import EventsListWithImage from './events/EventsListWithImage';
+import CenterList from './CenterList';
 
 class AdminProfile extends Component {
   componentDidMount() {
     this.props.actions.setConponentName('AdminProfile');
   }
+  render() {
+    const { centers = [] } = this.props;
+    const { events = [] } = this.props;
+    return (
+      <div>
+        <div id="all-events" className="col s12 left-ten-padding">
+          <Search />
+          <EventsListWithImage events={events} />
+        </div>
+        <div id="all-centers" className="col s12">
+          <Search />
+          <CenterList centers={centers} />
+        </div>
+      </div>
+    );
+  }
 }
 AdminProfile.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  events: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 function mapDispatchToProps(dispatch) {
   return {
