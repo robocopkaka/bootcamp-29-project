@@ -7,5 +7,6 @@ export default {
   centers: [],
   events: [],
   center: {},
-  event: {}
+  event: {},
+  componentName: ''
 };
