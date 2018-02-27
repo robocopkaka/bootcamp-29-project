@@ -136,5 +136,10 @@ Header.propTypes = {
 function mapStateToProps(state) {
   return { logged_in: state.session };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
