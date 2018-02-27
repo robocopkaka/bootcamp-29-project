@@ -1,6 +1,8 @@
 export default {
-  session: !!sessionStorage.jwt,
-  isAdmin: !!sessionStorage.isAdmin,
+  session: {
+    jwt: !!sessionStorage.jwt,
+    isAdmin: !!sessionStorage.isAdmin
+  },
   isRegistered: !!sessionStorage.registered,
   centers: [],
   events: [],

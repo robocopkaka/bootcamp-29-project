@@ -28,6 +28,22 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => (
   )}
   />
 );
+const AdminRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => (
+    (sessionStorage.getItem('isAdmin')) ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}
+      />
+    )
+  )}
+  />
+);
 const Main = () => (
   <Switch>
     <Route exact path="/" component={Home} />
@@ -35,8 +51,8 @@ const Main = () => (
     <Route path="/signup" component={Signup} />
     <Route exact path="/centers" component={Centers} />
     <Route exact path="/centers/:id" component={SingleCenter} />
-    <AuthenticatedRoute path="/add-center" component={AddCenter} />
-    <AuthenticatedRoute exact path="/centers/:id/edit" component={EditCenter} />
+    <AdminRoute path="/add-center" component={AddCenter} />
+    <AdminRoute exact path="/centers/:id/edit" component={EditCenter} />
     <Route exact path="/events" component={Events} />
     <Route exact path="/events/:id" component={SingleEvent} />
     <AuthenticatedRoute exact path="/add-event" component={AddEvent} />

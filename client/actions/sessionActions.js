@@ -12,9 +12,10 @@ export function loginUser(credentials) {
     return sessionApi.login(credentials)
       .then((response) => {
         const decodedToken = decode(response.data.token);
-        console.log(decodedToken);
         sessionStorage.setItem('jwt', response.data.token);
-        sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
+        if (decodedToken.isAdmin) {
+          sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
+        }
         dispatch(loginSuccess());
       })
       .catch((error) => {
