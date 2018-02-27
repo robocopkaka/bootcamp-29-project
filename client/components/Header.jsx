@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import * as actions from '../actions/sessionActions';
 
 class Header extends React.Component {
@@ -15,14 +16,16 @@ class Header extends React.Component {
     this.props.actions.logOutUser();
   }
   render() {
+    const navClasses = classNames('navbar-purple', 'nav-extended');
+    console.log(this);
     if (this.props.logged_in) {
-      return(
+      return (
         <div>
           <ul id="signup-dropdown" className="dropdown-content">
             <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
             <li><Link to="/signup">Profile</Link></li>
           </ul>
-          <nav className="navbar-purple">
+          <nav className={this.props.isAdmin ? navClasses : 'navbar-purple'}>
             <div className="nav-wrapper left-padding">
               <Link to="/" className="brand-logo">EventManager</Link>
               <a
@@ -68,6 +71,16 @@ class Header extends React.Component {
                 </li>
               </ul>
             </div>
+            { this.props.isAdmin ? (
+              <div className="nav-content">
+                <ul className="tabs tabs-transparent">
+                  <li className="tab"><a className="active" href="#all-events">All Events</a></li>
+                  <li className="tab"><a href="#all-centers">All Centers</a></li>
+                </ul>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </nav>
         </div>
       );
@@ -131,10 +144,14 @@ class Header extends React.Component {
   }
 }
 Header.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isAdmin: PropTypes.bool
 };
 function mapStateToProps(state) {
-  return { logged_in: state.session.jwt };
+  return {
+    logged_in: state.session.jwt,
+    isAdmin: state.session.isAdmin
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
