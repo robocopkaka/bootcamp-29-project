@@ -11,6 +11,7 @@ import Events from './events/Events';
 import SingleEvent from './events/SingleEvent';
 import AddEvent from './events/AddEvent';
 import EditEvent from './events/EditEvent';
+import AdminProfile from './AdminProfile';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -53,6 +54,7 @@ const Main = () => (
     <Route exact path="/centers/:id" component={SingleCenter} />
     <AdminRoute path="/add-center" component={AddCenter} />
     <AdminRoute exact path="/centers/:id/edit" component={EditCenter} />
+    <AdminRoute exact path="/admin" component={AdminProfile} />
     <Route exact path="/events" component={Events} />
     <Route exact path="/events/:id" component={SingleEvent} />
     <AuthenticatedRoute exact path="/add-event" component={AddEvent} />

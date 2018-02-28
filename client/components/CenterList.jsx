@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as styles from '../css/centers.module.css';
 
-const CenterList = ({ centers }) => (
+const CenterList = ({ centers, isAdmin }) => (
   <div>
     {centers.map(center => (
       <div className="col s12 m6 l4" key={center.id}>
@@ -27,12 +27,16 @@ const CenterList = ({ centers }) => (
             >
               View
             </Link>
-            <Link
-              to={`/centers/${center.id}/edit`}
-              className="waves-effect waves-light btn navbar-purple round-btn white-color"
-            >
-              <i className="material-icons">edit</i>
-            </Link>
+            { isAdmin ? (
+              <Link
+                to={`/centers/${center.id}/edit`}
+                className="waves-effect waves-light btn navbar-purple round-btn white-color"
+              >
+                <i className="material-icons">edit</i>
+              </Link>
+            ) : (
+              <React.Fragment></React.Fragment>
+            )}
           </div>
         </div>
       </div>
@@ -40,6 +44,7 @@ const CenterList = ({ centers }) => (
   </div>
 );
 CenterList.propTypes = {
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 export default CenterList;

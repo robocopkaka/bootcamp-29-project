@@ -5,7 +5,7 @@ import moment from 'moment';
 import * as styles from '../../css/events.module.css';
 import owenShaw from '../../img/owen shaw.jpg';
 
-const EventsListWithImage = ({ events }) => (
+const EventsListWithImage = ({ events, isAdmin }) => (
   <div>
     {events.map(event => (
       <div className="col s12 m6 l4" key={event.id}>
@@ -31,12 +31,16 @@ const EventsListWithImage = ({ events }) => (
             >
               View
             </Link>
-            <Link
-              to={`/events/${event.id}/edit`}
-              className="waves-effect waves-light btn navbar-purple round-btn white-color"
-            >
-              <i className="material-icons">edit</i>
-            </Link>
+            { isAdmin ? (
+              <Link
+                to={`/events/${event.id}/edit`}
+                className="waves-effect waves-light btn navbar-purple round-btn white-color"
+              >
+                <i className="material-icons">edit</i>
+              </Link>
+            ) : (
+              <React.Fragment></React.Fragment>
+            )}
           </div>
         </div>
       </div>
@@ -44,6 +48,7 @@ const EventsListWithImage = ({ events }) => (
   </div>
 );
 EventsListWithImage.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.object).isRequired
+  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 export default EventsListWithImage;

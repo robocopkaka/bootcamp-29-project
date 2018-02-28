@@ -198,3 +198,19 @@ body {
   font-size: 15px;
   color: red;
 }
+
+.tabs .tab a{
+  color:#FFF;
+} /*White color to the text*/
+
+.tabs .tab a:hover {
+  color:#FFF;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+  color:#FFF;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#FFF;
+} /*Color of underline*/

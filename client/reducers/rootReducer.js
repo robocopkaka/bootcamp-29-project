@@ -5,6 +5,7 @@ import centers from './centerReducer';
 import center from './singleCenterReducer';
 import events from './eventReducer';
 import event from './singleEventReducer';
+import componentName from './utilityReducer';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   centers,
   center,
   events,
-  event
+  event,
+  componentName
 });
 export default rootReducer;
