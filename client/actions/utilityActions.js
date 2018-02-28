@@ -5,6 +5,9 @@ export function setComponentNameSuccess(name) {
 }
 export function setComponentName(name) {
   return function (dispatch) {
+    if (name === undefined || name === null) {
+      dispatch(setComponentNameSuccess(''));
+    }
     dispatch(setComponentNameSuccess(name));
   };
 }

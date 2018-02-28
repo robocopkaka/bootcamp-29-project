@@ -8,27 +8,36 @@ import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
 
 class AdminProfile extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
-    console.log(this.props);
+    $('ul.tabs').tabs();
     this.props.actions.setComponentName('AdminProfile');
   }
   render() {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
     return (
-      <div>
+      <React.Fragment>
+        <ul className="tabs navbar-purple blue-text">
+          <li className="tab col s3"><a className="active" href="#all-events">Test 1</a></li>
+          <li className="tab col s3"><a href="#all-centers">Test 2</a></li>
+        </ul>
         <div id="all-events" className="col s12 left-ten-padding">
-          <Search />
-          <EventsListWithImage events={events} />
+          <div className="container">
+            <Search />
+            <div className="row">
+              <EventsListWithImage events={events} />
+            </div>
+          </div>
         </div>
         <div id="all-centers" className="col s12">
-          <Search />
-          <CenterList centers={centers} />
+          <div className="container">
+            <Search />
+            <div className="row">
+              <CenterList centers={centers} />
+            </div>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -48,7 +57,8 @@ function mapStateToProps(state) {
   }
   return {
     centers,
-    events
+    events,
+    isAdmin: state.session.isAdmin,
   };
 }
 function mapDispatchToProps(dispatch) {
