@@ -49,6 +49,6 @@ const EventsListWithImage = ({ events, isAdmin }) => (
 );
 EventsListWithImage.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool
 };
 export default EventsListWithImage;
