@@ -12,6 +12,7 @@ import SingleEvent from './events/SingleEvent';
 import AddEvent from './events/AddEvent';
 import EditEvent from './events/EditEvent';
 import AdminProfile from './AdminProfile';
+import UserProfile from './UserProfile';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -59,6 +60,7 @@ const Main = () => (
     <Route exact path="/events/:id" component={SingleEvent} />
     <AuthenticatedRoute exact path="/add-event" component={AddEvent} />
     <AuthenticatedRoute exact path="/events/:id/edit" component={EditEvent} />
+    <AuthenticatedRoute exact path="/user" component={UserProfile} />
   </Switch>
 );
 export default Main;

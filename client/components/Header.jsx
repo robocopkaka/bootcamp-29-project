@@ -19,7 +19,11 @@ class Header extends React.Component {
       return (
         <React.Fragment>
           <ul id="signup-dropdown" className="dropdown-content">
-            <li><Link to="/admin">Profile</Link></li>
+            { this.props.isAdmin ? (
+              <li><Link to="/admin">Profile</Link></li>
+            ) : (
+              <li><Link to="/user">Profile</Link></li>
+            )}
             <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
           </ul>
           <nav className="navbar-purple">
@@ -59,7 +63,11 @@ class Header extends React.Component {
                       </a>
                       <div className="collapsible-body">
                         <ul>
-                          <li><Link to="/admin">Profile</Link></li>
+                          { this.props.isAdmin ? (
+                            <li><Link to="/admin">Profile</Link></li>
+                          ) : (
+                            <li><Link to="/user">Profile</Link></li>
+                          )}
                           <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
                         </ul>
                       </div>
