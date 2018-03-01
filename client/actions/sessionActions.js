@@ -13,6 +13,7 @@ export function loginUser(credentials) {
       .then((response) => {
         const decodedToken = decode(response.data.token);
         sessionStorage.setItem('jwt', response.data.token);
+        sessionStorage.setItem('userId', decodedToken.id);
         if (decodedToken.isAdmin) {
           sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
         }
