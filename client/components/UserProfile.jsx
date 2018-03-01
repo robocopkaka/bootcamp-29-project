@@ -6,8 +6,20 @@ import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
 
 class UserProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      isAdmin: false
+    }
+  }
   componentDidMount() {
     $('ul.tabs').tabs();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.loggedIn !== nextProps.loggedIn) {
+      this.setState({ loggedIn: nextProps.loggedIn });
+    }
   }
   render() {
     const { events = [] } = this.props;
@@ -21,7 +33,9 @@ class UserProfile extends Component {
             <Search />
             <div className="row">
               <EventsListWithImage
-                events={events.filter(event => event.userId === this.props.userId)}
+                events={events.filter(event => event.userId === parseInt(this.props.userId, 10))}
+                loggedIn={this.state.loggedIn}
+                isAdmin={this.state.isAdmin}
               />
             </div>
           </div>
@@ -40,7 +54,9 @@ class UserProfile extends Component {
 }
 UserProfile.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
 function mapStateToProps(state) {
   let events = [];
@@ -49,7 +65,8 @@ function mapStateToProps(state) {
   }
   return {
     events,
-    userId: state.session.userId
+    userId: state.session.userId,
+    loggedIn: state.session.jwt
   };
 }
 export default connect(mapStateToProps)(UserProfile);
