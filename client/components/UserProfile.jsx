@@ -20,7 +20,9 @@ class UserProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <EventsListWithImage events={events} />
+              <EventsListWithImage
+                events={events.filter(event => event.userId === this.props.userId)}
+              />
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
@@ -37,7 +39,8 @@ class UserProfile extends Component {
   }
 }
 UserProfile.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.object).isRequired
+  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  userId: PropTypes.string.isRequired
 };
 function mapStateToProps(state) {
   let events = [];
@@ -45,7 +48,8 @@ function mapStateToProps(state) {
     events = state.events;
   }
   return {
-    events
+    events,
+    userId: state.session.userId
   };
 }
 export default connect(mapStateToProps)(UserProfile);
