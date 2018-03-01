@@ -10,7 +10,8 @@ export default function sessionReducer(state = initialState.session, action) {
       history.push('/');
       return {
         jwt: !!sessionStorage.jwt,
-        isAdmin: !!sessionStorage.isAdmin
+        isAdmin: !!sessionStorage.isAdmin,
+        userId: !!sessionStorage.userId
       };
     case types.LOGOUT_SUCCESS:
       history.push('/');
