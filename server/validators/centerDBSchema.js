@@ -4,7 +4,7 @@ const centerDBSchema = {
   body: {
     name: Joi.string().required(),
     detail: Joi.string().required(),
-    image: Joi.string(),
+    image: Joi.object(),
     address: Joi.string().required(),
     state: Joi.string().required(),
     chairs: Joi.number(),
