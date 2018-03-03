@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import path from 'path';
 import multer from 'multer';
+import uuidv4 from 'uuid/v4';
 import cors from 'cors';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
@@ -27,7 +28,6 @@ const apiRoutes = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-
     cb(null, '../../client/img');
   },
   filename: (req, file, cb) => {
@@ -35,6 +35,8 @@ const storage = multer.diskStorage({
     cb(null, newFilename);
   },
 });
+
+const upload = multer({ storage });
 
 module.exports = (app) => {
   app.use(cors());
