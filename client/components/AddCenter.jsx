@@ -20,6 +20,7 @@ class AddCenter extends Component {
       image: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
   handleChange(event) {
@@ -30,6 +31,9 @@ class AddCenter extends Component {
     this.setState({
       [field]: [field]
     });
+  }
+  handleImageChange(e) {
+    console.log(e.target.files[0]);
   }
   clearFields() {
     this.setState({
@@ -226,15 +230,17 @@ class AddCenter extends Component {
               <div className="file-field input-field">
                 <div className="btn navbar-purple round-btn">
                   <span>Image</span>
-                  <input type="file" />
+                  <input
+                    type="file"
+                    name="image"
+                    value={this.state.image.value}
+                    onChange={this.handleImageChange}
+                  />
                 </div>
                 <div className="file-path-wrapper">
                   <input
                     className="file-path validate"
-                    name="image"
-                    value={this.state.image.value}
                     type="text"
-                    onChange={this.handleChange}
                   />
                 </div>
               </div>

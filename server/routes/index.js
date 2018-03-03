@@ -1,6 +1,8 @@
 import expressJoi from 'express-joi-validator';
 import jwt from 'jsonwebtoken';
 import express from 'express';
+import path from 'path';
+import multer from 'multer';
 import cors from 'cors';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
@@ -23,6 +25,16 @@ const eventsDBController = require('../controllers/v2').events;
 
 const apiRoutes = express.Router();
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+
+    cb(null, '../../client/img');
+  },
+  filename: (req, file, cb) => {
+    const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+    cb(null, newFilename);
+  },
+});
 
 module.exports = (app) => {
   app.use(cors());
@@ -31,16 +43,16 @@ module.exports = (app) => {
     message: 'Welcome to the Event Manager App'
   }));
 
-  app.post('/api/v1/events', expressJoi(eventSchema), eventsController.create);
+  app.post('/api/v1/events', upload.single('image'), expressJoi(eventSchema), eventsController.create);
   app.delete('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.delete);
   app.get('/api/v1/events', eventsController.get);
   app.get('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingleEvent);
-  app.put('/api/v1/events/:eventId', expressJoi(eventWithIdSchema), eventsController.edit);
+  app.put('/api/v1/events/:eventId', upload.single('image'), expressJoi(eventWithIdSchema), eventsController.edit);
 
   app.get('/api/v1/centers', centersController.get);
   app.get('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingleCenter);
-  app.post('/api/v1/centers', expressJoi(centerSchema), centersController.create);
-  app.put('/api/v1/centers/:centerId', expressJoi(centerWithIdSchema), centersController.edit);
+  app.post('/api/v1/centers', upload.single('image'), expressJoi(centerSchema), centersController.create);
+  app.put('/api/v1/centers/:centerId', upload.single('image'), expressJoi(centerWithIdSchema), centersController.edit);
   app.delete('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
 
   // v2 routes
