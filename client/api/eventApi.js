@@ -87,5 +87,23 @@ class EventApi {
         return error;
       });
   }
+  static deleteEvent(eventId) {
+    return axios.delete(
+      `http://localhost:8000/api/v2/events/${eventId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': `${sessionStorage.jwt}`
+        }
+      }
+    )
+      .then(() => {
+        return eventId;
+      })
+      .catch((error) => {
+        console.log('CATCH = ', error.response);
+        return error;
+      });
+  }
 }
 export default EventApi;

@@ -68,9 +68,9 @@ export function deleteEventSuccess(eventId) {
 }
 export function deleteEvent(eventId) {
   return function (dispatch) {
-    return EventApi.delete(eventId)
-      .then(() => {
-        dispatch(deleteEventSuccess(eventId));
+    return EventApi.deleteEvent(eventId)
+      .then((response) => {
+        dispatch(deleteEventSuccess(response));
       })
       .catch((error) => {
         console.log(error);
