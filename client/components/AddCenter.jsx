@@ -34,9 +34,39 @@ class AddCenter extends Component {
   }
   handleImageChange(e) {
     console.log(e.target.files[0]);
-    const { state } = this;
-    state.image = e.target.files[0];
-    this.setState(state)
+    this.getSignedRequest(e.target.files[0]);
+    // const { state } = this;
+    // state.image = e.target.files[0];
+    // this.setState(state);
+  }
+  getSignedRequest(file) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          this.uploadFile(file, response.signedRequest, response.url);
+        } else {
+          console.log('Could not get signed URL.');
+        }
+      }
+    };
+    xhr.send();
+  }
+  uploadFile(file, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          this.setState({ image: url });
+        } else {
+          console.log('Could not upload file.');
+        }
+      }
+    };
+    xhr.send(file);
   }
   clearFields() {
     this.setState({
@@ -110,15 +140,6 @@ class AddCenter extends Component {
   addCenter(event) {
     event.preventDefault();
     this.resetValidationStates();
-    // const formData = new FormData();
-    // formData.append('name', this.state.name.value);
-    // formData.append('capacity', this.state.capacity.value);
-    // formData.append('address', this.state.address.value);
-    // formData.append('state', this.state.state.value);
-    // formData.append('chairs', this.state.chairs.value);
-    // formData.append('projector', this.state.projector.value);
-    // formData.append('detail', this.state.detail.value);
-    // formData.append('image', this.state.image);
     const center = {
       name: this.state.name.value,
       capacity: this.state.capacity.value,

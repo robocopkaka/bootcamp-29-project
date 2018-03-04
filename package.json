@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.205.0",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
