@@ -5,7 +5,9 @@ import moment from 'moment';
 import * as styles from '../../css/events.module.css';
 import owenShaw from '../../img/owen shaw.jpg';
 
-const EventsListWithImage = ({ events, isAdmin, loggedIn }) => (
+const EventsListWithImage = ({
+  events, isAdmin, loggedIn, deleteEvent
+}) => (
   <div>
     {events.map(event => (
       <div className="col s12 m6 l4" key={event.id}>
@@ -29,15 +31,23 @@ const EventsListWithImage = ({ events, isAdmin, loggedIn }) => (
               className="waves-effect waves-light btn navbar-purple round-btn white-color"
               href="show-event.html"
             >
-              View
+              <i className="material-icons">send</i>
             </Link>
             { isAdmin || loggedIn ? (
-              <Link
-                to={`/events/${event.id}/edit`}
-                className="waves-effect waves-light btn navbar-purple round-btn white-color"
-              >
-                <i className="material-icons">edit</i>
-              </Link>
+              <React.Fragment>
+                <Link
+                  to={`/events/${event.id}/edit`}
+                  className="waves-effect waves-light btn navbar-purple round-btn white-color"
+                >
+                  <i className="material-icons">edit</i>
+                </Link>
+                <button
+                  onClick={() => deleteEvent(event.id)}
+                  className="waves-effect waves-light btn navbar-purple round-btn white-color"
+                >
+                  <i className="material-icons">delete</i>
+                </button>
+              </React.Fragment>
             ) : (
               <React.Fragment></React.Fragment>
             )}

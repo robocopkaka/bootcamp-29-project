@@ -17,8 +17,8 @@ class Events extends Component {
       this.props.actions.fetchEvents();
     }
   }
-  deleteEvent(e) {
-    this.props.actions.deleteEvent(e);
+  deleteEvent(id) {
+    this.props.actions.deleteEvent(id);
   }
   render() {
     return (
@@ -26,7 +26,7 @@ class Events extends Component {
         <Search />
         <div className="top-ten-padding"></div>
         <div className="row">
-          <EventsListWithImage events={this.props.events} />
+          <EventsListWithImage events={this.props.events} deleteEvent={this.deleteEvent} />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link

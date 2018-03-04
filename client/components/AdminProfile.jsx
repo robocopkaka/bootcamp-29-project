@@ -9,9 +9,16 @@ import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
 
 class AdminProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
   componentDidMount() {
     $('ul.tabs').tabs();
     this.props.actions.setComponentName('AdminProfile');
+  }
+  deleteEvent(id) {
+    this.props.actions.deleteEvent(id);
   }
   render() {
     const { centers = [] } = this.props;
@@ -27,7 +34,11 @@ class AdminProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <EventsListWithImage events={events} isAdmin={isAdmin} />
+              <EventsListWithImage
+                events={events}
+                isAdmin={isAdmin}
+                deleteEvent={this.deleteEvent}
+              />
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
