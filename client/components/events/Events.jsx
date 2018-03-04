@@ -8,10 +8,17 @@ import EventsListWithImage from './EventsListWithImage';
 import Search from '../Search';
 
 class Events extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
   componentDidMount() {
     if (this.props.events.length === 0) {
       this.props.actions.fetchEvents();
     }
+  }
+  deleteEvent(e) {
+    this.props.actions.deleteEvent(e);
   }
   render() {
     return (
