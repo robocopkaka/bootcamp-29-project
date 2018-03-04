@@ -23,6 +23,7 @@ const centersController = require('../controllers/v1').centers;
 const usersController = require('../controllers/v2').users;
 const centersDBController = require('../controllers/v2').centers;
 const eventsDBController = require('../controllers/v2').events;
+const utilitiesController = require('../controllers/v2').utilities;
 
 const apiRoutes = express.Router();
 
@@ -45,23 +46,23 @@ module.exports = (app) => {
     message: 'Welcome to the Event Manager App'
   }));
 
-  app.post('/api/v1/events', upload.single('image'), expressJoi(eventSchema), eventsController.create);
+  app.post('/api/v1/events', expressJoi(eventSchema), eventsController.create);
   app.delete('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.delete);
   app.get('/api/v1/events', eventsController.get);
   app.get('/api/v1/events/:eventId', expressJoi(eventWithParamsSchema), eventsController.getSingleEvent);
-  app.put('/api/v1/events/:eventId', upload.single('image'), expressJoi(eventWithIdSchema), eventsController.edit);
+  app.put('/api/v1/events/:eventId', expressJoi(eventWithIdSchema), eventsController.edit);
 
   app.get('/api/v1/centers', centersController.get);
   app.get('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.getSingleCenter);
-  app.post('/api/v1/centers', upload.single('image'), expressJoi(centerSchema), centersController.create);
-  app.put('/api/v1/centers/:centerId', upload.single('image'), expressJoi(centerWithIdSchema), centersController.edit);
+  app.post('/api/v1/centers', expressJoi(centerSchema), centersController.create);
+  app.put('/api/v1/centers/:centerId', expressJoi(centerWithIdSchema), centersController.edit);
   app.delete('/api/v1/centers/:centerId', expressJoi(centerWithParamsSchema), centersController.delete);
 
   // v2 routes
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
 
-  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
+  app.post('/api/v2/centers', upload.single('image'), expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBSchema), apiRoutes, centersDBController.edit);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
@@ -70,6 +71,7 @@ module.exports = (app) => {
   app.get('/api/v2/events', eventsDBController.getAllEvents);
   app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
+  app.get('/sign-s3', utilitiesController.signS3);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {

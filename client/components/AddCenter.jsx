@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
+import axios from 'axios';
 import * as centerActions from '../actions/centerActions';
 
 class AddCenter extends Component {
@@ -23,6 +24,44 @@ class AddCenter extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
+  getSignedRequest(file) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          this.uploadFile(file, response.signedRequest, response.url);
+        } else {
+          console.log('Could not get signed URL.');
+        }
+      }
+    };
+    xhr.send();
+    // axios.get(`http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`)
+    //   .then((response) => {
+    //     console.log(response);
+    //     JSON.parse(response);
+    //     this.uploadFile(file, response.signedRequest, response.url);
+    //   })
+    //   .catch(() => {
+    //     console.log('Could not get signed URL.');
+    //   });
+  }
+  uploadFile(file, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          this.setState({ image: url });
+        } else {
+          console.log('Could not upload file.');
+        }
+      }
+    };
+    xhr.send(file);
+  }
   handleChange(event) {
     const { state } = this;
     const { name, value } = event.target;
@@ -38,35 +77,6 @@ class AddCenter extends Component {
     // const { state } = this;
     // state.image = e.target.files[0];
     // this.setState(state);
-  }
-  getSignedRequest(file) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          this.uploadFile(file, response.signedRequest, response.url);
-        } else {
-          console.log('Could not get signed URL.');
-        }
-      }
-    };
-    xhr.send();
-  }
-  uploadFile(file, signedRequest, url) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', signedRequest);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          this.setState({ image: url });
-        } else {
-          console.log('Could not upload file.');
-        }
-      }
-    };
-    xhr.send(file);
   }
   clearFields() {
     this.setState({
