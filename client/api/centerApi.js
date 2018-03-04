@@ -11,7 +11,8 @@ class CenterApi {
         state: center.state,
         detail: center.detail,
         chairs: center.chairs,
-        projector: center.projector
+        projector: center.projector,
+        image: center.image
       }),
       {
         headers: {

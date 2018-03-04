@@ -1,6 +1,9 @@
 import expressJoi from 'express-joi-validator';
 import jwt from 'jsonwebtoken';
 import express from 'express';
+import path from 'path';
+import multer from 'multer';
+import uuidv4 from 'uuid/v4';
 import cors from 'cors';
 import centerSchema from '../validators/centerValidator';
 import centerWithIdSchema from '../validators/centerWithIdValidator';
@@ -20,9 +23,21 @@ const centersController = require('../controllers/v1').centers;
 const usersController = require('../controllers/v2').users;
 const centersDBController = require('../controllers/v2').centers;
 const eventsDBController = require('../controllers/v2').events;
+const utilitiesController = require('../controllers/v2').utilities;
 
 const apiRoutes = express.Router();
 
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, '../../client/img');
+//   },
+//   filename: (req, file, cb) => {
+//     const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+//     cb(null, newFilename);
+//   },
+// });
+//
+// const upload = multer({ storage });
 
 module.exports = (app) => {
   app.use(cors());
@@ -56,6 +71,7 @@ module.exports = (app) => {
   app.get('/api/v2/events', eventsDBController.getAllEvents);
   app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
+  app.get('/sign-s3', utilitiesController.signS3);
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {

@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
+import AWS from 'aws-sdk';
 
 // Set up the express app
 const app = express();
@@ -40,6 +41,14 @@ app.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// AWS Config
+const s3 = new AWS.S3();
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  subregion: 'us-west-2',
+});
 
 
 // Log requests to the console.
