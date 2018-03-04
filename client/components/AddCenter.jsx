@@ -18,7 +18,7 @@ class AddCenter extends Component {
       detail: { value: '', isValid: true, message: '' },
       chairs: { value: '', isValid: true, message: '' },
       projector: { value: '', isValid: true, message: '' },
-      image: ''
+      image: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -54,7 +54,7 @@ class AddCenter extends Component {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          this.setState({ image: url });
+          this.setState({ image: Object.assign({}, this.state.image, { value: url }) });
         } else {
           console.log('Could not upload file.');
         }
@@ -72,11 +72,7 @@ class AddCenter extends Component {
     });
   }
   handleImageChange(e) {
-    console.log(e.target.files[0]);
     this.getSignedRequest(e.target.files[0]);
-    // const { state } = this;
-    // state.image = e.target.files[0];
-    // this.setState(state);
   }
   clearFields() {
     this.setState({
@@ -158,7 +154,7 @@ class AddCenter extends Component {
       chairs: this.state.chairs.value,
       projector: this.state.projector.value,
       detail: this.state.detail.value,
-      image: this.state.image,
+      image: this.state.image.value,
     };
     if (this.formIsValid()) {
       this.props.centerActions.addCenter(center);

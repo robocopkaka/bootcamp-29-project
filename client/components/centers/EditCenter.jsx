@@ -21,6 +21,7 @@ class EditCenter extends Component {
       image: { value: '', isValid: true, message: '' },
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.updateCenter = this.updateCenter.bind(this);
   }
   componentDidMount() {
@@ -46,6 +47,44 @@ class EditCenter extends Component {
       });
     }
   }
+  getSignedRequest(file) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          this.uploadFile(file, response.signedRequest, response.url);
+        } else {
+          console.log('Could not get signed URL.');
+        }
+      }
+    };
+    xhr.send();
+    // axios.get(`http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`)
+    //   .then((response) => {
+    //     console.log(response);
+    //     JSON.parse(response);
+    //     this.uploadFile(file, response.signedRequest, response.url);
+    //   })
+    //   .catch(() => {
+    //     console.log('Could not get signed URL.');
+    //   });
+  }
+  uploadFile(file, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          this.setState({ image: Object.assign({}, this.state.image, { value: url }) });
+        } else {
+          console.log('Could not upload file.');
+        }
+      }
+    };
+    xhr.send(file);
+  }
   handleChange(event) {
     const { state } = this;
     const { name, value } = event.target;
@@ -54,6 +93,9 @@ class EditCenter extends Component {
     this.setState({
       [field]: [field]
     });
+  }
+  handleImageChange(e) {
+    this.getSignedRequest(e.target.files[0]);
   }
   formIsValid() {
     let fieldCheck = true;
@@ -236,14 +278,16 @@ class EditCenter extends Component {
               <div className="file-field input-field">
                 <div className="btn navbar-purple round-btn">
                   <span>Image</span>
-                  <input type="file" />
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={this.handleImageChange}
+                  />
                 </div>
                 <div className="file-path-wrapper">
                   <input
                     className="file-path validate"
                     type="text"
-                    value={this.state.image.value}
-                    onChange={this.handleChange}
                   />
                 </div>
               </div>

@@ -27,17 +27,17 @@ const utilitiesController = require('../controllers/v2').utilities;
 
 const apiRoutes = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, '../../client/img');
-  },
-  filename: (req, file, cb) => {
-    const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
-    cb(null, newFilename);
-  },
-});
-
-const upload = multer({ storage });
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, '../../client/img');
+//   },
+//   filename: (req, file, cb) => {
+//     const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+//     cb(null, newFilename);
+//   },
+// });
+//
+// const upload = multer({ storage });
 
 module.exports = (app) => {
   app.use(cors());
@@ -62,7 +62,7 @@ module.exports = (app) => {
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
 
-  app.post('/api/v2/centers', upload.single('image'), expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
+  app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBSchema), apiRoutes, centersDBController.edit);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
   app.get('/api/v2/centers', centersDBController.getAllCenters);
