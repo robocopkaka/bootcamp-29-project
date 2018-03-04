@@ -18,6 +18,12 @@ export default function eventReducer(state = initialState.events, action) {
         ...state.filter(event => event.id !== action.event.id),
         Object.assign({}, action.event)
       ];
+    case types.DELETE_EVENT_SUCCESS:
+      const newState = Object.assign([], state);
+      const indexOfEvent = state.findIndex(event => event.id === action.eventId);
+      newState.splice(indexOfEvent, 1);
+      history.push('/admin');
+      return newState;
     default:
       return state;
   }

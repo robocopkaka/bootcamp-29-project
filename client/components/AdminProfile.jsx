@@ -4,14 +4,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as utilityActions from '../actions/utilityActions';
+import * as eventActions from '../actions/eventActions';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
 
 class AdminProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
   componentDidMount() {
     $('ul.tabs').tabs();
     this.props.actions.setComponentName('AdminProfile');
+  }
+  deleteEvent(id) {
+    this.props.actions.deleteEvent(id);
   }
   render() {
     const { centers = [] } = this.props;
@@ -27,7 +35,11 @@ class AdminProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <EventsListWithImage events={events} isAdmin={isAdmin} />
+              <EventsListWithImage
+                events={events}
+                isAdmin={isAdmin}
+                deleteEvent={this.deleteEvent}
+              />
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
@@ -82,7 +94,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(utilityActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, utilityActions, eventActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProfile);

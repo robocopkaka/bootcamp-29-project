@@ -62,3 +62,18 @@ export function updateEvent(eventObject) {
       });
   };
 }
+
+export function deleteEventSuccess(eventId) {
+  return { type: types.DELETE_EVENT_SUCCESS, eventId };
+}
+export function deleteEvent(eventId) {
+  return function (dispatch) {
+    return EventApi.deleteEvent(eventId)
+      .then((response) => {
+        dispatch(deleteEventSuccess(response));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}

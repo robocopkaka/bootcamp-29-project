@@ -8,10 +8,17 @@ import EventsListWithImage from './EventsListWithImage';
 import Search from '../Search';
 
 class Events extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
   componentDidMount() {
     if (this.props.events.length === 0) {
       this.props.actions.fetchEvents();
     }
+  }
+  deleteEvent(id) {
+    this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
     return (
@@ -19,7 +26,7 @@ class Events extends Component {
         <Search />
         <div className="top-ten-padding"></div>
         <div className="row">
-          <EventsListWithImage events={this.props.events} />
+          <EventsListWithImage events={this.props.events} deleteEvent={this.deleteEvent} />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link
