@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as utilityActions from '../actions/utilityActions';
+import * as eventActions from '../actions/eventActions';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
@@ -93,7 +94,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(utilityActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, utilityActions, eventActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProfile);

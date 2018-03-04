@@ -18,7 +18,7 @@ class Events extends Component {
     }
   }
   deleteEvent(id) {
-    this.props.actions.deleteEvent(id);
+    this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
     return (

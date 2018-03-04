@@ -19,7 +19,7 @@ export default function eventReducer(state = initialState.events, action) {
         Object.assign({}, action.event)
       ];
     case types.DELETE_EVENT_SUCCESS:
-      const newState = Object.assign([], this.state);
+      const newState = Object.assign([], state);
       const indexOfEvent = state.findIndex(event => event.id === action.eventId);
       newState.splice(indexOfEvent, 1);
       history.push('/admin');
