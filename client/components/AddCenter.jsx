@@ -169,14 +169,29 @@ class AddCenter extends Component {
     const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
     const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
     return (
-      <CentersForm
-        nameClasses={nameClasses}
-        detailClasses={detailClasses}
-        addressClasses={addressClasses}
-        stateClasses={stateClasses}
-        capacityClasses={capacityClasses}
-        addCenter={this.addCenter}
-      />
+      <div className="container max-width-six-hundred">
+        <div className="card">
+          <div className="container">
+            <h3 className="center-heading">Add a Center</h3>
+          </div>
+          <CentersForm
+            nameClasses={nameClasses}
+            detailClasses={detailClasses}
+            addressClasses={addressClasses}
+            stateClasses={stateClasses}
+            capacityClasses={capacityClasses}
+            addCenter={this.addCenter}
+            handleChange={this.handleChange}
+            handleImageChange={this.handleImageChange}
+            name={this.state.name}
+            email={this.state.email}
+            capacity={this.state.capacity}
+            detail={this.state.detail}
+            address={this.state.address}
+            state={this.state.state}
+          />
+        </div>
+      </div>
     );
   }
 }
