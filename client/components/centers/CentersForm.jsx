@@ -1,19 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const CentersForm = () => (
+const CentersForm = ({
+  name, email, address, capacity, chairs, projector, state, detail, handleChange,
+  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses,
+  handleImageChange, addCenter
+}) => (
   <form className="card-content">
     <div className="row">
       <div className="input-field col s12">
         <input
           id="center-name"
           name="name"
-          value={this.state.name.value}
+          value={name.value}
           type="text"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
         <label for="center-name">Name</label>
-        <span className={nameClasses}>{this.state.name.message}</span>
+        <span className={nameClasses}>{name.message}</span>
       </div>
     </div>
     <div className="row">
@@ -27,7 +32,7 @@ const CentersForm = () => (
           onChange={this.handleChange}
         />
         <label for="center-address">Address</label>
-        <span className={addressClasses}>{this.state.address.message}</span>
+        <span className={addressClasses}>{address.message}</span>
       </div>
     </div>
     <div className="row">
@@ -35,13 +40,13 @@ const CentersForm = () => (
         <input
           id="center-state"
           name="state"
-          value={this.state.state.value}
+          value={state.value}
           type="text"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
         <label for="center-state">State</label>
-        <span className={stateClasses}>{this.state.state.message}</span>
+        <span className={stateClasses}>{state.message}</span>
       </div>
     </div>
     <div className="row">
@@ -49,22 +54,22 @@ const CentersForm = () => (
         <input
           id="center-capacity"
           name="capacity"
-          value={this.state.capacity.value}
+          value={capacity.value}
           type="number"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
       <label for="center-capacity">Capacity</label>
-        <span className={capacityClasses}>{this.state.capacity.message}</span>
+        <span className={capacityClasses}>{capacity.message}</span>
       </div>
       <div className="input-field col s4">
         <input
           id="center-chairs"
           name="chairs"
-          value={this.state.chairs.value}
+          value={chairs.value}
           type="number"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
         <label for="center-state">Chairs</label>
       </div>
@@ -72,10 +77,10 @@ const CentersForm = () => (
         <input
           id="center-projector"
           name="projector"
-          value={this.state.projector.value}
+          value={projector.value}
           type="number"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
         <label for="center-projector">Projector</label>
       </div>
@@ -85,12 +90,12 @@ const CentersForm = () => (
         <textarea
           id="center-detail"
           name="detail"
-          value={this.state.detail.value}
+          value={detail.value}
           className="materialize-textarea validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         ></textarea>
       <label for="center-detail">Detail</label>
-        <span className={detailClasses}>{this.state.detail.message}</span>
+        <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
     <div className="row">
@@ -100,7 +105,7 @@ const CentersForm = () => (
           <input
             type="file"
             name="image"
-            onChange={this.handleImageChange}
+            onChange={() => handleImageChange}
           />
         </div>
         <div className="file-path-wrapper">
@@ -116,7 +121,7 @@ const CentersForm = () => (
         className="btn waves-effect waves-light navbar-purple round-btn"
         type="submit"
         name="action"
-        onClick={this.addCenter}
+        onClick={() => addCenter}
       >
         Add Center
         <i className="material-icons right">send</i>
@@ -124,3 +129,15 @@ const CentersForm = () => (
     </div>
   </form>
 );
+CentersForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  detail: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  capacity: PropTypes.string.isRequired,
+  chairs: PropTypes.string.isRequired,
+  projector: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired,
+  nameClasses: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+export default CentersForm;
