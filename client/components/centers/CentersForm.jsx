@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CentersForm = ({
-  name, email, address, capacity, chairs, projector, state, detail, handleChange,
+  name, address, capacity, chairs, projector, state, detail, handleChange,
   nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses,
   handleImageChange, addCenter
 }) => (
@@ -17,7 +17,7 @@ const CentersForm = ({
           className="validate"
           onChange={() => handleChange}
         />
-        <label for="center-name">Name</label>
+        <label htmlFor="center-name">Name</label>
         <span className={nameClasses}>{name.message}</span>
       </div>
     </div>
@@ -26,12 +26,12 @@ const CentersForm = ({
         <input
           id="center-address"
           name="address"
-          value={this.state.address.value}
+          value={address.value}
           type="text"
           className="validate"
-          onChange={this.handleChange}
+          onChange={() => handleChange}
         />
-        <label for="center-address">Address</label>
+        <label htmlFor="center-address">Address</label>
         <span className={addressClasses}>{address.message}</span>
       </div>
     </div>
@@ -45,7 +45,7 @@ const CentersForm = ({
           className="validate"
           onChange={() => handleChange}
         />
-        <label for="center-state">State</label>
+      <label htmlFor="center-state">State</label>
         <span className={stateClasses}>{state.message}</span>
       </div>
     </div>
@@ -59,7 +59,7 @@ const CentersForm = ({
           className="validate"
           onChange={() => handleChange}
         />
-      <label for="center-capacity">Capacity</label>
+      <label htmlFor="center-capacity">Capacity</label>
         <span className={capacityClasses}>{capacity.message}</span>
       </div>
       <div className="input-field col s4">
@@ -71,7 +71,7 @@ const CentersForm = ({
           className="validate"
           onChange={() => handleChange}
         />
-        <label for="center-state">Chairs</label>
+      <label htmlFor="center-state">Chairs</label>
       </div>
       <div className="input-field col s4">
         <input
@@ -82,7 +82,7 @@ const CentersForm = ({
           className="validate"
           onChange={() => handleChange}
         />
-        <label for="center-projector">Projector</label>
+      <label htmlFor="center-projector">Projector</label>
       </div>
     </div>
     <div className="row">
@@ -94,7 +94,7 @@ const CentersForm = ({
           className="materialize-textarea validate"
           onChange={() => handleChange}
         ></textarea>
-      <label for="center-detail">Detail</label>
+      <label htmlFors="center-detail">Detail</label>
         <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
@@ -132,12 +132,18 @@ const CentersForm = ({
 CentersForm.propTypes = {
   name: PropTypes.string.isRequired,
   detail: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   capacity: PropTypes.string.isRequired,
   chairs: PropTypes.string.isRequired,
   projector: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
-  nameClasses: PropTypes.arrayOf(PropTypes.string).isRequired
+  nameClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  detailClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  capacityClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  stateClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addressClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addCenter: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired
 };
 export default CentersForm;
