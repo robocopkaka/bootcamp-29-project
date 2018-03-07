@@ -22,7 +22,6 @@ class EditCenter extends Component {
       image: { value: '', isValid: true, message: '' },
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleImageChange = this.handleImageChange.bind(this);
     this.updateCenter = this.updateCenter.bind(this);
   }
   componentDidMount() {
@@ -90,13 +89,16 @@ class EditCenter extends Component {
     const { state } = this;
     const { name, value } = event.target;
     const field = state[name];
-    field.value = value;
-    this.setState({
-      [field]: [field]
-    });
-  }
-  handleImageChange(e) {
-    this.getSignedRequest(e.target.files[0]);
+    switch (name) {
+      case 'image':
+        this.getSignedRequest(event.target.files[0]);
+        break;
+      default:
+        field.value = value;
+        this.setState({
+          [field]: [field]
+        });
+    }
   }
   formIsValid() {
     let fieldCheck = true;
