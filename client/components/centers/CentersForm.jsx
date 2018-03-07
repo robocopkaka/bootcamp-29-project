@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const CentersForm = ({
   name, address, capacity, chairs, projector, state, detail, handleChange,
   nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, saveOrUpdate,
-  component
+  component, image
 }) => (
   <form className="card-content">
     <div className="row">
@@ -102,7 +102,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-projector">Projector</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-projector">Projector</label>
+        ) : (
+          <label htmlFor="center-projector" className="active">Projector</label>
+        )}
       </div>
     </div>
     <div className="row">
@@ -128,14 +132,16 @@ const CentersForm = ({
           <span>Image</span>
           <input
             type="file"
-            name="image"
+            name="imageUpload"
             onChange={handleChange}
           />
         </div>
         <div className="file-path-wrapper">
           <input
             className="file-path validate"
+            name="image"
             type="text"
+            value={image.value}
           />
         </div>
       </div>
@@ -185,6 +191,11 @@ CentersForm.propTypes = {
     isValid: PropTypes.bool
   }).isRequired,
   state: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  image: PropTypes.shape({
     value: PropTypes.string,
     message: PropTypes.string,
     isValid: PropTypes.bool

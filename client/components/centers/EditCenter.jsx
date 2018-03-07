@@ -90,7 +90,7 @@ class EditCenter extends Component {
     const { name, value } = event.target;
     const field = state[name];
     switch (name) {
-      case 'image':
+      case 'imageUpload':
         this.getSignedRequest(event.target.files[0]);
         break;
       default:
@@ -200,6 +200,7 @@ class EditCenter extends Component {
             detail={this.state.detail}
             address={this.state.address}
             state={this.state.state}
+            image={this.state.image}
             component="Edit"
           />
         </div>
