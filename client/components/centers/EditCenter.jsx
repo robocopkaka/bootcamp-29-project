@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import validator from 'validator';
 import * as centerActions from '../../actions/centerActions';
 import * as singleCenterActions from '../../actions/singleCenterActions';
+import CentersForm from './CentersForm';
 
 class EditCenter extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class EditCenter extends Component {
       image: { value: '', isValid: true, message: '' },
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleImageChange = this.handleImageChange.bind(this);
     this.updateCenter = this.updateCenter.bind(this);
   }
   componentDidMount() {
@@ -89,13 +89,16 @@ class EditCenter extends Component {
     const { state } = this;
     const { name, value } = event.target;
     const field = state[name];
-    field.value = value;
-    this.setState({
-      [field]: [field]
-    });
-  }
-  handleImageChange(e) {
-    this.getSignedRequest(e.target.files[0]);
+    switch (name) {
+      case 'imageUpload':
+        this.getSignedRequest(event.target.files[0]);
+        break;
+      default:
+        field.value = value;
+        this.setState({
+          [field]: [field]
+        });
+    }
   }
   formIsValid() {
     let fieldCheck = true;
@@ -182,127 +185,24 @@ class EditCenter extends Component {
           <div className="container">
             <h3 className="center-heading">Edit a Center</h3>
           </div>
-          <form className="card-content">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="center-name"
-                  name="name"
-                  type="text"
-                  className="validate"
-                  value={this.state.name.value}
-                  onChange={this.handleChange}
-                />
-              <label htmlFor="center-name" className="active">Name</label>
-                <span className={nameClasses}>{this.state.name.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="center-address"
-                  name="address"
-                  type="text"
-                  className="validate"
-                  value={this.state.address.value}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor="center-address" className="active">Address</label>
-                <span className={addressClasses}>{this.state.address.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="center-state"
-                  name="state"
-                  type="text"
-                  className="validate"
-                  value={this.state.state.value}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor="center-state" className="active">State</label>
-                <span className={stateClasses}>{this.state.state.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s4">
-                <input
-                  id="center-capacity"
-                  name="capacity"
-                  value={this.state.capacity.value}
-                  type="number"
-                  className="validate"
-                  onChange={this.handleChange}
-                />
-              <label for="center-capacity" className="active">Capacity</label>
-                <span className={capacityClasses}>{this.state.capacity.message}</span>
-              </div>
-              <div className="input-field col s4">
-                <input
-                  id="center-chairs"
-                  name="chairs"
-                  value={this.state.chairs.value}
-                  type="number"
-                  className="validate"
-                  onChange={this.handleChange}
-                />
-                <label for="center-state" className="active">Chairs</label>
-              </div>
-              <div className="input-field col s4">
-                <input
-                  id="center-projector"
-                  name="projector"
-                  value={this.state.projector.value}
-                  type="number"
-                  className="validate"
-                  onChange={this.handleChange}
-                />
-                <label for="center-projector" className="active">Projector</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <textarea
-                  id="center-detail"
-                  name="detail"
-                  value={this.state.detail.value}
-                  className="materialize-textarea validate"
-                  onChange={this.handleChange}
-                ></textarea>
-              <label for="center-detail" className="active">Detail</label>
-                <span className={detailClasses}>{this.state.detail.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="file-field input-field">
-                <div className="btn navbar-purple round-btn">
-                  <span>Image</span>
-                  <input
-                    type="file"
-                    name="image"
-                    onChange={this.handleImageChange}
-                  />
-                </div>
-                <div className="file-path-wrapper">
-                  <input
-                    className="file-path validate"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="row center-align">
-              <button
-                className="btn waves-effect waves-light navbar-purple round-btn"
-                type="submit"
-                name="action"
-                onClick={this.updateCenter}
-              >Update Center
-                <i className="material-icons right">send</i>
-              </button>
-            </div>
-          </form>
+          <CentersForm
+            nameClasses={nameClasses}
+            detailClasses={detailClasses}
+            addressClasses={addressClasses}
+            stateClasses={stateClasses}
+            capacityClasses={capacityClasses}
+            saveOrUpdate={this.updateCenter}
+            handleChange={this.handleChange}
+            name={this.state.name}
+            chairs={this.state.chairs}
+            projector={this.state.projector}
+            capacity={this.state.capacity}
+            detail={this.state.detail}
+            address={this.state.address}
+            state={this.state.state}
+            image={this.state.image}
+            component="Edit"
+          />
         </div>
       </div>
     );

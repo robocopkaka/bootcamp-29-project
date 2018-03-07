@@ -14,13 +14,14 @@ class Centers extends Component {
     }
   }
   render() {
+    const { isAdmin = false } = this.props;
     return (
       <div>
         <div className="container">
           <Search />
           <div className="top-ten-padding" />
           <div className="row">
-            <CenterList centers={this.props.centers} />
+            <CenterList centers={this.props.centers} isAdmin={isAdmin} />
           </div>
         </div>
       </div>
@@ -30,12 +31,14 @@ class Centers extends Component {
 
 Centers.propTypes = {
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    centers: state.centers
+    centers: state.centers,
+    isAdmin: state.session.isAdmin
   };
 }
 
