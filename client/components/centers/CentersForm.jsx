@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CentersForm = ({
   name, address, capacity, chairs, projector, state, detail, handleChange,
-  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, addCenter
+  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, saveOrUpdate
 }) => (
   <form className="card-content">
     <div className="row">
@@ -169,7 +169,7 @@ CentersForm.propTypes = {
   capacityClasses: PropTypes.string.isRequired,
   stateClasses: PropTypes.string.isRequired,
   addressClasses: PropTypes.string.isRequired,
-  addCenter: PropTypes.func.isRequired,
+  saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired
 };
 export default CentersForm;
