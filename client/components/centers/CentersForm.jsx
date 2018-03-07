@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const CentersForm = ({
   name, address, capacity, chairs, projector, state, detail, handleChange,
-  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, saveOrUpdate
+  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, saveOrUpdate,
+  component
 }) => (
   <form className="card-content">
     <div className="row">
@@ -16,7 +17,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-name">Name</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-name">Name</label>
+        ) : (
+          <label htmlFor="center-name" className="active">Name</label>
+        )}
         <span className={nameClasses}>{name.message}</span>
       </div>
     </div>
@@ -30,7 +35,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-address">Address</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-address">Address</label>
+        ) : (
+          <label htmlFor="center-address" className="active">Address</label>
+        )}
         <span className={addressClasses}>{address.message}</span>
       </div>
     </div>
@@ -44,7 +53,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-state">State</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-state">State</label>
+        ) : (
+          <label htmlFor="center-state" className="active">State</label>
+        )}
         <span className={stateClasses}>{state.message}</span>
       </div>
     </div>
@@ -58,7 +71,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-capacity">Capacity</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-capacity">Capacity</label>
+        ) : (
+          <label htmlFor="center-capacity" className="active">Capacity</label>
+        )}
         <span className={capacityClasses}>{capacity.message}</span>
       </div>
       <div className="input-field col s4">
@@ -70,7 +87,11 @@ const CentersForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-state">Chairs</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-chairs">Chairs</label>
+        ) : (
+          <label htmlFor="center-chairs" className="active">Chairs</label>
+        )}
       </div>
       <div className="input-field col s4">
         <input
@@ -93,7 +114,11 @@ const CentersForm = ({
           className="materialize-textarea validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-detail">Detail</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="center-detail">Detail</label>
+        ) : (
+          <label htmlFor="center-detail" className="active">Detail</label>
+        )}
         <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
@@ -170,6 +195,10 @@ CentersForm.propTypes = {
   stateClasses: PropTypes.string.isRequired,
   addressClasses: PropTypes.string.isRequired,
   saveOrUpdate: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  component: PropTypes.string
+};
+CentersForm.defaultProps = {
+  component: ''
 };
 export default CentersForm;

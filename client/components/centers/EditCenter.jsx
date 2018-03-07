@@ -200,6 +200,7 @@ class EditCenter extends Component {
             detail={this.state.detail}
             address={this.state.address}
             state={this.state.state}
+            component="Edit"
           />
         </div>
       </div>
