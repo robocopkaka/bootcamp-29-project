@@ -1,0 +1,175 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const CentersForm = ({
+  name, address, capacity, chairs, projector, state, detail, handleChange,
+  nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, addCenter
+}) => (
+  <form className="card-content">
+    <div className="row">
+      <div className="input-field col s12">
+        <input
+          id="center-name"
+          name="name"
+          value={name.value}
+          type="text"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-name">Name</label>
+        <span className={nameClasses}>{name.message}</span>
+      </div>
+    </div>
+    <div className="row">
+      <div className="input-field col s12">
+        <input
+          id="center-address"
+          name="address"
+          value={address.value}
+          type="text"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-address">Address</label>
+        <span className={addressClasses}>{address.message}</span>
+      </div>
+    </div>
+    <div className="row">
+      <div className="input-field col s12">
+        <input
+          id="center-state"
+          name="state"
+          value={state.value}
+          type="text"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-state">State</label>
+        <span className={stateClasses}>{state.message}</span>
+      </div>
+    </div>
+    <div className="row">
+      <div className="input-field col s4">
+        <input
+          id="center-capacity"
+          name="capacity"
+          value={capacity.value}
+          type="number"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-capacity">Capacity</label>
+        <span className={capacityClasses}>{capacity.message}</span>
+      </div>
+      <div className="input-field col s4">
+        <input
+          id="center-chairs"
+          name="chairs"
+          value={chairs.value}
+          type="number"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-state">Chairs</label>
+      </div>
+      <div className="input-field col s4">
+        <input
+          id="center-projector"
+          name="projector"
+          value={projector.value}
+          type="number"
+          className="validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-projector">Projector</label>
+      </div>
+    </div>
+    <div className="row">
+      <div className="input-field col s12">
+        <textarea
+          id="center-detail"
+          name="detail"
+          value={detail.value}
+          className="materialize-textarea validate"
+          onChange={handleChange}
+        />
+        <label htmlFor="center-detail">Detail</label>
+        <span className={detailClasses}>{detail.message}</span>
+      </div>
+    </div>
+    <div className="row">
+      <div className="file-field input-field">
+        <div className="btn navbar-purple round-btn">
+          <span>Image</span>
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="file-path-wrapper">
+          <input
+            className="file-path validate"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+    <div className="row center-align">
+      <button
+        className="btn waves-effect waves-light navbar-purple round-btn"
+        type="submit"
+        name="action"
+        onClick={addCenter}
+      >
+        Add Center
+        <i className="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+);
+CentersForm.propTypes = {
+  name: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  detail: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  address: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  capacity: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  chairs: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  projector: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  state: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  nameClasses: PropTypes.string.isRequired,
+  detailClasses: PropTypes.string.isRequired,
+  capacityClasses: PropTypes.string.isRequired,
+  stateClasses: PropTypes.string.isRequired,
+  addressClasses: PropTypes.string.isRequired,
+  addCenter: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
+};
+export default CentersForm;
