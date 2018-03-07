@@ -22,7 +22,6 @@ class AddCenter extends Component {
       image: { value: '', isValid: true, message: '' }
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleImageChange = this.handleImageChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
   }
   getSignedRequest(file) {
@@ -31,6 +30,7 @@ class AddCenter extends Component {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
+          console.log(xhr.responseText);
           const response = JSON.parse(xhr.responseText);
           this.uploadFile(file, response.signedRequest, response.url);
         } else {
@@ -67,13 +67,16 @@ class AddCenter extends Component {
     const { state } = this;
     const { name, value } = event.target;
     const field = state[name];
-    field.value = value;
-    this.setState({
-      [field]: [field]
-    });
-  }
-  handleImageChange(e) {
-    this.getSignedRequest(e.target.files[0]);
+    switch (name) {
+      case 'image':
+        this.getSignedRequest(event.target.files[0]);
+        break;
+      default:
+        field.value = value;
+        this.setState({
+          [field]: [field]
+        });
+    }
   }
   clearFields() {
     this.setState({
@@ -182,9 +185,9 @@ class AddCenter extends Component {
             capacityClasses={capacityClasses}
             addCenter={this.addCenter}
             handleChange={this.handleChange}
-            handleImageChange={this.handleImageChange}
             name={this.state.name}
-            email={this.state.email}
+            chairs={this.state.chairs}
+            projector={this.state.projector}
             capacity={this.state.capacity}
             detail={this.state.detail}
             address={this.state.address}
