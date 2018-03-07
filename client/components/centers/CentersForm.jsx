@@ -120,7 +120,7 @@ const CentersForm = ({
         className="btn waves-effect waves-light navbar-purple round-btn"
         type="submit"
         name="action"
-        onClick={addCenter}
+        onClick={saveOrUpdate}
       >
         Add Center
         <i className="material-icons right">send</i>

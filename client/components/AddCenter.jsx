@@ -183,7 +183,7 @@ class AddCenter extends Component {
             addressClasses={addressClasses}
             stateClasses={stateClasses}
             capacityClasses={capacityClasses}
-            addCenter={this.addCenter}
+            saveOrUpdate={this.addCenter}
             handleChange={this.handleChange}
             name={this.state.name}
             chairs={this.state.chairs}
