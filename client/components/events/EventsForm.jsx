@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, saveOrUpdate
+  categoryClasses, saveOrUpdate, handleChange
 }) => (
   <form className="card-content">
     <div className="row">
@@ -121,6 +121,49 @@ const EventsForm = ({
   </form>
 );
 EventsForm.propTypes = {
-
-}
+  name: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  time: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  date: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  guests: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  detail: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  center: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  category: PropTypes.shape({
+    value: PropTypes.string,
+    message: PropTypes.string,
+    isValid: PropTypes.bool
+  }).isRequired,
+  nameClasses: PropTypes.string.isRequired,
+  detailClasses: PropTypes.string.isRequired,
+  dateClasses: PropTypes.string.isRequired,
+  timeClasses: PropTypes.string.isRequired,
+  centerClasses: PropTypes.string.isRequired,
+  guestsClasses: PropTypes.string.isRequired,
+  categoryClasses: PropTypes.string.isRequired,
+  saveOrUpdate: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
+};
 export default EventsForm;
