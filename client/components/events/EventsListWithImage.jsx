@@ -60,6 +60,9 @@ const EventsListWithImage = ({
 EventsListWithImage.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool
+};
+EventsListWithImage.defaultProps = {
+  loggedIn: false
 };
 export default EventsListWithImage;

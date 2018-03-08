@@ -35,7 +35,11 @@ const EventsForm = ({
           className="materialize-textarea validate"
           onChange={handleChange}
         />
-        <label htmlFor="event-detail">Detail</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-detail">Detail</label>
+        ) : (
+          <label htmlFor="event-detail" className="active">Detail</label>
+        )}
         <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
@@ -49,7 +53,11 @@ const EventsForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="event-guests">Guests</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-guests">Guests</label>
+        ) : (
+          <label htmlFor="event-guests" className="active">Guests</label>
+        )}
         <span className={guestsClasses}>{guests.message}</span>
       </div>
     </div>
@@ -62,7 +70,11 @@ const EventsForm = ({
           className="datepicker"
           id="event-date"
         />
-        <label htmlFor="event-date">Date</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-date">Date</label>
+        ) : (
+          <label htmlFor="event-date" className="active">Date</label>
+        )}
         <span className={dateClasses}>{date.message}</span>
       </div>
     </div>
@@ -76,7 +88,11 @@ const EventsForm = ({
           type="text"
           onChange={handleTimeChange}
         />
-        <label htmlFor="event-time">Time</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-time">Time</label>
+        ) : (
+          <label htmlFor="event-time" className="active">Time</label>
+        )}
         <span className={timeClasses}>{time.message}</span>
       </div>
     </div>
@@ -97,7 +113,11 @@ const EventsForm = ({
             </option>
           ))}
         </select>
-        <label htmlFor="event-center">Center</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-center">Center</label>
+        ) : (
+          <label htmlFor="event-center" className="active">Center</label>
+        )}
         <span className={centerClasses}>{center.message}</span>
       </div>
       <div className="input-field col s16">
