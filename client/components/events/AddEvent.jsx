@@ -159,7 +159,7 @@ class AddEvent extends Component {
   resetValidationStates() {
     const state = Object.assign({}, this.state);
 
-    Object.keys(state).map((key) => {
+    Object.keys(state).forEach((key) => {
       if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
@@ -230,7 +230,6 @@ class AddEvent extends Component {
             detailClasses={detailClasses}
             saveOrUpdate={this.addEvent}
             handleChange={this.handleChange}
-            handleDateChange={this.handleDChange}
             handleTimeChange={this.handleTimeChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
             handleSelectCategoryChange={this.handleSelectCategoryChange}
@@ -248,7 +247,7 @@ AddEvent.propTypes = {
 function mapStateToProps(state) {
   let centers = [];
   if (state.centers && state.centers.length > 0) {
-    centers = state.centers;
+    ({ centers } = state);
   }
   return {
     centers

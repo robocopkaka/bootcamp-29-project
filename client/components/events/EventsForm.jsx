@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, centers, saveOrUpdate, handleChange, handleDateChange,
+  categoryClasses, centers, saveOrUpdate, handleChange,
   handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange
 }) => (
   <form className="card-content">
@@ -72,7 +72,7 @@ const EventsForm = ({
           type="text"
           onChange={handleTimeChange}
         />
-        <label for="event-time">Time</label>
+        <label htmlFor="event-time">Time</label>
         <span className={timeClasses}>{time.message}</span>
       </div>
     </div>
@@ -167,7 +167,6 @@ EventsForm.propTypes = {
   categoryClasses: PropTypes.string.isRequired,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleDateChange: PropTypes.func.isRequired,
   handleTimeChange: PropTypes.func.isRequired,
   handleSelectCenterChange: PropTypes.func.isRequired,
   handleSelectCategoryChange: PropTypes.func.isRequired
