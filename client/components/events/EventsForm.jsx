@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, centers, saveOrUpdate, handleChange,
+  categoryClasses, centers, saveOrUpdate, handleChange, component,
   handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange
 }) => (
   <form className="card-content">
@@ -18,7 +18,11 @@ const EventsForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="event-name">Name</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-name">Name</label>
+        ) : (
+          <label htmlFor="event-name" className="active">Name</label>
+        )}
         <span className={nameClasses}>{name.message}</span>
       </div>
     </div>
@@ -31,7 +35,7 @@ const EventsForm = ({
           className="materialize-textarea validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-detail">Detail</label>
+        <label htmlFor="event-detail">Detail</label>
         <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
@@ -165,10 +169,14 @@ EventsForm.propTypes = {
   centerClasses: PropTypes.string.isRequired,
   guestsClasses: PropTypes.string.isRequired,
   categoryClasses: PropTypes.string.isRequired,
+  component: PropTypes.string,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleTimeChange: PropTypes.func.isRequired,
   handleSelectCenterChange: PropTypes.func.isRequired,
   handleSelectCategoryChange: PropTypes.func.isRequired
+};
+EventsForm.defaultProps = {
+  component: ''
 };
 export default EventsForm;

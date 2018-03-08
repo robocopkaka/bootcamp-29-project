@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import validator from 'validator';
 import moment from 'moment';
 import * as eventActions from '../../actions/eventActions';
+import EventsForm from './EventsForm';
 
 class EditEvent extends Component {
   constructor(props) {
@@ -180,7 +181,7 @@ class EditEvent extends Component {
   resetValidationStates() {
     const state = Object.assign({}, this.state);
 
-    Object.keys(state).map((key) => {
+    Object.keys(state).forEach((key) => {
       if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
@@ -235,119 +236,29 @@ class EditEvent extends Component {
           <div className="container">
             <h3 className="center-heading">Edit an Event</h3>
           </div>
-          <form className="card-content">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="event-name"
-                  name="name"
-                  value={this.state.name.value}
-                  type="text"
-                  className="validate"
-                  onChange={this.handleChange}
-                />
-                <label for="event-name" className="active">Name</label>
-                <span className={nameClasses}>{this.state.name.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <textarea
-                  id="event-detail"
-                  name="detail"
-                  value={this.state.detail.value}
-                  className="materialize-textarea validate"
-                  onChange={this.handleChange}
-                ></textarea>
-                <label for="center-detail" className="active">Detail</label>
-                <span className={detailClasses}>{this.state.detail.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s6">
-                <input
-                  id="event-guests"
-                  name="guests"
-                  value={this.state.guests.value}
-                  type="number"
-                  className="validate"
-                  onChange={this.handleChange}
-                />
-                <label for="event-guests" className="active">Guests</label>
-                <span className={guestsClasses}>{this.state.guests.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  name="date"
-                  value={this.state.date.value}
-                  type="text"
-                  className="datepicker"
-                  id="event-date"
-                />
-                <label for="event-date" className="active">Date</label>
-                <span className={dateClasses}>{this.state.date.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="event-time"
-                  name="time"
-                  value={this.state.time.value}
-                  className="timepicker"
-                  type="text"
-                  onChange={this.handleTimeChange}
-                />
-                <label for="event-time" className="active">Time</label>
-                <span className={timeClasses}>{this.state.time.message}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s16">
-                <select
-                  name="center"
-                  value={this.state.center.value}
-                  onChange={this.handleSelectCenterChange}
-                  id="event-center"
-                >
-                  <option value="">Pick a Center</option>
-                  {centers.map(center => (
-                    <option
-                      key={center.id}
-                      value={center.id}
-                    >{center.name}
-                    </option>
-                  ))}
-                </select>
-                <label htmlFor="event-center" className="active">Center</label>
-                <span className={centerClasses}>{this.state.center.message}</span>
-              </div>
-              <div className="input-field col s16">
-                <select
-                  name="category"
-                  value={this.state.category.value}
-                  onChange={this.handleSelectCategoryChange}
-                  id="event-category"
-                >
-                  <option value="1">General</option>
-                </select>
-                <label htmlFor="event-category" className="active">Category</label>
-                <span className={categoryClasses}>{this.state.category.message}</span>
-              </div>
-            </div>
-            <div className="row center-align">
-              <button
-                className="btn waves-effect waves-light navbar-purple round-btn"
-                type="submit"
-                name="action"
-                onClick={this.updateEvent}
-              >Update Event
-                <i className="material-icons right">send</i>
-              </button>
-            </div>
-          </form>
+          <EventsForm
+            name={this.state.name}
+            guests={this.state.guests}
+            center={this.state.center}
+            category={this.state.category}
+            date={this.state.date}
+            time={this.state.time}
+            detail={this.state.detail}
+            nameClasses={nameClasses}
+            guestsClasses={guestsClasses}
+            dateClasses={dateClasses}
+            timeClasses={timeClasses}
+            centerClasses={centerClasses}
+            categoryClasses={categoryClasses}
+            detailClasses={detailClasses}
+            saveOrUpdate={this.updateEvent}
+            handleChange={this.handleChange}
+            handleTimeChange={this.handleTimeChange}
+            handleSelectCenterChange={this.handleSelectCenterChange}
+            handleSelectCategoryChange={this.handleSelectCategoryChange}
+            centers={centers}
+            component="Edit"
+          />
         </div>
       </div>
     );
@@ -396,10 +307,10 @@ function mapStateToProps(state) {
     Center: {}
   };
   if (state.event && state.event.id !== '') {
-    event = state.event;
+    ({ event } = state);
   }
   if (state.centers && state.centers.length > 0) {
-    centers = state.centers;
+    ({ centers } = state);
   }
   return {
     event,
