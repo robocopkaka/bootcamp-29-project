@@ -24,7 +24,7 @@ class Events extends Component {
     return (
       <div className="container">
         <Search />
-        <div className="top-ten-padding"></div>
+        <div className="top-ten-padding" />
         <div className="row">
           <EventsListWithImage
             events={this.props.events}
