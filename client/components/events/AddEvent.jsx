@@ -198,7 +198,7 @@ class AddEvent extends Component {
     }
   }
   render() {
-    // const { centers = [] } = this.props;
+    const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
     const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
     const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
@@ -230,6 +230,11 @@ class AddEvent extends Component {
             detailClasses={detailClasses}
             saveOrUpdate={this.addEvent}
             handleChange={this.handleChange}
+            handleDateChange={this.handleDChange}
+            handleTimeChange={this.handleTimeChange}
+            handleSelectCenterChange={this.handleSelectCenterChange}
+            handleSelectCategoryChange={this.handleSelectCategoryChange}
+            centers={centers}
           />
         </div>
       </div>
@@ -240,18 +245,18 @@ AddEvent.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   centers: PropTypes.arrayOf(PropTypes.object).isRequired
 };
-// function mapStateToProps(state) {
-//   let centers = [];
-//   if (state.centers && state.centers.length > 0) {
-//     centers = state.centers;
-//   }
-//   return {
-//     centers
-//   };
-// }
+function mapStateToProps(state) {
+  let centers = [];
+  if (state.centers && state.centers.length > 0) {
+    centers = state.centers;
+  }
+  return {
+    centers
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(eventActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(AddEvent);
+export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);

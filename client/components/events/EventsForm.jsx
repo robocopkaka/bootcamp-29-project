@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, saveOrUpdate, handleChange
+  categoryClasses, centers, saveOrUpdate, handleChange, handleDateChange,
+  handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange
 }) => (
   <form className="card-content">
     <div className="row">
@@ -69,7 +70,7 @@ const EventsForm = ({
           value={time.value}
           className="timepicker"
           type="text"
-          onChange={handleChange}
+          onChange={handleTimeChange}
         />
         <label for="event-time">Time</label>
         <span className={timeClasses}>{time.message}</span>
@@ -80,7 +81,7 @@ const EventsForm = ({
         <select
           name="center"
           value={center.value}
-          onChange={handleChange}
+          onChange={handleSelectCenterChange}
           id="event-center"
         >
           <option value="">Pick a Center</option>
@@ -99,7 +100,7 @@ const EventsForm = ({
         <select
           name="category"
           value={category.value}
-          onChange={handleChange}
+          onChange={handleSelectCategoryChange}
           id="event-category"
         >
           <option value="1">General</option>
@@ -156,6 +157,7 @@ EventsForm.propTypes = {
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   nameClasses: PropTypes.string.isRequired,
   detailClasses: PropTypes.string.isRequired,
   dateClasses: PropTypes.string.isRequired,
@@ -164,6 +166,10 @@ EventsForm.propTypes = {
   guestsClasses: PropTypes.string.isRequired,
   categoryClasses: PropTypes.string.isRequired,
   saveOrUpdate: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  handleDateChange: PropTypes.func.isRequired,
+  handleTimeChange: PropTypes.func.isRequired,
+  handleSelectCenterChange: PropTypes.func.isRequired,
+  handleSelectCategoryChange: PropTypes.func.isRequired
 };
 export default EventsForm;
