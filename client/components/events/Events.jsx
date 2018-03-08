@@ -24,9 +24,13 @@ class Events extends Component {
     return (
       <div className="container">
         <Search />
-        <div className="top-ten-padding"></div>
+        <div className="top-ten-padding" />
         <div className="row">
-          <EventsListWithImage events={this.props.events} deleteEvent={this.deleteEvent} />
+          <EventsListWithImage
+            events={this.props.events}
+            deleteEvent={this.deleteEvent}
+            isAdmin={this.props.isAdmin}
+          />
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link
@@ -43,16 +47,22 @@ class Events extends Component {
 
 Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   let events = {};
+  let isAdmin = false;
   if (state.events && state.events.length > 0) {
-    events = state.events;
+    ({ events } = state);
+  }
+  if (state.session.isAdmin && state.session.isAdmin === true) {
+    ({ session: { isAdmin } } = state);
   }
   return {
-    events
+    events,
+    isAdmin
   };
 }
 function mapDispatchToProps(dispatch) {

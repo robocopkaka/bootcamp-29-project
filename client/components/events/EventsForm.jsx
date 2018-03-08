@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, centers, saveOrUpdate, handleChange,
+  categoryClasses, centers, saveOrUpdate, handleChange, component,
   handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange
 }) => (
   <form className="card-content">
@@ -18,7 +18,11 @@ const EventsForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="event-name">Name</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-name">Name</label>
+        ) : (
+          <label htmlFor="event-name" className="active">Name</label>
+        )}
         <span className={nameClasses}>{name.message}</span>
       </div>
     </div>
@@ -31,7 +35,11 @@ const EventsForm = ({
           className="materialize-textarea validate"
           onChange={handleChange}
         />
-        <label htmlFor="center-detail">Detail</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-detail">Detail</label>
+        ) : (
+          <label htmlFor="event-detail" className="active">Detail</label>
+        )}
         <span className={detailClasses}>{detail.message}</span>
       </div>
     </div>
@@ -45,7 +53,11 @@ const EventsForm = ({
           className="validate"
           onChange={handleChange}
         />
-        <label htmlFor="event-guests">Guests</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-guests">Guests</label>
+        ) : (
+          <label htmlFor="event-guests" className="active">Guests</label>
+        )}
         <span className={guestsClasses}>{guests.message}</span>
       </div>
     </div>
@@ -58,7 +70,11 @@ const EventsForm = ({
           className="datepicker"
           id="event-date"
         />
-        <label htmlFor="event-date">Date</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-date">Date</label>
+        ) : (
+          <label htmlFor="event-date" className="active">Date</label>
+        )}
         <span className={dateClasses}>{date.message}</span>
       </div>
     </div>
@@ -72,7 +88,11 @@ const EventsForm = ({
           type="text"
           onChange={handleTimeChange}
         />
-        <label htmlFor="event-time">Time</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-time">Time</label>
+        ) : (
+          <label htmlFor="event-time" className="active">Time</label>
+        )}
         <span className={timeClasses}>{time.message}</span>
       </div>
     </div>
@@ -93,7 +113,11 @@ const EventsForm = ({
             </option>
           ))}
         </select>
-        <label htmlFor="event-center">Center</label>
+        { component !== 'Edit' ? (
+          <label htmlFor="event-center">Center</label>
+        ) : (
+          <label htmlFor="event-center" className="active">Center</label>
+        )}
         <span className={centerClasses}>{center.message}</span>
       </div>
       <div className="input-field col s16">
@@ -165,10 +189,14 @@ EventsForm.propTypes = {
   centerClasses: PropTypes.string.isRequired,
   guestsClasses: PropTypes.string.isRequired,
   categoryClasses: PropTypes.string.isRequired,
+  component: PropTypes.string,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleTimeChange: PropTypes.func.isRequired,
   handleSelectCenterChange: PropTypes.func.isRequired,
   handleSelectCategoryChange: PropTypes.func.isRequired
+};
+EventsForm.defaultProps = {
+  component: ''
 };
 export default EventsForm;

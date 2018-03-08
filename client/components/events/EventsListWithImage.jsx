@@ -49,7 +49,7 @@ const EventsListWithImage = ({
                 </button>
               </React.Fragment>
             ) : (
-              <React.Fragment></React.Fragment>
+              <React.Fragment />
             )}
           </div>
         </div>
@@ -60,6 +60,10 @@ const EventsListWithImage = ({
 EventsListWithImage.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool,
+  deleteEvent: PropTypes.func.isRequired
+};
+EventsListWithImage.defaultProps = {
+  loggedIn: false
 };
 export default EventsListWithImage;
