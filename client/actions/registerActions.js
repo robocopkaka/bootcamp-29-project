@@ -15,11 +15,11 @@ export function registerUser(credentials) {
       .then((response) => {
         sessionStorage.setItem('registered', true);
         dispatch(registerSuccess(response));
+        return response.data.message;
       })
       .catch((error) => {
-        console.log(error);
         dispatch(registerFailure(error));
-        throw (error);
+        throw error.data.message;
       });
   };
 }

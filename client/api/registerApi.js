@@ -15,7 +15,6 @@ class RegisterApi {
         return response;
       })
       .catch((err) => {
-        console.log(err.response);
         throw err.response;
       });
   }
