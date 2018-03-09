@@ -11,7 +11,7 @@ export function registerFailure(response) {
 
 export function registerUser(credentials) {
   return (dispatch) => {
-    RegisterApi.register(credentials)
+    return RegisterApi.register(credentials)
       .then((response) => {
         sessionStorage.setItem('registered', true);
         dispatch(registerSuccess(response));
