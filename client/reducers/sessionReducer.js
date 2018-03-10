@@ -30,10 +30,18 @@ export default function sessionReducer(state = initialState.session, action) {
       ));
     case types.LOGOUT_SUCCESS:
       history.push('/');
-      return {
-        jwt: !!sessionStorage.jwt,
-        isAdmin: !!sessionStorage.isAdmin
-      };
+      return (Object.assign(
+        state,
+        { jwt: !!sessionStorage.jwt },
+        { isAdmin: !!sessionStorage.isAdmin },
+        { userId: !!sessionStorage.userId },
+        { isLoading: false }
+      ));
+    case types.LOGOUT_LOADING:
+      return (Object.assign(
+        state,
+        { isLoading: true }
+      ));
     default:
       return state;
   }

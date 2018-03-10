@@ -12,6 +12,12 @@ export function loginFailure(response) {
 export function loginRequest() {
   return { type: types.LOGIN_REQUEST };
 }
+export function logoutRequest() {
+  return { type: types.LOGOUT_LOADING };
+}
+export function logoutSuccess() {
+  return { type: types.LOGOUT_SUCCESS };
+}
 
 export function loginUser(credentials) {
   return (dispatch) => {
@@ -34,7 +40,10 @@ export function loginUser(credentials) {
 }
 
 export function logOutUser() {
-  sessionStorage.removeItem('jwt');
-  sessionStorage.removeItem('isAdmin');
-  return { type: types.LOGOUT_SUCCESS };
+  return (dispatch) => {
+    dispatch(logoutRequest());
+    sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('isAdmin');
+    dispatch(logoutSuccess());
+  }
 }

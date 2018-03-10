@@ -1,10 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 import classNames from 'classnames';
 import validator from 'validator';
+import PropTypes from 'prop-types';
 import * as sessionActions from '../actions/sessionActions';
+import Preloader from './common/Preloader';
 
 class Login extends React.Component {
   constructor(props) {
@@ -71,7 +73,7 @@ class Login extends React.Component {
   resetValidationStates() {
     const state = Object.assign({}, this.state);
 
-    Object.keys(state).map((key) => {
+    Object.keys(state).forEach((key) => {
       if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
@@ -85,15 +87,23 @@ class Login extends React.Component {
     const credentials = {
       email: this.state.email.value,
       password: this.state.password.value
-    }
+    };
     if (this.formIsValid()) {
-      this.props.actions.loginUser(credentials);
-      this.clearFields();
+      this.props.actions.loginUser(credentials)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
+      // this.clearFields();
     }
   }
   render() {
+    const { isLoading = [] } = this.props;
     const emailClasses = classNames('help-block', { 'has-error': !this.state.email.isValid });
     const passwordClasses = classNames('help-block', { 'has-error': !this.state.password.isValid });
+    if (isLoading) {
+      return (
+        <Preloader />
+      );
+    }
     return (
       <div className="container">
         <div className="row signup-form center-align valign-wrapper">
@@ -111,7 +121,7 @@ class Login extends React.Component {
                         className="validate"
                         onChange={this.handleEmailChange}
                       />
-                      <label for="email">Email</label>
+                      <label htmlFor="email">Email</label>
                       <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
@@ -147,9 +157,18 @@ class Login extends React.Component {
     );
   }
 }
+Login.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
+function mapStateToProps(state) {
+  return {
+    isLoading: state.session.isLoading
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
