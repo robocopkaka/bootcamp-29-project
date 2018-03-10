@@ -9,6 +9,7 @@ export default function sessionReducer(state = initialState.session, action) {
     case types.LOGIN_SUCCESS:
       history.push('/');
       return (Object.assign(
+        {},
         state,
         { jwt: !!sessionStorage.jwt },
         { isAdmin: !!sessionStorage.isAdmin },
@@ -19,18 +20,21 @@ export default function sessionReducer(state = initialState.session, action) {
     case types.LOGIN_FAILURE:
       history.push('/login');
       return (Object.assign(
+        {},
         state,
         { message: action.response.data.message },
         { isLoading: false }
       ));
     case types.LOGIN_REQUEST:
       return (Object.assign(
+        {},
         state,
         { isLoading: true }
       ));
     case types.LOGOUT_SUCCESS:
       history.push('/');
       return (Object.assign(
+        {},
         state,
         { jwt: !!sessionStorage.jwt },
         { isAdmin: !!sessionStorage.isAdmin },
@@ -39,6 +43,7 @@ export default function sessionReducer(state = initialState.session, action) {
       ));
     case types.LOGOUT_LOADING:
       return (Object.assign(
+        {},
         state,
         { isLoading: true }
       ));
