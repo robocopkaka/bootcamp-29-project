@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as registerActions from '../actions/registerActions';
+import Preloader from './common/Preloader';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -167,6 +168,12 @@ class Signup extends React.Component {
       'help-block',
       { 'has-error': !this.state.passwordConfirmation.isValid }
     );
+    const { isLoading = false } = this.props;
+    if (isLoading) {
+      return (
+        <Preloader />
+      );
+    }
     return (
       <div className="container">
         <div className="row signup-form">
@@ -261,11 +268,17 @@ class Signup extends React.Component {
   }
 }
 Signup.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
+function mapStateToProps(state) {
+  return {
+    isLoading: state.register.isLoading
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(registerActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
