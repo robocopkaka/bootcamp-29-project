@@ -4,7 +4,11 @@ export default {
     isAdmin: !!sessionStorage.isAdmin,
     userId: sessionStorage.userId
   },
-  isRegistered: !!sessionStorage.registered,
+  register: {
+    isRegistered: !!sessionStorage.registered,
+    message: '',
+    isLoading: false
+  },
   centers: [],
   events: [],
   center: {},

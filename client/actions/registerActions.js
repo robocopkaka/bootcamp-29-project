@@ -1,19 +1,30 @@
 import * as types from './actionTypes';
 import RegisterApi from '../api/registerApi';
 
-export function registerSuccess() {
-  return { type: types.REGISTER_SUCCESS };
+export function registerSuccess(response) {
+  return { type: types.REGISTER_SUCCESS, response };
+}
+
+export function registerFailure(response) {
+  return { type: types.REGISTER_FAILURE, response };
+}
+
+export function registerLoading() {
+  return { type: types.REGISTER_LOADING };
 }
 
 export function registerUser(credentials) {
-  return function (dispatch) {
+  return (dispatch) => {
+    dispatch(registerLoading());
     return RegisterApi.register(credentials)
       .then((response) => {
         sessionStorage.setItem('registered', true);
-        dispatch(registerSuccess());
+        dispatch(registerSuccess(response));
+        return response.data.message;
       })
       .catch((error) => {
-        throw (error);
+        dispatch(registerFailure(error));
+        throw error.data.message;
       });
   };
 }

@@ -81,7 +81,12 @@ module.exports = {
           isAdmin: req.body.isAdmin
         })
         .then((user) => {
-          res.status(201).send(user);
+          console.log(user);
+          res.status(201).send({
+            success: true,
+            message: `Account created for ${user.name}`,
+            user
+          });
         })
         .catch(() => {
           res.status(400).send({

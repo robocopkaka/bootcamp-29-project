@@ -1,10 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import classNames from 'classnames';
 import validator from 'validator';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as registerActions from '../actions/registerActions';
+import Preloader from './common/Preloader';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -24,6 +25,9 @@ class Signup extends React.Component {
         value: '', isValid: true, matches: false, message: ''
       }
     };
+  }
+  componentDidMount() {
+    $('.tooltipped').tooltip({ delay: 50 });
   }
   handleFirstNameChange(e) {
     const firstName = Object.assign({}, this.state.firstName);
@@ -129,7 +133,7 @@ class Signup extends React.Component {
   resetValidationStates() {
     const state = Object.assign({}, this.state);
 
-    Object.keys(state).map((key) => {
+    Object.keys(state).forEach((key) => {
       if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
@@ -146,7 +150,9 @@ class Signup extends React.Component {
         email: this.state.email.value,
         password: this.state.password.value
       };
-      this.props.actions.registerUser(credentials);
+      this.props.actions.registerUser(credentials)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
       this.clearFields();
     }
   }
@@ -162,6 +168,12 @@ class Signup extends React.Component {
       'help-block',
       { 'has-error': !this.state.passwordConfirmation.isValid }
     );
+    const { isLoading = false } = this.props;
+    if (isLoading) {
+      return (
+        <Preloader />
+      );
+    }
     return (
       <div className="container">
         <div className="row signup-form">
@@ -179,7 +191,7 @@ class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleFirstNameChange}
                       />
-                      <label for="first_name">First Name</label>
+                      <label htmlFor="first_name">First Name</label>
                       <span className={firstNameClasses}>{this.state.firstName.message}</span>
                     </div>
                     <div className="input-field col s6">
@@ -190,7 +202,7 @@ class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleLastNameChange}
                       />
-                      <label for="last_name">Last Name</label>
+                      <label htmlFor="last_name">Last Name</label>
                       <span className={lastNameClasses}>{this.state.lastName.message}</span>
                     </div>
                   </div>
@@ -203,7 +215,7 @@ class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleEmailChange}
                       />
-                      <label for="email">Email</label>
+                      <label htmlFor="email">Email</label>
                       <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
@@ -216,7 +228,7 @@ class Signup extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordChange}
                       />
-                      <label for="password">Password</label>
+                      <label htmlFor="password">Password</label>
                       <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
                     <div className="input-field col s6">
@@ -227,7 +239,7 @@ class Signup extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordConfirmationChange}
                       />
-                      <label for="password_confirmation">Password Confirmation</label>
+                      <label htmlFor="password_confirmation">Password Confirmation</label>
                       <span
                         className={passwordConfirmationClasses}
                       >
@@ -252,12 +264,21 @@ class Signup extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
+}
+Signup.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
+function mapStateToProps(state) {
+  return {
+    isLoading: state.register.isLoading
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(registerActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
