@@ -14,7 +14,7 @@ class SessionApi {
         return res;
       })
       .catch((err) => {
-        return err;
+        throw err.response;
       });
   }
 }

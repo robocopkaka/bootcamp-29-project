@@ -6,6 +6,7 @@ export default function registerReducer(state = initialState.register, action) {
   switch (action.type) {
     case types.REGISTER_LOADING:
       return (Object.assign(
+        {},
         state,
         { isLoading: true }
       ));
