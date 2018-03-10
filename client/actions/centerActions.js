@@ -4,6 +4,12 @@ import CenterApi from '../api/centerApi';
 export function addCenterSuccess(center) {
   return { type: types.ADD_CENTER_SUCCESS, center };
 }
+export function addCenterFailure() {
+  return { type: types.ADD_CENTER_FAILURE };
+}
+export function addCenterLoading() {
+  return { type: types.ADD_CENTER_LOADING };
+}
 export function fetchCentersSuccess(centers) {
   return { type: types.FETCH_CENTERS_SUCCESS, centers };
 }
@@ -11,18 +17,20 @@ export function updateCenterSuccess(center) {
   return { type: types.UPDATE_CENTER_SUCCESS, center };
 }
 export function addCenter(values) {
-  return function (dispatch) {
+  return (dispatch) => {
+    dispatch(addCenterLoading());
     return CenterApi.create(values)
       .then((response) => {
         dispatch(addCenterSuccess(response.data.center));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(addCenterFailure());
+        throw error.data.message;
       });
   };
 }
 export function fetchCenters() {
-  return function (dispatch) {
+  return (dispatch) => {
     return CenterApi.getAll()
       .then((response) => {
         dispatch(fetchCentersSuccess(response.data.centers));
@@ -33,11 +41,11 @@ export function fetchCenters() {
   };
 }
 export function updateCenter(center) {
-  return function (dispatch) {
+  return (dispatch) => {
     return CenterApi.update(center)
       .then((response) => {
         dispatch(updateCenterSuccess(response.data.center));
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   };
 }
