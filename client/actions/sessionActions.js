@@ -31,10 +31,11 @@ export function loginUser(credentials) {
           sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
         }
         dispatch(loginSuccess(response));
+        return response.data.message;
       })
       .catch((error) => {
         dispatch(loginFailure(error));
-        return error;
+        throw error.data.message;
       });
   };
 }
@@ -45,5 +46,5 @@ export function logOutUser() {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('isAdmin');
     dispatch(logoutSuccess());
-  }
+  };
 }
