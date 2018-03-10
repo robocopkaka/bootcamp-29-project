@@ -11,7 +11,6 @@ export default function registerReducer(state = initialState.register, action) {
       ));
     case types.REGISTER_SUCCESS:
       history.push('/');
-      // return !!sessionStorage.registered;
       return (Object.assign(
         {},
         state,
