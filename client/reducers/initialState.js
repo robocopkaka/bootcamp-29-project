@@ -6,7 +6,8 @@ export default {
   },
   register: {
     isRegistered: !!sessionStorage.registered,
-    message: ''
+    message: '',
+    isLoading: false
   },
   centers: [],
   events: [],
