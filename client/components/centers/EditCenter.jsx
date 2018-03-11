@@ -170,7 +170,9 @@ class EditCenter extends Component {
       image: this.state.image.value,
     };
     if (this.formIsValid()) {
-      this.props.actions.updateCenter(center);
+      this.props.actions.updateCenter(center)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
     }
   }
   render() {
@@ -244,7 +246,7 @@ function mapStateToProps(state) {
       events: []
     };
   } else {
-    center = state.center;
+    ({ center } = state);
   }
   return {
     center

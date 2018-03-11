@@ -54,10 +54,11 @@ export function updateCenter(center) {
     return CenterApi.update(center)
       .then((response) => {
         dispatch(updateCenterSuccess(response.data));
+        return response.data.message;
       })
       .catch((error) => {
-        console.log(error);
-        dispatch(updateCenterFailure(center));
+        // console.log(error);
+        dispatch(updateCenterFailure(error));
         throw error.data.message;
       });
   };
