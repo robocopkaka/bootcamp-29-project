@@ -6,7 +6,7 @@ export default function centerReducer(state = initialState.centers, action) {
   switch (action.type) {
     case types.ADD_CENTER_SUCCESS:
       history.push('/centers');
-      console.log(action);
+      // console.log(action);
       return (Object.assign(
         {},
         state,
@@ -20,13 +20,13 @@ export default function centerReducer(state = initialState.centers, action) {
         { message: action.center.message }
       ));
     case types.ADD_CENTER_FAILURE:
-      console.log(`reducer response = ${JSON.parse(action)}`);
+      // console.log(action);
       history.push('/add-center');
       return (Object.assign(
         {},
         state,
         { isLoading: false },
-        // { message: action.response.data.message }
+        { message: action.center.data.message }
       ));
     case types.ADD_CENTER_LOADING:
       return (Object.assign(
