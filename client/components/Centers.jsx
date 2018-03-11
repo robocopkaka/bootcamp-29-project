@@ -37,7 +37,7 @@ Centers.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    centers: state.centers,
+    centers: state.centers.centers,
     isAdmin: state.session.isAdmin
   };
 }
