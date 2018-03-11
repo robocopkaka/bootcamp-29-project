@@ -11,7 +11,11 @@ export default {
     message: '',
     isLoading: false
   },
-  centers: [],
+  centers: {
+    centers: [],
+    isLoading: false,
+    message: ''
+  },
   events: [],
   center: {},
   event: {},

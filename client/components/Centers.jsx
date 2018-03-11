@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as centerActions from '../actions/centerActions';
 import CenterList from './CenterList';
 import Search from './Search';
 
 class Centers extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.centers.length === 0) {
       this.props.centerActions.fetchCenters();
     }
@@ -24,6 +25,14 @@ class Centers extends Component {
             <CenterList centers={this.props.centers} isAdmin={isAdmin} />
           </div>
         </div>
+        <div className="fixed-action-btn horizontal click-to-toggle">
+          <Link
+            to="/add-center"
+            className="btn-floating btn-large red white-color"
+          >
+            <i className="material-icons">add</i>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -37,7 +46,7 @@ Centers.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    centers: state.centers,
+    centers: state.centers.centers,
     isAdmin: state.session.isAdmin
   };
 }
