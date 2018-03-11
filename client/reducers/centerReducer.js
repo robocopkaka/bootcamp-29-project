@@ -5,28 +5,28 @@ import * as types from '../actions/actionTypes';
 export default function centerReducer(state = initialState.centers, action) {
   switch (action.type) {
     case types.ADD_CENTER_SUCCESS:
-      history.push('/add-center');
-      // return [
-      //   ...state.filter(center => center.id !== action.center.id),
-      //   Object.assign({}, action.center)
-      // ];
+      history.push('/centers');
+      console.log(action);
       return (Object.assign(
         {},
         state,
-        [
-          ...state.centers.filter(center => center.id !== action.center.id),
-          Object.assign({}, action.data.response.center)
-        ],
+        {
+          centers: [
+            ...state.centers.filter(center => center.id !== action.center.center.id),
+            Object.assign({}, action.center.center)
+          ]
+        },
         { isLoading: false },
-        { message: action.data.response.message }
+        { message: action.center.message }
       ));
     case types.ADD_CENTER_FAILURE:
+      console.log(`reducer response = ${JSON.parse(action)}`);
       history.push('/add-center');
       return (Object.assign(
         {},
         state,
         { isLoading: false },
-        { message: action.response.data.message }
+        // { message: action.response.data.message }
       ));
     case types.ADD_CENTER_LOADING:
       return (Object.assign(
