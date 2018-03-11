@@ -47,7 +47,7 @@ export function addEvent(eventObject) {
     dispatch(addEventLoading());
     return EventApi.create(eventObject)
       .then((response) => {
-        dispatch(addEventSuccess(response.data.event));
+        dispatch(addEventSuccess(response.data));
       })
       .catch((error) => {
         console.log(error);

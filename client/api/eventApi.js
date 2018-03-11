@@ -58,7 +58,7 @@ class EventApi {
       })
       .catch((error) => {
         console.log('CATCH = ', error.response);
-        return error;
+        throw error.response;
       });
   }
   static update(eventObject) {
