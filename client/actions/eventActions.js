@@ -35,15 +35,23 @@ export function fetchSingleEvent(eventId) {
 export function addEventSuccess(event) {
   return { type: types.ADD_EVENT_SUCCESS, event };
 }
+export function addEventFailure(event) {
+  return { type: types.ADD_EVENT_FAILURE, event };
+}
+export function addEventLoading() {
+  return { type: types.ADD_EVENT_LOADING };
+}
 
 export function addEvent(eventObject) {
-  return function (dispatch) {
+  return (dispatch) => {
+    dispatch(addEventLoading());
     return EventApi.create(eventObject)
       .then((response) => {
         dispatch(addEventSuccess(response.data.event));
       })
       .catch((error) => {
         console.log(error);
+        dispatch(addEventFailure(error));
       });
   };
 }
