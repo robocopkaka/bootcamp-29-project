@@ -42,11 +42,19 @@ export default function centerReducer(state = initialState.centers, action) {
         { centers: action.centers }
       ));
     case types.UPDATE_CENTER_SUCCESS:
-      history.push(`/centers/${action.center.id}`);
-      return [
-        ...state.filter(center => center.id !== action.center.id),
-        Object.assign({}, action.center)
-      ];
+      history.push(`/centers/${action.center.center.id}`);
+      return (Object.assign(
+        {},
+        state,
+        {
+          centers: [
+            ...state.centers.filter(center => center.id !== action.center.center.id),
+            Object.assign({}, action.center.center)
+          ]
+        },
+        { isLoading: false },
+        { message: action.center.message }
+      ));
     default:
       return state;
   }

@@ -71,6 +71,7 @@ class CenterApi {
       })
       .catch((error) => {
         console.log('CATCH = ', error.response);
+        throw error.response;
       });
   }
 }
