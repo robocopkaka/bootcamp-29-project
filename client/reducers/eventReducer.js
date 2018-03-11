@@ -7,11 +7,33 @@ export default function eventReducer(state = initialState.events, action) {
     case types.FETCH_EVENTS_SUCCESS:
       return action.events;
     case types.ADD_EVENT_SUCCESS:
+      history.push('/events');
+      return (Object.assign(
+        {},
+        state,
+        {
+          centers: [
+            ...state.events.filter(event => event.id !== action.event.event.id),
+            Object.assign({}, action.event.event)
+          ]
+        },
+        { isLoading: false },
+        { message: action.event.message }
+      ));
+    case types.ADD_EVENT_FAILURE:
       history.push('/add-event');
-      return [
-        ...state.filter(event => event.id !== action.event.id),
-        Object.assign({}, action.event)
-      ];
+      return (Object.assign(
+        {},
+        state,
+        { isLoading: false },
+        { message: action.event.message }
+      ));
+    case types.ADD_EVENT_LOADING:
+      return (Object.assign(
+        {},
+        state,
+        { isLoading: true }
+      ));
     case types.UPDATE_EVENT_SUCCESS:
       history.push(`/events/${action.event.id}`);
       return [
