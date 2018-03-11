@@ -1,11 +1,11 @@
 import * as types from './actionTypes';
 import CenterApi from '../api/centerApi';
 
-export function addCenterSuccess(center) {
-  return { type: types.ADD_CENTER_SUCCESS, center };
+export function addCenterSuccess(response) {
+  return { type: types.ADD_CENTER_SUCCESS, response };
 }
-export function addCenterFailure() {
-  return { type: types.ADD_CENTER_FAILURE };
+export function addCenterFailure(response) {
+  return { type: types.ADD_CENTER_FAILURE, response };
 }
 export function addCenterLoading() {
   return { type: types.ADD_CENTER_LOADING };
@@ -21,10 +21,10 @@ export function addCenter(values) {
     dispatch(addCenterLoading());
     return CenterApi.create(values)
       .then((response) => {
-        dispatch(addCenterSuccess(response.data.center));
+        dispatch(addCenterSuccess(response));
       })
       .catch((error) => {
-        dispatch(addCenterFailure());
+        dispatch(addCenterFailure(error));
         throw error.data.message;
       });
   };

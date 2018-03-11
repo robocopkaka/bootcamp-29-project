@@ -7,6 +7,7 @@ import validator from 'validator';
 import axios from 'axios';
 import * as centerActions from '../actions/centerActions';
 import CentersForm from './centers/CentersForm';
+import Preloader from './common/Preloader';
 
 class AddCenter extends Component {
   constructor(props) {
@@ -30,7 +31,6 @@ class AddCenter extends Component {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          console.log(xhr.responseText);
           const response = JSON.parse(xhr.responseText);
           this.uploadFile(file, response.signedRequest, response.url);
         } else {
@@ -139,7 +139,7 @@ class AddCenter extends Component {
   resetValidationStates() {
     const state = Object.assign({}, this.state);
 
-    Object.keys(state).map((key) => {
+    Object.keys(state).forEach((key) => {
       if ({}.hasOwnProperty.call(state[key], 'isValid')) {
         state[key].isValid = true;
         state[key].message = '';
@@ -161,8 +161,10 @@ class AddCenter extends Component {
       image: this.state.image.value,
     };
     if (this.formIsValid()) {
-      this.props.centerActions.addCenter(center);
-      this.clearFields();
+      this.props.centerActions.addCenter(center)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
+      // this.clearFields();
     }
   }
   render() {
@@ -171,6 +173,11 @@ class AddCenter extends Component {
     const addressClasses = classNames('help-block', { 'has-error': !this.state.address.isValid });
     const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
     const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
+    if (this.props.isLoading) {
+      return (
+        <Preloader />
+      );
+    }
     return (
       <div className="container max-width-six-hundred">
         <div className="card">
@@ -200,11 +207,17 @@ class AddCenter extends Component {
   }
 }
 AddCenter.propTypes = {
-  centerActions: PropTypes.objectOf(PropTypes.func).isRequired
+  centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
+function mapStateToProps(state) {
+  return {
+    isLoading: state.centers.isLoading
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     centerActions: bindActionCreators(centerActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(AddCenter);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCenter);

@@ -15,9 +15,10 @@ export default function centerReducer(state = initialState.centers, action) {
         state,
         [
           ...state.centers.filter(center => center.id !== action.center.id),
-          Object.assign({}, action.center)
+          Object.assign({}, action.data.response.center)
         ],
-        { isLoading: false }
+        { isLoading: false },
+        { message: action.data.response.message }
       ));
     case types.ADD_CENTER_FAILURE:
       history.push('/add-center');

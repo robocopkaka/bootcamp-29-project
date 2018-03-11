@@ -26,7 +26,7 @@ class CenterApi {
       })
       .catch((err) => {
         // console.log('CATCH = ', err.response);
-        return err.response;
+        throw err.response;
       });
   }
   static getAll() {

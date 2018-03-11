@@ -15,7 +15,7 @@ const createStoreWithMiddleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware))(createStore);
 
 const store = createStoreWithMiddleware(rootReducer);
-store.dispatch(fetchCenters());
+// store.dispatch(fetchCenters());
 store.dispatch(fetchEvents());
 
 ReactDOM.render(
