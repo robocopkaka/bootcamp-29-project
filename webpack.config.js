@@ -11,7 +11,8 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve('dist'),
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -24,6 +25,9 @@ module.exports = {
       }},
       { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=8192' }
     ]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [HtmlWebpackPluginConfig],
   resolve: {

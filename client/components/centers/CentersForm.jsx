@@ -147,15 +147,27 @@ const CentersForm = ({
       </div>
     </div>
     <div className="row center-align">
-      <button
-        className="btn waves-effect waves-light navbar-purple round-btn"
-        type="submit"
-        name="action"
-        onClick={saveOrUpdate}
-      >
-        Add Center
-        <i className="material-icons right">send</i>
-      </button>
+      {component === 'Edit' ? (
+        <button
+          className="btn waves-effect waves-light navbar-purple round-btn"
+          type="submit"
+          name="action"
+          onClick={saveOrUpdate}
+        >
+          Update Center
+          <i className="material-icons right">send</i>
+        </button>
+      ) : (
+        <button
+          className="btn waves-effect waves-light navbar-purple round-btn"
+          type="submit"
+          name="action"
+          onClick={saveOrUpdate}
+        >
+          Add Center
+          <i className="material-icons right">send</i>
+        </button>
+      )}
     </div>
   </form>
 );
