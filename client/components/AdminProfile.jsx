@@ -17,6 +17,9 @@ class AdminProfile extends Component {
   componentDidMount() {
     $('ul.tabs').tabs();
     this.props.actions.setComponentName('AdminProfile');
+    if (this.props.events.length === 0) {
+      this.props.actions.fetchEvents();
+    }
   }
   deleteEvent(id) {
     this.props.actions.deleteEvent(id);
@@ -25,6 +28,7 @@ class AdminProfile extends Component {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
     const { isAdmin = false } = this.props;
+    console.log(events);
     return (
       <React.Fragment>
         <ul className="tabs navbar-purple blue-text">
@@ -80,11 +84,11 @@ AdminProfile.propTypes = {
 function mapStateToProps(state) {
   let centers = [];
   let events = [];
-  if (state.centers && state.centers.length > 0) {
-    centers = state.centers;
+  if (state.centers.centers && state.centers.centers.length > 0) {
+    ({ centers: { centers } } = state);
   }
-  if (state.events && state.events.length > 0) {
-    events = state.events;
+  if (state.events.events && state.events.events.length > 0) {
+    ({ events: { events } } = state);
   }
   return {
     centers,

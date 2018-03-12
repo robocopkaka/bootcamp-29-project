@@ -52,17 +52,17 @@ Events.propTypes = {
 };
 
 function mapStateToProps(state) {
-  let events = {};
+  let events = [];
   let isAdmin = false;
-  if (state.events && state.events.length > 0) {
-    ({ events } = state);
+  if (state.events.events && state.events.events.length > 0) {
+    ({ events: { events } } = state);
   }
   if (state.session.isAdmin && state.session.isAdmin === true) {
     ({ session: { isAdmin } } = state);
   }
   return {
     events,
-    isAdmin
+    isAdmin,
   };
 }
 function mapDispatchToProps(dispatch) {

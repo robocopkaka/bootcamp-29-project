@@ -5,7 +5,8 @@ const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
   detailClasses, guestsClasses, timeClasses, centerClasses, category,
   categoryClasses, centers, saveOrUpdate, handleChange, component,
-  handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange
+  handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange,
+  SelectField, MenuItem
 }) => (
   <form className="card-content">
     <div className="row">
@@ -97,24 +98,23 @@ const EventsForm = ({
       </div>
     </div>
     <div className="row">
-      <div className="input-field col s16">
-        <select
+      <div className="input-field col s6">
+        <SelectField
           name="center"
           value={center.value}
           onChange={handleSelectCenterChange}
           id="event-center"
         >
-          <option value="">Pick a Center</option>
           {centers.map(aCenter => (
-            <option
+            <MenuItem
               key={aCenter.id}
               value={aCenter.id}
-            >{aCenter.name}
-            </option>
+              primaryText={aCenter.name}
+            />
           ))}
-        </select>
+        </SelectField>
         { component !== 'Edit' ? (
-          <label htmlFor="event-center">Center</label>
+          <label htmlFor="event-center" className="active">Center</label>
         ) : (
           <label htmlFor="event-center" className="active">Center</label>
         )}
@@ -172,7 +172,7 @@ EventsForm.propTypes = {
     isValid: PropTypes.bool
   }).isRequired,
   center: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.number,
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,

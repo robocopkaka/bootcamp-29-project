@@ -16,7 +16,11 @@ export default {
     isLoading: false,
     message: ''
   },
-  events: [],
+  events: {
+    events: [],
+    isLoading: false,
+    message: ''
+  },
   center: {},
   event: {},
   componentName: ''

@@ -35,7 +35,6 @@ export default function centerReducer(state = initialState.centers, action) {
         { isLoading: true }
       ));
     case types.FETCH_CENTERS_SUCCESS:
-      // return action.centers;
       return (Object.assign(
         {},
         state,

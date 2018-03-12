@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import validator from 'validator';
 import classNames from 'classnames';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import * as eventActions from '../../actions/eventActions';
+import * as centerActions from '../../actions/centerActions';
 import EventsForm from './EventsForm';
 
 class AddEvent extends Component {
@@ -17,9 +20,9 @@ class AddEvent extends Component {
       guests: { value: '', isValid: true, message: '' },
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' },
-      center: { value: '1', isValid: true, message: '' },
+      center: { value: 1, isValid: true, message: '' },
       category: { value: '', isValid: true, message: '' },
-      centers: {}
+      centers: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -29,6 +32,9 @@ class AddEvent extends Component {
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
+    if (this.props.centers.length === 0) {
+      this.props.actions.fetchCenters();
+    }
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -55,17 +61,21 @@ class AddEvent extends Component {
       this.handleTimeChange(time.val());
     });
     $('select').material_select();
-    const center = $('#event-center');
+    // const center = $('#event-center');
     const category = $('#event-category');
-    $('#event-center').on('change', () => {
-      this.handleSelectCenterChange(center.val());
-    });
+    // $('#event-center').on('change', () => {
+    //   this.handleSelectCenterChange(center.val());
+    // });
     $('#event-category').on('change', () => {
       this.handleSelectCategoryChange(category.val());
     });
+    $('select').on('contentChanged', () => {
+      $(this).material_select();
+    });
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.centers.length > 0) {
+    // console.log(nextProps);
+    if (nextProps.centers && nextProps.centers.length > 0) {
       this.setState({ centers: nextProps.centers });
     }
   }
@@ -83,9 +93,9 @@ class AddEvent extends Component {
       date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
     });
   }
-  handleSelectCenterChange(e) {
+  handleSelectCenterChange(event, target, value) {
     this.setState({
-      center: Object.assign({}, this.state.center, { value: e })
+      center: Object.assign({}, this.state.center, { value })
     });
   }
   handleSelectCategoryChange(e) {
@@ -137,7 +147,7 @@ class AddEvent extends Component {
       this.setState({ time: state.time });
       fieldCheck = false;
     }
-    if (validator.isEmpty(state.center.value)) {
+    if (validator.isEmpty((state.center.value).toString())) {
       state.center.isValid = false;
       state.center.message = 'Select a center';
 
@@ -193,8 +203,10 @@ class AddEvent extends Component {
       categoryId: this.state.category.value
     };
     if (this.formIsValid()) {
-      this.props.actions.addEvent(eventObject);
-      this.clearFields();
+      this.props.actions.addEvent(eventObject)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
+      // this.clearFields();
     }
   }
   render() {
@@ -234,6 +246,8 @@ class AddEvent extends Component {
             handleSelectCenterChange={this.handleSelectCenterChange}
             handleSelectCategoryChange={this.handleSelectCategoryChange}
             centers={centers}
+            SelectField={SelectField}
+            MenuItem={MenuItem}
           />
         </div>
       </div>
@@ -246,8 +260,8 @@ AddEvent.propTypes = {
 };
 function mapStateToProps(state) {
   let centers = [];
-  if (state.centers && state.centers.length > 0) {
-    ({ centers } = state);
+  if (state.centers.centers && state.centers.centers.length > 0) {
+    ({ centers: { centers } } = state);
   }
   return {
     centers
@@ -255,7 +269,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(eventActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, eventActions, centerActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);
