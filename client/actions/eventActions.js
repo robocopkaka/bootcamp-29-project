@@ -48,10 +48,12 @@ export function addEvent(eventObject) {
     return EventApi.create(eventObject)
       .then((response) => {
         dispatch(addEventSuccess(response.data));
+        return response.data.message;
       })
       .catch((error) => {
         console.log(error);
         dispatch(addEventFailure(error));
+        throw error.data.message;
       });
   };
 }

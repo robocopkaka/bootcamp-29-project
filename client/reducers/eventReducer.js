@@ -30,7 +30,7 @@ export default function eventReducer(state = initialState.events, action) {
         {},
         state,
         { isLoading: false },
-        { message: action.event.message }
+        { message: action.event.data.message }
       ));
     case types.ADD_EVENT_LOADING:
       return (Object.assign(
