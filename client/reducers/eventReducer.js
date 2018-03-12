@@ -39,11 +39,27 @@ export default function eventReducer(state = initialState.events, action) {
         { isLoading: true }
       ));
     case types.UPDATE_EVENT_SUCCESS:
-      history.push(`/events/${action.event.id}`);
-      return [
-        ...state.filter(event => event.id !== action.event.id),
-        Object.assign({}, action.event)
-      ];
+      history.push(`/events/${action.event.event.id}`);
+      return (Object.assign(
+        {},
+        state,
+        {
+          events: [
+            ...state.filter(event => event.id !== action.event.event.id),
+            Object.assign({}, action.event.event)
+          ]
+        },
+        { message: action.event.message },
+        { isLoading: false }
+      ));
+    case types.UPDATE_EVENT_FAILURE:
+      history.push(`/events/${action.event.event.id}/edit`);
+      return (Object.assign(
+        {},
+        state,
+        { isLoading: false },
+        { message: action.event.data.message }
+      ));
     case types.DELETE_EVENT_SUCCESS:
       const newState = Object.assign([], state);
       const indexOfEvent = state.findIndex(event => event.id === action.eventId);
