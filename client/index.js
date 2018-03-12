@@ -10,18 +10,21 @@ import App from './components/App';
 import history from './history';
 import { fetchCenters } from './actions/centerActions';
 import { fetchEvents } from './actions/eventActions';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const createStoreWithMiddleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware))(createStore);
 
 const store = createStoreWithMiddleware(rootReducer);
 // store.dispatch(fetchCenters());
-store.dispatch(fetchEvents());
+// store.dispatch(fetchEvents());
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <MuiThemeProvider>
+        <App />
+      </MuiThemeProvider>
     </Router>
   </Provider>
   , document.getElementById('root')

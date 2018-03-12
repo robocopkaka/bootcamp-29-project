@@ -5,14 +5,18 @@ import * as types from '../actions/actionTypes';
 export default function eventReducer(state = initialState.events, action) {
   switch (action.type) {
     case types.FETCH_EVENTS_SUCCESS:
-      return action.events;
+      return (Object.assign(
+        {},
+        state,
+        { events: action.events }
+      ));
     case types.ADD_EVENT_SUCCESS:
       history.push('/events');
       return (Object.assign(
         {},
         state,
         {
-          centers: [
+          events: [
             ...state.events.filter(event => event.id !== action.event.event.id),
             Object.assign({}, action.event.event)
           ]
