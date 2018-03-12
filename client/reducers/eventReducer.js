@@ -3,6 +3,8 @@ import history from '../history';
 import * as types from '../actions/actionTypes';
 
 export default function eventReducer(state = initialState.events, action) {
+  const newState = Object.assign([], state);
+  const indexOfEvent = state.events.findIndex(event => event.id === action.eventId);
   switch (action.type) {
     case types.FETCH_EVENTS_SUCCESS:
       return (Object.assign(
@@ -45,7 +47,7 @@ export default function eventReducer(state = initialState.events, action) {
         state,
         {
           events: [
-            ...state.filter(event => event.id !== action.event.event.id),
+            ...state.events.filter(event => event.id !== action.event.event.id),
             Object.assign({}, action.event.event)
           ]
         },
@@ -61,8 +63,6 @@ export default function eventReducer(state = initialState.events, action) {
         { message: action.event.data.message }
       ));
     case types.DELETE_EVENT_SUCCESS:
-      const newState = Object.assign([], state);
-      const indexOfEvent = state.findIndex(event => event.id === action.eventId);
       newState.splice(indexOfEvent, 1);
       history.push('/admin');
       return newState;

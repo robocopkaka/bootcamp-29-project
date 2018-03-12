@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import moment from 'moment';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import * as eventActions from '../../actions/eventActions';
+import * as centerActions from '../../actions/centerActions';
 import EventsForm from './EventsForm';
 
 class EditEvent extends Component {
@@ -17,9 +20,9 @@ class EditEvent extends Component {
       guests: { value: '', isValid: true, message: '' },
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' },
-      center: { value: '1', isValid: true, message: '' },
+      center: { value: 1, isValid: true, message: '' },
       category: { value: '', isValid: true, message: '' },
-      // centers: {}
+      centers: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -30,6 +33,9 @@ class EditEvent extends Component {
   }
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
+    if (this.props.centers && this.props.centers.length === 0) {
+      this.props.actions.fetchCenters();
+    }
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -56,11 +62,11 @@ class EditEvent extends Component {
       this.handleTimeChange(time.val());
     });
     $('select').material_select();
-    const center = $('#event-center');
+    // const center = $('#event-center');
     const category = $('#event-category');
-    $('#event-center').on('change', () => {
-      this.handleSelectCenterChange(center.val());
-    });
+    // $('#event-center').on('change', () => {
+    //   this.handleSelectCenterChange(center.val());
+    // });
     $('#event-category').on('change', () => {
       this.handleSelectCategoryChange(category.val());
     });
@@ -87,9 +93,9 @@ class EditEvent extends Component {
         })
       });
     }
-    // if (nextProps.centers.length > 0) {
-    //   this.setState({ centers: nextProps.centers });
-    // }
+    if (nextProps.centers.length > 0) {
+      this.setState({ centers: nextProps.centers });
+    }
   }
   handleChange(e) {
     const { state } = this;
@@ -110,9 +116,9 @@ class EditEvent extends Component {
       time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
     });
   }
-  handleSelectCenterChange(e) {
+  handleSelectCenterChange(event, target, value) {
     this.setState({
-      center: Object.assign({}, this.state.center, { value: e })
+      center: Object.assign({}, this.state.center, { value })
     });
   }
   handleSelectCategoryChange(e) {
@@ -189,19 +195,6 @@ class EditEvent extends Component {
     });
     this.setState(state);
   }
-  clearFields() {
-    this.setState({
-      name: {
-        value: '', isValid: true, message: ''
-      }
-    });
-    this.setState({ guests: { value: '', isValid: true, message: '' } });
-    this.setState({ date: { value: '', isValid: true, message: '' } });
-    this.setState({ time: { value: '', isValid: true, message: '' } });
-    this.setState({ detail: { value: '', isValid: true, message: '' } });
-    this.setState({ center: { value: '', isValid: true, message: '' } });
-    this.setState({ category: { value: '', isValid: true, message: '' } });
-  }
   updateEvent(e) {
     e.preventDefault();
     this.resetValidationStates();
@@ -216,8 +209,10 @@ class EditEvent extends Component {
       categoryId: this.state.category.value
     };
     if (this.formIsValid()) {
-      this.props.actions.updateEvent(eventObject);
-      this.clearFields();
+      this.props.actions.updateEvent(eventObject)
+        .then(response => Materialize.toast(response, 4000, 'green'))
+        .catch(error => Materialize.toast(error, 4000, 'red'));
+      // this.clearFields();
     }
   }
   render() {
@@ -258,6 +253,8 @@ class EditEvent extends Component {
             handleSelectCategoryChange={this.handleSelectCategoryChange}
             centers={centers}
             component="Edit"
+            SelectField={SelectField}
+            MenuItem={MenuItem}
           />
         </div>
       </div>
@@ -309,8 +306,8 @@ function mapStateToProps(state) {
   if (state.event && state.event.id !== '') {
     ({ event } = state);
   }
-  if (state.centers && state.centers.length > 0) {
-    ({ centers } = state);
+  if (state.centers.centers && state.centers.centers.length > 0) {
+    ({ centers: { centers } } = state);
   }
   return {
     event,
@@ -319,7 +316,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(eventActions, dispatch)
+    actions: bindActionCreators(Object.assign(eventActions, centerActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditEvent);

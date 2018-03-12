@@ -101,7 +101,7 @@ const EventsForm = ({
       <div className="input-field col s6">
         <SelectField
           name="center"
-          value={center.value}
+          value={parseInt(center.value, 10)}
           onChange={handleSelectCenterChange}
           id="event-center"
         >
@@ -194,7 +194,8 @@ EventsForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleTimeChange: PropTypes.func.isRequired,
   handleSelectCenterChange: PropTypes.func.isRequired,
-  handleSelectCategoryChange: PropTypes.func.isRequired
+  handleSelectCategoryChange: PropTypes.func.isRequired,
+  SelectField: PropTypes.func.isRequired
 };
 EventsForm.defaultProps = {
   component: ''
