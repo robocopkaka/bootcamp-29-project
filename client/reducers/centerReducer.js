@@ -38,7 +38,20 @@ export default function centerReducer(state = initialState.centers, action) {
       return (Object.assign(
         {},
         state,
-        { centers: action.centers }
+        { centers: action.centers },
+        { isLoading: false }
+      ));
+    case types.FETCH_CENTERS_FAILURE:
+      return (Object.assign(
+        {},
+        state,
+        { isLoading: false },
+        // { message: action.centers.message }
+      ));
+    case types.FETCH_CENTERS_LOADING:
+      return (Object.assign(
+        {},
+        { isLoading: true },
       ));
     case types.UPDATE_CENTER_SUCCESS:
       history.push(`/centers/${action.center.center.id}`);

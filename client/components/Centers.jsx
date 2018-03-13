@@ -16,13 +16,14 @@ class Centers extends Component {
   }
   render() {
     const { isAdmin = false } = this.props;
+    const { centers = [] } = this.props;
     return (
       <div>
         <div className="container">
           <Search />
           <div className="top-ten-padding" />
           <div className="row">
-            <CenterList centers={this.props.centers} isAdmin={isAdmin} />
+            <CenterList centers={centers} isAdmin={isAdmin} />
           </div>
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
