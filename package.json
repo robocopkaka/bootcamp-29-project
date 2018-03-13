@@ -10,6 +10,7 @@
     "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "start:all": "nf start -p 8000",
     "build": "babel lib -d dist --presets=latest",
+    "react:build": "webpack --config webpack.config.js",
     "serve": "node dist/index.js",
     "mocha": "mocha --compilers js:babel-core/register",
     "test:react": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/karma/bin/karma start karma.conf.js",
@@ -106,6 +107,7 @@
     "sequelize-mock": "^0.10.1",
     "sinon": "^4.1.5",
     "supertest": "^3.0.0",
-    "url-loader": "^0.6.2"
+    "url-loader": "^0.6.2",
+    "webpack-cli": "^2.0.11"
   }
 }
