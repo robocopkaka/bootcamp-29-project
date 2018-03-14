@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as utilityActions from '../actions/utilityActions';
 import * as eventActions from '../actions/eventActions';
+import * as centerActions from '../actions/centerActions';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
 import CenterList from './CenterList';
+import Preloader from './common/Preloader';
 
 class AdminProfile extends Component {
   constructor(props) {
@@ -20,6 +22,9 @@ class AdminProfile extends Component {
     if (this.props.events.length === 0) {
       this.props.actions.fetchEvents();
     }
+    if (this.props.centers.length === 0) {
+      this.props.actions.fetchCenters();
+    }
   }
   deleteEvent(id) {
     this.props.actions.deleteEvent(id);
@@ -28,7 +33,6 @@ class AdminProfile extends Component {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
     const { isAdmin = false } = this.props;
-    console.log(events);
     return (
       <React.Fragment>
         <ul className="tabs navbar-purple blue-text">
@@ -39,11 +43,15 @@ class AdminProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <EventsListWithImage
-                events={events}
-                isAdmin={isAdmin}
-                deleteEvent={this.deleteEvent}
-              />
+              { this.props.eventsLoading ? (
+                <Preloader />
+              ) : (
+                <EventsListWithImage
+                  events={events}
+                  isAdmin={isAdmin}
+                  deleteEvent={this.deleteEvent}
+                />
+            )}
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
@@ -59,7 +67,11 @@ class AdminProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <CenterList centers={centers} isAdmin={isAdmin} />
+              { !this.props.centersLoading ? (
+                <CenterList centers={centers} isAdmin={isAdmin} />
+              ) : (
+                <Preloader />
+              )}
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
@@ -79,26 +91,41 @@ AdminProfile.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  eventsLoading: PropTypes.bool.isRequired,
+  centersLoading: PropTypes.bool.isRequired
 };
 function mapStateToProps(state) {
   let centers = [];
   let events = [];
+  let message = '';
   if (state.centers.centers && state.centers.centers.length > 0) {
     ({ centers: { centers } } = state);
   }
   if (state.events.events && state.events.events.length > 0) {
     ({ events: { events } } = state);
   }
+  if (state.events.message && state.events.message === '') {
+    ({ events: { message } } = state);
+  }
+  if (state.centers.message && state.centers.message === '') {
+    ({ centers: { message } } = state);
+  }
   return {
     centers,
     events,
     isAdmin: state.session.isAdmin,
+    eventsLoading: state.events.isLoading,
+    centersLoading: state.centers.isLoading,
+    message
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, utilityActions, eventActions), dispatch)
+    actions: bindActionCreators(
+      Object.assign({}, utilityActions, eventActions, centerActions),
+      dispatch
+    )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProfile);
