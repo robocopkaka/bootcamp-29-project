@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import * as eventActions from '../../actions/eventActions';
 import EventsListWithImage from './EventsListWithImage';
 import Search from '../Search';
+import Preloader from '../common/Preloader';
 
 class Events extends Component {
   constructor(props) {
@@ -21,6 +22,18 @@ class Events extends Component {
     this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
+    if (this.props.isLoading) {
+      return (
+        <Preloader />
+      );
+    }
+    if (this.props.message !== '') {
+      return (
+        <diV className="container min-height-hundred-vh">
+          <p>No events found yet</p>
+        </diV>
+      );
+    }
     return (
       <div className="container">
         <Search />
@@ -48,21 +61,37 @@ class Events extends Component {
 Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  message: PropTypes.string
+};
+Events.defaultProps = {
+  isLoading: false,
+  message: ''
 };
 
 function mapStateToProps(state) {
   let events = [];
   let isAdmin = false;
+  let message = '';
+  let isLoading = false;
   if (state.events.events && state.events.events.length > 0) {
     ({ events: { events } } = state);
   }
   if (state.session.isAdmin && state.session.isAdmin === true) {
     ({ session: { isAdmin } } = state);
   }
+  if (state.events.isLoading && state.events.isLoading === true) {
+    ({ events: { isLoading } } = state);
+  }
+  if (state.events.message && state.events.message !== '') {
+    ({ events: { message } } = state);
+  }
   return {
     events,
     isAdmin,
+    isLoading,
+    message
   };
 }
 function mapDispatchToProps(dispatch) {
