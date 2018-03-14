@@ -1,17 +1,32 @@
+import update from 'immutability-helper';
 import initialState from './initialState';
 import history from '../history';
 import * as types from '../actions/actionTypes';
 
 export default function eventReducer(state = initialState.events, action) {
   const newState = Object.assign([], state);
+  let theState = {};
   const indexOfEvent = state.events.findIndex(event => event.id === action.eventId);
   switch (action.type) {
     case types.FETCH_EVENTS_SUCCESS:
-      return (Object.assign(
-        {},
-        state,
-        { events: action.events }
-      ));
+      theState = update(state, {
+        events: {
+          $set: action.events
+        },
+        isLoading: { $set: false }
+      });
+      return theState;
+    case types.FETCH_EVENTS_FAILURE:
+      theState = update(state, {
+        message: { $set: action.events.message },
+        isLoading: { $set: false }
+      });
+      return theState;
+    case types.FETCH_EVENTS_LOADING:
+      theState = update(state, {
+        isLoading: { $set: true }
+      });
+      return theState;
     case types.ADD_EVENT_SUCCESS:
       history.push('/events');
       return (Object.assign(
