@@ -73,25 +73,17 @@ Events.defaultProps = {
 function mapStateToProps(state) {
   let events = [];
   let isAdmin = false;
-  let message = '';
-  let isLoading = false;
   if (state.events.events && state.events.events.length > 0) {
     ({ events: { events } } = state);
   }
   if (state.session.isAdmin && state.session.isAdmin === true) {
     ({ session: { isAdmin } } = state);
   }
-  if (state.events.isLoading && state.events.isLoading === true) {
-    ({ events: { isLoading } } = state);
-  }
-  if (state.events.message && state.events.message !== '') {
-    ({ events: { message } } = state);
-  }
   return {
     events,
     isAdmin,
-    isLoading,
-    message
+    isLoading: state.events.isLoading,
+    message: state.events.message
   };
 }
 function mapDispatchToProps(dispatch) {
