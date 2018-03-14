@@ -98,18 +98,11 @@ AdminProfile.propTypes = {
 function mapStateToProps(state) {
   let centers = [];
   let events = [];
-  let message = '';
   if (state.centers.centers && state.centers.centers.length > 0) {
     ({ centers: { centers } } = state);
   }
   if (state.events.events && state.events.events.length > 0) {
     ({ events: { events } } = state);
-  }
-  if (state.events.message && state.events.message === '') {
-    ({ events: { message } } = state);
-  }
-  if (state.centers.message && state.centers.message === '') {
-    ({ centers: { message } } = state);
   }
   return {
     centers,
@@ -117,7 +110,6 @@ function mapStateToProps(state) {
     isAdmin: state.session.isAdmin,
     eventsLoading: state.events.isLoading,
     centersLoading: state.centers.isLoading,
-    message
   };
 }
 function mapDispatchToProps(dispatch) {
