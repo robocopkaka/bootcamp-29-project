@@ -1,8 +1,10 @@
+import update from 'immutability-helper';
 import initialState from './initialState';
 import history from '../history';
 import * as types from '../actions/actionTypes';
 
 export default function centerReducer(state = initialState.centers, action) {
+  let newState = {};
   switch (action.type) {
     case types.ADD_CENTER_SUCCESS:
       history.push('/centers');
@@ -35,10 +37,26 @@ export default function centerReducer(state = initialState.centers, action) {
         { isLoading: true }
       ));
     case types.FETCH_CENTERS_SUCCESS:
+      newState = update(state, {
+        centers: {
+          $set: action.centers
+        },
+        isLoading: {
+          $set: false
+        }
+      });
+      return newState;
+    case types.FETCH_CENTERS_FAILURE:
       return (Object.assign(
         {},
         state,
-        { centers: action.centers }
+        { isLoading: false },
+        // { message: action.centers.message }
+      ));
+    case types.FETCH_CENTERS_LOADING:
+      return (Object.assign(
+        {},
+        { isLoading: true },
       ));
     case types.UPDATE_CENTER_SUCCESS:
       history.push(`/centers/${action.center.center.id}`);

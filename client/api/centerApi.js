@@ -43,7 +43,7 @@ class CenterApi {
       })
       .catch((err) => {
         console.log('CATCH = ', err.response);
-        return err;
+        return err.response;
       });
   }
   static update(center) {

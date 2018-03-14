@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import * as centerActions from '../actions/centerActions';
 import CenterList from './CenterList';
 import Search from './Search';
+import Preloader from './common/Preloader';
 
 class Centers extends Component {
   componentDidMount() {
@@ -16,13 +17,25 @@ class Centers extends Component {
   }
   render() {
     const { isAdmin = false } = this.props;
+    const { centers = [] } = this.props;
+    if (this.props.isLoading) {
+      return (
+        <Preloader />
+      );
+    } else if (this.props.message !== '') {
+      return (
+        <div className="min-height-hundred-vh">
+          Sorry no centers found
+        </div>
+      );
+    }
     return (
-      <div>
-        <div className="container">
+      <React.Fragment>
+        <div className="container min-height-hundred-vh">
           <Search />
           <div className="top-ten-padding" />
           <div className="row">
-            <CenterList centers={this.props.centers} isAdmin={isAdmin} />
+            <CenterList centers={centers} isAdmin={isAdmin} />
           </div>
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
@@ -33,21 +46,31 @@ class Centers extends Component {
             <i className="material-icons">add</i>
           </Link>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
 Centers.propTypes = {
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  centers: PropTypes.arrayOf(PropTypes.object),
   centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  message: PropTypes.string
+};
+
+Centers.defaultProps = {
+  centers: [],
+  isLoading: false,
+  message: ''
 };
 
 function mapStateToProps(state) {
   return {
     centers: state.centers.centers,
-    isAdmin: state.session.isAdmin
+    isAdmin: state.session.isAdmin,
+    isLoading: state.centers.isLoading,
+    message: state.centers.message
   };
 }
 
