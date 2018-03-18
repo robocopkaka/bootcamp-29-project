@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import * as eventActions from '../../actions/eventActions';
 import EventsListWithImage from './EventsListWithImage';
 import Search from '../Search';
+import Preloader from '../common/Preloader';
 
 class Events extends Component {
   constructor(props) {
@@ -21,6 +22,18 @@ class Events extends Component {
     this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
+    if (this.props.isLoading) {
+      return (
+        <Preloader />
+      );
+    }
+    if (this.props.message !== '') {
+      return (
+        <diV className="container min-height-hundred-vh">
+          <p>No events found yet</p>
+        </diV>
+      );
+    }
     return (
       <div className="container">
         <Search />
@@ -48,7 +61,13 @@ class Events extends Component {
 Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  message: PropTypes.string
+};
+Events.defaultProps = {
+  isLoading: false,
+  message: ''
 };
 
 function mapStateToProps(state) {
@@ -63,6 +82,8 @@ function mapStateToProps(state) {
   return {
     events,
     isAdmin,
+    isLoading: state.events.isLoading,
+    message: state.events.message
   };
 }
 function mapDispatchToProps(dispatch) {

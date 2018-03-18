@@ -4,15 +4,23 @@ import EventApi from '../api/eventApi';
 export function fetchEventsSuccess(events) {
   return { type: types.FETCH_EVENTS_SUCCESS, events };
 }
+export function fetchEventsFailure(events) {
+  return { type: types.FETCH_EVENTS_FAILURE, events };
+}
+export function fetchEventsLoading() {
+  return { type: types.FETCH_EVENTS_LOADING };
+}
 
 export function fetchEvents() {
-  return function (dispatch) {
+  return (dispatch) => {
+    dispatch(fetchEventsLoading());
     return EventApi.getAll()
       .then((response) => {
         dispatch(fetchEventsSuccess(response.data.events));
       })
       .catch((error) => {
         console.log(error);
+        dispatch(fetchEventsFailure(error.data));
       });
   };
 }

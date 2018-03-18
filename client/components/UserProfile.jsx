@@ -2,18 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
+import Preloader from './common/Preloader';
+import * as eventActions from '../actions/eventActions';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAdmin: false
-    }
+    };
   }
   componentDidMount() {
     $('ul.tabs').tabs();
+    if (this.props.events.length === 0) {
+      this.props.actions.fetchEvents();
+    }
   }
   render() {
     const { events = [] } = this.props;
@@ -26,11 +32,15 @@ class UserProfile extends Component {
           <div className="container">
             <Search />
             <div className="row">
-              <EventsListWithImage
-                events={events.filter(event => event.userId === parseInt(this.props.userId, 10))}
-                loggedIn={this.props.loggedIn}
-                isAdmin={this.state.isAdmin}
-              />
+              { !this.props.isLoading ? (
+                <EventsListWithImage
+                  events={events.filter(event => event.userId === parseInt(this.props.userId, 10))}
+                  loggedIn={this.props.loggedIn}
+                  isAdmin={this.state.isAdmin}
+                />
+            ) : (
+              <Preloader />
+            )}
             </div>
           </div>
           <div className="fixed-action-btn horizontal click-to-toggle">
@@ -49,17 +59,32 @@ class UserProfile extends Component {
 UserProfile.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   userId: PropTypes.string.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired
+};
+UserProfile.defaultProps = {
+  isLoading: false
 };
 function mapStateToProps(state) {
   let events = [];
-  if (state.events && state.events.length > 0) {
-    events = state.events;
+  let isLoading = false;
+  if (state.events.events && state.events.events.length > 0) {
+    ({ events: { events } } = state);
+  }
+  if (state.events.isLoading && state.events.isLoading === true) {
+    ({ events: { isLoading } } = state);
   }
   return {
     events,
     userId: state.session.userId,
-    loggedIn: state.session.jwt
+    loggedIn: state.session.jwt,
+    isLoading,
   };
 }
-export default connect(mapStateToProps)(UserProfile);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(eventActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
