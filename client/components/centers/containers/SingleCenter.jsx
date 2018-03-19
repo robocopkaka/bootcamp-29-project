@@ -6,7 +6,7 @@ import EventsList from '../../events/presentational/EventsList';
 import CenterDetail from '../presentational/CenterDetail';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 
-class SingleCenter extends Component {
+export class SingleCenter extends Component {
   // componentWillMount() {
   //   if (this.props.center.id !== '') {
   //     console.log(this.groupByDate());
@@ -18,7 +18,7 @@ class SingleCenter extends Component {
   render() {
     const { events = [] } = this.props.center;
     return (
-      <div className=".container">
+      <div className="container">
         <div className="valign-wrapper center-align show-center-top">
           <CenterDetail center={this.props.center} />
         </div>
