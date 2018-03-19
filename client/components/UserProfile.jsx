@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import Search from './Search';
+import Search from './common/Search';
 import EventsListWithImage from './events/presentational/EventsListWithImage';
 import Preloader from './common/Preloader';
 import * as eventActions from '../actions/eventActions';

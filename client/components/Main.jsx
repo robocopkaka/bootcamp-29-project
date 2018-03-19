@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
-import Login from './Login';
-import Signup from './Signup';
+import Login from './common/Login';
+import Signup from './common/Signup';
 import AddCenter from './centers/containers/AddCenter';
 import Centers from './centers/containers/Centers';
 import SingleCenter from './centers/containers/SingleCenter';

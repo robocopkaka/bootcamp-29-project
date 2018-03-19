@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import PropTypes from 'prop-types';
-import * as sessionActions from '../actions/sessionActions';
-import Preloader from './common/Preloader';
+import * as sessionActions from '../../actions/sessionActions';
+import Preloader from './Preloader';
 
 class Login extends React.Component {
   constructor(props) {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as eventActions from '../../../actions/eventActions';
 import EventsListWithImage from '../presentational/EventsListWithImage';
-import Search from '../../Search';
+import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 
 class Events extends Component {

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import * as utilityActions from '../actions/utilityActions';
 import * as eventActions from '../actions/eventActions';
 import * as centerActions from '../actions/centerActions';
-import Search from './Search';
+import Search from './common/Search';
 import EventsListWithImage from './events/presentational/EventsListWithImage';
 import CenterList from './centers/presentational/CenterList';
 import Preloader from './common/Preloader';

@@ -4,8 +4,8 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as registerActions from '../actions/registerActions';
-import Preloader from './common/Preloader';
+import * as registerActions from '../../actions/registerActions';
+import Preloader from './Preloader';
 
 class Signup extends React.Component {
   constructor(props) {
