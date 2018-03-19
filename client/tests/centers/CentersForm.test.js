@@ -22,9 +22,8 @@ describe('<CentersForm />', () => {
   const state = {};
   const image = {};
   const addCenter = () => {
-    return {};
   };
-  const handleChange = {};
+  const handleChange = () => {};
   beforeEach(() => {
     wrapper = shallow(<CentersForm
       nameClasses={nameClasses}
