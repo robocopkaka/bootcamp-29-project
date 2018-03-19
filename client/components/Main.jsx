@@ -11,8 +11,8 @@ import Events from './events/container/Events';
 import SingleEvent from './events/container/SingleEvent';
 import AddEvent from './events/container/AddEvent';
 import EditEvent from './events/container/EditEvent';
-import AdminProfile from './AdminProfile';
-import UserProfile from './UserProfile';
+import AdminProfile from './Profiles/AdminProfile';
+import UserProfile from './Profiles/UserProfile';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (
   <Route
