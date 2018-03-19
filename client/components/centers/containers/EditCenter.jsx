@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
-import * as centerActions from '../../actions/centerActions';
-import * as singleCenterActions from '../../actions/singleCenterActions';
-import CentersForm from './CentersForm';
+import * as centerActions from '../../../actions/centerActions';
+import * as singleCenterActions from '../../../actions/singleCenterActions';
+import CentersForm from '../presentational/CentersForm';
 
 class EditCenter extends Component {
   constructor(props) {
