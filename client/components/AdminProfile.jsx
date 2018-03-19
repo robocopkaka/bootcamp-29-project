@@ -8,7 +8,7 @@ import * as eventActions from '../actions/eventActions';
 import * as centerActions from '../actions/centerActions';
 import Search from './Search';
 import EventsListWithImage from './events/EventsListWithImage';
-import CenterList from './CenterList';
+import CenterList from './centers/presentational/CenterList';
 import Preloader from './common/Preloader';
 
 class AdminProfile extends Component {
