@@ -1,18 +1,18 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
-import Login from './Login';
-import Signup from './Signup';
-import AddCenter from './AddCenter';
-import Centers from './Centers';
-import SingleCenter from './centers/SingleCenter';
-import EditCenter from './centers/EditCenter';
-import Events from './events/Events';
-import SingleEvent from './events/SingleEvent';
-import AddEvent from './events/AddEvent';
-import EditEvent from './events/EditEvent';
-import AdminProfile from './AdminProfile';
-import UserProfile from './UserProfile';
+import Login from './common/Login';
+import Signup from './common/Signup';
+import AddCenter from './centers/containers/AddCenter';
+import Centers from './centers/containers/Centers';
+import SingleCenter from './centers/containers/SingleCenter';
+import EditCenter from './centers/containers/EditCenter';
+import Events from './events/container/Events';
+import SingleEvent from './events/container/SingleEvent';
+import AddEvent from './events/container/AddEvent';
+import EditEvent from './events/container/EditEvent';
+import AdminProfile from './Profiles/AdminProfile';
+import UserProfile from './Profiles/UserProfile';
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (
   <Route

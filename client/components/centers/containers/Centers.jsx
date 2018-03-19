@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as centerActions from '../actions/centerActions';
-import CenterList from './CenterList';
-import Search from './Search';
-import Preloader from './common/Preloader';
+import * as centerActions from '../../../actions/centerActions';
+import CenterList from '../presentational/CenterList';
+import Search from '../../common/Search';
+import Preloader from '../../common/Preloader';
 
 class Centers extends Component {
   componentDidMount() {

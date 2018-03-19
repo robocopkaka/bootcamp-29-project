@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import * as eventStyles from '../../css/events.module.css';
-import * as centerStyles from '../../css/centers.module.css';
+import * as eventStyles from '../../../css/events.module.css';
+import * as centerStyles from '../../../css/centers.module.css';
 
 const EventDetails = ({ event, center }) => (
   <div className="col s12 m8 l8">

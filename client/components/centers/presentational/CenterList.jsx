@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import * as styles from '../css/centers.module.css';
+import * as styles from '../../../css/centers.module.css';
 
 const CenterList = ({ centers, isAdmin }) => (
   <div>

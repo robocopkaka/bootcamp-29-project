@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as styles from '../../css/centers.module.css';
+import * as styles from '../../../css/centers.module.css';
 
 const CenterDetail = ({ center }) => (
   <div className="row">

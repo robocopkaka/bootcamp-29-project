@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import * as utilityActions from '../actions/utilityActions';
-import * as eventActions from '../actions/eventActions';
-import * as centerActions from '../actions/centerActions';
-import Search from './Search';
-import EventsListWithImage from './events/EventsListWithImage';
-import CenterList from './CenterList';
-import Preloader from './common/Preloader';
+import * as utilityActions from '../../actions/utilityActions';
+import * as eventActions from '../../actions/eventActions';
+import * as centerActions from '../../actions/centerActions';
+import Search from '../common/Search';
+import EventsListWithImage from '../events/presentational/EventsListWithImage';
+import CenterList from '../centers/presentational/CenterList';
+import Preloader from '../common/Preloader';
 
 class AdminProfile extends Component {
   constructor(props) {

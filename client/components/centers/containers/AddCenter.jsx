@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import axios from 'axios';
-import * as centerActions from '../actions/centerActions';
-import CentersForm from './centers/CentersForm';
-import Preloader from './common/Preloader';
+import * as centerActions from '../../../actions/centerActions';
+import CentersForm from '../presentational/CentersForm';
+import Preloader from '../../common/Preloader';
 
 class AddCenter extends Component {
   constructor(props) {

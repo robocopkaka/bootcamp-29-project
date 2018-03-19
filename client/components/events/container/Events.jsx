@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as eventActions from '../../actions/eventActions';
-import EventsListWithImage from './EventsListWithImage';
-import Search from '../Search';
-import Preloader from '../common/Preloader';
+import * as eventActions from '../../../actions/eventActions';
+import EventsListWithImage from '../presentational/EventsListWithImage';
+import Search from '../../common/Search';
+import Preloader from '../../common/Preloader';
 
 class Events extends Component {
   constructor(props) {
