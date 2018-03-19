@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import * as styles from '../../css/events.module.css';
+import * as styles from '../../../css/events.module.css';
 
 const EventsList = ({ events }) => {
   const eightFivePercentClasses = classNames('col', 's9', 'm9', 'l9', styles['eighty-five-percent']);

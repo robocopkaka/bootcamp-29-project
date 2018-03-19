@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import * as styles from '../../css/events.module.css';
-import owenShaw from '../../img/owen shaw.jpg';
+import * as styles from '../../../css/events.module.css';
+import owenShaw from '../../../img/owen shaw.jpg';
 
 const EventsListWithImage = ({
   events, isAdmin, loggedIn, deleteEvent

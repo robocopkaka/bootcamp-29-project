@@ -7,10 +7,10 @@ import AddCenter from './centers/containers/AddCenter';
 import Centers from './centers/containers/Centers';
 import SingleCenter from './centers/containers/SingleCenter';
 import EditCenter from './centers/containers/EditCenter';
-import Events from './events/Events';
-import SingleEvent from './events/SingleEvent';
-import AddEvent from './events/AddEvent';
-import EditEvent from './events/EditEvent';
+import Events from './events/container/Events';
+import SingleEvent from './events/container/SingleEvent';
+import AddEvent from './events/container/AddEvent';
+import EditEvent from './events/container/EditEvent';
 import AdminProfile from './AdminProfile';
 import UserProfile from './UserProfile';
 

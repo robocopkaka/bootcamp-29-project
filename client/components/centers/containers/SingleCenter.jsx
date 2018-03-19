@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import EventsList from '../../events/EventsList';
+import EventsList from '../../events/presentational/EventsList';
 import CenterDetail from '../presentational/CenterDetail';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 

@@ -7,9 +7,9 @@ import validator from 'validator';
 import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import * as eventActions from '../../actions/eventActions';
-import * as centerActions from '../../actions/centerActions';
-import EventsForm from './EventsForm';
+import * as eventActions from '../../../actions/eventActions';
+import * as centerActions from '../../../actions/centerActions';
+import EventsForm from '../presentational/EventsForm';
 
 class AddEvent extends Component {
   constructor(props) {
