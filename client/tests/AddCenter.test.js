@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import AddCenter from '../components/AddCenter';
+import AddCenter from '../components/centers/containers/AddCenter';
 
 configure({ adapter: new Adapter() });
 
