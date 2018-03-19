@@ -32,4 +32,13 @@ describe('<AddCenter />', () => {
   it('should render a CentersForm component', () => {
     expect(wrapper.find(CentersForm).length).to.equal(1);
   });
+  it('should have a method that handles change to each input element', () => {
+    expect(wrapper.instance().handleChange).to.be.defined;
+  });
+  it('should have a method that gets a signed request from S3', () => {
+    expect(wrapper.instance().getSignedRequest).to.be.defined;
+  });
+  it('should have a method that uploads a file to S3', () => {
+    expect(wrapper.instance().uploadFile).to.be.defined;
+  });
 });
