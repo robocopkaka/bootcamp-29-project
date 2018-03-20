@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as eventActions from '../../../actions/eventActions';
 import EventDetails from '../presentational/EventDetails';
 
-class SingleEvent extends Component {
+export class SingleEvent extends Component {
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
   }
