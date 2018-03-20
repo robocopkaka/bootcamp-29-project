@@ -8,7 +8,7 @@ import EventsListWithImage from '../presentational/EventsListWithImage';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 
-class Events extends Component {
+export class Events extends Component {
   constructor(props) {
     super(props);
     this.deleteEvent = this.deleteEvent.bind(this);
