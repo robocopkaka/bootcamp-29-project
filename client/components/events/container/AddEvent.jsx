@@ -11,7 +11,7 @@ import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
 
-class AddEvent extends Component {
+export class AddEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
