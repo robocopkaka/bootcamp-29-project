@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import Footer from '../components/Footer';
+import Footer from '../components/common/Footer';
 
 configure({ adapter: new Adapter() });
 
@@ -23,7 +23,8 @@ describe('<Footer />', () => {
   it('should have a child with a h5 tag saying EventManager in the first div child of the .row div', () => {
     expect(wrapper.find('.container').find('.row')
       .find('.col .l6 .s12')
-      .children('h5')
+      .children()
+      .find('h5')
       .text()).to.equal('EventManager');
   });
   it('should have a child with a p tag saying \'Find centers for your events\' in the first div child of the .row div', () => {

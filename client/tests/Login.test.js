@@ -2,14 +2,17 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import Login from '../components/Login';
+import { Login } from '../components/common/Login';
 
 configure({ adapter: new Adapter() });
 
 describe('<Login />', () => {
   let wrapper;
+  const isLoading = false;
   beforeEach(() => {
-    wrapper = shallow(<Login />);
+    wrapper = shallow(<Login
+      isLoading={isLoading}
+    />);
   });
   it('should have two input elements', () => {
     expect(wrapper.find('input').length).to.equal(2);

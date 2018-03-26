@@ -2,14 +2,19 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import Header from '../components/Header';
+import { Header } from '../components/common/Header';
 
 configure({ adapter: new Adapter() });
 
 describe('<Header />', () => {
   let wrapper;
+  const loggedIn = false;
+  const isAdmin = false;
   beforeEach(() => {
-    wrapper = shallow(<Header />);
+    wrapper = shallow(<Header
+      loggedIn={loggedIn}
+      isAdmin={isAdmin}
+    />);
   });
   it('should have a nav element', () => {
     expect(wrapper.find('nav').length).to.equal(1);

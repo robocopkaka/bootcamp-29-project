@@ -9,7 +9,7 @@ import * as centerActions from '../../../actions/centerActions';
 import CentersForm from '../presentational/CentersForm';
 import Preloader from '../../common/Preloader';
 
-class AddCenter extends Component {
+export class AddCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {

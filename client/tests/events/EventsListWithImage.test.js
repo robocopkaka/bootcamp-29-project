@@ -2,31 +2,35 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import EventsListWithImage from '../../components/events/EventsListWithImage';
+import EventsListWithImage from '../../components/events/presentational/EventsListWithImage';
+import events from '../fixtures/events';
+import * as styles from '../../css/events.module.css';
 
 configure({ adapter: new Adapter() });
 
-describe('<EventsList />', () => {
+describe('<EventsListWithImage />', () => {
   let wrapper;
+  const isAdmin = false;
+  const isLoading = false;
+  const deleteEvent = () => {};
   beforeEach(() => {
-    wrapper = shallow(<EventsListWithImage />);
+    wrapper = shallow(<EventsListWithImage
+      events={events}
+      isAdmin={isAdmin}
+      isLoading={isLoading}
+      deleteEvent={deleteEvent}
+    />);
   });
-  it('should have a parent div with a .row class', () => {
-    expect(wrapper.find('.row').length).to.equal(1);
+  it('should have three cards', () => {
+    expect(wrapper.find('.card').length).to.equal(3);
   });
-  it('should have a div with a .card class', () => {
-    expect(wrapper.find('.card').length).to.equal(1);
+  it('should have three cards with a .card-image class in them', () => {
+    expect(wrapper.find('.card-image').length).to.equal(3);
   });
-  it('should have a div with a .card-image class', () => {
-    expect(wrapper.find('.card-image').length).to.equal(1);
+  it('should have three cards with a .card-content class in them', () => {
+    expect(wrapper.find('.card-content').length).to.equal(3);
   });
-  it('should have a div with a .card-content class', () => {
-    expect(wrapper.find('.card-content').length).to.equal(1);
-  });
-  it('should have a div with a .card-action class', () => {
-    expect(wrapper.find('.card-action').length).to.equal(1);
-  });
-  it('should have a div with a .card-panel class', () => {
-    expect(wrapper.find('.card-panel').length).to.equal(1);
+  it('should have three cards with a .card-action class', () => {
+    expect(wrapper.find('.card-action').length).to.equal(3);
   });
 });

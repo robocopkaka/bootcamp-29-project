@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 import * as utilityActions from '../../actions/utilityActions';
 import * as eventActions from '../../actions/eventActions';
 import * as centerActions from '../../actions/centerActions';
@@ -11,7 +12,7 @@ import EventsListWithImage from '../events/presentational/EventsListWithImage';
 import CenterList from '../centers/presentational/CenterList';
 import Preloader from '../common/Preloader';
 
-class AdminProfile extends Component {
+export class AdminProfile extends Component {
   constructor(props) {
     super(props);
     this.deleteEvent = this.deleteEvent.bind(this);

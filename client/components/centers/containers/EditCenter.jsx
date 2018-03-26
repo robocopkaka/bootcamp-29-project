@@ -8,7 +8,7 @@ import * as centerActions from '../../../actions/centerActions';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import CentersForm from '../presentational/CentersForm';
 
-class EditCenter extends Component {
+export class EditCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -9,7 +9,7 @@ import CenterList from '../presentational/CenterList';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 
-class Centers extends Component {
+export class Centers extends Component {
   componentDidMount() {
     if (this.props.centers.length === 0) {
       this.props.centerActions.fetchCenters();

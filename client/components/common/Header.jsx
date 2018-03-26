@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/sessionActions';
 
-class Header extends React.Component {
+export class Header extends React.Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);

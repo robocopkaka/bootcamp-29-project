@@ -2,14 +2,17 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import Signup from '../components/Signup';
+import { Signup } from '../components/common/Signup';
 
 configure({ adapter: new Adapter() });
 
 describe('<Signup />', () => {
   let wrapper;
+  const isLoading = false;
   beforeEach(() => {
-    wrapper = shallow(<Signup />);
+    wrapper = shallow(<Signup
+      isLoading={isLoading}
+    />);
   });
   it('should have five input elements', () => {
     expect(wrapper.find('input')).to.have.length(5);
@@ -24,7 +27,7 @@ describe('<Signup />', () => {
   });
   it('should have a method that handles lastName change', () => {
     expect(wrapper.instance().handleLastNameChange({
-      target: {value: 's'}
+      target: { value: 's' }
     })).to.be.defined;
   });
   it('should have a method that handles email change', () => {

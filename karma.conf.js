@@ -17,11 +17,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'jquery-3.2.1'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      'https://code.jquery.com/jquery-3.2.1.min.js',
       'tests.webpack.js'
     ],
 
@@ -75,12 +76,17 @@ module.exports = function(config) {
     concurrency: Infinity,
 
     plugins: [
+      'karma-jquery',
       'karma-mocha',
       'karma-chai',
       'karma-webpack',
       'karma-phantomjs-launcher',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
-    ]
+      'karma-sourcemap-loader',
+    ],
+
+    paths: {
+      jquery: './jquery-3.2.1.min.js'
+    }
   })
 }

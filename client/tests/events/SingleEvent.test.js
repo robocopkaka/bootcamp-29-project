@@ -1,17 +1,30 @@
 import React from 'react';
-import { mount, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
-import SingleEvent from '../../components/centers/SingleEvent';
-import EventDetails from '../../components/centers/EventDetails';
+import { SingleEvent } from '../../components/events/container/SingleEvent';
+import EventDetails from '../../components/events/presentational/EventDetails';
 
 
 configure({ adapter: new Adapter() });
 
-describe('<SingleCenter />', () => {
+describe('<SingleEvent />', () => {
   let wrapper;
+  const event = {};
+  const actions = {
+    fetchSingleEvent: () => {}
+  };
+  const match = {
+    params: {
+      id: 0
+    }
+  };
   beforeEach(() => {
-    wrapper = mount(<SingleEvent />);
+    wrapper = shallow(<SingleEvent
+      event={event}
+      actions={actions}
+      match={match}
+    />);
   });
   it('should have a EventDetails component rendered inside it', () => {
     expect(wrapper.find(EventDetails).length).to.equal(1);
