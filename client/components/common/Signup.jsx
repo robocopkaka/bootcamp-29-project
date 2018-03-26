@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as registerActions from '../../actions/registerActions';
 import Preloader from './Preloader';
 
-class Signup extends React.Component {
+export class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -27,7 +27,7 @@ class Signup extends React.Component {
     };
   }
   componentDidMount() {
-    $('.tooltipped').tooltip({ delay: 50 });
+    // $('.tooltipped').tooltip({ delay: 50 });
   }
   handleFirstNameChange(e) {
     const firstName = Object.assign({}, this.state.firstName);
