@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
 
-class Login extends React.Component {
+export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
