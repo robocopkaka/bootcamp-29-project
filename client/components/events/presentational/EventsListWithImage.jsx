@@ -29,9 +29,8 @@ const EventsListWithImage = ({
             <Link
               to={`/events/${event.id}`}
               className="waves-effect waves-light btn navbar-purple round-btn white-color"
-              href="show-event.html"
             >
-              <i className="material-icons">send</i>
+              View
             </Link>
             { isAdmin || loggedIn ? (
               <React.Fragment>
