@@ -6,3 +6,4 @@ server/coverage
 server/.nyc_output/
 .env
 dist/
+.DS_STORE
