@@ -10,48 +10,39 @@ const EventsListWithImage = ({
 }) => (
   <div>
     {events.map(event => (
-      <div className="col s12 m6 l4" key={event.id}>
-        <div className="card">
-          <div className="card-image">
-            <Link to={`/events/${event.id}`}><img src={owenShaw} alt="" /></Link>
-          </div>
-          <div className="card-content">
-            <span className={styles['event-focus']}><Link to={`/events/${event.id}`}>{event.name}</Link></span><br />
-            <span
-              className={styles['event-title']}
-            >
-              <a href="show-event.html">{event.detail}</a>
-            </span><br />
-            <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
-            <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
-          </div>
-          <div className="card-action">
-            <Link
-              to={`/events/${event.id}`}
-              className="waves-effect waves-light btn navbar-purple round-btn white-color"
-            >
-              View
-            </Link>
+      <div className="col s12 m6 l4 hvr-grow" key={event.id}>
+        <Link to={`/events/${event.id}`}>
+          <div className="card z-depth-2">
+            <div className="card-image">
+              <img src={owenShaw} alt={`${event.name}`} className="event-image" />
+            </div>
+            <div className="card-content">
+              <span className={styles['event-focus']}>{event.name}</span><br />
+              <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
+              <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
+            </div>
             { isAdmin || loggedIn ? (
-              <React.Fragment>
-                <Link
-                  to={`/events/${event.id}/edit`}
-                  className="waves-effect waves-light btn navbar-purple round-btn white-color"
-                >
-                  <i className="material-icons">edit</i>
-                </Link>
-                <button
-                  onClick={() => deleteEvent(event.id)}
-                  className="waves-effect waves-light btn navbar-purple round-btn white-color"
-                >
-                  <i className="material-icons">delete</i>
-                </button>
-              </React.Fragment>
+              <div className="card-action">
+                <React.Fragment>
+                  <Link
+                    to={`/events/${event.id}/edit`}
+                    className="waves-effect waves-light btn navbar-purple round-btn white-color left-align"
+                  >
+                    <i className="material-icons">edit</i>
+                  </Link>
+                  <button
+                    onClick={() => deleteEvent(event.id)}
+                    className="waves-effect waves-light btn navbar-purple round-btn white-color right"
+                  >
+                    <i className="material-icons">delete</i>
+                  </button>
+                </React.Fragment>
+              </div>
             ) : (
               <React.Fragment />
             )}
           </div>
-        </div>
+        </Link>
       </div>
   ))}
   </div>
@@ -60,9 +51,10 @@ EventsListWithImage.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool,
-  deleteEvent: PropTypes.func.isRequired
+  deleteEvent: PropTypes.func
 };
 EventsListWithImage.defaultProps = {
-  loggedIn: false
+  loggedIn: false,
+  deleteEvent: () => {}
 };
 export default EventsListWithImage;
