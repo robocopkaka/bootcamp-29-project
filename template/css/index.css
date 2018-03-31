@@ -236,7 +236,7 @@ body {
   transition: height 0.66s linear;
 }
 .min-height-fifty-vh {
-  min-height: 50vh;
+  min-height: 100vh;
   transition: height 0.66s linear;
 }
 
@@ -269,20 +269,24 @@ body {
 }
 .home-button-left {
   margin-right: 20px;
-  background-color: #7B1FA2;
-  color: #FFF;
+  background-color: #FFF;
+  color: #7B1FA2;
+  /* color: #FFF; */
   border-radius: 25px;
+  font-size: 20px;
 }
 .home-button-right {
   margin-left: 20px;
-  background-color: #7B1FA2;
-  color: #FFF;
+  background-color: #FFF;
+  color: #7B1FA2;
   border-radius: 25px;
+  font-size: 20px;
+  display: inline-block;
 }
 .home-button-left:link, .home-button-left:active, .home-button-left:visited {
   margin-left: 20px;
-  background-color: #7B1FA2;
-  color: #FFF;
+  background-color: #FFF;
+  color: #7B1FA2;
   border-radius: 25px;
 }
 .home-button-left:hover {
@@ -293,8 +297,8 @@ body {
 }
 .home-button-right:link, .home-button-left:active, .home-button-right:visited {
   margin-left: 20px;
-  background-color: #7B1FA2;
-  color: #FFF;
+  background-color: #FFF;
+  color: #7B1FA2;
   border-radius: 25px;
 }
 .home-button-right:hover {
@@ -310,4 +314,19 @@ body {
 }
 hr {
   border: 1px solid #7B1FA2
+}
+#home-items {
+  text-align: center;
+  font-size: 100px;
+  color: white;
+  top: 50%;
+  left: 50%
+}
+.home-image {
+  background-image: url("../../client/img/rentals.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70vh;
+  width: 100%;
+  margin-top: -21px;
 }

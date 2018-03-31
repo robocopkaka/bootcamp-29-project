@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-// import events from '../img/events.jpeg';
 import rentals from '../img/rentals.jpg';
 import * as eventActions from '../actions/eventActions';
 import * as centerActions from '../actions/centerActions';
 import EventsListWithImage from './events/presentational/EventsListWithImage';
 import CenterList from './centers/presentational/CenterList';
+import Preloader from './common/Preloader';
+import HomeButtons from './HomeButtons';
+import LoginButtons from './LoginButtons';
 
 export class Home extends React.Component {
   componentDidMount() {
@@ -24,45 +25,48 @@ export class Home extends React.Component {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
     return (
-      <div className="home-container">
-        <div className="parallax-container">
-          <div className="parallax">
-            <img src={rentals} className="responsive-img" alt="" />
+      <div className="home-container min-height-fifty-vh">
+        <div className="home-image">
+          <div className="transparent z-depth-5">
+            { /* <img src={rentals} className="responsive-img" alt="" /> */}
+            <div id="home-items">
+              <h3 id="home-text">Kachi&#39;s Event Manager</h3>
+              <div className="home-button-group">
+                { !this.props.loggedIn ? (
+                  <LoginButtons />
+                ) : (
+                  <HomeButtons />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="home-button-group">
-          <Link
-            to="/signup"
-            className="waves-effect waves-light btn home-button-left"
-          >Signup
-          </Link>
-          <Link
-            to="/login"
-            className="waves-effect waves-light btn home-button-right"
-          >Login
-          </Link>
-        </div>
-        <div className="horizontal-rule">
-          <hr />
         </div>
         <div className="container">
           <div>
             <h2 id="home-center-horizontally">Featured events</h2>
-            <div className="row">
-              <EventsListWithImage
-                events={events}
-                isAdmin={false}
-              />
-            </div>
+            { !this.props.eventsLoading ? (
+              <div className="row">
+                <EventsListWithImage
+                  events={events}
+                  isAdmin={false}
+                />
+              </div>
+            ) : (
+              <Preloader />
+            )}
           </div>
           <div>
             <h2 id="home-center-horizontally">Featured centers</h2>
-            <div className="row">
-              <CenterList
-                centers={centers}
-                isAdmin={false}
-              />
-            </div>
+            { !this.props.centersLoading ? (
+              <div className="row">
+                <CenterList
+                  centers={centers}
+                  isAdmin={false}
+                />
+              </div>
+            ) : (
+              <Preloader />
+            )}
           </div>
         </div>
       </div>
@@ -73,6 +77,9 @@ Home.propTypes = {
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  eventsLoading: PropTypes.bool.isRequired,
+  centersLoading: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
 function mapStateToProps(state) {
   let centers = [];
@@ -85,7 +92,10 @@ function mapStateToProps(state) {
   }
   return {
     centers: centers.slice(0, 3),
-    events: events.slice(0, 3)
+    events: events.slice(0, 3),
+    centersLoading: state.centers.isLoading,
+    eventsLoading: state.events.isLoading,
+    loggedIn: state.session.jwt
   };
 }
 function mapDispatchToProps(dispatch) {
