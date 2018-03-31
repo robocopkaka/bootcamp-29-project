@@ -6,7 +6,7 @@ import * as styles from '../../../css/centers.module.css';
 const CenterList = ({ centers, isAdmin }) => (
   <div>
     {centers.map(center => (
-      <div className="col s12 m6 l4" key={center.id}>
+      <div className="col s12 m6 l4 hvr-grow" key={center.id}>
         <Link to={`/centers/${center.id}`}>
           <div className="card z-depth-2">
             <div className="card-image">
