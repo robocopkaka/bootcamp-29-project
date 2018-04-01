@@ -17,7 +17,7 @@ describe('Events endpoints', () => {
         password: 'password',
       })
       .then((res) => {
-        token = res.body.token;
+        ({ token } = res.body);
       })
   ));
   describe('POST /events', () => {
@@ -140,6 +140,25 @@ describe('Events endpoints', () => {
           err.should.have.status(403);
         })
     ));
+    it('should return a 403 if an authorized user tries to edit an event', () => (
+      request(app)
+        .post('/api/v2/users/login')
+        .send({
+          email: 'wilson@kachi.com',
+          password: 'password',
+        })
+        .then((res) => {
+          const token2 = res.body.token;
+          request(app)
+            .put('/api/v2/events/1')
+            .set('x-access-token', token2)
+            .send(editEventDB)
+            .expect(403)
+            .catch((err) => {
+              err.should.have.status(403);
+            });
+        })
+    ));
   });
   describe('DELETE /events/:eventId', () => {
     it('should return a 200 if the ID is valid', () => (
@@ -158,6 +177,14 @@ describe('Events endpoints', () => {
         .expect(404)
         .catch((err) => {
           err.should.have.status(404);
+        })
+    ));
+    it('should return a 403 if no token is supplied', () => (
+      request(app)
+        .delete('/api/v2/events/1')
+        .expect(403)
+        .catch((err) => {
+          err.should.have.status(403);
         })
     ));
   });
