@@ -34,6 +34,15 @@ before((done) => {
           isAdmin: true
         })
         .then(() => {});
+      request(app)
+        .post('/api/v2/users')
+        .send({
+          name: 'Onyekachi',
+          email: 'wilson@kachi.com',
+          password: 'password',
+          isAdmin: false
+        })
+        .then(() => {});
       db.Center.sync({ force: true }).then(() => {
         db.Center
           .create({
