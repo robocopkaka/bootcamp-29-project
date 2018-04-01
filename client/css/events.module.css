@@ -112,7 +112,7 @@ a, a:link, a:visited, a:active {
   width: 5em;
 }
 .tiny {
-  font-size: 1rem;
+  font-size: 1.3rem;
   line-height: 1.6;
   stroke: transparent;
   fill: rgba(46,62,72,.35);
@@ -147,7 +147,7 @@ a, a:link, a:visited, a:active {
   padding: 20px 0px 0px 20px;
 }
 .event-detail {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 500!important;
   line-height: 1.45;
   stroke: transparent;
@@ -170,9 +170,9 @@ a, a:link, a:visited, a:active {
   overflow: hidden;
   line-height: 1.8;
   display: block;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-rendering: optimizeLegibility;
-  font-weight: 300;
+  font-weight: 200;
 }
 #single-event-row {
   margin-right: -12px;
