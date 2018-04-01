@@ -162,5 +162,6 @@ a, a:link, a:visited, a:active {
 }
 .show-center-image {
   width: 800px;
-  height: 800px;
+  height: auto;
+  margin-left: -11px;
 }

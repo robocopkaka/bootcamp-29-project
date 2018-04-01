@@ -6,7 +6,7 @@ const CenterDetail = ({ center }) => (
   <div className="center-detail-container">
     <div className="row">
       <div className="col s8 l8 m8">
-        <img src={center.image} alt={`${center.name}`} className="responsive-img" />
+        <img src={center.image} alt={`${center.name}`} className={styles['show-center-image']} />
       </div>
       <div className="col s4 l4 m4">
         <h1>{center.name}</h1>
