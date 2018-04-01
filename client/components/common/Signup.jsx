@@ -255,7 +255,6 @@ export class Signup extends React.Component {
                       name="action"
                     >
                       Signup
-                      <i className="material-icons right">send</i>
                     </button>
                   </div>
                 </form>

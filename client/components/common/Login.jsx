@@ -145,7 +145,6 @@ export class Login extends React.Component {
                       name="action"
                       onClick={this.login}
                     >Login
-                      <i className="material-icons right">send</i>
                     </button>
                   </div>
                 </form>
