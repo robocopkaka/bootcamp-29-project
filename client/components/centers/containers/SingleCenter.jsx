@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import EventsList from '../../events/presentational/EventsList';
+import EventsListWithImage from '../../events/presentational/EventsListWithImage';
 import CenterDetail from '../presentational/CenterDetail';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
+import * as styles from '../../../css/centers.module.css';
 
 export class SingleCenter extends Component {
   // componentWillMount() {
@@ -18,13 +19,19 @@ export class SingleCenter extends Component {
   render() {
     const { events = [] } = this.props.center;
     return (
-      <div className="container">
-        <div className="valign-wrapper center-align show-center-top">
+      <div className="min-height-hundred-vh">
+        <div className="valign-wrapper show-center-top">
           <CenterDetail center={this.props.center} />
+        </div>
+        <div className={styles['center-events']}>
+          <h2>Events In This Center</h2>
         </div>
         <div className="row">
           <div className="col s12 m8 l8 left-div-padding">
-            <EventsList events={events} />
+            <EventsListWithImage
+              events={events}
+              isAdmin={false}
+            />
           </div>
         </div>
       </div>
