@@ -11,7 +11,6 @@ export default function registerReducer(state = initialState.register, action) {
         { isLoading: true }
       ));
     case types.REGISTER_SUCCESS:
-      history.push('/');
       return (Object.assign(
         {},
         state,
@@ -20,7 +19,6 @@ export default function registerReducer(state = initialState.register, action) {
         { isLoading: false }
       ));
     case types.REGISTER_FAILURE:
-      history.push('/signup');
       return (Object.assign(
         {},
         state,

@@ -7,6 +7,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
+import history from '../../history';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -90,7 +91,10 @@ export class Login extends React.Component {
     };
     if (this.formIsValid()) {
       this.props.actions.loginUser(credentials)
-        .then(response => Materialize.toast(response, 4000, 'green'))
+        .then((response) => {
+          Materialize.toast(response, 4000, 'green');
+          history.push('/');
+        })
         .catch(error => Materialize.toast(error, 4000, 'red'));
       // this.clearFields();
     }

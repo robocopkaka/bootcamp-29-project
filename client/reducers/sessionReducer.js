@@ -7,7 +7,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export default function sessionReducer(state = initialState.session, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      history.push('/');
       return (Object.assign(
         {},
         state,
@@ -32,7 +31,6 @@ export default function sessionReducer(state = initialState.session, action) {
         { isLoading: true }
       ));
     case types.LOGOUT_SUCCESS:
-      history.push('/');
       return (Object.assign(
         {},
         state,

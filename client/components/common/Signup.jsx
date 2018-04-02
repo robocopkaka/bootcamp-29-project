@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as registerActions from '../../actions/registerActions';
 import Preloader from './Preloader';
+import history from '../../history';
 
 export class Signup extends React.Component {
   constructor(props) {
@@ -151,9 +152,13 @@ export class Signup extends React.Component {
         password: this.state.password.value
       };
       this.props.actions.registerUser(credentials)
-        .then(response => Materialize.toast(response, 4000, 'green'))
-        .catch(error => Materialize.toast(error, 4000, 'red'));
-      this.clearFields();
+        .then((response) => {
+          Materialize.toast(response, 4000, 'green');
+          history.push('/');
+        })
+        .catch((error) => {
+          Materialize.toast(error, 4000, 'red');
+        });
     }
   }
   render() {
@@ -191,7 +196,11 @@ export class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleFirstNameChange}
                       />
-                      <label htmlFor="first_name">First Name</label>
+                      { this.state.firstName.value === '' ? (
+                        <label htmlFor="first_name">First Name</label>
+                      ) : (
+                        <label htmlFor="first_name" className="active">First Name</label>
+                      )}
                       <span className={firstNameClasses}>{this.state.firstName.message}</span>
                     </div>
                     <div className="input-field col s6">
@@ -202,7 +211,11 @@ export class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleLastNameChange}
                       />
-                      <label htmlFor="last_name">Last Name</label>
+                      { this.state.lastName.value === '' ? (
+                        <label htmlFor="last_name">Last Name</label>
+                      ) : (
+                        <label htmlFor="last_name" className="active">Last Name</label>
+                      )}
                       <span className={lastNameClasses}>{this.state.lastName.message}</span>
                     </div>
                   </div>
@@ -215,7 +228,11 @@ export class Signup extends React.Component {
                         className="validate"
                         onChange={this.handleEmailChange}
                       />
-                      <label htmlFor="email">Email</label>
+                      { this.state.email.value === '' ? (
+                        <label htmlFor="email">Email</label>
+                      ) : (
+                        <label htmlFor="email" className="active">Email</label>
+                      )}
                       <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
@@ -228,7 +245,11 @@ export class Signup extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordChange}
                       />
-                      <label htmlFor="password">Password</label>
+                      { this.state.password.value === '' ? (
+                        <label htmlFor="password">Password</label>
+                      ) : (
+                        <label htmlFor="password" className="active">Password</label>
+                      )}
                       <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
                     <div className="input-field col s6">
@@ -239,7 +260,11 @@ export class Signup extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordConfirmationChange}
                       />
-                      <label htmlFor="password_confirmation">Password Confirmation</label>
+                      { this.state.passwordConfirmation.value === '' ? (
+                        <label htmlFor="password_confirmation">Confirm Password</label>
+                      ) : (
+                        <label htmlFor="password_confirmation" className="active">Confirm Password</label>
+                      )}
                       <span
                         className={passwordConfirmationClasses}
                       >
