@@ -7,6 +7,7 @@ import validator from 'validator';
 import * as centerActions from '../../../actions/centerActions';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import CentersForm from '../presentational/CentersForm';
+import history from '../../../history';
 
 export class EditCenter extends Component {
   constructor(props) {
@@ -171,7 +172,10 @@ export class EditCenter extends Component {
     };
     if (this.formIsValid()) {
       this.props.actions.updateCenter(center)
-        .then(response => Materialize.toast(response, 4000, 'green'))
+        .then((response) => {
+          Materialize.toast(response.message, 4000, 'green');
+          history.push(`/centers/${response.center.id}`);
+        })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
   }

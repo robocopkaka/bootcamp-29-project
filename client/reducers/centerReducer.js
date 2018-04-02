@@ -1,14 +1,11 @@
 import update from 'immutability-helper';
 import initialState from './initialState';
-import history from '../history';
 import * as types from '../actions/actionTypes';
 
 export default function centerReducer(state = initialState.centers, action) {
   let newState = {};
   switch (action.type) {
     case types.ADD_CENTER_SUCCESS:
-      history.push('/centers');
-      // console.log(action);
       return (Object.assign(
         {},
         state,
@@ -22,8 +19,6 @@ export default function centerReducer(state = initialState.centers, action) {
         { message: action.center.message }
       ));
     case types.ADD_CENTER_FAILURE:
-      // console.log(action);
-      history.push('/add-center');
       return (Object.assign(
         {},
         state,
@@ -59,7 +54,6 @@ export default function centerReducer(state = initialState.centers, action) {
         { isLoading: true },
       ));
     case types.UPDATE_CENTER_SUCCESS:
-      history.push(`/centers/${action.center.center.id}`);
       return (Object.assign(
         {},
         state,

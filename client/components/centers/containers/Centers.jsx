@@ -15,6 +15,12 @@ export class Centers extends Component {
       this.props.centerActions.fetchCenters();
     }
   }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps);
+  //   if (this.props.centers.length !== nextProps.centers.length) {
+  //     this.props.centers = nextProps.centers;
+  //   }
+  // }
   render() {
     const { isAdmin = false } = this.props;
     const { centers = [] } = this.props;
@@ -22,7 +28,7 @@ export class Centers extends Component {
       return (
         <Preloader />
       );
-    } else if (this.props.message !== '') {
+    } else if (this.props.centers.length === 0) {
       return (
         <div className="min-height-hundred-vh">
           Sorry no centers found

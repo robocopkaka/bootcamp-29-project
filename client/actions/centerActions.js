@@ -62,7 +62,7 @@ export function updateCenter(center) {
     return CenterApi.update(center)
       .then((response) => {
         dispatch(updateCenterSuccess(response.data));
-        return response.data.message;
+        return response.data;
       })
       .catch((error) => {
         // console.log(error);

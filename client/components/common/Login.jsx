@@ -125,7 +125,11 @@ export class Login extends React.Component {
                         className="validate"
                         onChange={this.handleEmailChange}
                       />
-                      <label htmlFor="email">Email</label>
+                      { this.state.email.value === '' ? (
+                        <label htmlFor="email">Email</label>
+                      ) : (
+                        <label htmlFor="email" className="active">Email</label>
+                      )}
                       <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
@@ -138,7 +142,11 @@ export class Login extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordChange}
                       />
-                      <label htmlFor="password">Password</label>
+                      { this.state.password.value === '' ? (
+                        <label htmlFor="password">Password</label>
+                      ) : (
+                        <label htmlFor="password" className="active">Password</label>
+                      )}
                       <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
                   </div>

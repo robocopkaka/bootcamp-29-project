@@ -8,6 +8,7 @@ import axios from 'axios';
 import * as centerActions from '../../../actions/centerActions';
 import CentersForm from '../presentational/CentersForm';
 import Preloader from '../../common/Preloader';
+import history from '../../../history';
 
 export class AddCenter extends Component {
   constructor(props) {
@@ -162,9 +163,11 @@ export class AddCenter extends Component {
     };
     if (this.formIsValid()) {
       this.props.centerActions.addCenter(center)
-        .then(response => Materialize.toast(response, 4000, 'green'))
+        .then((response) => {
+          Materialize.toast(response, 4000, 'green');
+          history.push('/centers');
+        })
         .catch(error => Materialize.toast(error, 4000, 'red'));
-      // this.clearFields();
     }
   }
   render() {
