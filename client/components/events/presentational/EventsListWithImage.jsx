@@ -11,8 +11,8 @@ const EventsListWithImage = ({
   <div>
     {events.map(event => (
       <div className="col s12 m6 l4 hvr-grow" key={event.id}>
-        <Link to={`/events/${event.id}`}>
-          <div className="card z-depth-2">
+        <div className="card z-depth-2">
+          <Link to={`/events/${event.id}`}>
             <div className="card-image">
               <img src={owenShaw} alt={`${event.name}`} className="event-image" />
             </div>
@@ -21,28 +21,28 @@ const EventsListWithImage = ({
               <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
               <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
             </div>
-            { isAdmin || loggedIn ? (
-              <div className="card-action">
-                <React.Fragment>
-                  <Link
-                    to={`/events/${event.id}/edit`}
-                    className="waves-effect waves-light btn navbar-purple round-btn white-color left-align"
-                  >
-                    <i className="material-icons">edit</i>
-                  </Link>
-                  <button
-                    onClick={() => deleteEvent(event.id)}
-                    className="waves-effect waves-light btn navbar-purple round-btn white-color right"
-                  >
-                    <i className="material-icons">delete</i>
-                  </button>
-                </React.Fragment>
-              </div>
-            ) : (
-              <React.Fragment />
-            )}
-          </div>
-        </Link>
+          </Link>
+          { isAdmin || loggedIn ? (
+            <div className="card-action">
+              <React.Fragment>
+                <Link
+                  to={`/events/${event.id}/edit`}
+                  className="waves-effect waves-light btn navbar-purple round-btn white-color left-align"
+                >
+                  <i className="material-icons">edit</i>
+                </Link>
+                <button
+                  onClick={() => deleteEvent(event.id)}
+                  className="waves-effect waves-light btn navbar-purple round-btn white-color right"
+                >
+                  <i className="material-icons">delete</i>
+                </button>
+              </React.Fragment>
+            </div>
+          ) : (
+            <React.Fragment />
+          )}
+        </div>
       </div>
   ))}
   </div>

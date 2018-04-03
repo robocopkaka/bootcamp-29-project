@@ -22,16 +22,17 @@ export class Events extends Component {
     this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
+    const { events = [] } = this.props;
     if (this.props.isLoading) {
       return (
         <Preloader />
       );
     }
-    if (this.props.message !== '') {
+    if (events.length === 0) {
       return (
-        <diV className="container min-height-hundred-vh">
+        <div className="container min-height-hundred-vh">
           <p>No events found yet</p>
-        </diV>
+        </div>
       );
     }
     return (
@@ -40,7 +41,7 @@ export class Events extends Component {
         <div className="top-ten-padding" />
         <div className="row">
           <EventsListWithImage
-            events={this.props.events}
+            events={events}
             deleteEvent={this.deleteEvent}
             isAdmin={this.props.isAdmin}
           />
