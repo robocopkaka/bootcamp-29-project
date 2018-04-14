@@ -22,7 +22,7 @@ export class Centers extends Component {
       return (
         <Preloader />
       );
-    } else if (this.props.message !== '') {
+    } else if (centers.length === 0) {
       return (
         <div className="min-height-hundred-vh">
           Sorry no centers found
@@ -56,13 +56,11 @@ Centers.propTypes = {
   centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  message: PropTypes.string
 };
 
 Centers.defaultProps = {
   centers: [],
   isLoading: false,
-  message: ''
 };
 
 function mapStateToProps(state) {

@@ -5,12 +5,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import history from './history';
-import { fetchCenters } from './actions/centerActions';
-import { fetchEvents } from './actions/eventActions';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import { fetchCenters } from './actions/centerActions';
+// import { fetchEvents } from './actions/eventActions';
 
 const createStoreWithMiddleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware))(createStore);

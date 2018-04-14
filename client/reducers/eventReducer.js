@@ -1,13 +1,11 @@
 import update from 'immutability-helper';
 import initialState from './initialState';
-import history from '../history';
 import * as types from '../actions/actionTypes';
 
 function addEventReducer(state = [], action) {
   let newState = {};
   switch (action.type) {
     case types.ADD_EVENT_SUCCESS:
-      console.log(state);
       newState = update(state, {
         $set: [
           ...state.filter(event => event.id !== action.event.event.id),
@@ -52,35 +50,33 @@ export default function eventReducer(state = initialState.events, action) {
       });
       return theState;
     case types.UPDATE_EVENT_SUCCESS:
-      history.push(`/events/${action.event.event.id}`);
-      return (Object.assign(
-        {},
-        state,
-        {
-          events: [
+      theState = update(state, {
+        events: {
+          $set: [
             ...state.events.filter(event => event.id !== action.event.event.id),
             Object.assign({}, action.event.event)
           ]
         },
-        { message: action.event.message },
-        { isLoading: false }
-      ));
+        message: { $set: action.event.message },
+        isLoading: { $set: false }
+      });
+      return theState;
     case types.UPDATE_EVENT_FAILURE:
-      history.push(`/events/${action.event.event.id}/edit`);
-      return (Object.assign(
-        {},
-        state,
-        { isLoading: false },
-        { message: action.event.data.message }
-      ));
+      theState = update(state, {
+        isLoading: { $set: false },
+        message: { $set: action.event.data.message }
+      });
+      return theState;
     case types.DELETE_EVENT_SUCCESS:
-      const newState = Object.assign([], state);
-      const indexOfEvent = state.events.findIndex(event => event.id === action.eventId);
-      newState.splice(indexOfEvent, 1);
-      history.push('/admin');
-      return newState;
+      theState = update(state, {
+        events: {
+          $set: [
+            ...state.events.filter(event => event.id !== action.eventId)
+          ]
+        }
+      });
+      return theState;
     case types.ADD_EVENT_SUCCESS:
-      console.log(action);
       theState = update(state, {
         events: { $set: addEventReducer(state.events, action) },
         isLoading: { $set: false },

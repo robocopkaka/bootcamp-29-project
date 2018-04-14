@@ -19,7 +19,6 @@ export function fetchEvents() {
         dispatch(fetchEventsSuccess(response.data.events));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(fetchEventsFailure(error.data));
       });
   };
@@ -29,13 +28,13 @@ export function fetchSingleEventSuccess(event) {
 }
 
 export function fetchSingleEvent(eventId) {
-  return function (dispatch) {
-    return EventApi.getOne(eventId)
+  return (dispatch) => {
+    EventApi.getOne(eventId)
       .then((response) => {
         dispatch(fetchSingleEventSuccess(response.data.event));
       })
       .catch((error) => {
-        console.log(error);
+        throw (error);
       });
   };
 }
@@ -80,10 +79,9 @@ export function updateEvent(eventObject) {
     return EventApi.update(eventObject)
       .then((response) => {
         dispatch(updateEventSuccess(response.data));
-        return response.data.message;
+        return response.data;
       })
       .catch((error) => {
-        console.log(error);
         throw error.data.message;
       });
   };
@@ -93,13 +91,13 @@ export function deleteEventSuccess(eventId) {
   return { type: types.DELETE_EVENT_SUCCESS, eventId };
 }
 export function deleteEvent(eventId) {
-  return function (dispatch) {
-    return EventApi.deleteEvent(eventId)
+  return (dispatch) => {
+    EventApi.deleteEvent(eventId)
       .then((response) => {
         dispatch(deleteEventSuccess(response));
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
   };
 }

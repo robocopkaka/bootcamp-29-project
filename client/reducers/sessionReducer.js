@@ -1,52 +1,46 @@
+import update from 'immutability-helper';
 import initialState from './initialState';
-import history from '../history';
 import * as types from '../actions/actionTypes';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export default function sessionReducer(state = initialState.session, action) {
+  let newState = {};
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      history.push('/');
-      return (Object.assign(
-        {},
-        state,
-        { jwt: !!sessionStorage.jwt },
-        { isAdmin: !!sessionStorage.isAdmin },
-        { userId: !!sessionStorage.userId },
-        { message: action.response.data.message },
-        { isLoading: false }
-      ));
+      newState = update(state, {
+        jwt: { $set: !!sessionStorage.jwt },
+        isAdmin: { $set: !!sessionStorage.isAdmin },
+        userId: { $set: !!sessionStorage.userId },
+        message: { $set: action.response.data.message },
+        isLoading: { $set: false }
+      });
+      return newState;
     case types.LOGIN_FAILURE:
-      history.push('/login');
-      return (Object.assign(
-        {},
-        state,
-        { message: action.response.data.message },
-        { isLoading: false }
-      ));
+      newState = update(state, {
+        message: { $set: action.response.data.message },
+        isLoading: { $set: false }
+      });
+      return newState;
     case types.LOGIN_REQUEST:
-      return (Object.assign(
-        {},
-        state,
-        { isLoading: true }
-      ));
+      newState = update(state, {
+        isLoading: { $set: true }
+      });
+      return newState;
     case types.LOGOUT_SUCCESS:
-      history.push('/');
-      return (Object.assign(
-        {},
-        state,
-        { jwt: !!sessionStorage.jwt },
-        { isAdmin: !!sessionStorage.isAdmin },
-        { userId: !!sessionStorage.userId },
-        { isLoading: false }
-      ));
+
+      newState = update(state, {
+        jwt: { $set: !!sessionStorage.jwt },
+        isAdmin: { $set: !!sessionStorage.isAdmin },
+        userId: { $set: !!sessionStorage.userId },
+        isLoading: { $set: false }
+      });
+      return newState;
     case types.LOGOUT_LOADING:
-      return (Object.assign(
-        {},
-        state,
-        { isLoading: true }
-      ));
+      newState = update(state, {
+        isLoading: { $set: false }
+      });
+      return newState;
     default:
       return state;
   }

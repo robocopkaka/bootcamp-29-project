@@ -7,6 +7,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
+import history from '../../history';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -90,7 +91,10 @@ export class Login extends React.Component {
     };
     if (this.formIsValid()) {
       this.props.actions.loginUser(credentials)
-        .then(response => Materialize.toast(response, 4000, 'green'))
+        .then((response) => {
+          Materialize.toast(response, 4000, 'green');
+          history.push('/');
+        })
         .catch(error => Materialize.toast(error, 4000, 'red'));
       // this.clearFields();
     }
@@ -121,7 +125,11 @@ export class Login extends React.Component {
                         className="validate"
                         onChange={this.handleEmailChange}
                       />
-                      <label htmlFor="email">Email</label>
+                      { this.state.email.value === '' ? (
+                        <label htmlFor="email">Email</label>
+                      ) : (
+                        <label htmlFor="email" className="active">Email</label>
+                      )}
                       <span className={emailClasses}>{this.state.email.message}</span>
                     </div>
                   </div>
@@ -134,7 +142,11 @@ export class Login extends React.Component {
                         className="validate"
                         onChange={this.handlePasswordChange}
                       />
-                      <label htmlFor="password">Password</label>
+                      { this.state.password.value === '' ? (
+                        <label htmlFor="password">Password</label>
+                      ) : (
+                        <label htmlFor="password" className="active">Password</label>
+                      )}
                       <span className={passwordClasses}>{this.state.password.message}</span>
                     </div>
                   </div>

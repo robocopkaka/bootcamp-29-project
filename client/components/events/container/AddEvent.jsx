@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
+import history from '../../../history';
 
 export class AddEvent extends Component {
   constructor(props) {
@@ -204,9 +205,11 @@ export class AddEvent extends Component {
     };
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject)
-        .then(response => Materialize.toast(response, 4000, 'green'))
+        .then((response) => {
+          Materialize.toast(response, 4000, 'green');
+          history.push('/events');
+        })
         .catch(error => Materialize.toast(error, 4000, 'red'));
-      // this.clearFields();
     }
   }
   render() {
