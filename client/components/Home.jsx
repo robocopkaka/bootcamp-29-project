@@ -13,7 +13,7 @@ import LoginButtons from './LoginButtons';
 
 export class Home extends React.Component {
   componentDidMount() {
-    $('.parallax').parallax();
+    // $('.parallax').parallax();
     if (this.props.centers.length === 0) {
       this.props.actions.fetchCenters();
     }
