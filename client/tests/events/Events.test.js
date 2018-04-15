@@ -59,7 +59,7 @@ describe('<Events />', () => {
     container = shallow(<ConnectedEvents store={store} />);
   });
   it('should have a parent div with a .container class', () => {
-    expect(wrapper.find('.container').length).to.equal(1);
+    expect(wrapper.find('.container').length).toBe(1);
   });
   it('should have a fixed action button if there are events passed as props', () => {
     expect(wrapper.find('.fixed-action-btn').length).to.equal(1);
