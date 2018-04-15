@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import { SingleEvent } from '../../components/events/container/SingleEvent';
 import EventDetails from '../../components/events/presentational/EventDetails';
@@ -27,9 +26,9 @@ describe('<SingleEvent />', () => {
     />);
   });
   it('should have a EventDetails component rendered inside it', () => {
-    expect(wrapper.find(EventDetails).length).to.equal(1);
+    expect(wrapper.find(EventDetails).length).toBe(1);
   });
   it('should have a div with a .show-center-top class', () => {
-    expect(wrapper.find('.show-center-top').length).to.equal(1);
+    expect(wrapper.find('.show-center-top').length).toBe(1);
   });
 });

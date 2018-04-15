@@ -15,8 +15,10 @@
     "mocha": "mocha --compilers js:babel-core/register",
     "db:migrations": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "pretest": "NODE_ENV=test npm run db:migrations",
+    "test:jest": "jest --coverage",
+    "test": "nyc --reporter=html --reporter=text npm run test:express && npm run test:jest",
     "test:react": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/karma/bin/karma start karma.conf.js",
-    "test": "NODE_ENV=test  nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 10000 --exit",
+    "test:express": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 10000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
@@ -81,6 +83,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "devDependencies": {
+    "babel-jest": "^22.4.3",
     "babel-preset-stage-0": "^6.24.1",
     "chai": "^4.1.2",
     "chai-enzyme": "^1.0.0-beta.0",
@@ -95,8 +98,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "expect": "^22.1.0",
+    "identity-obj-proxy": "^3.0.0",
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
+    "jest": "^22.4.3",
     "karma": "^2.0.0",
     "karma-chai": "^0.1.0",
     "karma-jasmine": "^1.1.1",
@@ -119,5 +124,8 @@
     "url-loader": "^0.6.2",
     "webpack-cli": "^2.0.11",
     "webpack-merge": "^4.1.2"
+  },
+  "transform": {
+    "^.+\\.js$": "babel-jest"
   }
 }

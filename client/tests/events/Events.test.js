@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import { Events } from '../../components/events/container/Events';
 import EventsListWithImage from '../../components/events/presentational/EventsListWithImage';
@@ -28,13 +27,13 @@ describe('<Events />', () => {
     />);
   });
   it('should have a parent div with a .container class', () => {
-    expect(wrapper.find('.container').length).to.equal(1);
+    expect(wrapper.find('.container').length).toBe(1);
   });
   it('should render a Search component', () => {
-    expect(wrapper.find(Search).length).to.equal(1);
+    expect(wrapper.find(Search).length).toBe(1);
   });
   it('should have an EventsListWithImage component', () => {
-    expect(wrapper.find(EventsListWithImage).length).to.equal(1);
+    expect(wrapper.find(EventsListWithImage).length).toBe(1);
   });
 });
 describe('Should render a list of events', () => {
@@ -49,6 +48,6 @@ describe('Should render a list of events', () => {
     />);
   });
   it('should render 3 events', () => {
-    expect(wrapper.children().length).to.equal(3);
+    expect(wrapper.children().length).toBe(3);
   });
 });

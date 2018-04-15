@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import { Centers } from '../components/centers/containers/Centers';
 import CenterList from '../components/centers/presentational/CenterList';
@@ -27,9 +26,9 @@ describe('<Centers />', () => {
     />);
   });
   it('should have a CenterList component in it', () => {
-    expect(wrapper.find(CenterList).length).to.equal(1);
+    expect(wrapper.find(CenterList).length).toBe(1);
   });
   it('should have a Search component in it', () => {
-    expect(wrapper.find(Search).length).to.equal(1);
+    expect(wrapper.find(Search).length).toBe(1);
   });
 });
