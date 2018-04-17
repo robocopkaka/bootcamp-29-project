@@ -75,6 +75,11 @@ module.exports = {
               });
             } else if (center) {
               const dates = center.events.map(event => event.date);
+              const todayDate = new Date();
+              const month = todayDate.getMonth() + 1;
+              const day = todayDate.getDay();
+              const year = todayDate.getFullYear();
+              const date = new Date(year, month, day);
               if (dates.map(Number).indexOf(+new Date(req.body.date)) !== -1) {
                 res.status(409).send({
                   success: false,
@@ -90,6 +95,11 @@ module.exports = {
                       res.status(409).send({
                         success: false,
                         message: 'Event name already exists'
+                      });
+                    } else if (Date.parse(date) > Date.parse(new Date(req.body.date))) {
+                      res.status(403).send({
+                        success: false,
+                        message: 'You entered a date that has already passed'
                       });
                     } else {
                       Event
