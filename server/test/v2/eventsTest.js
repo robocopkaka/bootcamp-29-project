@@ -3,6 +3,7 @@ import request from 'supertest';
 import app from '../../app';
 import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
+import datePassedEventDB from '../../schemas/datePassedEvent';
 import './initialize';
 
 // const { sequelize } = db;
@@ -65,6 +66,18 @@ describe('Events endpoints', () => {
           err.body.should.be.an('object');
         })
     ));
+    it('should return a 403 if the date entered has passed', () => {
+      request(app)
+        .post('/api/v2/events')
+        .set('x-access-token', token)
+        .send(datePassedEventDB)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('You likely entered a date that has already passed. Please enter another');
+        });
+    });
   });
   describe('PUT /events/<eventId>', () => {
     it('should return a 200 if the update is successful', () => (
@@ -140,6 +153,18 @@ describe('Events endpoints', () => {
           err.should.have.status(403);
         })
     ));
+    it('should return a 403 if the date entered has passed', () => {
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send(datePassedEventDB)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('You likely entered a date that has already passed. Please enter another');
+        });
+    });
     it('should return a 403 if an authorized user tries to edit an event', () => (
       request(app)
         .post('/api/v2/users/login')
