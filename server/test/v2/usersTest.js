@@ -18,6 +18,11 @@ describe('/Users', () => {
         })
         .then((res) => {
           res.should.have.status(201);
+          res.body.should.have.property('user');
+          res.body.user.should.be.an('object');
+          res.body.user.should.not.have.property('password');
+          res.body.user.name.should.equal('Onyekachi');
+          res.body.user.email.should.equal('kachi@kachi.com');
         })
     ));
     it('should return a 400 if the credentials are invalid', () => (

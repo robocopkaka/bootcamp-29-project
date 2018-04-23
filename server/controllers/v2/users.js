@@ -78,9 +78,17 @@ module.exports = {
           name: req.body.name,
           email: req.body.email,
           password: hash,
-          isAdmin: req.body.isAdmin
         })
-        .then((user) => {
+        .then((response) => {
+          delete response.dataValues.password;
+          const user = {
+            id: response.dataValues.id,
+            name: response.dataValues.name,
+            isAdmin: response.dataValues.isAdmin,
+            createdAt: response.dataValues.createdAt,
+            updatedAt: response.dataValues.updatedAt
+
+          };
           res.status(201).send({
             success: true,
             message: `Account created for ${user.name}`,

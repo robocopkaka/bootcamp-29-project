@@ -31,7 +31,6 @@ before((done) => {
           name: 'Onyekachi',
           email: 'onyekachi@kachi.com',
           password: 'password',
-          isAdmin: true
         })
         .then(() => {});
       request(app)
@@ -40,7 +39,6 @@ before((done) => {
           name: 'Onyekachi',
           email: 'wilson@kachi.com',
           password: 'password',
-          isAdmin: false
         })
         .then(() => {});
       db.Center.sync({ force: true }).then(() => {
