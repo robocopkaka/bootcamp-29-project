@@ -101,6 +101,11 @@ module.exports = {
                         success: false,
                         message: 'You likely entered a date that has already passed. Please enter another'
                       });
+                    } else if (req.body.guests > center.capacity) {
+                      res.status(403).send({
+                        success: false,
+                        message: 'The center you selected cannot accomodate the number of guests you entered. Please select another'
+                      });
                     } else {
                       Event
                         .create({
@@ -304,6 +309,11 @@ module.exports = {
                                         res.status(403).send({
                                           success: false,
                                           message: 'You likely entered a date that has already passed. Please enter another'
+                                        });
+                                      } else if (req.body.guests > center.capacity) {
+                                        res.status(403).send({
+                                          success: false,
+                                          message: 'The center you selected cannot accomodate the number of guests you entered. Please select another'
                                         });
                                       } else {
                                         Event
