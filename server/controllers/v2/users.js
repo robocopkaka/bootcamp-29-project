@@ -121,16 +121,16 @@ module.exports = {
     })
       .then((user) => {
         if (!user) {
-          res.status(404).send({
+          res.status(401).send({
             success: false,
-            message: 'User not found'
+            message: 'Invalid email/password'
           });
         } else if (user) {
           bcrypt.compare(req.body.password, user.password, (err, hash) => {
             if (!hash) {
-              res.status(400).send({
+              res.status(401).send({
                 success: false,
-                message: 'Password mismatch'
+                message: 'Invalid email/password'
               });
             } else if (hash) {
               const payload = {

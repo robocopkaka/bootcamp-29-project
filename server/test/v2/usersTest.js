@@ -58,7 +58,7 @@ describe('/Users', () => {
           err.should.have.status(400);
         })
     ));
-    it('should return a 404 if the user isn\'t found', () => (
+    it('should return a 401 if the user isn\'t found', () => (
       chai.request(app)
         .post('/api/v2/users/login')
         .send({
@@ -66,7 +66,22 @@ describe('/Users', () => {
           password: 'thththt'
         })
         .catch((err) => {
-          err.should.have.status(404);
+          err.should.have.status(401);
+          err.response.body.should.have.property('message');
+          err.response.body.message.should.equal('Invalid email/password');
+        })
+    ));
+    it('should return a 401 if the email is wrong', () => (
+      chai.request(app)
+        .post('/api/v2/users/login')
+        .send({
+          email: 'kachi@kachi.com',
+          password: 'thththt'
+        })
+        .catch((err) => {
+          err.should.have.status(401);
+          err.response.body.should.have.property('message');
+          err.response.body.message.should.equal('Invalid email/password');
         })
     ));
   });
