@@ -4,6 +4,7 @@ import app from '../../app';
 import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
 import datePassedEventDB from '../../schemas/datePassedEvent';
+import moreGuestsEventsDB from '../../schemas/moreGuestsEventsDB';
 import './initialize';
 
 // const { sequelize } = db;
@@ -76,6 +77,18 @@ describe('Events endpoints', () => {
           res.should.have.status(403);
           res.body.should.have.property('message');
           res.body.message.should.equal('You likely entered a date that has already passed. Please enter another');
+        });
+    });
+    it('should return a 403 if the number of guests is more than the center\'s capacity', () => {
+      request(app)
+        .post('/api/v2/events')
+        .set('x-access-token', token)
+        .send(moreGuestsEventsDB)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('The center you selected cannot accomodate the number of guests you entered. Please select another');
         });
     });
   });
@@ -165,6 +178,18 @@ describe('Events endpoints', () => {
           res.body.message.should.equal('You likely entered a date that has already passed. Please enter another');
         });
     });
+    it('should return a 403 if the number of guests is more than the center\'s capacity', () => {
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send(moreGuestsEventsDB)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('The center you selected cannot accomodate the number of guests you entered. Please select another');
+        });
+    });
     it('should return a 403 if an authorized user tries to edit an event', () => (
       request(app)
         .post('/api/v2/users/login')
@@ -233,9 +258,9 @@ describe('Events endpoints', () => {
           res.body.event.should.have.property('Center').should.be.an('object');
           res.body.event.should.be.an('object');
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
     ));
     it('should return 404, if the id is doesn\'t exist', () => (
       request(app)
