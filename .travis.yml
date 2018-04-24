@@ -19,6 +19,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - "npm install"
+  - "npm install -g sequelize-cli"
 script:
   - npm test
   - npm run coverage

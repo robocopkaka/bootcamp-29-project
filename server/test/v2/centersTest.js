@@ -2,7 +2,7 @@ import chai from 'chai';
 import request from 'supertest';
 import app from '../../app';
 import newCenterDB from '../../schemas/newCenterDB';
-import './initialize';
+// import './initialize';
 import db from '../../models/index';
 
 chai.should();
@@ -17,7 +17,7 @@ describe('Centers endpoints', () => {
         password: 'password',
       })
       .then((res) => {
-        token = res.body.token;
+        ({ token } = res.body);
       })
   ));
   describe('POST /api/v2/centers endpoint', () => {
@@ -34,6 +34,7 @@ describe('Centers endpoints', () => {
           // res.body.should.have.property('id');
           // res.body.should.have.property('message').eql('Center created');
         })
+        .catch(err => console.log(err.response))
     ));
     it('should return \'Bad request\' and a 400 if the center parameters are invalid', () => {
       chai.request(app)

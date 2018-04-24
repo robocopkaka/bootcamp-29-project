@@ -4,8 +4,7 @@ const userSchema = {
   body: {
     name: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().required(),
-    isAdmin: Joi.boolean()
+    password: Joi.string().required()
   }
   // params: {
   //   centerId: Joi.string().required()
