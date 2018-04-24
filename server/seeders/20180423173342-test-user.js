@@ -1,16 +1,27 @@
 'use strict';
-import bcrypt from 'bcrypt';
+var bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
-const password = bcrypt.hashSync('onyekachi', salt);
+const hash = bcrypt.hashSync('password', salt);
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [{
-      name: 'John',
-      email: 'demo@demo.com',
-      password
+      name: 'Onyekachi',
+      email: 'onyekachi@kachi.com',
+      password: hash,
+      isAdmin: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      name: 'Onyekachi',
+      email: 'wilson@kachi.com',
+      password: hash,
+      isAdmin: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 

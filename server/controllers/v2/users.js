@@ -84,6 +84,7 @@ module.exports = {
           const user = {
             id: response.dataValues.id,
             name: response.dataValues.name,
+            email: response.dataValues.email,
             isAdmin: response.dataValues.isAdmin,
             createdAt: response.dataValues.createdAt,
             updatedAt: response.dataValues.updatedAt

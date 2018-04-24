@@ -5,7 +5,7 @@ import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
 import datePassedEventDB from '../../schemas/datePassedEvent';
 import moreGuestsEventsDB from '../../schemas/moreGuestsEventsDB';
-import './initialize';
+// import './initialize';
 
 // const { sequelize } = db;
 chai.should();

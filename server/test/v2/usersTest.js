@@ -2,7 +2,7 @@ import chai from 'chai';
 // import chaiHttp from 'chai-http';
 import request from 'supertest';
 import app from '../../app';
-import './initialize';
+// import './initialize';
 
 chai.should();
 
@@ -13,16 +13,15 @@ describe('/Users', () => {
         .post('/api/v2/users')
         .send({
           name: 'Onyekachi',
-          email: 'kachi@kachi.com',
+          email: 'kachis@kachi.com',
           password: 'password'
         })
         .then((res) => {
           res.should.have.status(201);
           res.body.should.have.property('user');
           res.body.user.should.be.an('object');
-          res.body.user.should.not.have.property('password');
+          res.body.user.email.should.equal('kachis@kachi.com');
           res.body.user.name.should.equal('Onyekachi');
-          res.body.user.email.should.equal('kachi@kachi.com');
         })
     ));
     it('should return a 400 if the credentials are invalid', () => (
@@ -44,7 +43,7 @@ describe('/Users', () => {
       chai.request(app)
         .post('/api/v2/users/login')
         .send({
-          email: 'kachi@kachi.com',
+          email: 'kachis@kachi.com',
           password: 'password'
         })
         .then((res) => {
