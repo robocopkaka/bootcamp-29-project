@@ -201,27 +201,75 @@ module.exports = {
   *         description: Resource not found
   */
   /**/
+  // getAllCenters(req, res) {
+  //   Center
+  //     .findAll({})
+  //     .then((centers) => {
+  //       if (!centers) {
+  //         res.status(404).send({
+  //           success: false,
+  //           message: 'There are no centers yet'
+  //         });
+  //       } else if (centers) {
+  //         res.status(200).send({
+  //           success: true,
+  //           centers
+  //         });
+  //       }
+  //     })
+  //     .catch(() => {
+  //       res.status(400).send({
+  //         success: false,
+  //         message: 'An error occured'
+  //       });
+  //     });
+  // },
   getAllCenters(req, res) {
-    Center
-      .findAll({})
-      .then((centers) => {
-        if (!centers) {
+    const limit = 9;
+    let offset = 0;
+    Center.findAndCountAll()
+      .then((data) => {
+        if (!data) {
           res.status(404).send({
             success: false,
             message: 'There are no centers yet'
           });
-        } else if (centers) {
-          res.status(200).send({
-            success: true,
-            centers
-          });
+        } else if (data) {
+          const { page = 1 } = req.query;
+          const pages = Math.ceil(data.count / limit);
+          offset = limit * (page - 1);
+          Center.findAll({
+            limit,
+            offset,
+            order: [
+              ['id', 'ASC']
+            ]
+          })
+            .then((centers) => {
+              const next = parseInt(page, 10) + 1;
+              let prev = 1;
+              if (page > 1) {
+                prev = page - 1;
+              }
+              res.status(200).send({
+                success: true,
+                data: {
+                  centers,
+                },
+                meta: {
+                  pagination: {
+                    limit,
+                    offset,
+                    page,
+                    pages,
+                    total: data.count,
+                    next: `http://localhost:8000/api/v2/centers?page=${next}`,
+                    previous: `http://localhost:8000/api/v2/centers?page=${prev}`
+                  }
+                }
+              });
+            });
         }
-      })
-      .catch(() => {
-        res.status(400).send({
-          success: false,
-          message: 'An error occured'
-        });
       });
   },
   /**
@@ -374,25 +422,6 @@ module.exports = {
           success: false,
           message: 'An error occured in finding users'
         });
-      });
-  },
-  getCenterPages(req, res) {
-    const limit = 9;
-    let offset = 0;
-    console.log(req.query);
-    Center.findAndCountAll()
-      .then((data) => {
-        const { page } = req.params;
-        const pages = Math.ceil(data.count / limit);
-        offset = limit * (page - 1);
-        Center.findAll({
-          limit,
-          offset,
-          $sort: { id: 1 }
-        })
-          .then((centers) => {
-            res.status(200).json({ result: centers, count: data.count, pages });
-          });
       });
   }
 };
