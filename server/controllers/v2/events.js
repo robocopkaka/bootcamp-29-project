@@ -1,4 +1,5 @@
 import deepEqual from 'deep-equal';
+import moment from 'moment';
 import { Event, Center, User } from '../../models/index';
 
 module.exports = {
@@ -95,6 +96,11 @@ module.exports = {
                       res.status(409).send({
                         success: false,
                         message: 'Event name already exists'
+                      });
+                    } else if (moment(req.body.date, moment.ISO_8601, true).isValid() === false) {
+                      res.status(403).send({
+                        success: false,
+                        message: 'You entered an invalid date'
                       });
                     } else if (Date.parse(date) > Date.parse(new Date(req.body.date))) {
                       res.status(403).send({
