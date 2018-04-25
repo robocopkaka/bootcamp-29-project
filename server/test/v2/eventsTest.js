@@ -5,6 +5,7 @@ import newEventDB from '../../schemas/newEventDB';
 import editEventDB from '../../schemas/editEventDB';
 import datePassedEventDB from '../../schemas/datePassedEvent';
 import moreGuestsEventsDB from '../../schemas/moreGuestsEventsDB';
+import invalidEventDate from '../../schemas/invalidEventDate';
 // import './initialize';
 
 // const { sequelize } = db;
@@ -89,6 +90,18 @@ describe('Events endpoints', () => {
           res.should.have.status(403);
           res.body.should.have.property('message');
           res.body.message.should.equal('The center you selected cannot accomodate the number of guests you entered. Please select another');
+        });
+    });
+    it('should return a 403 if the date is invalid', () => {
+      request(app)
+        .post('/api/v2/events')
+        .set('x-access-token', token)
+        .send(invalidEventDate)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('You entered an invalid date');
         });
     });
   });
@@ -209,6 +222,18 @@ describe('Events endpoints', () => {
             });
         })
     ));
+    it('should return a 403 if the date is invalid', () => {
+      request(app)
+        .put('/api/v2/events/1')
+        .set('x-access-token', token)
+        .send(invalidEventDate)
+        .expect(403)
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('You entered an invalid date');
+        });
+    });
   });
   describe('DELETE /events/:eventId', () => {
     it('should return a 200 if the ID is valid', () => (
