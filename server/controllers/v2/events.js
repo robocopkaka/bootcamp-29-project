@@ -218,6 +218,11 @@ module.exports = {
                     success: false,
                     message: 'You are not allowed to edit this event'
                   });
+                } else if (moment(req.body.date, moment.ISO_8601, true).isValid() === false) {
+                  res.status(403).send({
+                    success: false,
+                    message: 'You entered an invalid date'
+                  });
                 } else
                 if (user.dataValues.id === event.dataValues.userId || user.dataValues.isAdmin) {
                   const fetchedEvent = event.dataValues;
@@ -253,7 +258,7 @@ module.exports = {
                       .catch(() => {
                         res.status(400).send({
                           success: false,
-                          message: 'An error occured updating event'
+                          message: 'An error occured updating events'
                         });
                       });
                   } else {
@@ -309,6 +314,11 @@ module.exports = {
                                         res.status(409).send({
                                           success: false,
                                           message: 'Oops. Date has already been taken'
+                                        });
+                                      } else if (moment(req.body.date, moment.ISO_8601, true).isValid() === false) { // eslint-disable-line max-len
+                                        res.status(403).send({
+                                          success: false,
+                                          message: 'You entered an invalid date'
                                         });
                                       } else if (
                                         Date.parse(date) > Date.parse(new Date(req.body.date))) {
