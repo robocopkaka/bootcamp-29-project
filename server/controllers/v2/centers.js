@@ -375,5 +375,24 @@ module.exports = {
           message: 'An error occured in finding users'
         });
       });
+  },
+  getCenterPages(req, res) {
+    const limit = 9;
+    let offset = 0;
+    console.log(req.query);
+    Center.findAndCountAll()
+      .then((data) => {
+        const { page } = req.params;
+        const pages = Math.ceil(data.count / limit);
+        offset = limit * (page - 1);
+        Center.findAll({
+          limit,
+          offset,
+          $sort: { id: 1 }
+        })
+          .then((centers) => {
+            res.status(200).json({ result: centers, count: data.count, pages });
+          });
+      });
   }
 };
