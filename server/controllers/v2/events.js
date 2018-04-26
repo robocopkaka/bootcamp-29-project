@@ -494,13 +494,52 @@ module.exports = {
   */
   /**/
   getAllEvents(req, res) {
-    Event
-      .findAll({})
-      .then((events) => {
-        res.status(200).send({
-          success: true,
-          events
-        });
+    const limit = 9;
+    let offset = 0;
+    Event.findAndCountAll()
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({
+            success: false,
+            message: 'No events found'
+          });
+        } else if (data) {
+          const { page = 1 } = req.query;
+          const pages = Math.ceil(data.count / limit);
+          offset = limit * (page - 1);
+          Event
+            .findAll({
+              limit,
+              offset,
+              order: [
+                ['id', 'ASC']
+              ]
+            })
+            .then((events) => {
+              const next = parseInt(page, 10) + 1;
+              let prev = 1;
+              if (page > 1) {
+                prev = page - 1;
+              }
+              res.status(200).send({
+                success: true,
+                data: {
+                  events
+                },
+                meta: {
+                  pagination: {
+                    limit,
+                    offset,
+                    page,
+                    pages,
+                    total: data.count,
+                    next: `http://localhost:8000/api/v2/events?page=${next}`,
+                    previous: `http://localhost:8000/api/v2/events?page=${prev}`
+                  }
+                }
+              });
+            });
+        }
       });
     // .catch(() => {
     //   res.status(500).send({
