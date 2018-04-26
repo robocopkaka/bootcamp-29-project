@@ -269,7 +269,11 @@ describe('Events endpoints', () => {
         .get('/api/v2/events')
         .then((res) => {
           res.should.have.status(200);
-          res.body.events.should.be.an('array');
+          res.body.data.events.should.be.an('array');
+          res.body.data.events.length.should.equal(1);
+          res.body.should.have.property('meta');
+          res.body.meta.should.have.property('pagination');
+          res.body.meta.pagination.limit.should.equal(9);
         })
     ));
   });
