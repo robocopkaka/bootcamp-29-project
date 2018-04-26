@@ -65,7 +65,11 @@ describe('Centers endpoints', () => {
         .get('/api/v2/centers')
         .then((res) => {
           res.should.have.status(200);
-          res.body.centers.should.be.an('array');
+          res.body.data.centers.should.be.an('array');
+          res.body.data.centers.length.should.equal(2);
+          res.body.should.have.property('meta');
+          res.body.meta.should.have.property('pagination');
+          res.body.meta.pagination.limit.should.equal(9);
         })
     ));
   });
