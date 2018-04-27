@@ -17,6 +17,7 @@ import centerDBSchema from '../validators/centerDBSchema';
 import eventDBSchema from '../validators/eventDBSchema';
 import eventDBWithParams from '../validators/eventDBWithParams';
 import eventDBWithIdSchema from '../validators/eventsDBWithId';
+import eventsInCenterSchema from '../validators/eventsInCenterValidators';
 
 const eventsController = require('../controllers/v1').events;
 const centersController = require('../controllers/v1').centers;
@@ -69,6 +70,7 @@ module.exports = (app) => {
   app.post('/api/v2/events', expressJoi(eventDBSchema), apiRoutes, eventsDBController.create);
   app.put('/api/v2/events/:eventId', expressJoi(eventDBWithParams), apiRoutes, eventsDBController.edit);
   app.get('/api/v2/events', eventsDBController.getAllEvents);
+  app.get('/api/v2/centers/:centerId/events', expressJoi(eventsInCenterSchema), eventsDBController.getEventsInCenter);
   app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
   app.get('/sign-s3', utilitiesController.signS3);
