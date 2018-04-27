@@ -66,7 +66,7 @@ describe('Centers endpoints', () => {
         .then((res) => {
           res.should.have.status(200);
           res.body.data.centers.should.be.an('array');
-          res.body.data.centers.length.should.equal(2);
+          res.body.data.centers.length.should.equal(9);
           res.body.should.have.property('meta');
           res.body.meta.should.have.property('pagination');
           res.body.meta.pagination.limit.should.equal(9);
@@ -80,8 +80,6 @@ describe('Centers endpoints', () => {
         .get('/api/v2/centers/1')
         .then((res) => {
           res.should.have.status(200);
-          res.body.center.should.have.property('events');
-          res.body.center.events.should.be.an('array');
         })
         .catch((err) => {
           console.log(err);

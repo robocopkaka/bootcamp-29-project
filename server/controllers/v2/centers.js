@@ -163,9 +163,6 @@ module.exports = {
     Center
       .findOne({
         where: { id: parseInt(req.params.centerId, 10) },
-        include: [
-          { model: Event, as: 'events' }
-        ]
       })
       .then((center) => {
         if (!center) {
