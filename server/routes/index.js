@@ -18,6 +18,7 @@ import eventDBSchema from '../validators/eventDBSchema';
 import eventDBWithParams from '../validators/eventDBWithParams';
 import eventDBWithIdSchema from '../validators/eventsDBWithId';
 import eventsInCenterSchema from '../validators/eventsInCenterValidators';
+import pagination from '../validators/pagination';
 
 const eventsController = require('../controllers/v1').events;
 const centersController = require('../controllers/v1').centers;
@@ -66,10 +67,10 @@ module.exports = (app) => {
   app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBSchema), apiRoutes, centersDBController.edit);
   app.get('/api/v2/centers/:centerId', expressJoi(centerWithParamsSchema), centersDBController.getSingleCenter);
-  app.get('/api/v2/centers', centersDBController.getAllCenters);
+  app.get('/api/v2/centers', expressJoi(pagination), centersDBController.getAllCenters);
   app.post('/api/v2/events', expressJoi(eventDBSchema), apiRoutes, eventsDBController.create);
   app.put('/api/v2/events/:eventId', expressJoi(eventDBWithParams), apiRoutes, eventsDBController.edit);
-  app.get('/api/v2/events', eventsDBController.getAllEvents);
+  app.get('/api/v2/events', expressJoi(pagination), eventsDBController.getAllEvents);
   app.get('/api/v2/centers/:centerId/events', expressJoi(eventsInCenterSchema), eventsDBController.getEventsInCenter);
   app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
