@@ -276,6 +276,14 @@ describe('Events endpoints', () => {
           res.body.meta.pagination.limit.should.equal(9);
         })
     ));
+    it('should a 400 if the page number specified is invalid', () => {
+      request(app)
+        .get(`/api/v2/events?page=${'ox'}`)
+        .then((res) => {
+          console.log(res.body);
+          res.should.have.status(400);
+        });
+    });
   });
   describe('GET /api/v2/centers/:centerId/events', () => {
     it('should return a 200 and all the events for the center specified', () => {
