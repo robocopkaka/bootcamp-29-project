@@ -284,6 +284,16 @@ describe('Events endpoints', () => {
           res.should.have.status(400);
         });
     });
+    it('should return the appropriate number of events for the limit specified', () => {
+      request(app)
+        .get(`/api/v2/events?limit=${4}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(4);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
   });
   describe('GET /api/v2/centers/:centerId/events', () => {
     it('should return a 200 and all the events for the center specified', () => {
