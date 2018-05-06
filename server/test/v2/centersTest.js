@@ -30,9 +30,17 @@ describe('Centers endpoints', () => {
           res.should.have.status(201);
           res.body.should.have.property('center');
           res.body.should.have.property('center').should.be.an('object');
-          // res.property('center').should.be.an('object');
-          // res.body.should.have.property('id');
-          // res.body.should.have.property('message').eql('Center created');
+          res.body.center.should.have.property('id');
+          res.body.center.id.should.equal(10);
+          res.body.center.name.should.equal('Center3');
+          res.body.center.detail.should.equal('We exist');
+          res.body.center.image.should.equal('ramsey.jpg');
+          res.body.center.address.should.equal('somewhere in lagos');
+          res.body.center.chairs.should.equal(10);
+          res.body.center.projector.should.equal(1);
+          res.body.center.capacity.should.equal(1000);
+          res.body.center.state.should.equal('state');
+          res.body.message.should.equal('Center created successfully');
         })
         .catch(err => console.log(err.response))
     ));
@@ -56,6 +64,7 @@ describe('Centers endpoints', () => {
         .send(newCenterDB)
         .catch((res) => {
           res.should.have.status(409);
+          res.body.message.should.equal('Center already exists');
         })
     ));
   });
@@ -76,7 +85,6 @@ describe('Centers endpoints', () => {
       request(app)
         .get(`/api/v2/centers?page=${'ox'}`)
         .then((res) => {
-          console.log(res.body);
           res.should.have.status(400);
         });
     });
@@ -134,11 +142,22 @@ describe('Centers endpoints', () => {
           image: 'ramsey.jpg',
           address: 'somewhere in lagos',
           state: 'lagos',
+          chairs: 10,
+          projector: 1,
           capacity: 1000
         })
         .then((res) => {
           res.should.have.status(200);
-          res.body.should.have.property('message').eql('Center updated successfully');
+          res.body.should.have.property('center');
+          res.body.center.id.should.equal(2);
+          res.body.center.name.should.equal('The main centerssssssss');
+          res.body.center.detail.should.equal('We exist');
+          res.body.center.image.should.equal('ramsey.jpg');
+          res.body.center.address.should.equal('somewhere in lagos');
+          res.body.center.chairs.should.equal(10);
+          res.body.center.projector.should.equal(1);
+          res.body.center.capacity.should.equal(1000);
+          res.body.center.state.should.equal('lagos');
         })
     ));
     it('should return a 200 if the request body deep equals a row with the params ID in the database', () => (
@@ -146,7 +165,7 @@ describe('Centers endpoints', () => {
         .put('/api/v2/centers/1')
         .set('x-access-token', token)
         .send({
-          name: 'Center4',
+          name: 'Centerrry',
           detail: 'We exist',
           image: 'ramsey.jpg',
           address: 'somewhere in lagos',
@@ -157,7 +176,17 @@ describe('Centers endpoints', () => {
         })
         .then((res) => {
           res.should.have.status(200);
-          res.body.should.have.property('message').eql('Center updated successfully');
+          res.body.center.should.have.property('id');
+          res.body.center.id.should.equal(1);
+          res.body.center.name.should.equal('Centerrry');
+          res.body.center.detail.should.equal('We exist');
+          res.body.center.image.should.equal('ramsey.jpg');
+          res.body.center.address.should.equal('somewhere in lagos');
+          res.body.center.chairs.should.equal(10);
+          res.body.center.projector.should.equal(1);
+          res.body.center.capacity.should.equal(1000);
+          res.body.center.state.should.equal('state');
+          res.body.message.should.equal('Center updated successfully');
         })
     ));
     it('should return a 400 if the parameters were invalid', () => (

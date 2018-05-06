@@ -32,7 +32,14 @@ describe('Events endpoints', () => {
         .expect(201)
         .then((res) => {
           res.should.have.status(201);
-          res.body.should.be.an('object');
+          res.body.event.id.should.equal(13);
+          res.body.event.name.should.equal('kachi\'s ultra mega second event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-11T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event created successfully');
         })
     ));
     it('should return a 409 if the event date is already taken', () => (
@@ -114,6 +121,14 @@ describe('Events endpoints', () => {
         .expect(200)
         .then((res) => {
           res.should.have.status(200);
+          res.body.event.id.should.equal(1);
+          res.body.event.name.should.equal('kachi\'s ultra third event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-02T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event updated successfully');
         })
     ));
     it('should return a 400 if an empty object is sent', () => (
@@ -168,6 +183,14 @@ describe('Events endpoints', () => {
         .expect(200)
         .then((res) => {
           res.should.have.status(200);
+          res.body.event.id.should.equal(13);
+          res.body.event.name.should.equal('kachi\'s ultra mega second event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-11T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event updated successfully');
         })
     ));
     it('should return a 403 if the token is missing', () => (
@@ -280,7 +303,6 @@ describe('Events endpoints', () => {
       request(app)
         .get(`/api/v2/events?page=${'ox'}`)
         .then((res) => {
-          console.log(res.body);
           res.should.have.status(400);
         });
     });
