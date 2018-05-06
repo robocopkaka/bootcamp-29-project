@@ -74,32 +74,51 @@ module.exports = {
     // Generate hash with bcrypt's async
     bcrypt.hash(req.body.password, salt, (err, hash) => {
       db.User
-        .create({
-          name: req.body.name,
-          email: req.body.email,
-          password: hash,
+        .findOne({
+          where: { email: req.body.email }
         })
-        .then((response) => {
-          delete response.dataValues.password;
-          const user = {
-            id: response.dataValues.id,
-            name: response.dataValues.name,
-            email: response.dataValues.email,
-            isAdmin: response.dataValues.isAdmin,
-            createdAt: response.dataValues.createdAt,
-            updatedAt: response.dataValues.updatedAt
+        .then((user) => {
+          if (user) {
+            res.status(409).send({
+              success: false,
+              message: 'Email address has likely been taken. Try again with a new email address'
+            });
+          } else {
+            db.User
+              .create({
+                name: req.body.name,
+                email: req.body.email,
+                password: hash,
+              })
+              .then((response) => {
+                delete response.dataValues.password;
+                const aUser = {
+                  id: response.dataValues.id,
+                  name: response.dataValues.name,
+                  email: response.dataValues.email,
+                  isAdmin: response.dataValues.isAdmin,
+                  createdAt: response.dataValues.createdAt,
+                  updatedAt: response.dataValues.updatedAt
 
-          };
-          res.status(201).send({
-            success: true,
-            message: `Account created for ${user.name}`,
-            user
-          });
+                };
+                res.status(201).send({
+                  success: true,
+                  message: `Account created for ${aUser.name}`,
+                  user: aUser
+                });
+              })
+              .catch(() => {
+                res.status(500).send({
+                  success: false,
+                  message: 'Internal server error'
+                });
+              });
+          }
         })
         .catch(() => {
-          res.status(400).send({
+          res.status(500).send({
             success: false,
-            message: 'Email address has likely been taken. Try again with a new email address'
+            message: 'Internal server error'
           });
         });
     });
