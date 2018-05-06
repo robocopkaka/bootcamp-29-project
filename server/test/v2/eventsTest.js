@@ -284,6 +284,27 @@ describe('Events endpoints', () => {
           res.should.have.status(400);
         });
     });
+    it('should return the appropriate number of events for the limit specified', () => {
+      request(app)
+        .get(`/api/v2/events?limit=${4}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(4);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
+    it('should start at the right event if the page number is specified', () => {
+      request(app)
+        .get(`/api/v2/events?limit=${4}&page=${2}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(4);
+          res.body.data.events[0].id.should.equal(6);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
   });
   describe('GET /api/v2/centers/:centerId/events', () => {
     it('should return a 200 and all the events for the center specified', () => {
@@ -334,8 +355,8 @@ describe('Events endpoints', () => {
         .get(`/api/v2/centers/${1}/events?limit=${4}&page=${2}`)
         .then((res) => {
           res.should.have.status(200);
-          res.body.meta.pagination.prev.should.equal(`http://localhost:8000/api/v2/center/:centerId/events?page=${1}`);
-          res.body.meta.pagination.prev.should.equal(`http://localhost:8000/api/v2/center/:centerId/events?page=${3}`);
+          res.body.meta.pagination.prev.should.equal(`http://localhost:8000/api/v2/centers/${1}/events?page=${1}`);
+          res.body.meta.pagination.next.should.equal(`http://localhost:8000/api/v2/centers/${1}/events?page=${3}`);
         });
     });
   });

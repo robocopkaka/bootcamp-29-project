@@ -80,6 +80,27 @@ describe('Centers endpoints', () => {
           res.should.have.status(400);
         });
     });
+    it('should return the appropriate number of centers for the limit specified', () => {
+      request(app)
+        .get(`/api/v2/centers?limit=${4}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('centers');
+          res.body.data.centers.length.should.equal(4);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
+    it('should start at the right center if the page number is specified', () => {
+      request(app)
+        .get(`/api/v2/centers?limit=${4}&page=${2}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('centers');
+          res.body.data.centers.length.should.equal(4);
+          res.body.data.centers[0].id.should.equal(5);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
   });
 
   describe('GET /api/v2/centers/<centerId>', () => {

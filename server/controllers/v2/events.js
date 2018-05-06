@@ -494,7 +494,7 @@ module.exports = {
   */
   /**/
   getAllEvents(req, res) {
-    const limit = 9;
+    const { limit = 9 } = req.query;
     let offset = 0;
     Event.findAndCountAll()
       .then((data) => {
@@ -585,8 +585,8 @@ module.exports = {
                   page,
                   pages,
                   total: data.count,
-                  prev: `http://localhost:8000/api/v2/center/:centerId/events?page=${prev}`,
-                  next: `http://localhost:8000/api/v2/center/:centerId/events?page=${next}`
+                  prev: `http://localhost:8000/api/v2/centers/${parseInt(centerId, 10)}/events?page=${prev}`,
+                  next: `http://localhost:8000/api/v2/centers/${parseInt(centerId, 10)}/events?page=${next}`
                 }
               }
             });

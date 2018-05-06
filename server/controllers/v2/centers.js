@@ -222,7 +222,7 @@ module.exports = {
   //     });
   // },
   getAllCenters(req, res) {
-    const limit = 9;
+    const { limit = 9 } = req.query;
     let offset = 0;
     Center.findAndCountAll()
       .then((data) => {
