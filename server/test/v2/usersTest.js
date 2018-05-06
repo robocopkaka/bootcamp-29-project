@@ -24,6 +24,19 @@ describe('/Users', () => {
           res.body.user.name.should.equal('Onyekachi');
         })
     ));
+    it('should return a 409 if the email exists', () => {
+      request(app)
+        .post('/api/v2/users')
+        .send({
+          name: 'Onyekachi',
+          email: 'kachis@kachi.com',
+          password: 'password'
+        })
+        .then((res) => {
+          res.should.have.status(409);
+          res.body.message.should.equal('Email address has likely been taken. Try again with a new email address');
+        });
+    });
     it('should return a 400 if the credentials are invalid', () => (
       chai.request(app)
         .post('/api/v2/users')
