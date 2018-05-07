@@ -20,12 +20,17 @@ import eventDBWithIdSchema from '../validators/eventsDBWithId';
 import eventsInCenterSchema from '../validators/eventsInCenterValidators';
 import pagination from '../validators/pagination';
 
-const eventsController = require('../controllers/v1').events;
-const centersController = require('../controllers/v1').centers;
-const usersController = require('../controllers/v2').users;
-const centersDBController = require('../controllers/v2').centers;
-const eventsDBController = require('../controllers/v2').events;
-const utilitiesController = require('../controllers/v2').utilities;
+import * as v2 from '../controllers/v2';
+import * as v1 from '../controllers/v1';
+
+
+const eventsController = v1.events;
+const centersController = v1.centers;
+
+const usersController = v2.users;
+const eventsDBController = v2.events;
+const centersDBController = v2.centers;
+const utilitiesController = v2.utilities;
 
 const apiRoutes = express.Router();
 
