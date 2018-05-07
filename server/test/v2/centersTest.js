@@ -62,7 +62,7 @@ describe('Centers endpoints', () => {
         .post('/api/v2/centers')
         .set('x-access-token', token)
         .send(newCenterDB)
-        .catch((res) => {
+        .then((res) => {
           res.should.have.status(409);
           res.body.message.should.equal('Center already exists');
         })
@@ -117,16 +117,22 @@ describe('Centers endpoints', () => {
         .get('/api/v2/centers/1')
         .then((res) => {
           res.should.have.status(200);
-        })
-        .catch((err) => {
-          console.log(err);
+          res.body.center.name.should.equal('Centerrry');
+          res.body.center.detail.should.equal('We exist');
+          res.body.center.image.should.equal('ramsey.jpg');
+          res.body.center.address.should.equal('somewhere in lagos');
+          res.body.center.chairs.should.equal(10);
+          res.body.center.projector.should.equal(1);
+          res.body.center.capacity.should.equal(1000);
+          res.body.center.state.should.equal('state');
         })
     ));
     it('should return 404, if the id is invalid or doesn\'t exist', () => (
       request(app)
         .get('/api/v2/centers/190888')
-        .catch((err) => {
-          err.should.have.status(404);
+        .then((res) => {
+          res.should.have.status(404);
+          res.body.message.should.equal('Center not found');
         })
     ));
   });
@@ -212,7 +218,7 @@ describe('Centers endpoints', () => {
         })
         .catch((err) => {
           err.should.have.status(409);
-          err.response.body.should.have.property('message').eql('Center name exists');
+          err.response.body.message.should.equal('Center name exists');
         })
     ));
     it('should return a 404 if the ID is invalid or doesn\'t exist', () => (
@@ -224,6 +230,7 @@ describe('Centers endpoints', () => {
         })
         .catch((err) => {
           err.should.have.status(404);
+          err.response.body.message.should.equal('Center not found');
         })
     ));
   });

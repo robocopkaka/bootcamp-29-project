@@ -60,8 +60,10 @@ describe('/Users', () => {
           password: 'password'
         })
         .then((res) => {
-          // console.log(res);
           res.should.have.status(200);
+          res.body.message.should.equal('Signed in successfully');
+          res.body.should.have.property('token');
+          res.body.token.should.be.a('String');
         })
     ));
     it('should return a 400 if the credentials are invalid', () => (
