@@ -32,7 +32,14 @@ describe('Events endpoints', () => {
         .expect(201)
         .then((res) => {
           res.should.have.status(201);
-          res.body.should.be.an('object');
+          res.body.event.id.should.equal(13);
+          res.body.event.name.should.equal('kachi\'s ultra mega second event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-11T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event created successfully');
         })
     ));
     it('should return a 409 if the event date is already taken', () => (
@@ -41,9 +48,10 @@ describe('Events endpoints', () => {
         .set('x-access-token', token)
         .send(newEventDB)
         .expect(409)
-        .catch((err) => {
-          err.should.have.status(409);
-          err.body.should.be.an('object');
+        .then((res) => {
+          res.should.have.status(409);
+          res.body.should.be.an('object');
+          res.body.message.should.equal('Oops, date already taken. Try another');
         })
     ));
     it('should return a 400 if the parameters are undefined', () => (
@@ -63,9 +71,10 @@ describe('Events endpoints', () => {
         .set('x-access-token', '')
         .send(newEventDB)
         .expect(403)
-        .catch((err) => {
-          err.should.have.status(403);
-          err.body.should.be.an('object');
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          res.body.message.should.equal('No token provided');
         })
     ));
     it('should return a 403 if the date entered has passed', () => {
@@ -114,6 +123,14 @@ describe('Events endpoints', () => {
         .expect(200)
         .then((res) => {
           res.should.have.status(200);
+          res.body.event.id.should.equal(1);
+          res.body.event.name.should.equal('kachi\'s ultra third event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-02T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event updated successfully');
         })
     ));
     it('should return a 400 if an empty object is sent', () => (
@@ -139,8 +156,9 @@ describe('Events endpoints', () => {
           centerId: 1
         })
         .expect(409)
-        .catch((err) => {
-          err.should.have.status(409);
+        .then((res) => {
+          res.should.have.status(409);
+          res.body.message.should.equal('Event name already exists');
         })
     ));
     it('should return a 409 if an event date already exists', () => (
@@ -156,8 +174,9 @@ describe('Events endpoints', () => {
           centerId: 1
         })
         .expect(409)
-        .catch((err) => {
-          err.should.have.status(409);
+        .then((res) => {
+          res.should.have.status(409);
+          res.body.message.should.equal('Oops. Date has already been taken');
         })
     ));
     it('should return a 200 if the request body deep equals a row with the params ID in the database', () => (
@@ -168,6 +187,14 @@ describe('Events endpoints', () => {
         .expect(200)
         .then((res) => {
           res.should.have.status(200);
+          res.body.event.id.should.equal(13);
+          res.body.event.name.should.equal('kachi\'s ultra mega second event');
+          res.body.event.detail.should.equal('Awesome event');
+          res.body.event.date.should.equal('2019-11-11T00:00:00.000Z');
+          res.body.event.guests.should.equal(1000);
+          res.body.event.categoryId.should.equal(1);
+          res.body.event.centerId.should.equal(1);
+          res.body.message.should.equal('Event updated successfully');
         })
     ));
     it('should return a 403 if the token is missing', () => (
@@ -175,8 +202,9 @@ describe('Events endpoints', () => {
         .put('/api/v2/events/1')
         .send(editEventDB)
         .expect(403)
-        .catch((err) => {
-          err.should.have.status(403);
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.message.should.equal('No token provided');
         })
     ));
     it('should return a 403 if the date entered has passed', () => {
@@ -217,8 +245,9 @@ describe('Events endpoints', () => {
             .set('x-access-token', token2)
             .send(editEventDB)
             .expect(403)
-            .catch((err) => {
-              err.should.have.status(403);
+            .then((res) => {
+              res.should.have.status(403);
+              res.body.message.should.equal('You are not allowed to edit this event');
             });
         })
     ));
@@ -243,6 +272,7 @@ describe('Events endpoints', () => {
         .expect(200)
         .then((res) => {
           res.should.have.status(200);
+          res.body.message.should.equal('Event deleted successfully');
         })
     ));
     it('should return a 404 if the ID isn\'t in the database', () => (
@@ -250,16 +280,18 @@ describe('Events endpoints', () => {
         .delete('/api/v2/events/2000000000000')
         .set('x-access-token', token)
         .expect(404)
-        .catch((err) => {
-          err.should.have.status(404);
+        .then((res) => {
+          res.should.have.status(404);
+          res.body.message.should.equal('Event not found');
         })
     ));
     it('should return a 403 if no token is supplied', () => (
       request(app)
         .delete('/api/v2/events/1')
         .expect(403)
-        .catch((err) => {
-          err.should.have.status(403);
+        .then((res) => {
+          res.should.have.status(403);
+          res.body.message.should.equal('No token provided');
         })
     ));
   });
@@ -280,7 +312,6 @@ describe('Events endpoints', () => {
       request(app)
         .get(`/api/v2/events?page=${'ox'}`)
         .then((res) => {
-          console.log(res.body);
           res.should.have.status(400);
         });
     });
@@ -370,15 +401,13 @@ describe('Events endpoints', () => {
           res.body.event.should.have.property('Center').should.be.an('object');
           res.body.event.should.be.an('object');
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
     ));
     it('should return 404, if the id is doesn\'t exist', () => (
       request(app)
         .get('/api/v2/events/190888')
-        .catch((err) => {
-          err.should.have.status(404);
+        .then((res) => {
+          res.should.have.status(404);
+          res.body.message.should.equal('Event not found');
         })
     ));
   });
