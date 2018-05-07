@@ -83,7 +83,14 @@ module.exports = (app) => {
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
-      return res.status(err.output.statusCode).json(err.output.payload);
+      const message1 = JSON.stringify(err.output.payload.message).replace(/['"]+/g, '');
+      const message = message1.replace(/\\\//g, '/');
+      console.log(err.output.payload.message);
+      return res.status(err.output.statusCode).send({
+        statusCode: err.output.payload.statusCode,
+        error: err.output.payload.error,
+        message
+      });
     }
   });
 
