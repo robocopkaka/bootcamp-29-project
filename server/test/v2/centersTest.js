@@ -204,6 +204,73 @@ describe('Centers endpoints', () => {
           err.should.have.status(400);
         })
     ));
+    it('should return a 400 if the centerId is not a number', () => {
+      request(app)
+        .put('/api/v2/centers/mm')
+        .send(newCenterDB)
+        .then((res) => {
+          res.should.have.status(400);
+        });
+    });
+    it('should return a 400 if the centerId is less than 1', () => {
+      request(app)
+        .put('/api/v2/centers/-1')
+        .send(newCenterDB)
+        .then((res) => {
+          res.should.have.status(400);
+        });
+    });
+    it('should return a 400 if the capacity is less than 1', () => {
+      request(app)
+        .put('/api/v2/centers/1')
+        .send({
+          name: 'Centerrry',
+          detail: 'We exist',
+          image: 'ramsey.jpg',
+          address: 'somewhere in lagos',
+          chairs: 10,
+          projector: 1,
+          capacity: -1000,
+          state: 'state'
+        })
+        .then((res) => {
+          res.should.have.status(400);
+        });
+    });
+    it('should return a 400 if the number of chairs is less than 1', () => {
+      request(app)
+        .put('/api/v2/centers/1')
+        .send({
+          name: 'Centerrry',
+          detail: 'We exist',
+          image: 'ramsey.jpg',
+          address: 'somewhere in lagos',
+          chairs: -10,
+          projector: 1,
+          capacity: 1000,
+          state: 'state'
+        })
+        .then((res) => {
+          res.should.have.status(400);
+        });
+    });
+    it('should return a 400 if the number of projectors is less than 1', () => {
+      request(app)
+        .put('/api/v2/centers/1')
+        .send({
+          name: 'Centerrry',
+          detail: 'We exist',
+          image: 'ramsey.jpg',
+          address: 'somewhere in lagos',
+          chairs: 10,
+          projector: -1,
+          capacity: 1000,
+          state: 'state'
+        })
+        .then((res) => {
+          res.should.have.status(400);
+        });
+    });
     it('should return a 409 if there\'s a resource conflict with center names', () => (
       chai.request(app)
         .put('/api/v2/centers/1')
