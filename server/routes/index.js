@@ -80,12 +80,21 @@ module.exports = (app) => {
   app.get('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), eventsDBController.getSingleEvent);
   app.delete('/api/v2/events/:eventId', expressJoi(eventDBWithIdSchema), apiRoutes, eventsDBController.delete);
   app.get('/sign-s3', utilitiesController.signS3);
+
+
+  /**
+  * @param {String} key
+  * @param {String} value
+  * @return {String} string without quotes
+  */
+  function replacer(key, value) {
+    return value.replace(/[^\w\s]/gi, '');
+  }
   // error handler
   app.use((err, req, res, next) => {
     if (err.isBoom) {
-      const message1 = JSON.stringify(err.output.payload.message).replace(/['"]+/g, '');
-      const message = message1.replace(/\\\//g, '/');
-      console.log(err.output.payload.message);
+      const message1 = err.output.payload.message;
+      const message = JSON.stringify(message1, replacer);
       return res.status(err.output.statusCode).send({
         statusCode: err.output.payload.statusCode,
         error: err.output.payload.error,
