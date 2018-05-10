@@ -6,11 +6,11 @@
   "scripts": {
     "babel-node": "babel-node --presets=latest",
     "start": "nodemon --exec npm run babel-node ./server/bin/www",
-    "start:react": "webpack-dev-server",
+    "start:react": "webpack-dev-server --config webpack.dev.js",
     "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
     "start:all": "nf start -p 8000",
     "build": "babel lib -d dist --presets=latest",
-    "react:build": "webpack --config webpack.config.js",
+    "react:build": "webpack --config webpack.prod.js",
     "serve": "node dist/index.js",
     "mocha": "mocha --compilers js:babel-core/register",
     "db:migrations": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
@@ -72,6 +72,7 @@
     "swagger-jsdoc": "^1.9.7",
     "swagger-ui": "^3.5.0",
     "swagger-ui-express": "^2.0.11",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "uuid": "^3.2.1",
     "validator": "^9.2.0",
     "webpack": "^3.10.0",
@@ -114,6 +115,7 @@
     "sinon": "^4.1.5",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
-    "webpack-cli": "^2.0.11"
+    "webpack-cli": "^2.0.11",
+    "webpack-merge": "^4.1.2"
   }
 }

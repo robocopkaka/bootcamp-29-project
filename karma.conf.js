@@ -1,5 +1,5 @@
 var path = require('path');
-var webpackConfig = require('./webpack.config');
+var webpackConfig = require('./webpack.dev');
 
 // Karma configuration
 // Generated on Mon Jan 15 2018 20:27:11 GMT+0100 (WAT)
