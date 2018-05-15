@@ -29,9 +29,9 @@ class CenterApi {
         throw err.response;
       });
   }
-  static getAll() {
+  static getAll(page) {
     return axios.get(
-      'http://localhost:8000/api/v2/centers',
+      `http://localhost:8000/api/v2/centers?page=${page}`,
       {
         headers: {
           'Content-Type': 'application/json',

@@ -14,7 +14,16 @@ export default {
   centers: {
     centers: [],
     isLoading: false,
-    message: ''
+    message: '',
+    meta: {
+      pagination: {
+        limit: '',
+        offset: '',
+        page: '',
+        pages: '',
+        total: ''
+      }
+    }
   },
   events: {
     events: [],
