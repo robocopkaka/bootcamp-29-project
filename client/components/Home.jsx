@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import qs from 'query-string';
 import rentals from '../img/rentals.jpg';
 import * as eventActions from '../actions/eventActions';
 import * as centerActions from '../actions/centerActions';
@@ -14,8 +15,16 @@ import LoginButtons from './LoginButtons';
 export class Home extends React.Component {
   componentDidMount() {
     // $('.parallax').parallax();
+    const values = qs.parse(this.props.location.search);
+    console.log(values)
+    let page;
+    if (values.page === undefined) {
+      page = 1;
+    } else {
+      page = parseInt(values.page, 10);
+    }
     if (this.props.centers.length === 0) {
-      this.props.actions.fetchCenters();
+      this.props.actions.fetchCenters(page);
     }
     if (this.props.events.length === 0) {
       this.props.actions.fetchEvents();

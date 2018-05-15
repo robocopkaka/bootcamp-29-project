@@ -23,10 +23,11 @@ export class Centers extends Component {
   componentDidMount() {
     const values = qs.parse(this.props.location.search);
     let page;
-    if (values.page !== '') {
+    if (values.page === undefined) {
       page = 1;
+    } else {
+      page = parseInt(values.page, 10);
     }
-    page = parseInt(values.page, 10);
     if (this.props.centers.length === 0) {
       this.props.centerActions.fetchCenters(page);
     }
