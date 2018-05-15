@@ -42,7 +42,17 @@ export default function centerReducer(state = initialState.centers, action) {
     case types.FETCH_CENTERS_SUCCESS:
       newState = update(state, {
         centers: {
-          $set: action.centers
+          $set: action.data.data.centers
+        },
+        meta: {
+          pagination: {
+            limit: {
+              $set: action.data.meta.pagination.limit
+            },
+            page: { $set: action.data.meta.pagination.page },
+            pages: { $set: action.data.meta.pagination.pages },
+            total: { $set: action.data.meta.pagination.total }
+          }
         },
         isLoading: {
           $set: false
