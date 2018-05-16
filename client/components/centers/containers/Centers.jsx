@@ -65,12 +65,14 @@ export class Centers extends Component {
           <div className="row">
             <CenterList centers={centers} isAdmin={isAdmin} />
           </div>
-          <Pagination
-            items={9}
-            activePage={this.state.page}
-            onSelect={this.changePage}
-            maxButtons={pages}
-          />
+          { pages !== 1 ? (
+            <Pagination
+              items={9}
+              activePage={this.state.page}
+              onSelect={this.changePage}
+              maxButtons={pages}
+            />
+          ) : ''}
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link
