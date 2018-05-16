@@ -28,7 +28,16 @@ export default {
   events: {
     events: [],
     isLoading: false,
-    message: ''
+    message: '',
+    meta: {
+      pagination: {
+        limit: '',
+        offset: '',
+        page: '',
+        pages: '',
+        total: ''
+      }
+    }
   },
   center: {},
   event: {},

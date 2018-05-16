@@ -33,14 +33,21 @@ export default function eventReducer(state = initialState.events, action) {
     case types.FETCH_EVENTS_SUCCESS:
       theState = update(state, {
         events: {
-          $set: action.events
+          $set: action.data.data.events
+        },
+        meta: {
+          pagination: {
+            limit: { $set: action.data.meta.pagination.limit },
+            page: { $set: action.data.meta.pagination.page },
+            pages: { $set: action.data.meta.pagination.pages },
+            total: { $set: action.data.meta.pagination.total }
+          }
         },
         isLoading: { $set: false }
       });
       return theState;
     case types.FETCH_EVENTS_FAILURE:
       theState = update(state, {
-        message: { $set: action.events.message },
         isLoading: { $set: false }
       });
       return theState;

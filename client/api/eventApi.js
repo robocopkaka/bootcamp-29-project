@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 class EventApi {
-  static getAll() {
+  static getAll(page) {
     return axios.get(
-      'http://localhost:8000/api/v2/events',
+      `http://localhost:8000/api/v2/events?page=${page}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -14,8 +14,8 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
-        throw error.response;
+        console.log('CATCH = ', error);
+        return error.response;
       })
   }
   static getOne(eventId) {

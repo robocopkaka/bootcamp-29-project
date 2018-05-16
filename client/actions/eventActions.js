@@ -1,25 +1,25 @@
 import * as types from './actionTypes';
 import EventApi from '../api/eventApi';
 
-export function fetchEventsSuccess(events) {
-  return { type: types.FETCH_EVENTS_SUCCESS, events };
+export function fetchEventsSuccess(data) {
+  return { type: types.FETCH_EVENTS_SUCCESS, data };
 }
-export function fetchEventsFailure(events) {
-  return { type: types.FETCH_EVENTS_FAILURE, events };
+export function fetchEventsFailure() {
+  return { type: types.FETCH_EVENTS_FAILURE };
 }
 export function fetchEventsLoading() {
   return { type: types.FETCH_EVENTS_LOADING };
 }
 
-export function fetchEvents() {
+export function fetchEvents(page) {
   return (dispatch) => {
     dispatch(fetchEventsLoading());
-    return EventApi.getAll()
+    return EventApi.getAll(page)
       .then((response) => {
-        dispatch(fetchEventsSuccess(response.data.events));
+        dispatch(fetchEventsSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(fetchEventsFailure(error.data));
+        dispatch(fetchEventsFailure());
       });
   };
 }

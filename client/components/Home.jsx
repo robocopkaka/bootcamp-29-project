@@ -16,7 +16,6 @@ export class Home extends React.Component {
   componentDidMount() {
     // $('.parallax').parallax();
     const values = qs.parse(this.props.location.search);
-    console.log(values)
     let page;
     if (values.page === undefined) {
       page = 1;
@@ -27,7 +26,7 @@ export class Home extends React.Component {
       this.props.actions.fetchCenters(page);
     }
     if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents();
+      this.props.actions.fetchEvents(page);
     }
   }
   render() {

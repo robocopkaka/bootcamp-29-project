@@ -3,26 +3,51 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'react-materialize';
+import qs from 'query-string';
 import * as eventActions from '../../../actions/eventActions';
 import EventsListWithImage from '../presentational/EventsListWithImage';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
+import history from '../../../history';
 
 export class Events extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: 1
+    };
     this.deleteEvent = this.deleteEvent.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
   componentDidMount() {
+    const values = qs.parse(this.props.location.search);
+    let page;
+    if (values.page === undefined) {
+      page = 1;
+    } else {
+      page = parseInt(values.page, 10);
+    }
     if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents();
+      this.props.actions.fetchEvents(page);
     }
   }
   deleteEvent(id) {
     this.props.actions.deleteEvent(parseInt(id, 10));
   }
+  changePage(e) {
+    this.setState({
+      page: e
+    });
+    history.push(`/events/?page=${e}`);
+    this.props.actions.fetchEvents(e);
+  }
   render() {
     const { events = [] } = this.props;
+    let { pages = 1 } = this.props;
+    if (pages >= 9) {
+      pages = 9;
+    }
     if (this.props.isLoading) {
       return (
         <Preloader />
@@ -36,7 +61,7 @@ export class Events extends Component {
       );
     }
     return (
-      <div className="container">
+      <div className="container min-height-hundred-vh">
         <Search />
         <div className="top-ten-padding" />
         <div className="row">
@@ -46,6 +71,14 @@ export class Events extends Component {
             isAdmin={this.props.isAdmin}
           />
         </div>
+        { pages !== 1 ? (
+          <Pagination
+            items={9}
+            activePage={this.state.page}
+            onSelect={this.changePage}
+            maxButtons={pages}
+          />
+        ) : '' }
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link
             to="/add-event"
@@ -64,11 +97,13 @@ Events.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  message: PropTypes.string
+  message: PropTypes.string,
+  pages: PropTypes.number
 };
 Events.defaultProps = {
   isLoading: false,
-  message: ''
+  message: '',
+  pages: 1
 };
 
 function mapStateToProps(state) {
@@ -84,7 +119,8 @@ function mapStateToProps(state) {
     events,
     isAdmin,
     isLoading: state.events.isLoading,
-    message: state.events.message
+    message: state.events.message,
+    pages: state.events.meta.pagination.pages
   };
 }
 function mapDispatchToProps(dispatch) {
