@@ -164,4 +164,10 @@ a, a:link, a:visited, a:active {
   width: 800px;
   height: auto;
   margin-left: -11px;
+  max-height: 100%;
+  max-width: 100%
+}
+.add-event-modal {
+  max-height: 100% !important;
+  bottom: 5%;
 }

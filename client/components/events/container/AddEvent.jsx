@@ -10,7 +10,6 @@ import MenuItem from 'material-ui/MenuItem';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
-import history from '../../../history';
 
 export class AddEvent extends Component {
   constructor(props) {
@@ -33,9 +32,9 @@ export class AddEvent extends Component {
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
-    if (this.props.centers.length === 0) {
-      this.props.actions.fetchCenters();
-    }
+    // if (this.props.centers.length === 0) {
+    //   this.props.actions.fetchCenters();
+    // }
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -43,7 +42,8 @@ export class AddEvent extends Component {
       clear: 'Clear',
       close: 'Ok',
       closeOnSelect: true, // Close upon selecting a date,
-      onSet: this.handleDateChange
+      onSet: this.handleDateChange,
+      container: 'body'
     });
     const time = $('#event-time');
     // const value = $('#event-time').attr('value');
@@ -57,6 +57,7 @@ export class AddEvent extends Component {
       autoclose: false, // automatic close timepicker
       ampmclickable: true, // make AM PM clickable
       aftershow: () => {},
+      container: 'body'
     });
     $('.timepicker').on('change', () => {
       this.handleTimeChange(time.val());
@@ -188,7 +189,6 @@ export class AddEvent extends Component {
     this.setState({ date: { value: '', isValid: true, message: '' } });
     this.setState({ time: { value: '', isValid: true, message: '' } });
     this.setState({ detail: { value: '', isValid: true, message: '' } });
-    this.setState({ center: { value: '', isValid: true, message: '' } });
     this.setState({ category: { value: '', isValid: true, message: '' } });
   }
   addEvent(e) {
@@ -200,14 +200,15 @@ export class AddEvent extends Component {
       detail: this.state.detail.value,
       guests: this.state.guests.value,
       date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
-      centerId: this.state.center.value,
+      centerId: this.props.centerId,
       categoryId: this.state.category.value
     };
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject)
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
-          history.push('/events');
+          this.clearFields();
+          $('#addEventModal').modal('close');
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
@@ -224,7 +225,7 @@ export class AddEvent extends Component {
     const containerClasses = classNames('container max-width-six-hundred');
     return (
       <div className={containerClasses}>
-        <div className="card">
+        <div>
           <div className="container">
             <h3 className="center-heading">Add an Event</h3>
           </div>
@@ -259,7 +260,11 @@ export class AddEvent extends Component {
 }
 AddEvent.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  centerId: PropTypes.number
+};
+AddEvent.defaultProps = {
+  centerId: 1
 };
 function mapStateToProps(state) {
   let centers = [];
