@@ -5,10 +5,10 @@ import * as styles from '../../../css/centers.module.css';
 const CenterDetail = ({ center }) => (
   <div className="center-detail-container">
     <div className="row">
-      <div className="col s8 l8 m8">
+      <div className="col s12 l8 m12">
         <img src={center.image} alt={`${center.name}`} className={styles['show-center-image']} />
       </div>
-      <div className="col s4 l4 m4">
+      <div className="col s12 l4 m12">
         <h1>{center.name}</h1>
         <React.Fragment>
           <p className={styles.tiny}>

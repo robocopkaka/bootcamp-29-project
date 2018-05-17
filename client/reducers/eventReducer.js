@@ -87,13 +87,13 @@ export default function eventReducer(state = initialState.events, action) {
       theState = update(state, {
         events: { $set: addEventReducer(state.events, action) },
         isLoading: { $set: false },
-        message: { $set: action.event.message }
+        // message: { $set: action.event.message }
       });
       return theState;
     case types.ADD_EVENT_FAILURE:
       theState = update(state, {
         isLoading: { $set: false },
-        message: { $set: action.event.data.message }
+        // message: { $set: action.event.data.message }
       });
       return theState;
     default:

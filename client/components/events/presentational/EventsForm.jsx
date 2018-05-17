@@ -8,7 +8,7 @@ const EventsForm = ({
   handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange,
   SelectField, MenuItem
 }) => (
-  <form className="card-content">
+  <form>
     <div className="row">
       <div className="input-field col s12">
         <input
@@ -61,66 +61,7 @@ const EventsForm = ({
         )}
         <span className={guestsClasses}>{guests.message}</span>
       </div>
-    </div>
-    <div className="row">
-      <div className="input-field col s12">
-        <input
-          name="date"
-          value={date.value}
-          type="text"
-          className="datepicker"
-          id="event-date"
-        />
-        { component !== 'Edit' ? (
-          <label htmlFor="event-date">Date</label>
-        ) : (
-          <label htmlFor="event-date" className="active">Date</label>
-        )}
-        <span className={dateClasses}>{date.message}</span>
-      </div>
-    </div>
-    <div className="row">
-      <div className="input-field col s12">
-        <input
-          id="event-time"
-          name="time"
-          value={time.value}
-          className="timepicker"
-          type="text"
-          onChange={handleTimeChange}
-        />
-        { component !== 'Edit' ? (
-          <label htmlFor="event-time">Time</label>
-        ) : (
-          <label htmlFor="event-time" className="active">Time</label>
-        )}
-        <span className={timeClasses}>{time.message}</span>
-      </div>
-    </div>
-    <div className="row">
       <div className="input-field col s6">
-        <SelectField
-          name="center"
-          value={parseInt(center.value, 10)}
-          onChange={handleSelectCenterChange}
-          id="event-center"
-        >
-          {centers.map(aCenter => (
-            <MenuItem
-              key={aCenter.id}
-              value={aCenter.id}
-              primaryText={aCenter.name}
-            />
-          ))}
-        </SelectField>
-        { component !== 'Edit' ? (
-          <label htmlFor="event-center" className="active">Center</label>
-        ) : (
-          <label htmlFor="event-center" className="active">Center</label>
-        )}
-        <span className={centerClasses}>{center.message}</span>
-      </div>
-      <div className="input-field col s16">
         <select
           name="category"
           value={category.value}
@@ -131,6 +72,41 @@ const EventsForm = ({
         </select>
         <label htmlFor="event-category">Category</label>
         <span className={categoryClasses}>{category.message}</span>
+      </div>
+    </div>
+    <div className="row">
+      <div className="input-field col s12">
+        <div className="input-field col s6">
+          <input
+            name="date"
+            value={date.value}
+            type="text"
+            className="datepicker"
+            id="event-date"
+          />
+          { component !== 'Edit' ? (
+            <label htmlFor="event-date">Date</label>
+          ) : (
+            <label htmlFor="event-date" className="active">Date</label>
+          )}
+          <span className={dateClasses}>{date.message}</span>
+        </div>
+        <div className="input-field col s6">
+          <input
+            id="event-time"
+            name="time"
+            value={time.value}
+            className="timepicker"
+            type="text"
+            onChange={handleTimeChange}
+          />
+          { component !== 'Edit' ? (
+            <label htmlFor="event-time">Time</label>
+          ) : (
+            <label htmlFor="event-time" className="active">Time</label>
+          )}
+          <span className={timeClasses}>{time.message}</span>
+        </div>
       </div>
     </div>
     <div className="row center-align">

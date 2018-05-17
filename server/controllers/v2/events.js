@@ -102,7 +102,8 @@ module.exports = {
                         success: false,
                         message: 'You entered an invalid date'
                       });
-                    } else if (Date.parse(date) > Date.parse(new Date(req.body.date))) {
+                    } else if (Date.parse(todayDate) > Date.parse(new Date(req.body.date))) {
+                      console.log([todayDate, new Date(req.body.date)]);
                       res.status(403).send({
                         success: false,
                         message: 'You likely entered a date that has already passed. Please enter another'
@@ -321,7 +322,7 @@ module.exports = {
                                           message: 'You entered an invalid date'
                                         });
                                       } else if (
-                                        Date.parse(date) > Date.parse(new Date(req.body.date))) {
+                                        Date.parse(todayDate) > Date.parse(new Date(req.body.date))) {
                                         res.status(403).send({
                                           success: false,
                                           message: 'You likely entered a date that has already passed. Please enter another'
