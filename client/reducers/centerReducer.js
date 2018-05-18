@@ -69,6 +69,34 @@ export default function centerReducer(state = initialState.centers, action) {
         isLoading: { $set: true }
       });
       return newState;
+    case types.FETCH_EVENTS_IN_CENTER_SUCCESS:
+      newState = update(state, {
+        center: {
+          events: { $set: action.data.data.events }
+        },
+        meta: {
+          pagination: {
+            limit: {
+              $set: action.data.meta.pagination.limit
+            },
+            page: { $set: action.data.meta.pagination.page },
+            pages: { $set: action.data.meta.pagination.pages },
+            total: { $set: action.data.meta.pagination.total }
+          }
+        },
+        isLoading: { $set: false }
+      });
+      return newState;
+    case types.FETCH_EVENTS_IN_CENTER_FAILURE:
+      newState = update(state, {
+        isLoading: { $set: false }
+      });
+      return newState;
+    case types.FETCH_EVENTS_IN_CENTER_LOADING:
+      newState = update(state, {
+        isLoading: { $set: true }
+      });
+      return newState;
     case types.UPDATE_CENTER_SUCCESS:
       newState = update(state, {
         centers: {

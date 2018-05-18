@@ -3,25 +3,40 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { Pagination } from 'react-materialize';
 import EventsListWithImage from '../../events/presentational/EventsListWithImage';
 import CenterDetail from '../presentational/CenterDetail';
 import AddEvent from '../../events/container/AddEvent';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
+import * as centerActions from '../../../actions/centerActions';
 import * as styles from '../../../css/centers.module.css';
 
 export class SingleCenter extends Component {
-  // componentWillMount() {
-  //   if (this.props.center.id !== '') {
-  //     console.log(this.groupByDate());
-  //   }
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 1
+    };
+    this.changePage = this.changePage.bind(this);
+  }
   componentDidMount() {
     $('.modal').modal();
-    this.props.singleCenterActions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
+    this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
+    this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
+  }
+  changePage(e) {
+    this.setState({
+      page: e
+    });
+    this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), e);
   }
   render() {
     const { center = {} } = this.props;
-    const { events = [] } = this.props.center;
+    const { events = [] } = this.props;
+    let { pages = 1 } = this.props;
+    if (pages >= 9) {
+      pages = 9;
+    }
     const modalClasses = classNames('modal', styles['add-event-modal']);
     return (
       <div className="min-height-hundred-vh">
@@ -31,14 +46,32 @@ export class SingleCenter extends Component {
         <div className={styles['center-events']}>
           <h2>Events In This Center</h2>
         </div>
-        <div className="row">
-          <div className="col s12 m8 l8 left-div-padding">
-            <EventsListWithImage
-              events={events}
-              isAdmin={false}
-            />
+        { events.length !== 0 ? (
+          <React.Fragment>
+            <div className="row">
+              <div className={styles['events-in-center']}>
+                <EventsListWithImage
+                  events={events}
+                  isAdmin={false}
+                />
+              </div>
+            </div>
+            <div className={styles['events-in-center']}>
+              { pages !== 1 ? (
+                <Pagination
+                  items={9}
+                  activePage={this.state.page}
+                  onSelect={this.changePage}
+                  maxButtons={parseInt(pages, 10)}
+                />
+              ) : ''}
+            </div>
+          </React.Fragment>
+        ) : (
+          <div id={styles['no-events']}>
+            No events have been created yet
           </div>
-        </div>
+        )}
         <div className="fixed-action-btn horizontal click-to-toggle">
           <a
             href="#addEventModal"
@@ -68,55 +101,51 @@ SingleCenter.propTypes = {
     state: PropTypes.string,
     image: PropTypes.string,
     events: PropTypes.array
-  }).isRequired,
-  singleCenterActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  }),
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.node,
     }).isRequired,
-  }).isRequired
+  }).isRequired,
+  events: PropTypes.arrayOf(PropTypes.object),
+  pages: PropTypes.number
+};
+SingleCenter.defaultProps = {
+  events: [],
+  pages: 1,
+  center: {
+    id: '',
+    name: '',
+    capacity: '',
+    state: '',
+    address: '',
+    chairs: '',
+    detail: '',
+    projector: '',
+    image: '',
+  }
 };
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
   let center;
   let events;
-  if (state.center && state.center.id === '') {
-    center = {
-      id: '',
-      name: '',
-      capacity: '',
-      state: '',
-      address: '',
-      chairs: '',
-      detail: '',
-      projector: '',
-      image: '',
-      events: []
-    };
-  } else {
-    center = state.center;
+  if (state.center && state.center.id !== '') {
+    ({ center } = state);
   }
-  if (state.center && state.center.events) {
-    events = state.center.events;
-  } else {
-    events = [];
+  if (state.centers.center && state.centers.center.events) {
+    ({ center: { events } } = state.centers);
   }
   return {
     center,
-    events
+    events,
+    pages: state.centers.meta.pagination.pages
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    singleCenterActions: bindActionCreators(singleCenterActions, dispatch)
+    actions:
+      bindActionCreators(Object.assign({}, centerActions, singleCenterActions), dispatch)
   };
-}
-Array.prototype.groupBy = function(prop) {
-  return this.reduce(function(groups, item) {
-    const val = item[prop]
-    groups[val] = groups[val] || []
-    groups[val].push(item)
-    return groups
-  }, {})
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCenter);

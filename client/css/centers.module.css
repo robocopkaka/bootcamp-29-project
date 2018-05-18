@@ -171,3 +171,14 @@ a, a:link, a:visited, a:active {
   max-height: 100% !important;
   bottom: 5%;
 }
+.events-in-center {
+  width: 80%;
+  margin: auto;
+}
+#no-events {
+  font-size: 29px;
+  text-align: center;
+}
+.remove-margin-left {
+  margin-left: -10px;
+}

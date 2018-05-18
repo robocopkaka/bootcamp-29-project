@@ -23,6 +23,9 @@ export default {
         pages: '',
         total: ''
       }
+    },
+    center: {
+      events: []
     }
   },
   events: {
