@@ -130,16 +130,16 @@ function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
   let center;
   let events;
-  if (state.center && state.center.id !== '') {
-    ({ center } = state);
+  if (state.center && state.center.center.id !== '') {
+    ({ center: { center } } = state);
   }
-  if (state.centers.center && state.centers.center.events) {
-    ({ center: { events } } = state.centers);
+  if (state.center && state.center.events.events) {
+    ({ events: { events } } = state.center);
   }
   return {
     center,
     events,
-    pages: state.centers.meta.pagination.pages
+    pages: state.center.events.meta.pagination.pages
   };
 }
 function mapDispatchToProps(dispatch) {
