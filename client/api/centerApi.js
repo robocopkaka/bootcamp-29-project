@@ -74,5 +74,22 @@ class CenterApi {
         throw error.response;
       });
   }
+
+  static getEventsInCenter(centerId, page) {
+    return axios.get(
+      `http://localhost:8000/api/v2/centers/${centerId}/events?page=${page}&limit=${6}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }
 export default CenterApi;

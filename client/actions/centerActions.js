@@ -19,6 +19,15 @@ export function fetchCentersFailure() {
 export function fetchCentersLoading() {
   return { type: types.FETCH_CENTERS_LOADING };
 }
+export function fetchEventsInCenterSuccess(data) {
+  return { type: types.FETCH_EVENTS_IN_CENTER_SUCCESS, data };
+}
+export function fetchEventsInCenterFailure() {
+  return { type: types.FETCH_EVENTS_IN_CENTER_FAILURE };
+}
+export function fetchEventsInCenterLoading() {
+  return { type: types.FETCH_EVENTS_IN_CENTER_LOADING };
+}
 export function updateCenterSuccess(center) {
   return { type: types.UPDATE_CENTER_SUCCESS, center };
 }
@@ -50,9 +59,20 @@ export function fetchCenters(page) {
       .then((response) => {
         dispatch(fetchCentersSuccess(response.data));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         dispatch(fetchCentersFailure());
+      });
+  };
+}
+export function fetchEventsInCenter(centerId, page) {
+  return (dispatch) => {
+    dispatch(fetchEventsInCenterLoading());
+    return CenterApi.getEventsInCenter(centerId, page)
+      .then((response) => {
+        dispatch(fetchEventsInCenterSuccess(response.data));
+      })
+      .catch(() => {
+        dispatch(fetchEventsInCenterFailure());
       });
   };
 }
