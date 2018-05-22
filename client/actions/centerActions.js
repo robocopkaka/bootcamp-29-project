@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import CenterApi from '../api/centerApi';
+import EventApi from '../api/eventApi';
 
 export function addCenterSuccess(center) {
   return { type: types.ADD_CENTER_SUCCESS, center };
@@ -36,6 +37,9 @@ export function updateCenterFailure(center) {
 }
 export function updateCenterLoading() {
   return { type: types.UPDATE_CENTER_LOADING };
+}
+export function deleteEventSuccess(eventId) {
+  return { type: types.DELETE_EVENT_IN_CENTER_SUCCESS, eventId };
 }
 export function addCenter(values) {
   return (dispatch) => {
@@ -88,6 +92,17 @@ export function updateCenter(center) {
         // console.log(error);
         dispatch(updateCenterFailure(error));
         throw error.data.message;
+      });
+  };
+}
+export function deleteEventInCenter(eventId) {
+  return (dispatch) => {
+    EventApi.deleteEvent(eventId)
+      .then((response) => {
+        dispatch(deleteEventSuccess(response));
+      })
+      .catch((error) => {
+        throw error;
       });
   };
 }

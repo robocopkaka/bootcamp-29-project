@@ -71,5 +71,16 @@ export default function singleCenterReducer(state = initialState.center, action)
         }
       });
       return newState;
+    case types.DELETE_EVENT_IN_CENTER_SUCCESS:
+      newState = update(state, {
+        events: {
+          events: {
+            $set: [
+              ...state.events.events.filter(event => event.id !== action.eventId)
+            ]
+          }
+        }
+      });
+      return newState;
   }
 }

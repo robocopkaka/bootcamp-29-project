@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,15 +11,18 @@ import EventsListWithImage from '../presentational/EventsListWithImage';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 import history from '../../../history';
+import * as styles from '../../../css/events.module.css';
 
 export class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1
+      page: 1,
+      eventId: ''
     };
     this.deleteEvent = this.deleteEvent.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.changeEvent = this.changeEvent.bind(this);
   }
   componentDidMount() {
     const values = qs.parse(this.props.location.search);
@@ -41,6 +45,11 @@ export class Events extends Component {
     });
     history.push(`/events/?page=${e}`);
     this.props.actions.fetchEvents(e);
+  }
+  changeEvent(eventId) {
+    this.setState({
+      eventId
+    });
   }
   render() {
     const { events = [] } = this.props;
@@ -69,6 +78,7 @@ export class Events extends Component {
             events={events}
             deleteEvent={this.deleteEvent}
             isAdmin={this.props.isAdmin}
+            changeEvent={this.changeEvent}
           />
         </div>
         { pages !== 1 ? (
