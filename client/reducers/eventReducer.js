@@ -63,6 +63,27 @@ export default function eventReducer(state = initialState.events, action) {
         }
       });
       return theState;
+    case types.ADD_EVENT_SUCCESS:
+      theState = update(state, {
+        events: {
+          $set: [
+            ...state.events.filter(event => event.id !== action.event.event.id),
+            Object.assign({}, action.event.event)
+          ]
+        },
+        isLoading: { $set: false }
+      });
+      return theState;
+    case types.ADD_EVENT_FAILURE:
+      theState = update(state, {
+        isLoading: { $set: false }
+      });
+      return theState;
+    case types.ADD_EVENT_LOADING:
+      theState = update(state, {
+        isLoading: { $set: true }
+      });
+      return theState;
     default:
       return state;
   }

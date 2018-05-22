@@ -8,6 +8,7 @@ import EventsListWithImage from '../../events/presentational/EventsListWithImage
 import CenterDetail from '../presentational/CenterDetail';
 import AddEvent from '../../events/container/AddEvent';
 import EditEvent from '../../events/container/EditEvent';
+import Modal from '../../common/Modal';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import * as centerActions from '../../../actions/centerActions';
 import * as eventActions from '../../../actions/eventActions';
@@ -18,16 +19,37 @@ export class SingleCenter extends Component {
     super(props);
     this.state = {
       page: 1,
-      eventId: ''
+      eventId: '',
+      show: false,
+      editMode: false
     };
     this.changePage = this.changePage.bind(this);
     this.changeEvent = this.changeEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
   componentDidMount() {
     $('.modal').modal();
     this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
     this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
+  }
+  showModal() {
+    this.setState({
+      show: true
+    });
+  }
+  toggleEdit() {
+    this.setState({
+      editMode: !this.state.editMode
+    });
+  }
+  hideModal() {
+    this.setState({
+      show: false,
+      editMode: false
+    });
   }
   changePage(e) {
     this.setState({
@@ -51,7 +73,6 @@ export class SingleCenter extends Component {
     if ((pages) >= 9) {
       pages = 9;
     }
-    const modalClasses = classNames('modal', styles['add-event-modal']);
     return (
       <div className="min-height-hundred-vh">
         <div className="valign-wrapper show-center-top">
@@ -70,6 +91,8 @@ export class SingleCenter extends Component {
                   isAdmin={this.props.isAdmin}
                   changeEvent={this.changeEvent}
                   centerId={center.id}
+                  toggleEdit={this.toggleEdit}
+                  showModal={this.showModal}
                 />
               </div>
             </div>
@@ -90,18 +113,32 @@ export class SingleCenter extends Component {
           </div>
         )}
         <div className="fixed-action-btn horizontal click-to-toggle">
-          <a
-            href="#addEventModal"
-            className="btn-floating btn-large red white-color modal-trigger"
+          <button
+            className="btn-floating btn-large red white-color"
+            onClick={this.showModal}
           >
             <i className="material-icons">add</i>
-          </a>
+          </button>
         </div>
-        <div className={modalClasses} id="addEventModal">
+        { /*
+          <div className={modalClasses} id="addEventModal">
           <div className="modal-content">
             <AddEvent centerId={center.id} />
           </div>
         </div>
+       */ }
+        <Modal show={this.state.show} hideModal={this.hideModal}>
+          { !this.state.editMode ? (
+            <AddEvent centerId={center.id} hideModal={this.hideModal} />
+          ) : (
+            <EditEvent
+              centerId={center.id}
+              eventId={this.state.eventId}
+              hideModal={this.hideModal}
+              toggleEdit={this.toggleEdit}
+            />
+          )}
+        </Modal>
       </div>
     );
   }

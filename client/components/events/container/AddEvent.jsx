@@ -208,7 +208,7 @@ export class AddEvent extends Component {
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
           this.clearFields();
-          $('#addEventModal').modal('close');
+          this.props.hideModal()
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
@@ -261,10 +261,12 @@ export class AddEvent extends Component {
 AddEvent.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  centerId: PropTypes.number
+  centerId: PropTypes.number,
+  hideModal: PropTypes.func,
 };
 AddEvent.defaultProps = {
-  centerId: 1
+  centerId: 1,
+  hideModal: () => {},
 };
 function mapStateToProps(state) {
   let centers = [];
