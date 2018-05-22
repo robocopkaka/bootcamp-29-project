@@ -20,13 +20,15 @@ export class SingleCenter extends Component {
     this.state = {
       page: 1,
       eventId: '',
-      show: false
+      show: false,
+      editMode: false
     };
     this.changePage = this.changePage.bind(this);
     this.changeEvent = this.changeEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
   componentDidMount() {
     $('.modal').modal();
@@ -38,9 +40,15 @@ export class SingleCenter extends Component {
       show: true
     });
   }
+  toggleEdit() {
+    this.setState({
+      editMode: !this.state.editMode
+    });
+  }
   hideModal() {
     this.setState({
-      show: false
+      show: false,
+      editMode: false
     });
   }
   changePage(e) {
@@ -65,7 +73,6 @@ export class SingleCenter extends Component {
     if ((pages) >= 9) {
       pages = 9;
     }
-    const modalClasses = classNames('modal', styles['add-event-modal']);
     return (
       <div className="min-height-hundred-vh">
         <div className="valign-wrapper show-center-top">
@@ -84,6 +91,8 @@ export class SingleCenter extends Component {
                   isAdmin={this.props.isAdmin}
                   changeEvent={this.changeEvent}
                   centerId={center.id}
+                  toggleEdit={this.toggleEdit}
+                  showModal={this.showModal}
                 />
               </div>
             </div>
@@ -119,7 +128,16 @@ export class SingleCenter extends Component {
         </div>
        */ }
         <Modal show={this.state.show} hideModal={this.hideModal}>
-          <AddEvent centerId={center.id} hideModal={this.hideModal} />
+          { !this.state.editMode ? (
+            <AddEvent centerId={center.id} hideModal={this.hideModal} />
+          ) : (
+            <EditEvent
+              centerId={center.id}
+              eventId={this.state.eventId}
+              hideModal={this.hideModal}
+              toggleEdit={this.toggleEdit}
+            />
+          )}
         </Modal>
       </div>
     );

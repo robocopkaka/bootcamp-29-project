@@ -30,7 +30,6 @@ export class AddEvent extends Component {
     this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
     this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
-    this.addAndClose = this.addAndClose.bind(this);
   }
   componentDidMount() {
     // if (this.props.centers.length === 0) {
@@ -209,13 +208,10 @@ export class AddEvent extends Component {
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
           this.clearFields();
+          this.props.hideModal()
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
-  }
-  addAndClose(e) {
-    this.addEvent(e);
-    this.props.hideModal();
   }
   render() {
     const { centers = [] } = this.props;
@@ -248,7 +244,7 @@ export class AddEvent extends Component {
             centerClasses={centerClasses}
             categoryClasses={categoryClasses}
             detailClasses={detailClasses}
-            saveOrUpdate={this.addAndClose}
+            saveOrUpdate={this.addEvent}
             handleChange={this.handleChange}
             handleTimeChange={this.handleTimeChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
@@ -265,10 +261,12 @@ export class AddEvent extends Component {
 AddEvent.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  centerId: PropTypes.number
+  centerId: PropTypes.number,
+  hideModal: PropTypes.func,
 };
 AddEvent.defaultProps = {
-  centerId: 1
+  centerId: 1,
+  hideModal: () => {},
 };
 function mapStateToProps(state) {
   let centers = [];

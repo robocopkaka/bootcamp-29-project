@@ -90,9 +90,6 @@ export class EditEvent extends Component {
         })
       });
     }
-    if (nextProps.centers.length > 0) {
-      this.setState({ centers: nextProps.centers });
-    }
   }
   handleChange(e) {
     const { state } = this;
@@ -209,20 +206,19 @@ export class EditEvent extends Component {
       this.props.actions.updateEvent(eventObject)
         .then((response) => {
           Materialize.toast(response.message, 4000, 'green');
-          $(`#editEventModal${this.props.eventId}`).modal('close');
+          this.props.toggleEdit();
+          this.props.hideModal();
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
       // this.clearFields();
     }
   }
   render() {
-    const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
     const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
     const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
     const dateClasses = classNames('help-block', { 'has-error': !this.state.date.isValid });
     const timeClasses = classNames('help-block', { 'has-error': !this.state.time.isValid });
-    const centerClasses = classNames('help-block', { 'has-error': !this.state.center.isValid });
     const categoryClasses = classNames('help-block', { 'has-error': !this.state.category.isValid });
     const containerClasses = classNames('container max-width-six-hundred');
     return (
@@ -281,16 +277,18 @@ EditEvent.propTypes = {
     })
   }).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   eventId: PropTypes.number,
-  centerId: PropTypes.number
+  centerId: PropTypes.number,
+  toggleEdit: PropTypes.func,
+  hideModal: PropTypes.func
 };
 EditEvent.defaultProps = {
   eventId: 1,
-  centerId: 1
+  centerId: 1,
+  toggleEdit: () => {},
+  hideModal: () => {},
 };
 function mapStateToProps(state) {
-  let centers = [];
   let event = {
     id: '',
     name: '',
@@ -301,15 +299,11 @@ function mapStateToProps(state) {
     date: '',
     Center: {}
   };
-  if (state.event && state.event.id !== '') {
-    ({ event } = state);
-  }
-  if (state.centers.centers && state.centers.centers.length > 0) {
-    ({ centers: { centers } } = state);
+  if (state.events.event && state.events.event.id !== '') {
+    ({ events: { event } } = state);
   }
   return {
     event,
-    centers
   };
 }
 function mapDispatchToProps(dispatch) {
