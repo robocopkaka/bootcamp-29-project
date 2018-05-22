@@ -69,6 +69,13 @@ export default function centerReducer(state = initialState.centers, action) {
         isLoading: { $set: true }
       });
       return newState;
+    case types.FETCH_SINGLE_CENTER_SUCCESS:
+      newState = update(state, {
+        center: {
+          $set: action.center
+        }
+      });
+      return newState;
     case types.UPDATE_CENTER_SUCCESS:
       newState = update(state, {
         centers: {

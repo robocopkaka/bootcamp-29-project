@@ -24,6 +24,7 @@ export default {
         total: ''
       }
     },
+    center: {}
   },
   events: {
     events: [],
@@ -37,24 +38,8 @@ export default {
         pages: '',
         total: ''
       }
-    }
-  },
-  center: {
-    center: {},
-    events: {
-      events: [],
-      meta: {
-        pagination: {
-          limit: '',
-          offset: '',
-          page: '',
-          pages: '',
-          total: ''
-        }
-      },
-      isLoading: false
     },
+    event: {}
   },
-  event: {},
   componentName: ''
 };

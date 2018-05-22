@@ -57,8 +57,8 @@ function mapStateToProps(state) {
     userId: '',
     Center: {}
   };
-  if (state.event && state.event.id !== '') {
-    event = state.event;
+  if (state.events && state.events.event.id !== '') {
+    ({ events: { event } } = state);
   }
   return {
     event
