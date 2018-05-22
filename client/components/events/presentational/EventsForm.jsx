@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const EventsForm = ({
   name, date, detail, guests, time, center, nameClasses, dateClasses,
-  detailClasses, guestsClasses, timeClasses, centerClasses, category,
-  categoryClasses, centers, saveOrUpdate, handleChange, component,
+  detailClasses, guestsClasses, timeClasses, category,
+  categoryClasses, saveOrUpdate, handleChange, component,
   handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange,
   SelectField, MenuItem
 }) => (
@@ -115,7 +115,7 @@ const EventsForm = ({
         type="submit"
         name="action"
         onClick={saveOrUpdate}
-      >Add Event
+      > { component !== 'Edit' ? 'Add Event' : 'Update Event' }
         <i className="material-icons right">send</i>
       </button>
     </div>
@@ -147,22 +147,15 @@ EventsForm.propTypes = {
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,
-  center: PropTypes.shape({
-    value: PropTypes.number,
-    message: PropTypes.string,
-    isValid: PropTypes.bool
-  }).isRequired,
   category: PropTypes.shape({
     value: PropTypes.string,
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   nameClasses: PropTypes.string.isRequired,
   detailClasses: PropTypes.string.isRequired,
   dateClasses: PropTypes.string.isRequired,
   timeClasses: PropTypes.string.isRequired,
-  centerClasses: PropTypes.string.isRequired,
   guestsClasses: PropTypes.string.isRequired,
   categoryClasses: PropTypes.string.isRequired,
   component: PropTypes.string,

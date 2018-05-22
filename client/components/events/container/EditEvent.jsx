@@ -12,7 +12,7 @@ import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
 import history from '../../../history';
 
-class EditEvent extends Component {
+export class EditEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,6 @@ class EditEvent extends Component {
       time: { value: '', isValid: true, message: '' },
       center: { value: 1, isValid: true, message: '' },
       category: { value: '', isValid: true, message: '' },
-      centers: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -33,10 +32,7 @@ class EditEvent extends Component {
     this.updateEvent = this.updateEvent.bind(this);
   }
   componentDidMount() {
-    this.props.actions.fetchSingleEvent(parseInt(this.props.match.params.id, 10));
-    if (this.props.centers && this.props.centers.length === 0) {
-      this.props.actions.fetchCenters();
-    }
+    this.props.actions.fetchSingleEvent(parseInt(this.props.eventId, 10));
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -201,19 +197,19 @@ class EditEvent extends Component {
     this.resetValidationStates();
     const datetime = `${this.state.date.value} ${this.state.time.value}`;
     const eventObject = {
-      id: parseInt(this.props.match.params.id, 10),
+      id: parseInt(this.props.eventId, 10),
       name: this.state.name.value,
       detail: this.state.detail.value,
       guests: this.state.guests.value,
       date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
-      centerId: this.state.center.value,
+      centerId: this.props.centerId,
       categoryId: this.state.category.value
     };
     if (this.formIsValid()) {
       this.props.actions.updateEvent(eventObject)
         .then((response) => {
           Materialize.toast(response.message, 4000, 'green');
-          history.push(`/events/${response.event.id}`);
+          $(`#editEventModal${this.props.eventId}`).modal('close');
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
       // this.clearFields();
@@ -231,14 +227,13 @@ class EditEvent extends Component {
     const containerClasses = classNames('container max-width-six-hundred');
     return (
       <div className={containerClasses}>
-        <div className="card">
+        <div>
           <div className="container">
             <h3 className="center-heading">Edit an Event</h3>
           </div>
           <EventsForm
             name={this.state.name}
             guests={this.state.guests}
-            center={this.state.center}
             category={this.state.category}
             date={this.state.date}
             time={this.state.time}
@@ -247,7 +242,6 @@ class EditEvent extends Component {
             guestsClasses={guestsClasses}
             dateClasses={dateClasses}
             timeClasses={timeClasses}
-            centerClasses={centerClasses}
             categoryClasses={categoryClasses}
             detailClasses={detailClasses}
             saveOrUpdate={this.updateEvent}
@@ -255,7 +249,6 @@ class EditEvent extends Component {
             handleTimeChange={this.handleTimeChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
             handleSelectCategoryChange={this.handleSelectCategoryChange}
-            centers={centers}
             component="Edit"
             SelectField={SelectField}
             MenuItem={MenuItem}
@@ -288,12 +281,13 @@ EditEvent.propTypes = {
     })
   }).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.node,
-    }).isRequired,
-  }).isRequired,
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired
+  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  eventId: PropTypes.number,
+  centerId: PropTypes.number
+};
+EditEvent.defaultProps = {
+  eventId: 1,
+  centerId: 1
 };
 function mapStateToProps(state) {
   let centers = [];

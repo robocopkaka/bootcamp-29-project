@@ -181,3 +181,7 @@ a, a:link, a:visited, a:active {
 #event-details-padding {
   padding-left: 40px;
 }
+.edit-event-modal {
+  max-height: 100% !important;
+  bottom: 5%;
+}

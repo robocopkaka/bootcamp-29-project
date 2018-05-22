@@ -7,17 +7,22 @@ import { Pagination } from 'react-materialize';
 import EventsListWithImage from '../../events/presentational/EventsListWithImage';
 import CenterDetail from '../presentational/CenterDetail';
 import AddEvent from '../../events/container/AddEvent';
+import EditEvent from '../../events/container/EditEvent';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import * as centerActions from '../../../actions/centerActions';
+import * as eventActions from '../../../actions/eventActions';
 import * as styles from '../../../css/centers.module.css';
 
 export class SingleCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1
+      page: 1,
+      eventId: ''
     };
     this.changePage = this.changePage.bind(this);
+    this.changeEvent = this.changeEvent.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
   }
   componentDidMount() {
     $('.modal').modal();
@@ -30,11 +35,20 @@ export class SingleCenter extends Component {
     });
     this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), e);
   }
+  changeEvent(eventId) {
+    this.props.actions.fetchSingleEvent(parseInt(eventId, 10));
+    this.setState({
+      eventId
+    });
+  }
+  deleteEvent(id) {
+    this.props.actions.deleteEventInCenter(parseInt(id, 10));
+  }
   render() {
     const { center = {} } = this.props;
     const { events = [] } = this.props;
     let { pages = 1 } = this.props;
-    if (pages >= 9) {
+    if ((pages) >= 9) {
       pages = 9;
     }
     const modalClasses = classNames('modal', styles['add-event-modal']);
@@ -52,7 +66,10 @@ export class SingleCenter extends Component {
               <div className={styles['events-in-center']}>
                 <EventsListWithImage
                   events={events}
-                  isAdmin={false}
+                  deleteEvent={this.deleteEvent}
+                  isAdmin={this.props.isAdmin}
+                  changeEvent={this.changeEvent}
+                  centerId={center.id}
                 />
               </div>
             </div>
@@ -109,7 +126,8 @@ SingleCenter.propTypes = {
     }).isRequired,
   }).isRequired,
   events: PropTypes.arrayOf(PropTypes.object),
-  pages: PropTypes.number
+  pages: PropTypes.number,
+  isAdmin: PropTypes.bool
 };
 SingleCenter.defaultProps = {
   events: [],
@@ -124,19 +142,25 @@ SingleCenter.defaultProps = {
     detail: '',
     projector: '',
     image: '',
-  }
+  },
+  isAdmin: false
 };
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;
   let center;
   let events;
+  let isAdmin;
   if (state.center && state.center.center.id !== '') {
     ({ center: { center } } = state);
   }
   if (state.center && state.center.events.events) {
     ({ events: { events } } = state.center);
   }
+  if (state.session.isAdmin && state.session.isAdmin === true) {
+    ({ session: { isAdmin } } = state);
+  }
   return {
+    isAdmin,
     center,
     events,
     pages: state.center.events.meta.pagination.pages
@@ -145,7 +169,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions:
-      bindActionCreators(Object.assign({}, centerActions, singleCenterActions), dispatch)
+      bindActionCreators(Object.assign({}, centerActions, eventActions, singleCenterActions), dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCenter);
