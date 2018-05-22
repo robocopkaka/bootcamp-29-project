@@ -42,7 +42,7 @@ export class SingleCenter extends Component {
     });
   }
   deleteEvent(id) {
-    this.props.actions.deleteEventInCenter(parseInt(id, 10));
+    this.props.actions.deleteEvent(parseInt(id, 10));
   }
   render() {
     const { center = {} } = this.props;
@@ -150,11 +150,12 @@ function mapStateToProps(state) {
   let center;
   let events;
   let isAdmin;
-  if (state.center && state.center.center.id !== '') {
-    ({ center: { center } } = state);
+  if (state.centers.center && state.centers.center.id !== '') {
+    // ({ centers: { center } } = state);
+    center = state.centers.center;
   }
-  if (state.center && state.center.events.events) {
-    ({ events: { events } } = state.center);
+  if (state.events && state.events.events.length > 0) {
+    ({ events: { events } } = state);
   }
   if (state.session.isAdmin && state.session.isAdmin === true) {
     ({ session: { isAdmin } } = state);
@@ -163,13 +164,16 @@ function mapStateToProps(state) {
     isAdmin,
     center,
     events,
-    pages: state.center.events.meta.pagination.pages
+    pages: state.events.meta.pagination.pages
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     actions:
-      bindActionCreators(Object.assign({}, centerActions, eventActions, singleCenterActions), dispatch)
+      bindActionCreators(
+        Object.assign({}, centerActions, eventActions, singleCenterActions)
+        , dispatch
+      )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCenter);

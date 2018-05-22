@@ -31,6 +31,11 @@ export default function eventReducer(state = initialState.events, action) {
         isLoading: { $set: true }
       });
       return theState;
+    case types.FETCH_SINGLE_EVENT_SUCCESS:
+      theState = update(state, {
+        event: { $set: action.event }
+      });
+      return theState;
     case types.UPDATE_EVENT_SUCCESS:
       theState = update(state, {
         events: {

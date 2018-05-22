@@ -1,6 +1,5 @@
 import * as types from './actionTypes';
 import CenterApi from '../api/centerApi';
-import EventApi from '../api/eventApi';
 
 export function addCenterSuccess(center) {
   return { type: types.ADD_CENTER_SUCCESS, center };
@@ -20,15 +19,6 @@ export function fetchCentersFailure() {
 export function fetchCentersLoading() {
   return { type: types.FETCH_CENTERS_LOADING };
 }
-export function fetchEventsInCenterSuccess(data) {
-  return { type: types.FETCH_EVENTS_IN_CENTER_SUCCESS, data };
-}
-export function fetchEventsInCenterFailure() {
-  return { type: types.FETCH_EVENTS_IN_CENTER_FAILURE };
-}
-export function fetchEventsInCenterLoading() {
-  return { type: types.FETCH_EVENTS_IN_CENTER_LOADING };
-}
 export function updateCenterSuccess(center) {
   return { type: types.UPDATE_CENTER_SUCCESS, center };
 }
@@ -37,9 +27,6 @@ export function updateCenterFailure(center) {
 }
 export function updateCenterLoading() {
   return { type: types.UPDATE_CENTER_LOADING };
-}
-export function deleteEventSuccess(eventId) {
-  return { type: types.DELETE_EVENT_IN_CENTER_SUCCESS, eventId };
 }
 export function addCenter(values) {
   return (dispatch) => {
@@ -68,18 +55,6 @@ export function fetchCenters(page) {
       });
   };
 }
-export function fetchEventsInCenter(centerId, page) {
-  return (dispatch) => {
-    dispatch(fetchEventsInCenterLoading());
-    return CenterApi.getEventsInCenter(centerId, page)
-      .then((response) => {
-        dispatch(fetchEventsInCenterSuccess(response.data));
-      })
-      .catch(() => {
-        dispatch(fetchEventsInCenterFailure());
-      });
-  };
-}
 export function updateCenter(center) {
   return (dispatch) => {
     dispatch(updateCenterLoading());
@@ -92,17 +67,6 @@ export function updateCenter(center) {
         // console.log(error);
         dispatch(updateCenterFailure(error));
         throw error.data.message;
-      });
-  };
-}
-export function deleteEventInCenter(eventId) {
-  return (dispatch) => {
-    EventApi.deleteEvent(eventId)
-      .then((response) => {
-        dispatch(deleteEventSuccess(response));
-      })
-      .catch((error) => {
-        throw error;
       });
   };
 }

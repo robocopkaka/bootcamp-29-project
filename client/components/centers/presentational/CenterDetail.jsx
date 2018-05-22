@@ -57,7 +57,6 @@ CenterDetail.propTypes = {
     address: PropTypes.string,
     state: PropTypes.string,
     image: PropTypes.string,
-    events: PropTypes.array
   }),
 };
 CenterDetail.defaultProps = {

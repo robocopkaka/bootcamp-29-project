@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import EventApi from '../api/eventApi';
+import CenterApi from '../api/centerApi';
 
 export function fetchEventsSuccess(data) {
   return { type: types.FETCH_EVENTS_SUCCESS, data };
@@ -19,6 +20,18 @@ export function fetchEvents(page) {
         dispatch(fetchEventsSuccess(response.data));
       })
       .catch((error) => {
+        dispatch(fetchEventsFailure());
+      });
+  };
+}
+export function fetchEventsInCenter(centerId, page) {
+  return (dispatch) => {
+    dispatch(fetchEventsLoading());
+    return CenterApi.getEventsInCenter(centerId, page)
+      .then((response) => {
+        dispatch(fetchEventsSuccess(response.data));
+      })
+      .catch(() => {
         dispatch(fetchEventsFailure());
       });
   };
