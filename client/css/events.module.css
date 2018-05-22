@@ -185,3 +185,17 @@ a, a:link, a:visited, a:active {
   max-height: 100% !important;
   bottom: 5%;
 }
+.close {
+  cursor: pointer;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px;
+  background: #FFF;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ import EventsListWithImage from '../../events/presentational/EventsListWithImage
 import CenterDetail from '../presentational/CenterDetail';
 import AddEvent from '../../events/container/AddEvent';
 import EditEvent from '../../events/container/EditEvent';
+import Modal from '../../common/Modal';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import * as centerActions from '../../../actions/centerActions';
 import * as eventActions from '../../../actions/eventActions';
@@ -18,16 +19,29 @@ export class SingleCenter extends Component {
     super(props);
     this.state = {
       page: 1,
-      eventId: ''
+      eventId: '',
+      show: false
     };
     this.changePage = this.changePage.bind(this);
     this.changeEvent = this.changeEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
     $('.modal').modal();
     this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
     this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
+  }
+  showModal() {
+    this.setState({
+      show: true
+    });
+  }
+  hideModal() {
+    this.setState({
+      show: false
+    });
   }
   changePage(e) {
     this.setState({
@@ -90,18 +104,23 @@ export class SingleCenter extends Component {
           </div>
         )}
         <div className="fixed-action-btn horizontal click-to-toggle">
-          <a
-            href="#addEventModal"
-            className="btn-floating btn-large red white-color modal-trigger"
+          <button
+            className="btn-floating btn-large red white-color"
+            onClick={this.showModal}
           >
             <i className="material-icons">add</i>
-          </a>
+          </button>
         </div>
-        <div className={modalClasses} id="addEventModal">
+        { /*
+          <div className={modalClasses} id="addEventModal">
           <div className="modal-content">
             <AddEvent centerId={center.id} />
           </div>
         </div>
+       */ }
+        <Modal show={this.state.show} hideModal={this.hideModal}>
+          <AddEvent centerId={center.id} hideModal={this.hideModal} />
+        </Modal>
       </div>
     );
   }

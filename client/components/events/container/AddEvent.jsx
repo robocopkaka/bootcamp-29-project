@@ -30,6 +30,7 @@ export class AddEvent extends Component {
     this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
     this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
+    this.addAndClose = this.addAndClose.bind(this);
   }
   componentDidMount() {
     // if (this.props.centers.length === 0) {
@@ -208,10 +209,13 @@ export class AddEvent extends Component {
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
           this.clearFields();
-          $('#addEventModal').modal('close');
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
+  }
+  addAndClose(e) {
+    this.addEvent(e);
+    this.props.hideModal();
   }
   render() {
     const { centers = [] } = this.props;
@@ -244,7 +248,7 @@ export class AddEvent extends Component {
             centerClasses={centerClasses}
             categoryClasses={categoryClasses}
             detailClasses={detailClasses}
-            saveOrUpdate={this.addEvent}
+            saveOrUpdate={this.addAndClose}
             handleChange={this.handleChange}
             handleTimeChange={this.handleTimeChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
