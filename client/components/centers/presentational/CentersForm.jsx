@@ -6,7 +6,7 @@ const CentersForm = ({
   nameClasses, detailClasses, capacityClasses, addressClasses, stateClasses, saveOrUpdate,
   component, image
 }) => (
-  <form className="card-content">
+  <form>
     <div className="row">
       <div className="input-field col s12">
         <input

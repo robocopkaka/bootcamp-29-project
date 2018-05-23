@@ -12,18 +12,22 @@ import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 import Modal from '../../common/Modal';
 import AddCenter from './AddCenter';
+import EditCenter from './EditCenter';
 import history from '../../../history';
 
 export class Centers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      editMode: false
     };
     this.page = 1;
     this.changePage = this.changePage.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.changeCenter = this.changeCenter.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
   componentDidMount() {
     const values = qs.parse(this.props.location.search);
@@ -48,7 +52,18 @@ export class Centers extends Component {
   }
   hideModal() {
     this.setState({
-      show: false
+      show: false,
+      editMode: false
+    });
+  }
+  toggleEdit() {
+    this.setState({
+      editMode: !this.state.editMode
+    });
+  }
+  changeCenter(centerId) {
+    this.setState({
+      centerId
     });
   }
   render() {
@@ -75,7 +90,13 @@ export class Centers extends Component {
           <Search />
           <div className="top-ten-padding" />
           <div className="row">
-            <CenterList centers={centers} isAdmin={isAdmin} />
+            <CenterList
+              centers={centers}
+              isAdmin={isAdmin}
+              toggleEdit={this.toggleEdit}
+              changeCenter={this.changeCenter}
+              showModal={this.showModal}
+            />
           </div>
           { pages !== 1 ? (
             <Pagination
@@ -86,7 +107,14 @@ export class Centers extends Component {
             />
           ) : ''}
           <Modal show={this.state.show} hideModal={this.hideModal}>
-            <AddCenter hideModal={this.hideModal} />
+            { !this.state.editMode ? (
+              <AddCenter hideModal={this.hideModal} />
+            ) : (
+              <EditCenter
+                hideModal={this.hideModal}
+                centerId={this.state.centerId}
+              />
+            )}
           </Modal>
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
