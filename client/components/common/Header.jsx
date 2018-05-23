@@ -84,7 +84,9 @@ export class Header extends React.Component {
       <React.Fragment>
         <ul id="signup-dropdown" className="dropdown-content">
           <li><a onClick={this.props.showModal}>Login</a></li>
-          <li><Link to="/signup">Signup</Link></li>
+          <li>
+            <a onClick={() => { this.props.showModal(); this.props.toggleSignup(); }}>Signup</a>
+          </li>
         </ul>
         <nav className="navbar-purple">
           <div className="nav-wrapper left-padding">
@@ -124,7 +126,9 @@ export class Header extends React.Component {
                     <div className="collapsible-body">
                       <ul>
                         <li><a onClick={this.props.showModal}>Login</a></li>
-                        <li><Link to="/signup">Signup</Link></li>
+                        <li>
+                          <a onClick={() => { this.props.showModal(); this.props.toggleSignup(); }}>Signup</a>
+                        </li>
                       </ul>
                     </div>
                   </li>

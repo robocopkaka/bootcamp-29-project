@@ -34,7 +34,10 @@ export class Home extends React.Component {
               <h3 id="home-text">Kachi&#39;s Event Manager</h3>
               <div className="home-button-group">
                 { !this.props.loggedIn ? (
-                  <LoginButtons showModal={this.props.showModal} />
+                  <LoginButtons
+                    showModal={this.props.showModal}
+                    toggleSignup={this.props.toggleSignup}
+                  />
                 ) : (
                   <HomeButtons />
                 )}
@@ -81,10 +84,12 @@ Home.propTypes = {
   eventsLoading: PropTypes.bool.isRequired,
   centersLoading: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  showModal: PropTypes.func
+  showModal: PropTypes.func,
+  toggleSignup: PropTypes.func
 };
 Home.defaultProps = {
-  showModal: () => {}
+  showModal: () => {},
+  toggleSignup: () => {}
 };
 function mapStateToProps(state) {
   let centers = [];
