@@ -10,34 +10,46 @@ import * as centerActions from '../../../actions/centerActions';
 import CenterList from '../presentational/CenterList';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
+import Modal from '../../common/Modal';
+import AddCenter from './AddCenter';
 import history from '../../../history';
 
 export class Centers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1
+      show: false
     };
+    this.page = 1;
     this.changePage = this.changePage.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
   componentDidMount() {
     const values = qs.parse(this.props.location.search);
-    let page;
     if (values.page === undefined) {
-      page = 1;
+      this.page = 1;
     } else {
-      page = parseInt(values.page, 10);
+      this.page = parseInt(values.page, 10);
     }
     if (this.props.centers.length === 0) {
-      this.props.centerActions.fetchCenters(page);
+      this.props.centerActions.fetchCenters(this.page);
     }
   }
   changePage(e) {
-    this.setState({
-      page: e
-    });
+    this.page = e;
     this.props.centerActions.fetchCenters(e);
     history.push(`/centers/?page=${e}`);
+  }
+  showModal() {
+    this.setState({
+      show: true
+    });
+  }
+  hideModal() {
+    this.setState({
+      show: false
+    });
   }
   render() {
     const { isAdmin = false } = this.props;
@@ -68,19 +80,22 @@ export class Centers extends Component {
           { pages !== 1 ? (
             <Pagination
               items={9}
-              activePage={this.state.page}
+              activePage={this.page}
               onSelect={this.changePage}
               maxButtons={pages}
             />
           ) : ''}
+          <Modal show={this.state.show} hideModal={this.hideModal}>
+            <AddCenter hideModal={this.hideModal} />
+          </Modal>
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle">
-          <Link
-            to="/add-center"
+          <button
+            onClick={this.showModal}
             className="btn-floating btn-large red white-color"
           >
             <i className="material-icons">add</i>
-          </Link>
+          </button>
         </div>
       </React.Fragment>
     );

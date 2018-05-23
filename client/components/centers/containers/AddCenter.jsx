@@ -165,7 +165,8 @@ export class AddCenter extends Component {
       this.props.centerActions.addCenter(center)
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
-          history.push('/centers');
+          this.clearFields();
+          this.props.hideModal();
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
@@ -183,35 +184,37 @@ export class AddCenter extends Component {
     }
     return (
       <div className="container max-width-six-hundred">
-        <div className="card">
-          <div className="container">
-            <h3 className="center-heading">Add a Center</h3>
-          </div>
-          <CentersForm
-            nameClasses={nameClasses}
-            detailClasses={detailClasses}
-            addressClasses={addressClasses}
-            stateClasses={stateClasses}
-            capacityClasses={capacityClasses}
-            saveOrUpdate={this.addCenter}
-            handleChange={this.handleChange}
-            name={this.state.name}
-            chairs={this.state.chairs}
-            projector={this.state.projector}
-            capacity={this.state.capacity}
-            detail={this.state.detail}
-            address={this.state.address}
-            state={this.state.state}
-            image={this.state.image}
-          />
+        <div className="container">
+          <h3 className="center-heading">Add a Center</h3>
         </div>
+        <CentersForm
+          nameClasses={nameClasses}
+          detailClasses={detailClasses}
+          addressClasses={addressClasses}
+          stateClasses={stateClasses}
+          capacityClasses={capacityClasses}
+          saveOrUpdate={this.addCenter}
+          handleChange={this.handleChange}
+          name={this.state.name}
+          chairs={this.state.chairs}
+          projector={this.state.projector}
+          capacity={this.state.capacity}
+          detail={this.state.detail}
+          address={this.state.address}
+          state={this.state.state}
+          image={this.state.image}
+        />
       </div>
     );
   }
 }
 AddCenter.propTypes = {
   centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  hideModal: PropTypes.func
+};
+AddCenter.defaultProps = {
+  hideModal: () => {}
 };
 function mapStateToProps(state) {
   return {
