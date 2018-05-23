@@ -7,7 +7,6 @@ import validator from 'validator';
 import * as centerActions from '../../../actions/centerActions';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import CentersForm from '../presentational/CentersForm';
-import history from '../../../history';
 
 export class EditCenter extends Component {
   constructor(props) {
@@ -26,7 +25,7 @@ export class EditCenter extends Component {
     this.updateCenter = this.updateCenter.bind(this);
   }
   componentDidMount() {
-    this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
+    this.props.actions.fetchSingleCenter(this.props.centerId);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.center.id !== nextProps.center.id) {
@@ -156,11 +155,25 @@ export class EditCenter extends Component {
     });
     this.setState(state);
   }
+  clearFields() {
+    this.setState({
+      name: {
+        value: '', isValid: true, message: ''
+      }
+    });
+    this.setState({ capacity: { value: '', isValid: true, message: '' } });
+    this.setState({ address: { value: '', isValid: true, message: '' } });
+    this.setState({ state: { value: '', isValid: true, message: '' } });
+    this.setState({ detail: { value: '', isValid: true, message: '' } });
+    this.setState({ chairs: { value: '', isValid: true, message: '' } });
+    this.setState({ projector: { value: '', isValid: true, message: '' } });
+    this.setState({ image: { value: '', isValid: true, message: '' } });
+  }
   updateCenter(event) {
     event.preventDefault();
     this.resetValidationStates();
     const center = {
-      id: this.props.match.params.id,
+      id: this.props.centerId,
       name: this.state.name.value,
       capacity: this.state.capacity.value,
       address: this.state.address.value,
@@ -174,7 +187,8 @@ export class EditCenter extends Component {
       this.props.actions.updateCenter(center)
         .then((response) => {
           Materialize.toast(response.message, 4000, 'green');
-          history.push(`/centers/${response.center.id}`);
+          this.clearFields();
+          this.props.hideModal();
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
     }
@@ -187,29 +201,27 @@ export class EditCenter extends Component {
     const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
     return (
       <div className="container max-width-six-hundred">
-        <div className="card">
-          <div className="container">
-            <h3 className="center-heading">Edit a Center</h3>
-          </div>
-          <CentersForm
-            nameClasses={nameClasses}
-            detailClasses={detailClasses}
-            addressClasses={addressClasses}
-            stateClasses={stateClasses}
-            capacityClasses={capacityClasses}
-            saveOrUpdate={this.updateCenter}
-            handleChange={this.handleChange}
-            name={this.state.name}
-            chairs={this.state.chairs}
-            projector={this.state.projector}
-            capacity={this.state.capacity}
-            detail={this.state.detail}
-            address={this.state.address}
-            state={this.state.state}
-            image={this.state.image}
-            component="Edit"
-          />
+        <div className="container">
+          <h3 className="center-heading">Edit a Center</h3>
         </div>
+        <CentersForm
+          nameClasses={nameClasses}
+          detailClasses={detailClasses}
+          addressClasses={addressClasses}
+          stateClasses={stateClasses}
+          capacityClasses={capacityClasses}
+          saveOrUpdate={this.updateCenter}
+          handleChange={this.handleChange}
+          name={this.state.name}
+          chairs={this.state.chairs}
+          projector={this.state.projector}
+          capacity={this.state.capacity}
+          detail={this.state.detail}
+          address={this.state.address}
+          state={this.state.state}
+          image={this.state.image}
+          component="Edit"
+        />
       </div>
     );
   }
@@ -228,15 +240,16 @@ EditCenter.propTypes = {
     events: PropTypes.array
   }).isRequired,
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.node,
-    }).isRequired,
-  }).isRequired
+  hideModal: PropTypes.func,
+  centerId: PropTypes.number
+};
+EditCenter.defaultProps = {
+  hideModal: () => {},
+  centerId: 1
 };
 function mapStateToProps(state) {
   let center;
-  if (state.center && state.center.id === '') {
+  if (state.centers.center && state.centers.center.id === '') {
     center = {
       id: '',
       name: '',
@@ -250,7 +263,7 @@ function mapStateToProps(state) {
       events: []
     };
   } else {
-    ({ center } = state);
+    ({ centers: { center } } = state);
   }
   return {
     center
