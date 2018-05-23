@@ -7,7 +7,6 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
-import history from '../../history';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -93,7 +92,8 @@ export class Login extends React.Component {
       this.props.actions.loginUser(credentials)
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
-          history.push('/');
+          this.clearFields();
+          this.props.hideModal();
         })
         .catch(error => Materialize.toast(error, 4000, 'red'));
       // this.clearFields();
@@ -112,7 +112,7 @@ export class Login extends React.Component {
       <div className="container">
         <div className="row signup-form center-align valign-wrapper">
           <div className="col s12 m12">
-            <div className="card">
+            <div>
               <div className="card-content">
                 <span className="card-title"><h3 className="center-heading">Login</h3></span>
                 <form className="container">
@@ -170,7 +170,11 @@ export class Login extends React.Component {
 }
 Login.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  hideModal: PropTypes.func
+};
+Login.defaultProps = {
+  hideModal: () => {}
 };
 function mapStateToProps(state) {
   return {

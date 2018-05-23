@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Home from './Home';
 import Login from './common/Login';
 import Signup from './common/Signup';
@@ -46,9 +47,9 @@ const AdminRoute = ({ component: Component, ...rest }) => (
   )}
   />
 );
-const Main = () => (
+const Main = ({ showModal }) => (
   <Switch>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/" render={() => <Home showModal={showModal} />} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route exact path="/centers" component={Centers} />
@@ -63,4 +64,10 @@ const Main = () => (
     <AuthenticatedRoute exact path="/user" component={UserProfile} />
   </Switch>
 );
+Main.propTypes = {
+  showModal: PropTypes.func
+};
+Main.defaultProps = {
+  showModal: () => {}
+};
 export default Main;
