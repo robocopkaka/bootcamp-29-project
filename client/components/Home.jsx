@@ -15,18 +15,11 @@ import LoginButtons from './LoginButtons';
 export class Home extends React.Component {
   componentDidMount() {
     // $('.parallax').parallax();
-    const values = qs.parse(this.props.location.search);
-    let page;
-    if (values.page === undefined) {
-      page = 1;
-    } else {
-      page = parseInt(values.page, 10);
-    }
     if (this.props.centers.length === 0) {
-      this.props.actions.fetchCenters(page);
+      this.props.actions.fetchCenters(1);
     }
     if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents(page);
+      this.props.actions.fetchEvents(1);
     }
   }
   render() {
@@ -41,7 +34,7 @@ export class Home extends React.Component {
               <h3 id="home-text">Kachi&#39;s Event Manager</h3>
               <div className="home-button-group">
                 { !this.props.loggedIn ? (
-                  <LoginButtons />
+                  <LoginButtons showModal={this.props.showModal} />
                 ) : (
                   <HomeButtons />
                 )}
@@ -87,7 +80,11 @@ Home.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   eventsLoading: PropTypes.bool.isRequired,
   centersLoading: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  showModal: PropTypes.func
+};
+Home.defaultProps = {
+  showModal: () => {}
 };
 function mapStateToProps(state) {
   let centers = [];

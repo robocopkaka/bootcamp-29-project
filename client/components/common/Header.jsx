@@ -83,7 +83,7 @@ export class Header extends React.Component {
     return (
       <React.Fragment>
         <ul id="signup-dropdown" className="dropdown-content">
-          <li><Link to="/login">Login</Link></li>
+          <li><a onClick={this.props.showModal}>Login</a></li>
           <li><Link to="/signup">Signup</Link></li>
         </ul>
         <nav className="navbar-purple">
@@ -123,7 +123,7 @@ export class Header extends React.Component {
                     </a>
                     <div className="collapsible-body">
                       <ul>
-                        <li><Link to="/login">Login</Link></li>
+                        <li><a onClick={this.props.showModal}>Login</a></li>
                         <li><Link to="/signup">Signup</Link></li>
                       </ul>
                     </div>
