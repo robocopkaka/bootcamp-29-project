@@ -142,12 +142,13 @@ export class Header extends React.Component {
   }
 }
 Header.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
   isAdmin: PropTypes.bool,
   loggedIn: PropTypes.bool.isRequired
 };
 Header.defaultProps = {
   isAdmin: false,
+  actions: {}
 };
 function mapStateToProps(state) {
   return {

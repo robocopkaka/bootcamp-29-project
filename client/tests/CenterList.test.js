@@ -31,6 +31,6 @@ describe('<Centers />', () => {
     expect(wrapper.find('.card').length).toBe(1);
   });
   it('should have three divs inside the .card div', () => {
-    expect(wrapper.find('.card').children().length).toBe(3);
+    expect(wrapper.find('.card').children().length).toBe(2);
   });
 });

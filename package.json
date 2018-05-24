@@ -117,6 +117,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "react-addons-test-utils": "^15.6.2",
     "redux-devtools-extension": "^2.13.2",
+    "redux-mock-store": "^1.5.1",
     "redux-test-utils": "^0.2.2",
     "sequelize-mock": "^0.10.1",
     "sinon": "^4.1.5",

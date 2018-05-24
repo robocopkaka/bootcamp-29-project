@@ -169,12 +169,13 @@ export class Login extends React.Component {
   }
 }
 Login.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
   isLoading: PropTypes.bool.isRequired,
   hideModal: PropTypes.func
 };
 Login.defaultProps = {
-  hideModal: () => {}
+  hideModal: () => {},
+  actions: {}
 };
 function mapStateToProps(state) {
   return {

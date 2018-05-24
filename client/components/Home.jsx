@@ -80,16 +80,20 @@ export class Home extends React.Component {
 Home.propTypes = {
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  eventsLoading: PropTypes.bool.isRequired,
-  centersLoading: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
+  eventsLoading: PropTypes.bool,
+  centersLoading: PropTypes.bool,
+  loggedIn: PropTypes.bool,
   showModal: PropTypes.func,
   toggleSignup: PropTypes.func
 };
 Home.defaultProps = {
   showModal: () => {},
-  toggleSignup: () => {}
+  toggleSignup: () => {},
+  centersLoading: false,
+  eventsLoading: false,
+  loggedIn: false,
+  actions: {}
 };
 function mapStateToProps(state) {
   let centers = [];
