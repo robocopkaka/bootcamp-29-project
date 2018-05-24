@@ -47,9 +47,9 @@ const AdminRoute = ({ component: Component, ...rest }) => (
   )}
   />
 );
-const Main = ({ showModal }) => (
+const Main = ({ showModal, toggleSignup }) => (
   <Switch>
-    <Route exact path="/" render={() => <Home showModal={showModal} />} />
+    <Route exact path="/" render={() => <Home showModal={showModal} toggleSignup={toggleSignup} />} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route exact path="/centers" component={Centers} />
@@ -65,9 +65,11 @@ const Main = ({ showModal }) => (
   </Switch>
 );
 Main.propTypes = {
-  showModal: PropTypes.func
+  showModal: PropTypes.func,
+  toggleSignup: PropTypes.func
 };
 Main.defaultProps = {
-  showModal: () => {}
+  showModal: () => {},
+  toggleSignup: () => {}
 };
 export default Main;

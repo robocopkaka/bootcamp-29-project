@@ -154,7 +154,8 @@ export class Signup extends React.Component {
       this.props.actions.registerUser(credentials)
         .then((response) => {
           Materialize.toast(response, 4000, 'green');
-          history.push('/');
+          this.clearFields();
+          this.props.hideModal();
         })
         .catch((error) => {
           Materialize.toast(error, 4000, 'red');
@@ -183,7 +184,7 @@ export class Signup extends React.Component {
       <div className="container">
         <div className="row signup-form">
           <div className="col s12 m12">
-            <div className="card">
+            <div>
               <div className="card-content">
                 <span className="card-title"><h3 className="center-heading">Sign Up</h3></span>
                 <form className="container">
@@ -293,7 +294,11 @@ export class Signup extends React.Component {
 }
 Signup.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  hideModal: PropTypes.func
+};
+Signup.defaultProps = {
+  hideModal: () => {}
 };
 function mapStateToProps(state) {
   return {
