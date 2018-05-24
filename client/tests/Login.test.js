@@ -29,16 +29,6 @@ describe('<Login />', () => {
   it('should have a button', () => {
     expect(wrapper.find('button').length).toBe(1);
   });
-  // it('should have a method that handles changes in the password field', () => {
-  //   expect(wrapper.instance().handlePasswordChange({
-  //     // target: { value: 's' }
-  //   })).toBeDefined();
-  // });
-  // it('should have a method that handles changes in the email field', () => {
-  //   expect(wrapper.instance().handleEmailChange({
-  //     // target: { value: 's' }
-  //   })).toBeDefined();
-  // });
   it('should have a method that logins a user', () => {
     expect(wrapper.instance().login).toBeDefined();
   });
