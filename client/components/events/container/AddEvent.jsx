@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DateTimePicker from 'material-ui-datetimepicker';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
@@ -24,13 +24,11 @@ export class AddEvent extends Component {
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' },
       center: { value: 1, isValid: true, message: '' },
-      category: { value: '', isValid: true, message: '' },
+      category: { value: 1, isValid: true, message: '' },
       centers: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
     this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
@@ -98,19 +96,9 @@ export class AddEvent extends Component {
       date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
     });
   }
-  handleSelectCenterChange(event, target, value) {
-    this.setState({
-      center: Object.assign({}, this.state.center, { value })
-    });
-  }
   handleSelectCategoryChange(e, target, value) {
     this.setState({
       category: Object.assign({}, this.state.category, { value })
-    });
-  }
-  handleTimeChange(e) {
-    this.setState({
-      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
     });
   }
   formIsValid() {
@@ -145,21 +133,7 @@ export class AddEvent extends Component {
       this.setState({ date: state.date });
       fieldCheck = false;
     }
-    if (validator.isEmpty(state.time.value)) {
-      state.time.isValid = false;
-      state.time.message = 'Time must not be empty';
-
-      this.setState({ time: state.time });
-      fieldCheck = false;
-    }
-    if (validator.isEmpty((state.center.value).toString())) {
-      state.center.isValid = false;
-      state.center.message = 'Select a center';
-
-      this.setState({ center: state.center });
-      fieldCheck = false;
-    }
-    if (validator.isEmpty(state.category.value)) {
+    if (validator.isEmpty((state.category.value).toString())) {
       state.category.isValid = false;
       state.category.message = 'Select a category';
 
@@ -197,15 +171,16 @@ export class AddEvent extends Component {
   addEvent(e) {
     e.preventDefault();
     this.resetValidationStates();
-    const datetime = `${this.state.date.value} ${this.state.time.value}`;
+    // const datetime = `${this.state.date.value} ${this.state.time.value}`;
     const eventObject = {
       name: this.state.name.value,
       detail: this.state.detail.value,
       guests: this.state.guests.value,
-      date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
+      date: new Date(this.state.date.value),
       centerId: this.props.centerId,
       categoryId: this.state.category.value
     };
+    console.log(eventObject)
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject)
         .then((response) => {
