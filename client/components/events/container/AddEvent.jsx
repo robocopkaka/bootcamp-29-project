@@ -7,6 +7,9 @@ import validator from 'validator';
 import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import DateTimePicker from 'material-ui-datetimepicker';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
@@ -35,36 +38,36 @@ export class AddEvent extends Component {
     // if (this.props.centers.length === 0) {
     //   this.props.actions.fetchCenters();
     // }
-    $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: true, // Close upon selecting a date,
-      onSet: this.handleDateChange,
-      container: 'body'
-    });
-    const time = $('#event-time');
+    // $('.datepicker').pickadate({
+    //   selectMonths: true, // Creates a dropdown to control month
+    //   selectYears: 15, // Creates a dropdown of 15 years to control year,
+    //   today: 'Today',
+    //   clear: 'Clear',
+    //   close: 'Ok',
+    //   closeOnSelect: true, // Close upon selecting a date,
+    //   onSet: this.handleDateChange,
+    //   container: 'body'
+    // });
+    // const time = $('#event-time');
     // const value = $('#event-time').attr('value');
-    $('.timepicker').pickatime({
-      default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-      fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-      twelvehour: false, // Use AM/PM or 24-hour format
-      donetext: 'OK', // text for done-button
-      cleartext: 'Clear', // text for clear-button
-      canceltext: 'Cancel', // Text for cancel-button
-      autoclose: false, // automatic close timepicker
-      ampmclickable: true, // make AM PM clickable
-      aftershow: () => {},
-      container: 'body'
-    });
-    $('.timepicker').on('change', () => {
-      this.handleTimeChange(time.val());
-    });
-    $('select').material_select();
+    // $('.timepicker').pickatime({
+    //   default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+    //   fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
+    //   twelvehour: false, // Use AM/PM or 24-hour format
+    //   donetext: 'OK', // text for done-button
+    //   cleartext: 'Clear', // text for clear-button
+    //   canceltext: 'Cancel', // Text for cancel-button
+    //   autoclose: false, // automatic close timepicker
+    //   ampmclickable: true, // make AM PM clickable
+    //   aftershow: () => {},
+    //   container: 'body'
+    // });
+    // $('.timepicker').on('change', () => {
+    //   this.handleTimeChange(time.val());
+    // });
+    // $('select').material_select();
     // const center = $('#event-center');
-    const category = $('#event-category');
+    // const category = $('#event-category');
     // $('#event-center').on('change', () => {
     //   this.handleSelectCenterChange(center.val());
     // });
@@ -92,7 +95,7 @@ export class AddEvent extends Component {
   }
   handleDateChange(e) {
     this.setState({
-      date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
+      date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
     });
   }
   handleSelectCenterChange(event, target, value) {
@@ -100,9 +103,9 @@ export class AddEvent extends Component {
       center: Object.assign({}, this.state.center, { value })
     });
   }
-  handleSelectCategoryChange(e) {
+  handleSelectCategoryChange(e, target, value) {
     this.setState({
-      category: Object.assign({}, this.state.category, { value: e })
+      category: Object.assign({}, this.state.category, { value })
     });
   }
   handleTimeChange(e) {
@@ -247,11 +250,15 @@ export class AddEvent extends Component {
             saveOrUpdate={this.addEvent}
             handleChange={this.handleChange}
             handleTimeChange={this.handleTimeChange}
+            handleDateChange={this.handleDateChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
             handleSelectCategoryChange={this.handleSelectCategoryChange}
             centers={centers}
             SelectField={SelectField}
             MenuItem={MenuItem}
+            DateTimePicker={DateTimePicker}
+            DatePickerDialog={DatePickerDialog}
+            TimePickerDialog={TimePickerDialog}
           />
         </div>
       </div>

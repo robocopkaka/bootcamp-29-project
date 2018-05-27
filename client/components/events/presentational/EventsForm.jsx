@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const EventsForm = ({
-  name, date, detail, guests, time, center, nameClasses, dateClasses,
-  detailClasses, guestsClasses, timeClasses, category,
+  name, date, detail, guests, nameClasses, dateClasses,
+  detailClasses, guestsClasses, category,
   categoryClasses, saveOrUpdate, handleChange, component,
-  handleTimeChange, handleSelectCenterChange, handleSelectCategoryChange,
-  SelectField, MenuItem
+  handleSelectCategoryChange, SelectField, MenuItem, DateTimePicker,
+  DatePickerDialog, TimePickerDialog, handleDateChange
 }) => (
   <form>
     <div className="row">
@@ -62,50 +62,32 @@ const EventsForm = ({
         <span className={guestsClasses}>{guests.message}</span>
       </div>
       <div className="input-field col s6">
-        <select
-          name="category"
-          value={category.value}
-          onChange={handleSelectCategoryChange}
-          id="event-category"
-        >
-          <option value="1">General</option>
-        </select>
-        <label htmlFor="event-category">Category</label>
-        <span className={categoryClasses}>{category.message}</span>
+        <DateTimePicker
+          DatePicker={DatePickerDialog}
+          TimePicker={TimePickerDialog}
+          value={date.value}
+          onChange={handleDateChange}
+        />
+        { component !== 'Edit' ? (
+          <label htmlFor="event-date" className="active">Date</label>
+        ) : (
+          <label htmlFor="event-date" className="active">Date</label>
+        )}
+        <span className={dateClasses}>{date.message}</span>
       </div>
     </div>
     <div className="row">
       <div className="input-field col s12">
-        <div className="input-field col s6">
-          <input
-            name="date"
-            value={date.value}
-            type="text"
-            className="datepicker"
-            id="event-date"
-          />
-          { component !== 'Edit' ? (
-            <label htmlFor="event-date">Date</label>
-          ) : (
-            <label htmlFor="event-date" className="active">Date</label>
-          )}
-          <span className={dateClasses}>{date.message}</span>
-        </div>
-        <div className="input-field col s6">
-          <input
-            id="event-time"
-            name="time"
-            value={time.value}
-            className="timepicker"
-            type="text"
-            onChange={handleTimeChange}
-          />
-          { component !== 'Edit' ? (
-            <label htmlFor="event-time">Time</label>
-          ) : (
-            <label htmlFor="event-time" className="active">Time</label>
-          )}
-          <span className={timeClasses}>{time.message}</span>
+        <div className="input-field col s12">
+          <SelectField
+            floatingLabelText="Category"
+            value={category.value}
+            onChange={handleSelectCategoryChange}
+            id="event-category"
+          >
+            <MenuItem value={1} primaryText="General" />
+          </SelectField>
+          <span className={categoryClasses}>{category.message}</span>
         </div>
       </div>
     </div>
@@ -148,20 +130,18 @@ EventsForm.propTypes = {
     isValid: PropTypes.bool
   }).isRequired,
   category: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.number,
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,
   nameClasses: PropTypes.string.isRequired,
   detailClasses: PropTypes.string.isRequired,
   dateClasses: PropTypes.string.isRequired,
-  timeClasses: PropTypes.string.isRequired,
   guestsClasses: PropTypes.string.isRequired,
   categoryClasses: PropTypes.string.isRequired,
   component: PropTypes.string,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleTimeChange: PropTypes.func.isRequired,
   handleSelectCenterChange: PropTypes.func.isRequired,
   handleSelectCategoryChange: PropTypes.func.isRequired,
   SelectField: PropTypes.func.isRequired

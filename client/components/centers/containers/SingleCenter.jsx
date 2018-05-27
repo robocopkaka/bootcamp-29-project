@@ -31,7 +31,6 @@ export class SingleCenter extends Component {
     this.toggleEdit = this.toggleEdit.bind(this);
   }
   componentDidMount() {
-    $('.modal').modal();
     this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
     this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
   }

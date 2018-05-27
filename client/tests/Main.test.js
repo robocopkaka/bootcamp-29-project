@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import jQuery from 'jquery';
 import { Provider } from 'react-redux';
 import Adapter from 'enzyme-adapter-react-16';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Main from '../components/Main';
 import { Home } from '../components/Home';
 import { Centers } from '../components/centers/containers/Centers';
@@ -14,6 +15,8 @@ import { SingleCenter } from '../components/centers/containers/SingleCenter';
 import events from './fixtures/events';
 
 configure({ adapter: new Adapter() });
+
+jest.dontMock('jquery');
 
 describe('<Main />', () => {
   let wrapper, store;
@@ -42,7 +45,6 @@ describe('<Main />', () => {
   const mockStore = configureStore(middlewares, browserHistory);
   let div;
   beforeEach(() => {
-    window.$ = jQuery;
     store = mockStore(initialState);
   });
   it('should display the home component when the user navigates to /', () => {
@@ -73,7 +75,9 @@ describe('<Main />', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/centers/1']} initialIndex={0}>
         <Provider store={store}>
-          <Main />
+          <MuiThemeProvider>
+            <Main />
+          </MuiThemeProvider>
         </Provider>
       </MemoryRouter>, { attachTo: div });
     expect(wrapper.find(SingleCenter)).to.have.length(1);
