@@ -1,48 +1,38 @@
-// import React from 'react';
-// import { shallow, configure, mount } from 'enzyme';
-// import { expect } from 'chai';
-// import Adapter from 'enzyme-adapter-react-16';
-// import SelectField from 'material-ui/SelectField';
-// import MenuItem from 'material-ui/MenuItem';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import PropTypes from 'prop-types';
-// import { AddEvent } from '../../components/events/container/AddEvent';
-// import EventsForm from '../../components/events/presentational/EventsForm';
-//
-// configure({ adapter: new Adapter() });
-//
-// describe('<AddEvent />', () => {
-//   let wrapper;
-//   const centers = [];
-//   const actions = {
-//     fetchCenters: () => {}
-//   };
-//   const muiTheme = getMuiTheme();
-//   beforeEach(() => {
-//     wrapper = mount(<AddEvent
-//       centers={centers}
-//       actions={actions}
-//       SelectField={SelectField}
-//       MenuItem={MenuItem}
-//     />, {
-//       context: { muiTheme },
-//       childContextTypes: { muiTheme: PropTypes.object }
-//     });
-//   });
-//   // it('should have two divs with a .container class', () => {
-//   //   expect(wrapper.find('.container').length).to.equal(2);
-//   // });
-//   // it('should have a div with a .card class', () => {
-//   //   expect(wrapper.find('.card').length).to.equal(1);
-//   // });
-//   // it('should have a button', () => {
-//   //   expect(wrapper.find('button').length).to.equal(1);
-//   // });
-//   // it('should have a form', () => {
-//   //   expect(wrapper.find('form').length).to.equal(1);
-//   // });
-//   it('should render the events form', () => {
-//     console.log('wrapper');
-//     expect(wrapper.find(EventsForm)).to.equal(1);
-//   });
-// });
+import React from 'react';
+import { shallow, configure } from 'enzyme';
+import { expect } from 'chai';
+import Adapter from 'enzyme-adapter-react-16';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import configureStore from 'redux-mock-store';
+import ConnectedAddEvent, { AddEvent } from '../../components/events/container/AddEvent';
+
+configure({ adapter: new Adapter() });
+
+describe('<AddEvent />', () => {
+  let wrapper;
+  const actions = {
+    fetchCenters: () => {}
+  };
+  let store, container;
+  const mockStore = configureStore();
+  const initialState = {};
+  beforeEach(() => {
+    wrapper = shallow(<AddEvent
+      actions={actions}
+      SelectField={SelectField}
+      MenuItem={MenuItem}
+    />);
+    store = mockStore(initialState);
+    container = shallow(<ConnectedAddEvent store={store} />);
+  });
+  it('should have two divs with a .max-width-six-hundred class', () => {
+    expect(wrapper.find('.max-width-six-hundred').length).to.equal(1);
+  });
+  it('should have a h3 element with text matching - Add an Event', () => {
+    expect(wrapper.find('h3').text()).to.equal('Add an Event');
+  });
+  it('should render the connected component', () => {
+    expect(container.length).to.equal(1);
+  });
+});

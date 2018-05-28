@@ -76,12 +76,12 @@ export class AddEvent extends Component {
       $(this).material_select();
     });
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    if (nextProps.centers && nextProps.centers.length > 0) {
-      this.setState({ centers: nextProps.centers });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log(nextProps);
+  //   if (nextProps.centers && nextProps.centers.length > 0) {
+  //     this.setState({ centers: nextProps.centers });
+  //   }
+  // }
   handleChange(event) {
     const { state } = this;
     const { name, value } = event.target;
@@ -192,7 +192,6 @@ export class AddEvent extends Component {
     }
   }
   render() {
-    const { centers = [] } = this.props;
     const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
     const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
     const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
@@ -228,7 +227,6 @@ export class AddEvent extends Component {
             handleDateChange={this.handleDateChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
             handleSelectCategoryChange={this.handleSelectCategoryChange}
-            centers={centers}
             SelectField={SelectField}
             MenuItem={MenuItem}
             DateTimePicker={DateTimePicker}
@@ -242,7 +240,6 @@ export class AddEvent extends Component {
 }
 AddEvent.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   centerId: PropTypes.number,
   hideModal: PropTypes.func,
 };
@@ -250,18 +247,18 @@ AddEvent.defaultProps = {
   centerId: 1,
   hideModal: () => {},
 };
-function mapStateToProps(state) {
-  let centers = [];
-  if (state.centers.centers && state.centers.centers.length > 0) {
-    ({ centers: { centers } } = state);
-  }
-  return {
-    centers
-  };
-}
+// function mapStateToProps(state) {
+//   let centers = [];
+//   if (state.centers.centers && state.centers.centers.length > 0) {
+//     ({ centers: { centers } } = state);
+//   }
+//   return {
+//     centers
+//   };
+// }
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(Object.assign({}, eventActions, centerActions), dispatch)
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);
+export default connect(null, mapDispatchToProps)(AddEvent);

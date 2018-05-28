@@ -142,7 +142,6 @@ EventsForm.propTypes = {
   component: PropTypes.string,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleSelectCenterChange: PropTypes.func.isRequired,
   handleSelectCategoryChange: PropTypes.func.isRequired,
   SelectField: PropTypes.func.isRequired
 };

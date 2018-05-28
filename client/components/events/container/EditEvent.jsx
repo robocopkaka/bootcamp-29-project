@@ -7,10 +7,12 @@ import validator from 'validator';
 import moment from 'moment';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import DateTimePicker from 'material-ui-datetimepicker';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
-import history from '../../../history';
 
 export class EditEvent extends Component {
   constructor(props) {
@@ -22,43 +24,41 @@ export class EditEvent extends Component {
       date: { value: '', isValid: true, message: '' },
       time: { value: '', isValid: true, message: '' },
       center: { value: 1, isValid: true, message: '' },
-      category: { value: '', isValid: true, message: '' },
+      category: { value: 1, isValid: true, message: '' },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSelectCenterChange = this.handleSelectCenterChange.bind(this);
     this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.updateEvent = this.updateEvent.bind(this);
   }
   componentDidMount() {
     this.props.actions.fetchSingleEvent(parseInt(this.props.eventId, 10));
-    $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: true, // Close upon selecting a date,
-      onSet: this.handleDateChange
-    });
-    const time = $('#event-time');
+    // $('.datepicker').pickadate({
+    //   selectMonths: true, // Creates a dropdown to control month
+    //   selectYears: 15, // Creates a dropdown of 15 years to control year,
+    //   today: 'Today',
+    //   clear: 'Clear',
+    //   close: 'Ok',
+    //   closeOnSelect: true, // Close upon selecting a date,
+    //   onSet: this.handleDateChange
+    // });
+    // const time = $('#event-time');
     // const value = $('#event-time').attr('value');
-    $('.timepicker').pickatime({
-      default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-      fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-      twelvehour: false, // Use AM/PM or 24-hour format
-      donetext: 'OK', // text for done-button
-      cleartext: 'Clear', // text for clear-button
-      canceltext: 'Cancel', // Text for cancel-button
-      autoclose: false, // automatic close timepicker
-      ampmclickable: true, // make AM PM clickable
-      aftershow: () => {},
-    });
-    $('.timepicker').on('change', () => {
-      this.handleTimeChange(time.val());
-    });
-    $('select').material_select();
+    // $('.timepicker').pickatime({
+    //   default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+    //   fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
+    //   twelvehour: false, // Use AM/PM or 24-hour format
+    //   donetext: 'OK', // text for done-button
+    //   cleartext: 'Clear', // text for clear-button
+    //   canceltext: 'Cancel', // Text for cancel-button
+    //   autoclose: false, // automatic close timepicker
+    //   ampmclickable: true, // make AM PM clickable
+    //   aftershow: () => {},
+    // });
+    // $('.timepicker').on('change', () => {
+    //   this.handleTimeChange(time.val());
+    // });
+    // $('select').material_select();
     // const center = $('#event-center');
     const category = $('#event-category');
     // $('#event-center').on('change', () => {
@@ -105,16 +105,6 @@ export class EditEvent extends Component {
       date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
     });
   }
-  handleTimeChange(e) {
-    this.setState({
-      time: Object.assign({}, this.state.time, { value: moment(e, 'HH:mm a').format('HH:mm:ss') })
-    });
-  }
-  handleSelectCenterChange(event, target, value) {
-    this.setState({
-      center: Object.assign({}, this.state.center, { value })
-    });
-  }
   handleSelectCategoryChange(e) {
     this.setState({
       category: Object.assign({}, this.state.category, { value: e })
@@ -152,21 +142,7 @@ export class EditEvent extends Component {
       this.setState({ date: state.date });
       fieldCheck = false;
     }
-    if (validator.isEmpty(state.time.value)) {
-      state.time.isValid = false;
-      state.time.message = 'Time must not be empty';
-
-      this.setState({ time: state.time });
-      fieldCheck = false;
-    }
-    if (validator.isEmpty(state.center.value)) {
-      state.center.isValid = false;
-      state.center.message = 'Select a center';
-
-      this.setState({ center: state.center });
-      fieldCheck = false;
-    }
-    if (validator.isEmpty(state.category.value)) {
+    if (validator.isEmpty((state.category.value).toString())) {
       state.category.isValid = false;
       state.category.message = 'Select a category';
 
@@ -248,6 +224,9 @@ export class EditEvent extends Component {
             component="Edit"
             SelectField={SelectField}
             MenuItem={MenuItem}
+            DateTimePicker={DateTimePicker}
+            DatePickerDialog={DatePickerDialog}
+            TimePickerDialog={TimePickerDialog}
           />
         </div>
       </div>

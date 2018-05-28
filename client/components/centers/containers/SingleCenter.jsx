@@ -160,7 +160,7 @@ SingleCenter.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.node,
     }).isRequired,
-  }).isRequired,
+  }),
   events: PropTypes.arrayOf(PropTypes.object),
   pages: PropTypes.number,
   isAdmin: PropTypes.bool
@@ -179,7 +179,10 @@ SingleCenter.defaultProps = {
     projector: '',
     image: '',
   },
-  isAdmin: false
+  isAdmin: false,
+  match: {
+    params: {}
+  }
 };
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;

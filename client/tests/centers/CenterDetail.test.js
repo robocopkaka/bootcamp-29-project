@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
+import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import CenterDetail from '../../components/centers/presentational/CenterDetail';
 
@@ -31,10 +32,13 @@ describe('<CenterDetail />', () => {
   // it('should have a div with a .valign-wrapper class', () => {
   //   expect(wrapper.find('.valign-wrapper').length).to.equal(1);
   // });
-  it('should have a div with a .card class', () => {
-    expect(wrapper.find('.card').length).toBe(1);
+  it('should have a div with a .center-detail-container class', () => {
+    expect(wrapper.find('.center-detail-container').length).to.equal(1);
   });
-  it('should have 3 divs inside the div with a .card class', () => {
-    expect(wrapper.find('.card').children().length).toBe(3);
+  it('should have an image tag', () => {
+    expect(wrapper.find('img').length).to.equal(1);
+  });
+  it('should have eight tags', () => {
+    expect(wrapper.find('p').length).to.equal(8);
   });
 });

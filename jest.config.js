@@ -4,5 +4,9 @@ module.exports = {
         "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     },
-    "setupFiles": ["./source/setupTest.js"]
+    "setupFiles": ["./source/setupTest.js"],
+    "collectCoverageFrom": [
+      "client/**/*.{js,jsx}",
+    ],
+    "testMatch": [ "**/client/tests/**/*.test.js?(x)", "**/?(*.)+(spec|test).js?(x)" ]
 }

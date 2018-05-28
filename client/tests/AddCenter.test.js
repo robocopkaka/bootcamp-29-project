@@ -1,18 +1,24 @@
 import React from 'react';
-import { shallow, configure, mount } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { AddCenter } from '../components/centers/containers/AddCenter';
 import CentersForm from '../components/centers/presentational/CentersForm';
+import Preloader from '../components/common/Preloader';
 
 configure({ adapter: new Adapter() });
 
 describe('<AddCenter />', () => {
-  let wrapper;
+  let wrapper, loadingWrapper;
   const isLoading = false;
+  const loading = true;
   const centerActions = {};
   beforeEach(() => {
     wrapper = shallow(<AddCenter
       isLoading={isLoading}
+      centerActions={centerActions}
+    />);
+    loadingWrapper = shallow(<AddCenter
+      isLoading={loading}
       centerActions={centerActions}
     />);
   });
@@ -40,4 +46,7 @@ describe('<AddCenter />', () => {
   it('should have a method that uploads a file to S3', () => {
     expect(wrapper.instance().uploadFile).toBeDefined();
   });
+  it('should have a circular loader if isLoading is true', () => {
+    expect(loadingWrapper.find(Preloader).length).toBe(1);
+  })
 });
