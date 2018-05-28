@@ -40,7 +40,13 @@ describe('<SingleEvent />', () => {
     />);
   });
   it('should have a div with a .show-center-top class', () => {
-    expect(wrapper.find('.show-center-top').length).toBe(1);
+    expect(wrapper.find('.show-center-top').length).to.equal(1);
+  });
+  it('should render the connected component', () => {
+    expect(container.length).to.equal(1);
+  });
+  it('should have the same props in the container as in state', () => {
+    expect(container.prop('event')).to.equal(initialState.events.event);
   });
   it('should render the connected component', () => {
     expect(container.length).to.equal(1);
