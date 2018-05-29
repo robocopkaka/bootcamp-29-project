@@ -9,14 +9,21 @@ import * as styles from '../../css/events.module.css';
 configure({ adapter: new Adapter() });
 
 describe('<EventsListWithImage />', () => {
-  let wrapper;
-  const isAdmin = false;
+  let wrapper, notAdminWrapper;
+  const isAdmin = true;
+  const notAdmin = false;
   const isLoading = false;
   const deleteEvent = () => {};
   beforeEach(() => {
     wrapper = shallow(<EventsListWithImage
       events={events}
       isAdmin={isAdmin}
+      isLoading={isLoading}
+      deleteEvent={deleteEvent}
+    />);
+    notAdminWrapper = shallow(<EventsListWithImage
+      events={events}
+      isAdmin={notAdmin}
       isLoading={isLoading}
       deleteEvent={deleteEvent}
     />);
@@ -32,5 +39,27 @@ describe('<EventsListWithImage />', () => {
   });
   it('should have three cards with a .card-action class', () => {
     expect(wrapper.find('.card-action').length).to.equal(3);
+  });
+  it('should not find any occurence of a .card-action class if the user is not an admin', () => {
+    expect(notAdminWrapper.find('.card-action').length).to.equal(0);
+  });
+  // fix later
+  it('should have the names of the events match the names of the events passed in as props', () => {
+    let position = 0;
+    wrapper.find(`${styles['event-name']}`).forEach((event) => {
+      expect(event.text()).to.equal(events[position].name);
+      position += 1;
+    });
+  });
+  it('should not find any occurence of a .card-action class if the user is not an admin', () => {
+    expect(notAdminWrapper.find('.card-action').length).to.equal(0);
+  });
+  // fix later
+  it('should have the names of the events match the names of the events passed in as props', () => {
+    let position = 0;
+    wrapper.find(`${styles['event-name']}`).forEach((event) => {
+      expect(event.text()).to.equal(events[position].name);
+      position += 1;
+    });
   });
 });

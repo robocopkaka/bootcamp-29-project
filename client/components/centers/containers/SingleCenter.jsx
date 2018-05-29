@@ -31,7 +31,6 @@ export class SingleCenter extends Component {
     this.toggleEdit = this.toggleEdit.bind(this);
   }
   componentDidMount() {
-    $('.modal').modal();
     this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
     this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
   }
@@ -161,7 +160,7 @@ SingleCenter.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.node,
     }).isRequired,
-  }).isRequired,
+  }),
   events: PropTypes.arrayOf(PropTypes.object),
   pages: PropTypes.number,
   isAdmin: PropTypes.bool
@@ -180,7 +179,10 @@ SingleCenter.defaultProps = {
     projector: '',
     image: '',
   },
-  isAdmin: false
+  isAdmin: false,
+  match: {
+    params: {}
+  }
 };
 function mapStateToProps(state) {
   // const centerId = ownProps.params.id;

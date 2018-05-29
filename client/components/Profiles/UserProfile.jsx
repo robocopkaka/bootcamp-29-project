@@ -8,17 +8,17 @@ import EventsListWithImage from '../events/presentational/EventsListWithImage';
 import Preloader from '../common/Preloader';
 import * as eventActions from '../../actions/eventActions';
 
-class UserProfile extends Component {
+export class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAdmin: false
+      isAdmin: false,
     };
   }
   componentDidMount() {
-    $('ul.tabs').tabs();
+    // $('ul.tabs').tabs();
     if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents();
+      this.props.actions.fetchEvents(1);
     }
   }
   render() {
@@ -58,13 +58,15 @@ class UserProfile extends Component {
 }
 UserProfile.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.number,
   loggedIn: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 UserProfile.defaultProps = {
-  isLoading: false
+  isLoading: false,
+  userId: 1,
+  actions: {}
 };
 function mapStateToProps(state) {
   let events = [];

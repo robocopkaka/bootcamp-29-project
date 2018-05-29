@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import CentersForm from '../../components/centers/presentational/CentersForm';
 
@@ -45,24 +44,24 @@ describe('<CentersForm />', () => {
     />);
   });
   it('should have a form element', () => {
-    expect(wrapper.find('form').length).to.equal(1);
+    expect(wrapper.find('form').length).toBe(1);
   });
   it('should have seven divs with .row classes in the form element', () => {
-    expect(wrapper.find('form').children().length).to.equal(7);
+    expect(wrapper.find('form').children().length).toBe(7);
   });
   it('should have an input element with a #center-name ID', () => {
-    expect(wrapper.find('#center-name').length).to.equal(1);
+    expect(wrapper.find('#center-name').length).toBe(1);
   });
   it('should have an input element with a #center-address ID', () => {
-    expect(wrapper.find('#center-address').length).to.equal(1);
+    expect(wrapper.find('#center-address').length).toBe(1);
   });
   it('should have an input element with a #center-state ID', () => {
-    expect(wrapper.find('#center-state').length).to.equal(1);
+    expect(wrapper.find('#center-state').length).toBe(1);
   });
   it('should have an input element with a .file-path-wrapper class', () => {
-    expect(wrapper.find('.file-path-wrapper').length).to.equal(1);
+    expect(wrapper.find('.file-path-wrapper').length).toBe(1);
   });
   it('should have an button', () => {
-    expect(wrapper.find('button').length).to.equal(1);
+    expect(wrapper.find('button').length).toBe(1);
   });
 });

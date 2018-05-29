@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import { EditCenter } from '../../components/centers/containers/EditCenter';
 
@@ -25,21 +24,21 @@ describe('<EditCenter />', () => {
     />);
   });
   it('should have a method that handles change to each input element', () => {
-    expect(wrapper.instance().handleChange).to.be.defined;
+    expect(wrapper.instance().handleChange).toBeDefined();
   });
   it('should have a method that checks if the fields in the form are valid', () => {
-    expect(wrapper.instance().formIsValid).to.be.defined;
+    expect(wrapper.instance().formIsValid).toBeDefined();
   });
   it('should have a method that resets validation states', () => {
-    expect(wrapper.instance().resetValidationStates).to.be.defined;
+    expect(wrapper.instance().resetValidationStates).toBeDefined();
   });
   it('should have a method that gets a signed request from S3', () => {
-    expect(wrapper.instance().getSignedRequest).to.be.defined;
+    expect(wrapper.instance().getSignedRequest).toBeDefined();
   });
   it('should have a method that uploads a file to S3', () => {
-    expect(wrapper.instance().uploadFile).to.be.defined;
+    expect(wrapper.instance().uploadFile).toBeDefined();
   });
   it('should have a method for updating a center', () => {
-    expect(wrapper.instance().updateCenter).to.be.defined;
+    expect(wrapper.instance().updateCenter).toBeDefined();
   });
 });

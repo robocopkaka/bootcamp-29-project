@@ -18,13 +18,13 @@ export class AdminProfile extends Component {
     this.deleteEvent = this.deleteEvent.bind(this);
   }
   componentDidMount() {
-    $('ul.tabs').tabs();
+    // $('ul.tabs').tabs();
     this.props.actions.setComponentName('AdminProfile');
     if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents();
+      this.props.actions.fetchEvents(1);
     }
     if (this.props.centers.length === 0) {
-      this.props.actions.fetchCenters();
+      this.props.actions.fetchCenters(1);
     }
   }
   deleteEvent(id) {
@@ -89,12 +89,15 @@ export class AdminProfile extends Component {
   }
 }
 AdminProfile.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func),
   centers: PropTypes.arrayOf(PropTypes.object).isRequired,
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   eventsLoading: PropTypes.bool.isRequired,
   centersLoading: PropTypes.bool.isRequired
+};
+AdminProfile.defaultProps = {
+  actions: {}
 };
 function mapStateToProps(state) {
   let centers = [];
