@@ -42,7 +42,7 @@ export function fetchSingleEventSuccess(event) {
 
 export function fetchSingleEvent(eventId) {
   return (dispatch) => {
-    EventApi.getOne(eventId)
+    return EventApi.getOne(eventId)
       .then((response) => {
         dispatch(fetchSingleEventSuccess(response.data.event));
       })
@@ -55,8 +55,8 @@ export function fetchSingleEvent(eventId) {
 export function addEventSuccess(event) {
   return { type: types.ADD_EVENT_SUCCESS, event };
 }
-export function addEventFailure(event) {
-  return { type: types.ADD_EVENT_FAILURE, event };
+export function addEventFailure() {
+  return { type: types.ADD_EVENT_FAILURE };
 }
 export function addEventLoading() {
   return { type: types.ADD_EVENT_LOADING };
@@ -71,7 +71,7 @@ export function addEvent(eventObject) {
         return response.data.message;
       })
       .catch((error) => {
-        dispatch(addEventFailure(error));
+        dispatch(addEventFailure());
         throw error.data.message;
       });
   };
@@ -95,6 +95,7 @@ export function updateEvent(eventObject) {
         return response.data;
       })
       .catch((error) => {
+        dispatch(updateEventFailure(error.data));
         throw error.data.message;
       });
   };

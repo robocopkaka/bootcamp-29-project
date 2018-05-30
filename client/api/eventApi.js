@@ -31,7 +31,7 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         return error;
       });
   }
@@ -57,7 +57,7 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }
@@ -83,7 +83,7 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }

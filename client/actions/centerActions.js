@@ -4,8 +4,8 @@ import CenterApi from '../api/centerApi';
 export function addCenterSuccess(center) {
   return { type: types.ADD_CENTER_SUCCESS, center };
 }
-export function addCenterFailure(center) {
-  return { type: types.ADD_CENTER_FAILURE, center };
+export function addCenterFailure() {
+  return { type: types.ADD_CENTER_FAILURE };
 }
 export function addCenterLoading() {
   return { type: types.ADD_CENTER_LOADING };
@@ -22,8 +22,8 @@ export function fetchCentersLoading() {
 export function updateCenterSuccess(center) {
   return { type: types.UPDATE_CENTER_SUCCESS, center };
 }
-export function updateCenterFailure(center) {
-  return { type: types.UPDATE_CENTER_FAILURE, center };
+export function updateCenterFailure() {
+  return { type: types.UPDATE_CENTER_FAILURE };
 }
 export function updateCenterLoading() {
   return { type: types.UPDATE_CENTER_LOADING };
@@ -38,7 +38,7 @@ export function addCenter(values) {
       })
       .catch((error) => {
         // console.log(`error message = ${JSON.stringify(error.data)}`);
-        dispatch(addCenterFailure(error));
+        dispatch(addCenterFailure());
         throw error.data.message;
       });
   };
@@ -65,7 +65,7 @@ export function updateCenter(center) {
       })
       .catch((error) => {
         // console.log(error);
-        dispatch(updateCenterFailure(error));
+        dispatch(updateCenterFailure());
         throw error.data.message;
       });
   };

@@ -38,12 +38,12 @@ describe('center actions', () => {
       expect(store.getActions()).to.deep.equal(expectedActions);
     });
   });
-  it('creates ADD_CENTER_SUCCESS after all centers have been fetched', () => {
+  it('creates ADD_CENTER_SUCCESS after a center has been added', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 201,
-        response: centers,
+        response: center,
       });
     });
 
@@ -51,11 +51,71 @@ describe('center actions', () => {
       { type: types.ADD_CENTER_LOADING },
       { type: types.ADD_CENTER_SUCCESS, center }
     ];
+    const store = mockStore({ center: {} });
 
-    const store = mockStore({ centers: { center: {} } });
+    return store.dispatch(actions.addCenter(center)).then(() => {
+      expect(store.getActions()).to.deep.equal(expectedActions);
+    });
+  });
+  it('creates ADD_CENTER_FAILURE if a center isn\'t saved successfully', () => {
+    const error = {};
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: error,
+      });
+    });
 
-    return store.dispatch(actions.fetchCenters()).then(() => {
-      expect(store.getActions()).to.equal(expectedActions);
+    const expectedActions = [
+      { type: types.ADD_CENTER_LOADING },
+      { type: types.ADD_CENTER_FAILURE }
+    ];
+    const store = mockStore({ center: {} });
+
+    return store.dispatch(actions.addCenter(center)).catch(() => {
+      expect(store.getActions()).to.deep.equal(expectedActions);
+    });
+  });
+  it('creates UPDATE_CENTER_SUCCESS after a center has been updated', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: center,
+      });
+    });
+
+    const expectedActions = [
+      { type: types.UPDATE_CENTER_LOADING },
+      { type: types.UPDATE_CENTER_SUCCESS, center }
+    ];
+
+    const store = mockStore({ center: {} });
+
+    return store.dispatch(actions.updateCenter(center)).then(() => {
+      expect(store.getActions()).to.deep.equal(expectedActions);
+    });
+  });
+  it('creates UPDATE_CENTER_FAILURE after a center was not updated successfully', () => {
+    const error = {};
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: error,
+      });
+    });
+
+    const expectedActions = [
+      { type: types.UPDATE_CENTER_LOADING },
+      { type: types.UPDATE_CENTER_FAILURE }
+    ];
+
+    const store = mockStore({ center: {} });
+
+    return store.dispatch(actions.updateCenter(center)).catch(() => {
+      expect(store.getActions()).to.deep.equal(expectedActions);
     });
   });
 });

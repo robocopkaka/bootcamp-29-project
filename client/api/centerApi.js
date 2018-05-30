@@ -42,7 +42,7 @@ class CenterApi {
         return response;
       })
       .catch((err) => {
-        console.log('CATCH = ', err.response);
+        // console.log('CATCH = ', err.response);
         return err.response;
       });
   }
@@ -70,7 +70,7 @@ class CenterApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }
