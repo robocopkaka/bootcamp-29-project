@@ -20,6 +20,7 @@ function addCenterReducer(state = [], action) {
 
 export default function centerReducer(state = initialState.centers, action) {
   let newState = {};
+  let index;
   switch (action.type) {
     case types.ADD_CENTER_SUCCESS:
       newState = update(state, {
@@ -58,19 +59,19 @@ export default function centerReducer(state = initialState.centers, action) {
           $set: false
         }
       });
+      // console.log(newState)
       return newState;
-    case types.FETCH_CENTERS_FAILURE:
-      newState = update(state, {
-        isLoading: { $set: false }
-      });
-      return newState;
+    // case types.FETCH_CENTERS_FAILURE:
+    //   newState = update(state, {
+    //     isLoading: { $set: false }
+    //   });
+    //   return newState;
     case types.FETCH_CENTERS_LOADING:
       newState = update(state, {
         isLoading: { $set: true }
       });
       return newState;
     case types.FETCH_SINGLE_CENTER_SUCCESS:
-      console.log(action)
       newState = update(state, {
         center: {
           $set: action.center.center
@@ -78,12 +79,14 @@ export default function centerReducer(state = initialState.centers, action) {
       });
       return newState;
     case types.UPDATE_CENTER_SUCCESS:
+      index = state.centers.findIndex(val => val.id === action.center.center.id);
       newState = update(state, {
         centers: {
-          $set: [
-            ...state.centers.filter(center => center.id !== action.center.center.id),
-            Object.assign({}, action.center.center)
-          ]
+          // $set: [
+          //   ...state.centers.filter(center => center.id !== action.center.center.id),
+          //   Object.assign({}, action.center.center)
+          // ]
+          [index]: { $set: action.center.center }
         },
         isLoading: { $set: false },
         message: { $set: action.center.message }

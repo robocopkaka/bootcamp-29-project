@@ -4,6 +4,7 @@ import * as types from '../actions/actionTypes';
 
 export default function eventReducer(state = initialState.events, action) {
   let theState = {};
+  let index;
   switch (action.type) {
     case types.FETCH_EVENTS_SUCCESS:
       theState = update(state, {
@@ -21,11 +22,11 @@ export default function eventReducer(state = initialState.events, action) {
         isLoading: { $set: false }
       });
       return theState;
-    case types.FETCH_EVENTS_FAILURE:
-      theState = update(state, {
-        isLoading: { $set: false }
-      });
-      return theState;
+    // case types.FETCH_EVENTS_FAILURE:
+    //   theState = update(state, {
+    //     isLoading: { $set: false }
+    //   });
+    //   return theState;
     case types.FETCH_EVENTS_LOADING:
       theState = update(state, {
         isLoading: { $set: true }
@@ -37,12 +38,14 @@ export default function eventReducer(state = initialState.events, action) {
       });
       return theState;
     case types.UPDATE_EVENT_SUCCESS:
+      index = state.events.findIndex(val => val.id === action.event.event.id);
       theState = update(state, {
         events: {
-          $set: [
-            ...state.events.filter(event => event.id !== action.event.event.id),
-            Object.assign({}, action.event.event)
-          ]
+          // $set: [
+          //   ...state.events.filter(event => event.id !== action.event.event.id),
+          //   Object.assign({}, action.event.event)
+          // ]
+          [index]: { $set: action.event.event }
         },
         message: { $set: action.event.message },
         isLoading: { $set: false }

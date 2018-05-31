@@ -38,7 +38,7 @@ export default function sessionReducer(state = initialState.session, action) {
       return newState;
     case types.LOGOUT_LOADING:
       newState = update(state, {
-        isLoading: { $set: false }
+        isLoading: { $set: true }
       });
       return newState;
     default:

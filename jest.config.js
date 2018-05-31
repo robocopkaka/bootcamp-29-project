@@ -8,5 +8,6 @@ module.exports = {
     "collectCoverageFrom": [
       "client/**/*.{js,jsx}",
     ],
-    "testMatch": [ "**/client/tests/**/*.test.js?(x)", "**/?(*.)+(spec|test).js?(x)" ]
+    "testMatch": [ "**/client/tests/**/*.test.js?(x)", "**/?(*.)+(spec|test).js?(x)" ],
+    "coveragePathIgnorePatterns": ["./client/index.js", "./client/history.js"]
 }
