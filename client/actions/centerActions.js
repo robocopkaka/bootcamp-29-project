@@ -13,9 +13,9 @@ export function addCenterLoading() {
 export function fetchCentersSuccess(data) {
   return { type: types.FETCH_CENTERS_SUCCESS, data };
 }
-export function fetchCentersFailure() {
-  return { type: types.FETCH_CENTERS_FAILURE };
-}
+// export function fetchCentersFailure() {
+//   return { type: types.FETCH_CENTERS_FAILURE };
+// }
 export function fetchCentersLoading() {
   return { type: types.FETCH_CENTERS_LOADING };
 }
@@ -49,10 +49,10 @@ export function fetchCenters(page) {
     return CenterApi.getAll(page)
       .then((response) => {
         dispatch(fetchCentersSuccess(response.data));
-      })
-      .catch(() => {
-        dispatch(fetchCentersFailure());
       });
+    // .catch(() => {
+    //   dispatch(fetchCentersFailure());
+    // });
   };
 }
 export function updateCenter(center) {

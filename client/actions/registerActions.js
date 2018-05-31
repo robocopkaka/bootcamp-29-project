@@ -19,11 +19,11 @@ export function registerUser(credentials) {
     return RegisterApi.register(credentials)
       .then((response) => {
         sessionStorage.setItem('registered', true);
-        dispatch(registerSuccess(response));
+        dispatch(registerSuccess(response.data));
         return response.data.message;
       })
       .catch((error) => {
-        dispatch(registerFailure(error));
+        dispatch(registerFailure(error.data));
         throw error.data.message;
       });
   };

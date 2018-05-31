@@ -12,13 +12,13 @@ export default function sessionReducer(state = initialState.session, action) {
         jwt: { $set: !!sessionStorage.jwt },
         isAdmin: { $set: !!sessionStorage.isAdmin },
         userId: { $set: !!sessionStorage.userId },
-        message: { $set: action.response.data.message },
+        message: { $set: action.response.message },
         isLoading: { $set: false }
       });
       return newState;
     case types.LOGIN_FAILURE:
       newState = update(state, {
-        message: { $set: action.response.data.message },
+        message: { $set: action.response.message },
         isLoading: { $set: false }
       });
       return newState;

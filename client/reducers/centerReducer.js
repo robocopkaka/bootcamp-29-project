@@ -70,9 +70,10 @@ export default function centerReducer(state = initialState.centers, action) {
       });
       return newState;
     case types.FETCH_SINGLE_CENTER_SUCCESS:
+      console.log(action)
       newState = update(state, {
         center: {
-          $set: action.center
+          $set: action.center.center
         }
       });
       return newState;

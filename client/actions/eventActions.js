@@ -5,9 +5,9 @@ import CenterApi from '../api/centerApi';
 export function fetchEventsSuccess(data) {
   return { type: types.FETCH_EVENTS_SUCCESS, data };
 }
-export function fetchEventsFailure() {
-  return { type: types.FETCH_EVENTS_FAILURE };
-}
+// export function fetchEventsFailure() {
+//   return { type: types.FETCH_EVENTS_FAILURE };
+// }
 export function fetchEventsLoading() {
   return { type: types.FETCH_EVENTS_LOADING };
 }
@@ -18,10 +18,10 @@ export function fetchEvents(page) {
     return EventApi.getAll(page)
       .then((response) => {
         dispatch(fetchEventsSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(fetchEventsFailure());
       });
+    // .catch((error) => {
+    //   dispatch(fetchEventsFailure());
+    // });
   };
 }
 export function fetchEventsInCenter(centerId, page) {
@@ -30,10 +30,10 @@ export function fetchEventsInCenter(centerId, page) {
     return CenterApi.getEventsInCenter(centerId, page)
       .then((response) => {
         dispatch(fetchEventsSuccess(response.data));
-      })
-      .catch(() => {
-        dispatch(fetchEventsFailure());
       });
+    // .catch(() => {
+    //   dispatch(fetchEventsFailure());
+    // });
   };
 }
 export function fetchSingleEventSuccess(event) {
@@ -44,11 +44,11 @@ export function fetchSingleEvent(eventId) {
   return (dispatch) => {
     return EventApi.getOne(eventId)
       .then((response) => {
-        dispatch(fetchSingleEventSuccess(response.data.event));
-      })
-      .catch((error) => {
-        throw (error);
+        dispatch(fetchSingleEventSuccess(response.data));
       });
+    // .catch((error) => {
+    //   throw (error);
+    // });
   };
 }
 
@@ -106,12 +106,12 @@ export function deleteEventSuccess(eventId) {
 }
 export function deleteEvent(eventId) {
   return (dispatch) => {
-    EventApi.deleteEvent(eventId)
+    return EventApi.deleteEvent(eventId)
       .then((response) => {
         dispatch(deleteEventSuccess(response));
-      })
-      .catch((error) => {
-        throw error;
       });
+    // .catch((error) => {
+    //   throw error;
+    // });
   };
 }

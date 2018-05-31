@@ -141,10 +141,52 @@ describe('Event actions', () => {
       ];
 
       const store = mockStore({ event: {} });
-      const eventId = 1;
 
-      return store.dispatch(actions.fetchSingleEvent(10)).then(() => {
-        console.log(store.getActions())
+      return store.dispatch(actions.fetchSingleEvent(1)).then(() => {
+        expect(store.getActions()).to.deep.equal(expectedActions);
+      });
+    });
+  });
+  describe('fetch events in center actions', () => {
+    it('should dispatch FETCH_SINGLE_EVENT_SUCCESS if an events for a center was fetched successfully', () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: events,
+        });
+      });
+
+      const expectedActions = [
+        { type: types.FETCH_EVENTS_LOADING },
+        { type: types.FETCH_EVENTS_SUCCESS, data: events }
+      ];
+
+      const store = mockStore({ events: [] });
+
+      return store.dispatch(actions.fetchEventsInCenter(1, 1)).then(() => {
+        expect(store.getActions()).to.deep.equal(expectedActions);
+      });
+    });
+  });
+  describe('delete event actions', () => {
+    it('should dispatch DELETE_EVENT_SUCCESS if an events for a center was fetched successfully', () => {
+      const eventId = 1;
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: eventId,
+        });
+      });
+
+      const expectedActions = [
+        { type: types.DELETE_EVENT_SUCCESS, eventId }
+      ];
+
+      const store = mockStore({ event: {} });
+
+      return store.dispatch(actions.deleteEvent(1)).then(() => {
         expect(store.getActions()).to.deep.equal(expectedActions);
       });
     });

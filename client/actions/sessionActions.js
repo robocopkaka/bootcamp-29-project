@@ -30,21 +30,25 @@ export function loginUser(credentials) {
         if (decodedToken.isAdmin) {
           sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
         }
-        dispatch(loginSuccess(response));
+        dispatch(loginSuccess(response.data));
         return response.data.message;
       })
       .catch((error) => {
-        dispatch(loginFailure(error));
+        dispatch(loginFailure(error.data));
         throw error.data.message;
       });
   };
 }
 
 export function logOutUser() {
-  return (dispatch) => {
-    dispatch(logoutRequest());
-    sessionStorage.removeItem('jwt');
-    sessionStorage.removeItem('isAdmin');
-    dispatch(logoutSuccess());
+  return async (dispatch) => {
+    try {
+      dispatch(logoutRequest());
+      sessionStorage.removeItem('jwt');
+      sessionStorage.removeItem('isAdmin');
+      dispatch(logoutSuccess());
+    } catch (error) {
+      // throw error;
+    }
   };
 }

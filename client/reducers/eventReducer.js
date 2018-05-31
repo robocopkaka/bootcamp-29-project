@@ -33,7 +33,7 @@ export default function eventReducer(state = initialState.events, action) {
       return theState;
     case types.FETCH_SINGLE_EVENT_SUCCESS:
       theState = update(state, {
-        event: { $set: action.event }
+        event: { $set: action.event.event }
       });
       return theState;
     case types.UPDATE_EVENT_SUCCESS:

@@ -13,13 +13,13 @@ export default function registerReducer(state = initialState.register, action) {
     case types.REGISTER_SUCCESS:
       newState = update(state, {
         isRegistered: { $set: !!sessionStorage.registered },
-        message: { $set: action.response.data.message },
+        message: { $set: action.response.message },
         isLoading: { $set: false }
       });
       return newState;
     case types.REGISTER_FAILURE:
       newState = update(state, {
-        message: { $set: action.response.data.message },
+        message: { $set: action.response.message },
         isLoading: { $set: false }
       });
       return newState;
