@@ -1,6 +1,6 @@
 {
     "presets":[
-        "latest", "react",  "stage-0", "react-hmre"
+        "latest", "react",  "stage-0"
     ],
     "plugins": ["transform-regenerator"]
 }

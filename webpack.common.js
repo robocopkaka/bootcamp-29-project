@@ -20,7 +20,7 @@ module.exports = {
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', query: {
         "presets":[
-            "latest", "react",  "stage-0", "react-hmre"
+            "latest", "react",  "stage-0"
         ],
         "plugins": ["transform-regenerator"]
       }, exclude: /node_modules/ },
