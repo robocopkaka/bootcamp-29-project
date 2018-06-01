@@ -35,12 +35,13 @@ describe('center reducer', () => {
   });
 
   describe('add center reducers', () => {
-    const state1 = initialState.centers;
     it('should add a center to the centers array in state', () => {
-      expect(centerReducer(state1, {
+      const state = initialState.centers;
+      state.centers.push(newCenter.default);
+      expect(centerReducer(initialState.centers, {
         type: types.ADD_CENTER_SUCCESS,
         center
-      })).to.deep.equal(centersInitialState);
+      })).to.deep.equal(state);
     });
     it('should handle errors when an error happens when trying to add a center', () => {
       const state = initialState.centers;
@@ -65,7 +66,6 @@ describe('center reducer', () => {
     it('should add centers fetched from the database to state', () => {
       const state = initialState.centers;
       state.isLoading = false;
-      state.centers.push(centers[0]);
       state.centers.push(centers[1]);
       state.meta.pagination.pages = 1;
       state.meta.pagination.page = 1;
