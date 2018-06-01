@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import * as indexStyles from '../../css/index.module.css';
+
+const navbarPurpleClasses = classNames(
+  indexStyles['page-footer'],
+  indexStyles['index-footer'], indexStyles['footer-padding'], indexStyles['white-color'], indexStyles['navbar-purple']
+);
+
 
 const Footer = () => (
-  <footer className="page-footer navbar-purple index-footer footer-padding">
+  <footer className={navbarPurpleClasses}>
     <div className="container">
       <div className="row">
         <div className="col l6 s12">

@@ -3,7 +3,7 @@ import axios from 'axios';
 class RegisterApi {
   static register(credentials) {
     return axios.post(
-      'http://localhost:8000/api/v2/users',
+      `${process.env.API_HOST}/api/v2/users`,
       JSON.stringify({
         name: credentials.name,
         email: credentials.email,

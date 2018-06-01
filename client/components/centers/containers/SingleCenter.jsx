@@ -13,6 +13,7 @@ import * as singleCenterActions from '../../../actions/singleCenterActions';
 import * as centerActions from '../../../actions/centerActions';
 import * as eventActions from '../../../actions/eventActions';
 import * as styles from '../../../css/centers.module.css';
+import * as indexStyles from '../../../css/index.module.css';
 
 export class SingleCenter extends Component {
   constructor(props) {
@@ -68,12 +69,13 @@ export class SingleCenter extends Component {
   render() {
     const { center = {} } = this.props;
     const { events = [] } = this.props;
+    const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', indexStyles['white-color']);
     let { pages = 1 } = this.props;
     if ((pages) >= 9) {
       pages = 9;
     }
     return (
-      <div className="min-height-hundred-vh">
+      <div className={indexStyles['min-height-hundred-vh']}>
         <div className="valign-wrapper show-center-top">
           <CenterDetail center={this.props.center} />
         </div>
@@ -113,7 +115,7 @@ export class SingleCenter extends Component {
         )}
         <div className="fixed-action-btn horizontal click-to-toggle">
           <button
-            className="btn-floating btn-large red white-color"
+            className={whiteColorClasses}
             onClick={this.showModal}
           >
             <i className="material-icons">add</i>

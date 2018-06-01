@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-materialize';
 import qs from 'query-string';
+import classNames from 'classnames';
 import * as centerActions from '../../../actions/centerActions';
 import CenterList from '../presentational/CenterList';
 import Search from '../../common/Search';
@@ -14,6 +15,7 @@ import Modal from '../../common/Modal';
 import AddCenter from './AddCenter';
 import EditCenter from './EditCenter';
 import history from '../../../history';
+import * as styles from '../../../css/index.module.css';
 
 export class Centers extends Component {
   constructor(props) {
@@ -69,6 +71,8 @@ export class Centers extends Component {
   render() {
     const { isAdmin = false } = this.props;
     const { centers = [] } = this.props;
+    const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
+    const containerClasses = classNames('container', styles['min-height-hundred-vh'])
     let { pages = 1 } = this.props;
     if (pages >= 9) {
       pages = 9;
@@ -79,16 +83,16 @@ export class Centers extends Component {
       );
     } else if (centers.length === 0) {
       return (
-        <div className="min-height-hundred-vh">
+        <div className={styles['min-height-hundred-vh']}>
           Sorry no centers found
         </div>
       );
     }
     return (
       <React.Fragment>
-        <div className="container min-height-hundred-vh">
+        <div className={containerClasses}>
           <Search />
-          <div className="top-ten-padding" />
+          <div className={styles['top-ten-padding']} />
           <div className="row">
             <CenterList
               centers={centers}
@@ -120,7 +124,7 @@ export class Centers extends Component {
         <div className="fixed-action-btn horizontal click-to-toggle">
           <button
             onClick={this.showModal}
-            className="btn-floating btn-large red white-color"
+            className={whiteColorClasses}
           >
             <i className="material-icons">add</i>
           </button>

@@ -1,5 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import * as indexStyles from '../../../css/index.module.css';
+
+const navbarPurpleClasses = classNames(
+  'waves-effect', 'waves-light', 'btn', indexStyles['round-btn'],
+  indexStyles['white-color'], indexStyles['navbar-purple']
+);
+const navbarPurpleButton = classNames('btn', indexStyles['round-btn'], indexStyles['navbar-purple']);
+
 
 const CentersForm = ({
   name, address, capacity, chairs, projector, state, detail, handleChange,
@@ -128,7 +137,7 @@ const CentersForm = ({
     </div>
     <div className="row">
       <div className="file-field input-field">
-        <div className="btn navbar-purple round-btn">
+        <div className={navbarPurpleButton}>
           <span>Image</span>
           <input
             type="file"
@@ -149,7 +158,7 @@ const CentersForm = ({
     <div className="row center-align">
       {component === 'Edit' ? (
         <button
-          className="btn waves-effect waves-light navbar-purple round-btn"
+          className={navbarPurpleClasses}
           type="submit"
           name="action"
           onClick={saveOrUpdate}
@@ -159,7 +168,7 @@ const CentersForm = ({
         </button>
       ) : (
         <button
-          className="btn waves-effect waves-light navbar-purple round-btn"
+          className={navbarPurpleClasses}
           type="submit"
           name="action"
           onClick={saveOrUpdate}

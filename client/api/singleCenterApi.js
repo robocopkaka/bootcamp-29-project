@@ -2,7 +2,7 @@ import axios from 'axios';
 class SingleCenterApi {
   static getOne(centerId) {
     return axios.get(
-      `http://localhost:8000/api/v2/centers/${centerId}`,
+      `${process.env.API_HOST}/api/v2/centers/${centerId}`,
       {
         headers: {
           'Content-Type': 'application/json',

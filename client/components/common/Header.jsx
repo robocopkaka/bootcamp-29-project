@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/sessionActions';
+import * as styles from '../../css/index.module.css';
 
 export class Header extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ export class Header extends React.Component {
     this.props.actions.logOutUser();
   }
   render() {
+    const leftPaddingClass = classNames('nav-wrapper', styles['left-padding']);
     if (this.props.loggedIn) {
       return (
         <React.Fragment>
@@ -26,11 +29,11 @@ export class Header extends React.Component {
             )}
             <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
           </ul>
-          <nav className="navbar-purple">
-            <div className="nav-wrapper left-padding">
+          <nav className={styles['navbar-purple']}>
+            <div className={leftPaddingClass}>
               <Link to="/" className="brand-logo">EventManager</Link>
               <a
-                href="index.html"
+                href="#"
                 data-activates="side-menu"
                 className="button-collapse"
               >
@@ -55,7 +58,7 @@ export class Header extends React.Component {
                 <li className="active"><Link to="/">Home</Link></li>
                 <li><Link to="/events">Events</Link></li>
                 <li><Link to="/centers">Centers</Link></li>
-                <li className="left-padding">
+                <li className={styles['left-padding']}>
                   <ul className="collapsible collapsible-accordion">
                     <li>
                       <a className="collapsible-header" href="#">Profile
@@ -88,11 +91,11 @@ export class Header extends React.Component {
             <a onClick={() => { this.props.showModal(); this.props.toggleSignup(); }}>Signup</a>
           </li>
         </ul>
-        <nav className="navbar-purple">
-          <div className="nav-wrapper left-padding">
+        <nav className={styles['navbar-purple']}>
+          <div className={leftPaddingClass}>
             <Link to="/" className="brand-logo">EventManager</Link>
             <a
-              href="index.html"
+              href="#"
               data-activates="side-menu"
               className="button-collapse"
             >
@@ -117,7 +120,7 @@ export class Header extends React.Component {
               <li className="active"><Link to="/">Home</Link></li>
               <li><Link to="/events">Events</Link></li>
               <li><Link to="/centers">Centers</Link></li>
-              <li className="left-padding">
+              <li className={styles['left-padding']}>
                 <ul className="collapsible collapsible-accordion">
                   <li>
                     <a className="collapsible-header" href="#">Login

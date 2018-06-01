@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import * as styles from '../../css/events.module.css';
+import * as indexStyles from '../../css/index.module.css';
 
 const Modal = ({ hideModal, show, children }) => {
-  const showHideClassName = show ? classNames('modal display-block', styles['edit-event-modal']) : 'modal display-none';
+  const showHideClassName = show ? classNames(
+    'modal', indexStyles['display-block'], styles['edit-event-modal']) : classNames('modal', indexStyles['display-none']);
 
   return (
     <div className={showHideClassName}>

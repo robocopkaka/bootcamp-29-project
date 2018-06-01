@@ -1,8 +1,15 @@
+const webpack = require('webpack');
+const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-  // devServer: {
-  //   contentBase: './dist/index_bundle.js'
-  // }
+  devtool: 'cheap-module-source-map',
+  devServer: {
+    historyApiFallback: true,
+    clientBase: '/client/public'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 });

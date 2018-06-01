@@ -3,7 +3,7 @@ import axios from 'axios';
 class CenterApi {
   static create(center) {
     return axios.post(
-      'http://localhost:8000/api/v2/centers',
+      `${process.env.API_HOST}/api/v2/centers`,
       JSON.stringify({
         name: center.name,
         address: center.address,
@@ -31,7 +31,7 @@ class CenterApi {
   }
   static getAll(page) {
     return axios.get(
-      `http://localhost:8000/api/v2/centers?page=${page}`,
+      `${process.env.API_HOST}/api/v2/centers?page=${page}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class CenterApi {
   }
   static update(center) {
     return axios.put(
-      `http://localhost:8000/api/v2/centers/${parseInt(center.id, 10)}`,
+      `${process.env.API_HOST}/api/v2/centers/${parseInt(center.id, 10)}`,
       JSON.stringify({
         name: center.name,
         address: center.address,
@@ -77,7 +77,7 @@ class CenterApi {
 
   static getEventsInCenter(centerId, page) {
     return axios.get(
-      `http://localhost:8000/api/v2/centers/${centerId}/events?page=${page}&limit=${6}`,
+      `${process.env.API_HOST}/api/v2/centers/${centerId}/events?page=${page}&limit=${6}`,
       {
         headers: {
           'Content-Type': 'application/json',

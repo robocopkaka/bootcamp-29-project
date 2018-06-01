@@ -7,6 +7,7 @@ import validator from 'validator';
 import * as centerActions from '../../../actions/centerActions';
 import * as singleCenterActions from '../../../actions/singleCenterActions';
 import CentersForm from '../presentational/CentersForm';
+import * as styles from '../../../css/index.module.css';
 
 export class EditCenter extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export class EditCenter extends Component {
   }
   getSignedRequest(file) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+    xhr.open('GET', `${process.env.API_HOST}/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
@@ -194,15 +195,16 @@ export class EditCenter extends Component {
     }
   }
   render() {
-    const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
-    const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
-    const addressClasses = classNames('help-block', { 'has-error': !this.state.address.isValid });
-    const stateClasses = classNames('help-block', { 'has-error': !this.state.state.isValid });
-    const capacityClasses = classNames('help-block', { 'has-error': !this.state.capacity.isValid });
+    const nameClasses = classNames('help-block', { [styles['has-error']]: !this.state.name.isValid });
+    const detailClasses = classNames('help-block', { [styles['has-error']]: !this.state.detail.isValid });
+    const addressClasses = classNames('help-block', { [styles['has-error']]: !this.state.address.isValid });
+    const stateClasses = classNames('help-block', { [styles['has-error']]: !this.state.state.isValid });
+    const capacityClasses = classNames('help-block', { [styles['has-error']]: !this.state.capacity.isValid });
+    const containerClasses = classNames('container', styles['max-width-six-hundred']);
     return (
-      <div className="container max-width-six-hundred">
+      <div className={containerClasses}>
         <div className="container">
-          <h3 className="center-heading">Edit a Center</h3>
+          <h3 className={styles['center-heading']}>Edit a Center</h3>
         </div>
         <CentersForm
           nameClasses={nameClasses}

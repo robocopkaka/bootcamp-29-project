@@ -11,7 +11,7 @@ import EventsListWithImage from '../presentational/EventsListWithImage';
 import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 import history from '../../../history';
-import * as styles from '../../../css/events.module.css';
+import * as styles from '../../../css/index.module.css';
 
 export class Events extends Component {
   constructor(props) {
@@ -53,6 +53,8 @@ export class Events extends Component {
   }
   render() {
     const { events = [] } = this.props;
+    const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
+    const containerClasses = classNames('container', styles['min-height-hundred-vh']);
     let { pages = 1 } = this.props;
     if (pages >= 9) {
       pages = 9;
@@ -64,15 +66,15 @@ export class Events extends Component {
     }
     if (events.length === 0) {
       return (
-        <div className="container min-height-hundred-vh">
+        <div className={containerClasses}>
           <p>No events found yet</p>
         </div>
       );
     }
     return (
-      <div className="container min-height-hundred-vh">
+      <div className={containerClasses}>
         <Search />
-        <div className="top-ten-padding" />
+        <div className={styles['top-ten-padding']} />
         <div className="row">
           <EventsListWithImage
             events={events}
@@ -92,7 +94,7 @@ export class Events extends Component {
         <div className="fixed-action-btn horizontal click-to-toggle">
           <Link
             to="/add-event"
-            className="btn-floating btn-large red white-color"
+            className={whiteColorClasses}
           >
             <i className="material-icons">add</i>
           </Link>

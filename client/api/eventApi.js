@@ -3,7 +3,7 @@ import axios from 'axios';
 class EventApi {
   static getAll(page) {
     return axios.get(
-      `http://localhost:8000/api/v2/events?page=${page}`,
+      `${process.env.API_HOST}/api/v2/events?page=${page}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ class EventApi {
   }
   static getOne(eventId) {
     return axios.get(
-      `http://localhost:8000/api/v2/events/${eventId}`,
+      `${process.env.API_HOST}/api/v2/events/${eventId}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ class EventApi {
   }
   static create(eventObject) {
     return axios.post(
-      'http://localhost:8000/api/v2/events/',
+      `${process.env.API_HOST}/api/v2/events/`,
       JSON.stringify({
         name: eventObject.name,
         detail: eventObject.detail,
@@ -63,7 +63,7 @@ class EventApi {
   }
   static update(eventObject) {
     return axios.put(
-      `http://localhost:8000/api/v2/events/${eventObject.id}`,
+      `${process.env.API_HOST}/api/v2/events/${eventObject.id}`,
       JSON.stringify({
         name: eventObject.name,
         detail: eventObject.detail,
@@ -89,7 +89,7 @@ class EventApi {
   }
   static deleteEvent(eventId) {
     return axios.delete(
-      `http://localhost:8000/api/v2/events/${eventId}`,
+      `${process.env.API_HOST}/api/v2/events/${eventId}`,
       {
         headers: {
           'Content-Type': 'application/json',

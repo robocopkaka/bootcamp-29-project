@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import qs from 'query-string';
+import classNames from 'classnames';
 import rentals from '../img/rentals.jpg';
 import * as eventActions from '../actions/eventActions';
 import * as centerActions from '../actions/centerActions';
@@ -11,10 +12,12 @@ import CenterList from './centers/presentational/CenterList';
 import Preloader from './common/Preloader';
 import HomeButtons from './HomeButtons';
 import LoginButtons from './LoginButtons';
+import * as styles from '../css/index.module.css';
 
 export class Home extends React.Component {
   componentDidMount() {
     // $('.parallax').parallax();
+    $('.button-collapse').sideNav();
     if (this.props.centers.length === 0) {
       this.props.actions.fetchCenters(1);
     }
@@ -25,14 +28,15 @@ export class Home extends React.Component {
   render() {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
+    const containerClasses = classNames(styles['home-container'], styles['min-height-fifty-vh']);
     return (
-      <div className="home-container min-height-fifty-vh">
-        <div className="home-image">
+      <div className={containerClasses}>
+        <div className={styles['home-image']}>
           <div className="transparent z-depth-5">
             { /* <img src={rentals} className="responsive-img" alt="" /> */}
-            <div id="home-items">
+            <div id={styles['home-items']}>
               <h3 id="home-text">Kachi&#39;s Event Manager</h3>
-              <div className="home-button-group">
+              <div className={styles['home-button-group']}>
                 { !this.props.loggedIn ? (
                   <LoginButtons
                     showModal={this.props.showModal}
@@ -47,7 +51,7 @@ export class Home extends React.Component {
         </div>
         <div className="container">
           <div>
-            <h2 id="home-center-horizontally">Featured events</h2>
+            <h2 id={styles['home-center-horizontally']}>Featured events</h2>
             { !this.props.eventsLoading ? (
               <div className="row">
                 <EventsListWithImage
@@ -60,7 +64,7 @@ export class Home extends React.Component {
             )}
           </div>
           <div>
-            <h2 id="home-center-horizontally">Featured centers</h2>
+            <h2 id={styles['home-center-horizontally']}>Featured centers</h2>
             { !this.props.centersLoading ? (
               <div className="row">
                 <CenterList

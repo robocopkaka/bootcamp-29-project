@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as registerActions from '../../actions/registerActions';
 import Preloader from './Preloader';
-import history from '../../history';
+import * as styles from '../../css/index.module.css';
 
 export class Signup extends React.Component {
   constructor(props) {
@@ -163,17 +163,19 @@ export class Signup extends React.Component {
     }
   }
   render() {
-    const firstNameClasses = classNames('help-block', { 'has-error': !this.state.firstName.isValid });
+    const firstNameClasses = classNames('help-block', { [styles['has-error']]: !this.state.firstName.isValid });
     const lastNameClasses = classNames(
       'help-block',
-      { 'has-error': !this.state.lastName.isValid }
+      { [styles['has-error']]: !this.state.lastName.isValid }
     );
-    const emailClasses = classNames('help-block', { 'has-error': !this.state.email.isValid });
-    const passwordClasses = classNames('help-block', { 'has-error': !this.state.password.isValid });
+    const signupFormClasses = classNames('row', 'signup-form');
+    const emailClasses = classNames('help-block', { [styles['has-error']]: !this.state.email.isValid });
+    const passwordClasses = classNames('help-block', { [styles['has-error']]: !this.state.password.isValid });
     const passwordConfirmationClasses = classNames(
       'help-block',
-      { 'has-error': !this.state.passwordConfirmation.isValid }
+      { [styles['has-error']]: !this.state.passwordConfirmation.isValid }
     );
+    const navbarPurpleClasses = classNames('btn', 'waves-effect', 'waves-light', styles['navbar-purple'], styles['round-btn']);
     const { isLoading = false } = this.props;
     if (isLoading) {
       return (
@@ -182,11 +184,11 @@ export class Signup extends React.Component {
     }
     return (
       <div className="container">
-        <div className="row signup-form">
+        <div className={signupFormClasses}>
           <div className="col s12 m12">
             <div>
               <div className="card-content">
-                <span className="card-title"><h3 className="center-heading">Sign Up</h3></span>
+                <span className="card-title"><h3 className={styles['center-heading']}>Sign Up</h3></span>
                 <form className="container">
                   <div className="row">
                     <div className="input-field col s6">
@@ -275,7 +277,7 @@ export class Signup extends React.Component {
                   </div>
                   <div className="row center-align">
                     <button
-                      className="btn waves-effect waves-light navbar-purple round-btn"
+                      className={navbarPurpleClasses}
                       onClick={this.register}
                       type="submit"
                       name="action"
