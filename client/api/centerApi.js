@@ -40,11 +40,11 @@ class CenterApi {
     )
       .then((response) => {
         return response;
-      })
-      .catch((err) => {
-        console.log('CATCH = ', err.response);
-        return err.response;
       });
+    // .catch((err) => {
+    //   // console.log('CATCH = ', err.response);
+    //   return err.response;
+    // });
   }
   static update(center) {
     return axios.put(
@@ -70,7 +70,7 @@ class CenterApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }
@@ -86,10 +86,10 @@ class CenterApi {
     )
       .then((response) => {
         return response;
-      })
-      .catch((error) => {
-        return error;
       });
+    // .catch((error) => {
+    //   return error;
+    // });
   }
 }
 export default CenterApi;

@@ -11,11 +11,11 @@ class SingleCenterApi {
     )
       .then((response) => {
         return response;
-      })
-      .catch((error) => {
-        console.log('CATCH = ', error.response);
-        return error;
       });
+    // .catch((error) => {
+    //   console.log('CATCH = ', error.response);
+    //   return error;
+    // });
   }
 }
 export default SingleCenterApi;

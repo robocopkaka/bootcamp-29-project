@@ -4,10 +4,15 @@ export function setComponentNameSuccess(name) {
   return { type: types.SET_COMPONENT_NAME_SUCCESS, name };
 }
 export function setComponentName(name) {
-  return function (dispatch) {
-    if (name === undefined || name === null) {
-      dispatch(setComponentNameSuccess(''));
+  return async (dispatch) => {
+    try {
+      if (name === undefined || name === null) {
+        dispatch(setComponentNameSuccess(''));
+      } else {
+        dispatch(setComponentNameSuccess(name));
+      }
+    } catch (error) {
+      //
     }
-    dispatch(setComponentNameSuccess(name));
   };
 }

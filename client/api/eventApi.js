@@ -12,11 +12,11 @@ class EventApi {
     )
       .then((response) => {
         return response;
-      })
-      .catch((error) => {
-        console.log('CATCH = ', error);
-        return error.response;
-      })
+      });
+    // .catch((error) => {
+    //   console.log('CATCH = ', error);
+    //   return error.response;
+    // })
   }
   static getOne(eventId) {
     return axios.get(
@@ -29,11 +29,11 @@ class EventApi {
     )
       .then((response) => {
         return response;
-      })
-      .catch((error) => {
-        console.log('CATCH = ', error.response);
-        return error;
       });
+    // .catch((error) => {
+    //   // console.log('CATCH = ', error.response);
+    //   return error;
+    // });
   }
   static create(eventObject) {
     return axios.post(
@@ -57,7 +57,7 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }
@@ -83,7 +83,7 @@ class EventApi {
         return response;
       })
       .catch((error) => {
-        console.log('CATCH = ', error.response);
+        // console.log('CATCH = ', error.response);
         throw error.response;
       });
   }
@@ -99,11 +99,11 @@ class EventApi {
     )
       .then(() => {
         return eventId;
-      })
-      .catch((error) => {
-        console.log('CATCH = ', error.response);
-        return error;
       });
+    // .catch((error) => {
+    //   console.log('CATCH = ', error.response);
+    //   return error;
+    // });
   }
 }
 export default EventApi;

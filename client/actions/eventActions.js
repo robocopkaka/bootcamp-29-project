@@ -5,9 +5,9 @@ import CenterApi from '../api/centerApi';
 export function fetchEventsSuccess(data) {
   return { type: types.FETCH_EVENTS_SUCCESS, data };
 }
-export function fetchEventsFailure() {
-  return { type: types.FETCH_EVENTS_FAILURE };
-}
+// export function fetchEventsFailure() {
+//   return { type: types.FETCH_EVENTS_FAILURE };
+// }
 export function fetchEventsLoading() {
   return { type: types.FETCH_EVENTS_LOADING };
 }
@@ -18,10 +18,10 @@ export function fetchEvents(page) {
     return EventApi.getAll(page)
       .then((response) => {
         dispatch(fetchEventsSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(fetchEventsFailure());
       });
+    // .catch((error) => {
+    //   dispatch(fetchEventsFailure());
+    // });
   };
 }
 export function fetchEventsInCenter(centerId, page) {
@@ -30,10 +30,10 @@ export function fetchEventsInCenter(centerId, page) {
     return CenterApi.getEventsInCenter(centerId, page)
       .then((response) => {
         dispatch(fetchEventsSuccess(response.data));
-      })
-      .catch(() => {
-        dispatch(fetchEventsFailure());
       });
+    // .catch(() => {
+    //   dispatch(fetchEventsFailure());
+    // });
   };
 }
 export function fetchSingleEventSuccess(event) {
@@ -42,21 +42,21 @@ export function fetchSingleEventSuccess(event) {
 
 export function fetchSingleEvent(eventId) {
   return (dispatch) => {
-    EventApi.getOne(eventId)
+    return EventApi.getOne(eventId)
       .then((response) => {
-        dispatch(fetchSingleEventSuccess(response.data.event));
-      })
-      .catch((error) => {
-        throw (error);
+        dispatch(fetchSingleEventSuccess(response.data));
       });
+    // .catch((error) => {
+    //   throw (error);
+    // });
   };
 }
 
 export function addEventSuccess(event) {
   return { type: types.ADD_EVENT_SUCCESS, event };
 }
-export function addEventFailure(event) {
-  return { type: types.ADD_EVENT_FAILURE, event };
+export function addEventFailure() {
+  return { type: types.ADD_EVENT_FAILURE };
 }
 export function addEventLoading() {
   return { type: types.ADD_EVENT_LOADING };
@@ -71,7 +71,7 @@ export function addEvent(eventObject) {
         return response.data.message;
       })
       .catch((error) => {
-        dispatch(addEventFailure(error));
+        dispatch(addEventFailure());
         throw error.data.message;
       });
   };
@@ -95,6 +95,7 @@ export function updateEvent(eventObject) {
         return response.data;
       })
       .catch((error) => {
+        dispatch(updateEventFailure(error.data));
         throw error.data.message;
       });
   };
@@ -105,12 +106,12 @@ export function deleteEventSuccess(eventId) {
 }
 export function deleteEvent(eventId) {
   return (dispatch) => {
-    EventApi.deleteEvent(eventId)
+    return EventApi.deleteEvent(eventId)
       .then((response) => {
         dispatch(deleteEventSuccess(response));
-      })
-      .catch((error) => {
-        throw error;
       });
+    // .catch((error) => {
+    //   throw error;
+    // });
   };
 }
