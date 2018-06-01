@@ -1,7 +1,6 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 // require("babel-polyfill");
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './client/public/index.html',
