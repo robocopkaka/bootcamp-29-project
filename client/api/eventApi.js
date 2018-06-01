@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const EVENTS_BASE_API = '/api/v2/events';
+
 class EventApi {
   static getAll(page) {
     return axios.get(
-      `${process.env.API_HOST}/api/v2/events?page=${page}`,
+      `${EVENTS_BASE_API}?page=${page}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ class EventApi {
   }
   static getOne(eventId) {
     return axios.get(
-      `${process.env.API_HOST}/api/v2/events/${eventId}`,
+      `${EVENTS_BASE_API}/${eventId}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +39,7 @@ class EventApi {
   }
   static create(eventObject) {
     return axios.post(
-      `${process.env.API_HOST}/api/v2/events/`,
+      `${EVENTS_BASE_API}`,
       JSON.stringify({
         name: eventObject.name,
         detail: eventObject.detail,
@@ -63,7 +65,7 @@ class EventApi {
   }
   static update(eventObject) {
     return axios.put(
-      `${process.env.API_HOST}/api/v2/events/${eventObject.id}`,
+      `${EVENTS_BASE_API}/${eventObject.id}`,
       JSON.stringify({
         name: eventObject.name,
         detail: eventObject.detail,
@@ -89,7 +91,7 @@ class EventApi {
   }
   static deleteEvent(eventId) {
     return axios.delete(
-      `${process.env.API_HOST}/api/v2/events/${eventId}`,
+      `${EVENTS_BASE_API}/${eventId}`,
       {
         headers: {
           'Content-Type': 'application/json',
