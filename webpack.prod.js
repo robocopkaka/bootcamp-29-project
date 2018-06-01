@@ -4,7 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const dotenv = require('dotenv');
 const common = require('./webpack.common.js');
 
-dotenv.load();
+dotenv.config();
 module.exports = merge(common, {
   plugins: [
     new UglifyJSPlugin(),

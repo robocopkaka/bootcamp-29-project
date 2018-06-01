@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
+const Dotenv = require('webpack-dotenv');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
@@ -10,6 +11,7 @@ module.exports = merge(common, {
     clientBase: '/client/public'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new Dotenv()
   ]
 });
