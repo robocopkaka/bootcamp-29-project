@@ -18,7 +18,12 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, loader: 'babel-loader', query: {
+        "presets":[
+            "latest", "react",  "stage-0", "react-hmre"
+        ],
+        "plugins": ["transform-regenerator"]
+      }, exclude: /node_modules/ },
       { test: /\.css$/, loader: 'style-loader', include: __dirname + '/client'},
       { test: /\.css$/, loader: 'css-loader', query: {
         modules: true,
