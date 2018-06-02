@@ -163,7 +163,7 @@ export class AddEvent extends Component {
     this.setState({ date: { value: '', isValid: true, message: '' } });
     this.setState({ time: { value: '', isValid: true, message: '' } });
     this.setState({ detail: { value: '', isValid: true, message: '' } });
-    this.setState({ category: { value: '', isValid: true, message: '' } });
+    this.setState({ category: { value: 1, isValid: true, message: '' } });
   }
   addEvent(e) {
     e.preventDefault();
@@ -175,7 +175,7 @@ export class AddEvent extends Component {
       guests: this.state.guests.value,
       date: new Date(this.state.date.value),
       centerId: this.props.centerId,
-      categoryId: this.state.category.value
+      categoryId: 1
     };
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject)

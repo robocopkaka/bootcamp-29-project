@@ -45,8 +45,8 @@ class EventApi {
         detail: eventObject.detail,
         date: eventObject.date,
         guests: eventObject.guests,
-        centerId: eventObject.centerId,
-        categoryId: eventObject.categoryId
+        centerId: parseInt(eventObject.centerId, 10),
+        categoryId: parseInt(eventObject.categoryId, 10)
       }),
       {
         headers: {
@@ -71,8 +71,8 @@ class EventApi {
         detail: eventObject.detail,
         date: eventObject.date,
         guests: eventObject.guests,
-        centerId: eventObject.centerId,
-        categoryId: eventObject.categoryId
+        centerId: parseInt(eventObject.centerId, 10),
+        categoryId: parseInt(eventObject.categoryId, 10)
       }),
       {
         headers: {

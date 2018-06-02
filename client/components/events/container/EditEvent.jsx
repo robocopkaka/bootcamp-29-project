@@ -55,7 +55,7 @@ export class EditEvent extends Component {
     // });
     // $('select').material_select();
     // const center = $('#event-center');
-    const category = $('#event-category');
+    // const category = $('#event-category');
     // $('#event-center').on('change', () => {
     //   this.handleSelectCenterChange(center.val());
     // });
@@ -151,7 +151,7 @@ export class EditEvent extends Component {
   updateEvent(e) {
     e.preventDefault();
     this.resetValidationStates();
-    const datetime = `${this.state.date.value} ${this.state.time.value}`;
+    const datetime = `${this.state.date.value}`;
     const eventObject = {
       id: parseInt(this.props.eventId, 10),
       name: this.state.name.value,
@@ -159,7 +159,7 @@ export class EditEvent extends Component {
       guests: this.state.guests.value,
       date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
       centerId: this.props.centerId,
-      categoryId: this.state.category.value
+      categoryId: 1
     };
     if (this.formIsValid()) {
       this.props.actions.updateEvent(eventObject)
