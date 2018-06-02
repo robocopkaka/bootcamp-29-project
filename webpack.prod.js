@@ -19,5 +19,9 @@ module.exports = merge(common, {
       'process.env.API_HOST': JSON.stringify('process.env.API_HOST'),
       'process.env.PORT': JSON.stringify('process.env.PORT'),
     }),
-  ]
+  ],
+  alias: {
+    react: path.resolve('./node_modules/react'),
+    'react-dom': path.resolve('./node_modules/react-dom')
+  }
 });
