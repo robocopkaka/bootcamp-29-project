@@ -21,8 +21,14 @@ module.exports = merge(common, {
       'process.env.PORT': JSON.stringify('process.env.PORT'),
     }),
   ],
-  alias: {
-    react: path.resolve('./node_modules/react'),
-    'react-dom': path.resolve('./node_modules/react-dom')
+  resolve: {
+    extensions: ['.js', '.css', '.jsx'],
+    modules: [
+      'node_modules'
+    ],
+    alias: {
+      react: path.resolve('./node_modules/react'),
+      'react-dom': path.resolve('./node_modules/react-dom')
+    }
   }
 });
