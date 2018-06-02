@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0ddf287ea1a73ba2bc23"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "66d1830630e14b2bd44f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6399,7 +6399,7 @@ var IE8_DOM_DEFINE = __webpack_require__(124);
 var toPrimitive = __webpack_require__(73);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(25) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(26) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -6451,192 +6451,6 @@ exports.default = Preloader;
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addCenterSuccess = addCenterSuccess;
-exports.addCenterFailure = addCenterFailure;
-exports.addCenterLoading = addCenterLoading;
-exports.fetchCentersSuccess = fetchCentersSuccess;
-exports.fetchCentersLoading = fetchCentersLoading;
-exports.updateCenterSuccess = updateCenterSuccess;
-exports.updateCenterFailure = updateCenterFailure;
-exports.updateCenterLoading = updateCenterLoading;
-exports.addCenter = addCenter;
-exports.fetchCenters = fetchCenters;
-exports.updateCenter = updateCenter;
-
-var _actionTypes = __webpack_require__(14);
-
-var types = _interopRequireWildcard(_actionTypes);
-
-var _centerApi = __webpack_require__(161);
-
-var _centerApi2 = _interopRequireDefault(_centerApi);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function addCenterSuccess(center) {
-  return { type: types.ADD_CENTER_SUCCESS, center: center };
-}
-function addCenterFailure() {
-  return { type: types.ADD_CENTER_FAILURE };
-}
-function addCenterLoading() {
-  return { type: types.ADD_CENTER_LOADING };
-}
-function fetchCentersSuccess(data) {
-  return { type: types.FETCH_CENTERS_SUCCESS, data: data };
-}
-// export function fetchCentersFailure() {
-//   return { type: types.FETCH_CENTERS_FAILURE };
-// }
-function fetchCentersLoading() {
-  return { type: types.FETCH_CENTERS_LOADING };
-}
-function updateCenterSuccess(center) {
-  return { type: types.UPDATE_CENTER_SUCCESS, center: center };
-}
-function updateCenterFailure() {
-  return { type: types.UPDATE_CENTER_FAILURE };
-}
-function updateCenterLoading() {
-  return { type: types.UPDATE_CENTER_LOADING };
-}
-function addCenter(values) {
-  return function (dispatch) {
-    dispatch(addCenterLoading());
-    return _centerApi2.default.create(values).then(function (response) {
-      dispatch(addCenterSuccess(response.data));
-      return response.data.message;
-    }).catch(function (error) {
-      // console.log(`error message = ${JSON.stringify(error.data)}`);
-      dispatch(addCenterFailure());
-      throw error.data.message;
-    });
-  };
-}
-function fetchCenters(page) {
-  return function (dispatch) {
-    dispatch(fetchCentersLoading());
-    return _centerApi2.default.getAll(page).then(function (response) {
-      dispatch(fetchCentersSuccess(response.data));
-    });
-    // .catch(() => {
-    //   dispatch(fetchCentersFailure());
-    // });
-  };
-}
-function updateCenter(center) {
-  return function (dispatch) {
-    dispatch(updateCenterLoading());
-    return _centerApi2.default.update(center).then(function (response) {
-      dispatch(updateCenterSuccess(response.data));
-      return response.data;
-    }).catch(function (error) {
-      // console.log(error);
-      dispatch(updateCenterFailure());
-      throw error.data.message;
-    });
-  };
-}
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(19);
-var core = __webpack_require__(13);
-var ctx = __webpack_require__(72);
-var hide = __webpack_require__(29);
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && key in exports) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(41)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6785,6 +6599,192 @@ function deleteEvent(eventId) {
 }
 
 /***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addCenterSuccess = addCenterSuccess;
+exports.addCenterFailure = addCenterFailure;
+exports.addCenterLoading = addCenterLoading;
+exports.fetchCentersSuccess = fetchCentersSuccess;
+exports.fetchCentersLoading = fetchCentersLoading;
+exports.updateCenterSuccess = updateCenterSuccess;
+exports.updateCenterFailure = updateCenterFailure;
+exports.updateCenterLoading = updateCenterLoading;
+exports.addCenter = addCenter;
+exports.fetchCenters = fetchCenters;
+exports.updateCenter = updateCenter;
+
+var _actionTypes = __webpack_require__(14);
+
+var types = _interopRequireWildcard(_actionTypes);
+
+var _centerApi = __webpack_require__(161);
+
+var _centerApi2 = _interopRequireDefault(_centerApi);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function addCenterSuccess(center) {
+  return { type: types.ADD_CENTER_SUCCESS, center: center };
+}
+function addCenterFailure() {
+  return { type: types.ADD_CENTER_FAILURE };
+}
+function addCenterLoading() {
+  return { type: types.ADD_CENTER_LOADING };
+}
+function fetchCentersSuccess(data) {
+  return { type: types.FETCH_CENTERS_SUCCESS, data: data };
+}
+// export function fetchCentersFailure() {
+//   return { type: types.FETCH_CENTERS_FAILURE };
+// }
+function fetchCentersLoading() {
+  return { type: types.FETCH_CENTERS_LOADING };
+}
+function updateCenterSuccess(center) {
+  return { type: types.UPDATE_CENTER_SUCCESS, center: center };
+}
+function updateCenterFailure() {
+  return { type: types.UPDATE_CENTER_FAILURE };
+}
+function updateCenterLoading() {
+  return { type: types.UPDATE_CENTER_LOADING };
+}
+function addCenter(values) {
+  return function (dispatch) {
+    dispatch(addCenterLoading());
+    return _centerApi2.default.create(values).then(function (response) {
+      dispatch(addCenterSuccess(response.data));
+      return response.data.message;
+    }).catch(function (error) {
+      // console.log(`error message = ${JSON.stringify(error.data)}`);
+      dispatch(addCenterFailure());
+      throw error.data.message;
+    });
+  };
+}
+function fetchCenters(page) {
+  return function (dispatch) {
+    dispatch(fetchCentersLoading());
+    return _centerApi2.default.getAll(page).then(function (response) {
+      dispatch(fetchCentersSuccess(response.data));
+    });
+    // .catch(() => {
+    //   dispatch(fetchCentersFailure());
+    // });
+  };
+}
+function updateCenter(center) {
+  return function (dispatch) {
+    dispatch(updateCenterLoading());
+    return _centerApi2.default.update(center).then(function (response) {
+      dispatch(updateCenterSuccess(response.data));
+      return response.data;
+    }).catch(function (error) {
+      // console.log(error);
+      dispatch(updateCenterFailure());
+      throw error.data.message;
+    });
+  };
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(19);
+var core = __webpack_require__(13);
+var ctx = __webpack_require__(72);
+var hide = __webpack_require__(29);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && key in exports) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(41)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6833,7 +6833,7 @@ function idgen() {
 
 var dP = __webpack_require__(20);
 var createDesc = __webpack_require__(42);
-module.exports = __webpack_require__(25) ? function (object, key, value) {
+module.exports = __webpack_require__(26) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -9669,7 +9669,7 @@ module.exports = (
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(20).f;
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var TAG = __webpack_require__(15)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -13092,7 +13092,7 @@ function verifyPlainObject(value, displayName, methodName) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var toObject = __webpack_require__(51);
 var IE_PROTO = __webpack_require__(70)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -13111,7 +13111,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 var core = __webpack_require__(13);
 var fails = __webpack_require__(41);
 module.exports = function (KEY, exec) {
@@ -13126,7 +13126,7 @@ module.exports = function (KEY, exec) {
 /* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(25) && !__webpack_require__(41)(function () {
+module.exports = !__webpack_require__(26) && !__webpack_require__(41)(function () {
   return Object.defineProperty(__webpack_require__(125)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -13217,10 +13217,10 @@ __webpack_require__(129)(String, 'String', function (iterated) {
 "use strict";
 
 var LIBRARY = __webpack_require__(75);
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 var redefine = __webpack_require__(130);
 var hide = __webpack_require__(29);
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var Iterators = __webpack_require__(43);
 var $iterCreate = __webpack_require__(371);
 var setToStringTag = __webpack_require__(79);
@@ -13298,7 +13298,7 @@ module.exports = __webpack_require__(29);
 /* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var toIObject = __webpack_require__(31);
 var arrayIndexOf = __webpack_require__(374)(false);
 var IE_PROTO = __webpack_require__(70)('IE_PROTO');
@@ -13357,11 +13357,11 @@ var pIE = __webpack_require__(82);
 var createDesc = __webpack_require__(42);
 var toIObject = __webpack_require__(31);
 var toPrimitive = __webpack_require__(73);
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var IE8_DOM_DEFINE = __webpack_require__(124);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(25) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(26) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -27244,7 +27244,7 @@ var _axios = __webpack_require__(33);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -28047,7 +28047,7 @@ var _validator = __webpack_require__(34);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -28466,11 +28466,11 @@ var _classnames = __webpack_require__(4);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -28589,7 +28589,7 @@ var AddEvent = exports.AddEvent = function (_Component) {
     value: function handleDateChange(e, date) {
       this.setState({
         // date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
-        ate: Object.assign({}, this.state.date, { value: date })
+        date: Object.assign({}, this.state.date, { value: date })
       });
     }
     // handleSelectCategoryChange(e, target, value) {
@@ -28625,7 +28625,7 @@ var AddEvent = exports.AddEvent = function (_Component) {
         this.setState({ detail: state.detail });
         fieldCheck = false;
       }
-      if (_validator2.default.isEmpty(state.date.value)) {
+      if (_validator2.default.isEmpty(state.date.value.toString())) {
         state.date.isValid = false;
         state.date.message = 'Date must not be empty';
 
@@ -28687,7 +28687,6 @@ var AddEvent = exports.AddEvent = function (_Component) {
         centerId: this.props.centerId,
         categoryId: this.state.category.value
       };
-      console.log(eventObject);
       if (this.formIsValid()) {
         this.props.actions.addEvent(eventObject).then(function (response) {
           Materialize.toast(response, 4000, 'green');
@@ -28707,7 +28706,6 @@ var AddEvent = exports.AddEvent = function (_Component) {
       var dateClasses = (0, _classnames2.default)('help-block', _defineProperty({}, styles['has-error'], !this.state.date.isValid));
       var timeClasses = (0, _classnames2.default)('help-block', _defineProperty({}, styles['has-error'], !this.state.time.isValid));
       var centerClasses = (0, _classnames2.default)('help-block', _defineProperty({}, styles['has-error'], !this.state.center.isValid));
-      var categoryClasses = (0, _classnames2.default)('help-block', _defineProperty({}, styles['has-error'], !this.state.category.isValid));
       var containerClasses = (0, _classnames2.default)('container', styles['max-width-six-hundred']);
       return _react2.default.createElement(
         'div',
@@ -28920,7 +28918,7 @@ var EventsForm = function EventsForm(_ref) {
         _react2.default.createElement(
           _reactMaterialize.Row,
           null,
-          _react2.default.createElement(_reactMaterialize.Input, { name: 'on', type: 'date', onChange: handleDateChange })
+          _react2.default.createElement(_reactMaterialize.Input, { name: 'on', type: 'date', onChange: handleDateChange, value: date.value })
         ),
         component !== 'Edit' ? _react2.default.createElement(
           'label',
@@ -29034,7 +29032,11 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _centerActions = __webpack_require__(22);
+var _eventActions = __webpack_require__(22);
+
+var eventActions = _interopRequireWildcard(_eventActions);
+
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -29077,7 +29079,6 @@ var EditEvent = exports.EditEvent = function (_Component) {
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
-    _this.handleSelectCategoryChange = _this.handleSelectCategoryChange.bind(_this);
     _this.updateEvent = _this.updateEvent.bind(_this);
     return _this;
   }
@@ -29160,9 +29161,9 @@ var EditEvent = exports.EditEvent = function (_Component) {
     }
   }, {
     key: 'handleDateChange',
-    value: function handleDateChange(e) {
+    value: function handleDateChange(e, date) {
       this.setState({
-        date: Object.assign({}, this.state.date, { value: (0, _moment2.default)(e.select).format('LL') })
+        date: Object.assign({}, this.state.date, { value: date })
       });
     }
   }, {
@@ -53766,9 +53767,9 @@ module.exports = function defineProperty(it, key, desc) {
 /* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(25), 'Object', { defineProperty: __webpack_require__(20).f });
+$export($export.S + $export.F * !__webpack_require__(26), 'Object', { defineProperty: __webpack_require__(20).f });
 
 
 /***/ }),
@@ -53860,7 +53861,7 @@ var dP = __webpack_require__(20);
 var anObject = __webpack_require__(30);
 var getKeys = __webpack_require__(53);
 
-module.exports = __webpack_require__(25) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(26) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -54040,9 +54041,9 @@ module.exports = __webpack_require__(13).Symbol;
 
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(19);
-var has = __webpack_require__(23);
-var DESCRIPTORS = __webpack_require__(25);
-var $export = __webpack_require__(24);
+var has = __webpack_require__(24);
+var DESCRIPTORS = __webpack_require__(26);
+var $export = __webpack_require__(25);
 var redefine = __webpack_require__(130);
 var META = __webpack_require__(384).KEY;
 var $fails = __webpack_require__(41);
@@ -54279,7 +54280,7 @@ setToStringTag(global.JSON, 'JSON', true);
 
 var META = __webpack_require__(52)('meta');
 var isObject = __webpack_require__(40);
-var has = __webpack_require__(23);
+var has = __webpack_require__(24);
 var setDesc = __webpack_require__(20).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
@@ -54467,7 +54468,7 @@ module.exports = __webpack_require__(13).Object.setPrototypeOf;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(395).set });
 
 
@@ -54523,7 +54524,7 @@ module.exports = function create(P, D) {
 /* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: __webpack_require__(76) });
 
@@ -54965,7 +54966,7 @@ module.exports = __webpack_require__(13).Array.from;
 "use strict";
 
 var ctx = __webpack_require__(72);
-var $export = __webpack_require__(24);
+var $export = __webpack_require__(25);
 var toObject = __webpack_require__(51);
 var call = __webpack_require__(404);
 var isArrayIter = __webpack_require__(405);
@@ -64728,11 +64729,11 @@ var _rentals = __webpack_require__(142);
 
 var _rentals2 = _interopRequireDefault(_rentals);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -65590,7 +65591,7 @@ var _classnames = __webpack_require__(4);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -70389,11 +70390,11 @@ var _singleCenterActions = __webpack_require__(290);
 
 var singleCenterActions = _interopRequireWildcard(_singleCenterActions);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
@@ -70862,7 +70863,7 @@ var _queryString = __webpack_require__(97);
 
 var _queryString2 = _interopRequireDefault(_queryString);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
@@ -71085,7 +71086,7 @@ var _redux = __webpack_require__(8);
 
 var _reactRedux = __webpack_require__(9);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
@@ -71388,11 +71389,11 @@ var _utilityActions = __webpack_require__(595);
 
 var utilityActions = _interopRequireWildcard(_utilityActions);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 
-var _centerActions = __webpack_require__(22);
+var _centerActions = __webpack_require__(23);
 
 var centerActions = _interopRequireWildcard(_centerActions);
 
@@ -71700,7 +71701,7 @@ var _Preloader = __webpack_require__(21);
 
 var _Preloader2 = _interopRequireDefault(_Preloader);
 
-var _eventActions = __webpack_require__(26);
+var _eventActions = __webpack_require__(22);
 
 var eventActions = _interopRequireWildcard(_eventActions);
 

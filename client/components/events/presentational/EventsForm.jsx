@@ -65,7 +65,7 @@ const EventsForm = ({
       </div>
       <div className="input-field col s6">
         <Row>
-          <Input name="on" type="date" onChange={handleDateChange} />
+          <Input name="on" type="date" onChange={handleDateChange} value={date.value} />
         </Row>
         { component !== 'Edit' ? (
           <label htmlFor="event-date" className="active">Date</label>

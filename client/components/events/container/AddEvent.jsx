@@ -90,7 +90,7 @@ export class AddEvent extends Component {
   handleDateChange(e, date) {
     this.setState({
       // date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
-      ate: Object.assign({}, this.state.date, { value: date })
+      date: Object.assign({}, this.state.date, { value: date })
     });
   }
   // handleSelectCategoryChange(e, target, value) {
@@ -123,7 +123,7 @@ export class AddEvent extends Component {
       this.setState({ detail: state.detail });
       fieldCheck = false;
     }
-    if (validator.isEmpty(state.date.value)) {
+    if (validator.isEmpty((state.date.value).toString())) {
       state.date.isValid = false;
       state.date.message = 'Date must not be empty';
 
@@ -177,7 +177,6 @@ export class AddEvent extends Component {
       centerId: this.props.centerId,
       categoryId: this.state.category.value
     };
-    console.log(eventObject)
     if (this.formIsValid()) {
       this.props.actions.addEvent(eventObject)
         .then((response) => {
@@ -195,7 +194,6 @@ export class AddEvent extends Component {
     const dateClasses = classNames('help-block', { [styles['has-error']]: !this.state.date.isValid });
     const timeClasses = classNames('help-block', { [styles['has-error']]: !this.state.time.isValid });
     const centerClasses = classNames('help-block', { [styles['has-error']]: !this.state.center.isValid });
-    const categoryClasses = classNames('help-block', { [styles['has-error']]: !this.state.category.isValid });
     const containerClasses = classNames('container', styles['max-width-six-hundred']);
     return (
       <div className={containerClasses}>

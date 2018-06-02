@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import moment from 'moment';
+import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
 import * as styles from '../../../css/index.module.css';
@@ -23,7 +24,6 @@ export class EditEvent extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.updateEvent = this.updateEvent.bind(this);
   }
   componentDidMount() {
