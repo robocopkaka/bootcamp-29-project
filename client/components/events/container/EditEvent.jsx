@@ -13,6 +13,7 @@ import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
+import * as styles from '../../../css/index.module.css';
 
 export class EditEvent extends Component {
   constructor(props) {
@@ -190,13 +191,13 @@ export class EditEvent extends Component {
     }
   }
   render() {
-    const nameClasses = classNames('help-block', { 'has-error': !this.state.name.isValid });
-    const detailClasses = classNames('help-block', { 'has-error': !this.state.detail.isValid });
-    const guestsClasses = classNames('help-block', { 'has-error': !this.state.guests.isValid });
-    const dateClasses = classNames('help-block', { 'has-error': !this.state.date.isValid });
-    const timeClasses = classNames('help-block', { 'has-error': !this.state.time.isValid });
-    const categoryClasses = classNames('help-block', { 'has-error': !this.state.category.isValid });
-    const containerClasses = classNames('container max-width-six-hundred');
+    const nameClasses = classNames('help-block', { [styles['has-error']]: !this.state.name.isValid });
+    const detailClasses = classNames('help-block', { [styles['has-error']]: !this.state.detail.isValid });
+    const guestsClasses = classNames('help-block', { [styles['has-error']]: !this.state.guests.isValid });
+    const dateClasses = classNames('help-block', { [styles['has-error']]: !this.state.date.isValid });
+    const timeClasses = classNames('help-block', { [styles['has-error']]: !this.state.time.isValid });
+    const categoryClasses = classNames('help-block', { [styles['has-error']]: !this.state.category.isValid });
+    const containerClasses = classNames('container', styles['max-width-six-hundred']);
     return (
       <div className={containerClasses}>
         <div>

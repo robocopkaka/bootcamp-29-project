@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const REGISTER_BASE_API = '/api/v2/users';
+
 class RegisterApi {
   static register(credentials) {
     return axios.post(
-      'http://localhost:8000/api/v2/users',
+      `${REGISTER_BASE_API}`,
       JSON.stringify({
         name: credentials.name,
         email: credentials.email,

@@ -58,12 +58,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, '../client/public')));
+
+app.set('views', path.join(__dirname, '..', 'client', 'public'));
+
 
 require('./routes')(app);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
-app.get('*', (req, res) => res.status(200).send({
+app.get('/api/v2/*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }));
+
+app.get('*', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '..', 'client/public/index.html'));
+});
 
 module.exports = app;

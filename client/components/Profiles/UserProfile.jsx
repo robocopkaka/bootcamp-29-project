@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import Search from '../common/Search';
 import EventsListWithImage from '../events/presentational/EventsListWithImage';
 import Preloader from '../common/Preloader';
 import * as eventActions from '../../actions/eventActions';
+import * as styles from '../../css/index.module.css';
 
 export class UserProfile extends Component {
   constructor(props) {
@@ -23,12 +25,15 @@ export class UserProfile extends Component {
   }
   render() {
     const { events = [] } = this.props;
+    const leftTenPadding = classNames('col', 's12', styles['left-ten-padding']);
+    const navbarPurpleClasses = classNames(styles.tabs, 'blue-text', styles['navbar-purple']);
+    const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
     return (
       <React.Fragment>
-        <ul className="tabs navbar-purple blue-text">
+        <ul className={navbarPurpleClasses}>
           <li className="tab col s3"><a className="active" href="#all-events">All Events</a></li>
         </ul>
-        <div id="all-events" className="col s12 left-ten-padding">
+        <div id="all-events" className={leftTenPadding}>
           <div className="container">
             <Search />
             <div className="row">
@@ -46,7 +51,7 @@ export class UserProfile extends Component {
           <div className="fixed-action-btn horizontal click-to-toggle">
             <Link
               to="/add-event"
-              className="btn-floating btn-large red white-color"
+              className={whiteColorClasses}
             >
               <i className="material-icons">add</i>
             </Link>

@@ -1,8 +1,11 @@
 import axios from 'axios';
+
+const CENTER_BASE_API = '/api/v2/centers';
+
 class SingleCenterApi {
   static getOne(centerId) {
     return axios.get(
-      `http://localhost:8000/api/v2/centers/${centerId}`,
+      `${CENTER_BASE_API}/${centerId}`,
       {
         headers: {
           'Content-Type': 'application/json',

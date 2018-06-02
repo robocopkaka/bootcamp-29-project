@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const SESSION_BASE_API = '/api/v2/users';
+
 class SessionApi {
   static login(credentials) {
     return axios.post(
-      'http://localhost:8000/api/v2/users/login',
+      `${SESSION_BASE_API}/login`,
       JSON.stringify({
         email: credentials.email,
         password: credentials.password

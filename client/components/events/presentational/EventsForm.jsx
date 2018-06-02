@@ -1,5 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import * as styles from '../../../css/index.module.css';
+
+const navbarPurpleClasses = classNames('btn', 'waves-effect', 'waves-light', styles['navbar-purple'], styles['round-btn']);
 
 const EventsForm = ({
   name, date, detail, guests, nameClasses, dateClasses,
@@ -93,7 +97,7 @@ const EventsForm = ({
     </div>
     <div className="row center-align">
       <button
-        className="btn waves-effect waves-light navbar-purple round-btn"
+        className={navbarPurpleClasses}
         type="submit"
         name="action"
         onClick={saveOrUpdate}

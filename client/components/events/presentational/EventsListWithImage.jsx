@@ -2,19 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import classNames from 'classnames';
 import * as styles from '../../../css/events.module.css';
+import * as indexStyles from '../../../css/index.module.css';
 import owenShaw from '../../../img/owen shaw.jpg';
+
+const navbarPurpleLeftClasses = classNames(
+  'btn', 'waves-effect', 'waves-light', indexStyles['navbar-purple'],
+  indexStyles['round-btn'], 'left-align', indexStyles['white-color']
+);
+const navbarPurpleRightClasses = classNames(
+  'btn', 'waves-effect', 'waves-light', indexStyles['navbar-purple'],
+  indexStyles['round-btn'], 'right', indexStyles['white-color']
+);
+const hvrClasses = classNames('col', 's12', 'm6', 'l4', indexStyles['hvr-grow']);
 
 const EventsListWithImage = ({
   events, isAdmin, loggedIn, deleteEvent, changeEvent, centerId, toggleEdit, showModal
 }) => (
   <div>
     {events.map(event => (
-      <div className="col s12 m6 l4 hvr-grow" key={event.id}>
+      <div className={hvrClasses} key={event.id}>
         <div className="card z-depth-2">
           <Link to={`/events/${event.id}`}>
             <div className="card-image">
-              <img src={owenShaw} alt={`${event.name}`} className="event-image" />
+              <img src={owenShaw} alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>
             <div className="card-content">
               <span className={styles['event-focus']}>{event.name}</span><br />
@@ -27,13 +39,13 @@ const EventsListWithImage = ({
               <React.Fragment>
                 <button
                   onClick={() => { changeEvent(event.id); toggleEdit(); showModal(); }}
-                  className="waves-effect waves-light btn navbar-purple round-btn white-color left-align"
+                  className={navbarPurpleLeftClasses}
                 >
                   <i className="material-icons">edit</i>
                 </button>
                 <button
                   onClick={() => deleteEvent(event.id)}
-                  className="waves-effect waves-light btn navbar-purple round-btn white-color right"
+                  className={navbarPurpleRightClasses}
                 >
                   <i className="material-icons">delete</i>
                 </button>

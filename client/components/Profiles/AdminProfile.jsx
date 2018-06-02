@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import $ from 'jquery';
+import classNames from 'classnames';
 import * as utilityActions from '../../actions/utilityActions';
 import * as eventActions from '../../actions/eventActions';
 import * as centerActions from '../../actions/centerActions';
@@ -11,6 +11,7 @@ import Search from '../common/Search';
 import EventsListWithImage from '../events/presentational/EventsListWithImage';
 import CenterList from '../centers/presentational/CenterList';
 import Preloader from '../common/Preloader';
+import * as styles from '../../css/index.module.css';
 
 export class AdminProfile extends Component {
   constructor(props) {
@@ -34,13 +35,16 @@ export class AdminProfile extends Component {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
     const { isAdmin = false } = this.props;
+    const leftTenPadding = classNames('col', 's12', styles['left-ten-padding']);
+    const navbarPurpleClasses = classNames(styles.tabs, 'blue-text', styles['navbar-purple']);
+    const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
     return (
       <React.Fragment>
-        <ul className="tabs navbar-purple blue-text">
+        <ul className={navbarPurpleClasses}>
           <li className="tab col s3"><a className="active" href="#all-events">All Events</a></li>
           <li className="tab col s3"><a href="#all-centers">All Centers</a></li>
         </ul>
-        <div id="all-events" className="col s12 left-ten-padding">
+        <div id="all-events" className={leftTenPadding}>
           <div className="container">
             <Search />
             <div className="row">
@@ -58,7 +62,7 @@ export class AdminProfile extends Component {
           <div className="fixed-action-btn horizontal click-to-toggle">
             <Link
               to="/add-event"
-              className="btn-floating btn-large red white-color"
+              className={whiteColorClasses}
             >
               <i className="material-icons">add</i>
             </Link>
@@ -78,7 +82,7 @@ export class AdminProfile extends Component {
           <div className="fixed-action-btn horizontal click-to-toggle">
             <Link
               to="/add-center"
-              className="btn-floating btn-large red white-color"
+              className={whiteColorClasses}
             >
               <i className="material-icons">add</i>
             </Link>

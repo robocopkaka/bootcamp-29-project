@@ -7,6 +7,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
+import * as styles from '../../css/index.module.css';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -101,8 +102,10 @@ export class Login extends React.Component {
   }
   render() {
     const { isLoading = [] } = this.props;
-    const emailClasses = classNames('help-block', { 'has-error': !this.state.email.isValid });
-    const passwordClasses = classNames('help-block', { 'has-error': !this.state.password.isValid });
+    const emailClasses = classNames('help-block', { [styles['has-error']]: !this.state.email.isValid });
+    const passwordClasses = classNames('help-block', { [styles['has-error']]: !this.state.password.isValid });
+    const signupFormClasses = classNames('row', 'center-align', 'valign-wrapper', styles['signup-form']);
+    const navbarPurpleClasses = classNames('btn', 'waves-effect', 'waves-light', styles['navbar-purple'], styles['round-btn']);
     if (isLoading) {
       return (
         <Preloader />
@@ -110,11 +113,11 @@ export class Login extends React.Component {
     }
     return (
       <div className="container">
-        <div className="row signup-form center-align valign-wrapper">
+        <div className={signupFormClasses}>
           <div className="col s12 m12">
             <div>
               <div className="card-content">
-                <span className="card-title"><h3 className="center-heading">Login</h3></span>
+                <span className="card-title"><h3 className={styles['center-heading']}>Login</h3></span>
                 <form className="container">
                   <div className="row">
                     <div className="input-field col s12">
@@ -152,7 +155,7 @@ export class Login extends React.Component {
                   </div>
                   <div className="row center-align">
                     <button
-                      className="btn waves-effect waves-light navbar-purple round-btn"
+                      className={navbarPurpleClasses}
                       type="submit"
                       name="action"
                       onClick={this.login}

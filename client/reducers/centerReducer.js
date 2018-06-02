@@ -64,7 +64,6 @@ export default function centerReducer(state = initialState.centers, action) {
           $set: false
         }
       });
-      console.log(newState)
       return newState;
     // case types.FETCH_CENTERS_FAILURE:
     //   newState = update(state, {
