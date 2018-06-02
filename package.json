@@ -92,8 +92,7 @@
     "uuid": "^3.2.1",
     "validator": "^9.2.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
-    "webpack-merge": "^4.1.2"
+    "webpack-dev-server": "^2.9.7"
   },
   "devDependencies": {
     "babel-jest": "^22.4.3",
@@ -137,7 +136,8 @@
     "sinon": "^4.1.5",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
-    "webpack-cli": "^2.0.11"
+    "webpack-cli": "^2.0.11",
+    "webpack-merge": "^4.1.2"
   },
   "transform": {
     "^.+\\.js$": "babel-jest"
