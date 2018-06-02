@@ -16,7 +16,7 @@
     "build:express": "babel lib -d dist --presets=latest",
     "build:react": "webpack --config webpack.prod.js",
     "build": "npm run build:express && npm run build:react",
-    "postinstall": "npm run build",
+    "heroku-postbuild": "npm run build",
     "react:build": "webpack --config webpack.prod.js",
     "serve": "node dist/index.js",
     "mocha": "mocha --compilers js:babel-core/register",
