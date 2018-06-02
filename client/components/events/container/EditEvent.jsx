@@ -5,12 +5,6 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validator from 'validator';
 import moment from 'moment';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import DateTimePicker from 'material-ui-datetimepicker';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
-import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
 import * as styles from '../../../css/index.module.css';
@@ -65,9 +59,9 @@ export class EditEvent extends Component {
     // $('#event-center').on('change', () => {
     //   this.handleSelectCenterChange(center.val());
     // });
-    $('#event-category').on('change', () => {
-      this.handleSelectCategoryChange(category.val());
-    });
+    // $('#event-category').on('change', () => {
+    //   this.handleSelectCategoryChange(category.val());
+    // });
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.event.id !== nextProps.event.id) {
@@ -101,14 +95,9 @@ export class EditEvent extends Component {
       [field]: [field]
     });
   }
-  handleDateChange(e) {
+  handleDateChange(e, date) {
     this.setState({
-      date: Object.assign({}, this.state.date, { value: moment(e.select).format('LL') })
-    });
-  }
-  handleSelectCategoryChange(e) {
-    this.setState({
-      category: Object.assign({}, this.state.category, { value: e })
+      date: Object.assign({}, this.state.date, { value: date })
     });
   }
   formIsValid() {
@@ -141,13 +130,6 @@ export class EditEvent extends Component {
       state.date.message = 'Date must not be empty';
 
       this.setState({ date: state.date });
-      fieldCheck = false;
-    }
-    if (validator.isEmpty((state.category.value).toString())) {
-      state.category.isValid = false;
-      state.category.message = 'Select a category';
-
-      this.setState({ category: state.category });
       fieldCheck = false;
     }
     if (!fieldCheck) {
@@ -196,7 +178,6 @@ export class EditEvent extends Component {
     const guestsClasses = classNames('help-block', { [styles['has-error']]: !this.state.guests.isValid });
     const dateClasses = classNames('help-block', { [styles['has-error']]: !this.state.date.isValid });
     const timeClasses = classNames('help-block', { [styles['has-error']]: !this.state.time.isValid });
-    const categoryClasses = classNames('help-block', { [styles['has-error']]: !this.state.category.isValid });
     const containerClasses = classNames('container', styles['max-width-six-hundred']);
     return (
       <div className={containerClasses}>
@@ -207,7 +188,6 @@ export class EditEvent extends Component {
           <EventsForm
             name={this.state.name}
             guests={this.state.guests}
-            category={this.state.category}
             date={this.state.date}
             time={this.state.time}
             detail={this.state.detail}
@@ -215,19 +195,11 @@ export class EditEvent extends Component {
             guestsClasses={guestsClasses}
             dateClasses={dateClasses}
             timeClasses={timeClasses}
-            categoryClasses={categoryClasses}
             detailClasses={detailClasses}
             saveOrUpdate={this.updateEvent}
             handleChange={this.handleChange}
-            handleTimeChange={this.handleTimeChange}
-            handleSelectCenterChange={this.handleSelectCenterChange}
-            handleSelectCategoryChange={this.handleSelectCategoryChange}
+            handleDateChange={this.handleDateChange}
             component="Edit"
-            SelectField={SelectField}
-            MenuItem={MenuItem}
-            DateTimePicker={DateTimePicker}
-            DatePickerDialog={DatePickerDialog}
-            TimePickerDialog={TimePickerDialog}
           />
         </div>
       </div>

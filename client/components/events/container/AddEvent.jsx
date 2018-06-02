@@ -5,11 +5,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import validator from 'validator';
 import classNames from 'classnames';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import DateTimePicker from 'material-ui-datetimepicker';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import * as eventActions from '../../../actions/eventActions';
 import * as centerActions from '../../../actions/centerActions';
 import EventsForm from '../presentational/EventsForm';
@@ -30,7 +25,7 @@ export class AddEvent extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
+    // this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
   componentDidMount() {
@@ -70,12 +65,12 @@ export class AddEvent extends Component {
     // $('#event-center').on('change', () => {
     //   this.handleSelectCenterChange(center.val());
     // });
-    $('#event-category').on('change', () => {
-      this.handleSelectCategoryChange(category.val());
-    });
-    $('select').on('contentChanged', () => {
-      $(this).material_select();
-    });
+    // $('#event-category').on('change', () => {
+    //   this.handleSelectCategoryChange(category.val());
+    // });
+    // $('select').on('contentChanged', () => {
+    //   $(this).material_select();
+    // });
   }
   // componentWillReceiveProps(nextProps) {
   //   // console.log(nextProps);
@@ -92,16 +87,17 @@ export class AddEvent extends Component {
       [field]: [field]
     });
   }
-  handleDateChange(e) {
+  handleDateChange(e, date) {
     this.setState({
-      date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
+      // date: Object.assign({}, this.state.date, { value: moment(e).format('LL') })
+      ate: Object.assign({}, this.state.date, { value: date })
     });
   }
-  handleSelectCategoryChange(e, target, value) {
-    this.setState({
-      category: Object.assign({}, this.state.category, { value })
-    });
-  }
+  // handleSelectCategoryChange(e, target, value) {
+  //   this.setState({
+  //     category: Object.assign({}, this.state.category, { value })
+  //   });
+  // }
   formIsValid() {
     let fieldCheck = true;
     const state = Object.assign({}, this.state);
@@ -134,13 +130,13 @@ export class AddEvent extends Component {
       this.setState({ date: state.date });
       fieldCheck = false;
     }
-    if (validator.isEmpty((state.category.value).toString())) {
-      state.category.isValid = false;
-      state.category.message = 'Select a category';
-
-      this.setState({ category: state.category });
-      fieldCheck = false;
-    }
+    // if (validator.isEmpty((state.category.value).toString())) {
+    //   state.category.isValid = false;
+    //   state.category.message = 'Select a category';
+    //
+    //   this.setState({ category: state.category });
+    //   fieldCheck = false;
+    // }
     if (!fieldCheck) {
       return false;
     }
@@ -211,7 +207,6 @@ export class AddEvent extends Component {
             name={this.state.name}
             guests={this.state.guests}
             center={this.state.center}
-            category={this.state.category}
             date={this.state.date}
             time={this.state.time}
             detail={this.state.detail}
@@ -220,19 +215,11 @@ export class AddEvent extends Component {
             dateClasses={dateClasses}
             timeClasses={timeClasses}
             centerClasses={centerClasses}
-            categoryClasses={categoryClasses}
             detailClasses={detailClasses}
             saveOrUpdate={this.addEvent}
             handleChange={this.handleChange}
-            handleTimeChange={this.handleTimeChange}
             handleDateChange={this.handleDateChange}
             handleSelectCenterChange={this.handleSelectCenterChange}
-            handleSelectCategoryChange={this.handleSelectCategoryChange}
-            SelectField={SelectField}
-            MenuItem={MenuItem}
-            DateTimePicker={DateTimePicker}
-            DatePickerDialog={DatePickerDialog}
-            TimePickerDialog={TimePickerDialog}
           />
         </div>
       </div>
