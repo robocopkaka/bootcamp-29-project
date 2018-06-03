@@ -1,9 +1,11 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
+import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import { Provider } from 'react-redux';
+import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
+import { Pagination } from 'react-materialize';
 import ConnectedSingleCenter, { SingleCenter } from '../../components/centers/containers/SingleCenter';
 import Modal from '../../components/common/Modal';
 import EventsListWithImage from '../../components/events/presentational/EventsListWithImage';
@@ -49,8 +51,9 @@ describe('<SingleCenter />', () => {
     wrapper = shallow(
       <SingleCenter
         center={center}
-        events={emptyEvents}
+        events={events}
         actions={actions}
+        pages={4}
         match={match}
       />);
     container = shallow(<ConnectedSingleCenter store={store} />);
@@ -66,13 +69,27 @@ describe('<SingleCenter />', () => {
   // });
   it('should render the Modal component', () => {
     expect(wrapper.find(Modal).length).to.equal(1);
+    // console.log(wrapper.debug());
   });
   it('should render the CenterDetail component', () => {
     expect(wrapper.find(CenterDetail).length).to.equal(1);
   });
+  it('should render the Pagination component', () => {
+    expect(wrapper.find(Pagination).length).to.equal(1);
+  });
+  it('should render the EventsListWithImage component', () => {
+    expect(wrapper.find(EventsListWithImage).length).to.equal(1);
+  });
+  it('calls componentDidMount', () => {
+    sinon.spy(SingleCenter.prototype, 'componentDidMount');
+    const mountedWrapper = mount(<Provider store={store}><SingleCenter /></Provider>, {
+      attachTo: document.getElementById('app')
+    });
+    console.log(mountedWrapper.debug());
+    expect(SingleCenter.prototype.componentDidMount.calledOnce).to.equal(true);
+  });
   it('should render a connected component', () => {
     expect(container.length).to.equal(1);
-    console.log(wrapper.debug())
   });
   it('should have the same props in the container as in initialState', () => {
     expect(container.prop('events')).to.equal(initialState.events.events);
