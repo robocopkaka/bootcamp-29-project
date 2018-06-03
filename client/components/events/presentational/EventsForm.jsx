@@ -1,16 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { Row, Input } from 'react-materialize';
 import * as styles from '../../../css/index.module.css';
 
 const navbarPurpleClasses = classNames('btn', 'waves-effect', 'waves-light', styles['navbar-purple'], styles['round-btn']);
 
 const EventsForm = ({
   name, date, detail, guests, nameClasses, dateClasses,
-  detailClasses, guestsClasses, category,
-  categoryClasses, saveOrUpdate, handleChange, component,
-  handleSelectCategoryChange, SelectField, MenuItem, DateTimePicker,
-  DatePickerDialog, TimePickerDialog, handleDateChange
+  detailClasses, guestsClasses, saveOrUpdate, handleChange, component, handleDateChange
 }) => (
   <form>
     <div className="row">
@@ -66,12 +64,9 @@ const EventsForm = ({
         <span className={guestsClasses}>{guests.message}</span>
       </div>
       <div className="input-field col s6">
-        <DateTimePicker
-          DatePicker={DatePickerDialog}
-          TimePicker={TimePickerDialog}
-          value={date.value}
-          onChange={handleDateChange}
-        />
+        <Row>
+          <Input name="on" type="date" onChange={handleDateChange} value={date.value} />
+        </Row>
         { component !== 'Edit' ? (
           <label htmlFor="event-date" className="active">Date</label>
         ) : (
@@ -80,21 +75,18 @@ const EventsForm = ({
         <span className={dateClasses}>{date.message}</span>
       </div>
     </div>
-    <div className="row">
+    { /* <div className="row">
       <div className="input-field col s12">
         <div className="input-field col s12">
-          <SelectField
-            floatingLabelText="Category"
-            value={category.value}
-            onChange={handleSelectCategoryChange}
-            id="event-category"
-          >
-            <MenuItem value={1} primaryText="General" />
-          </SelectField>
+          <Row>
+            <Input s={6} type='select' label="Category" defaultValue='1'>
+              <option value={category.value}>General</option>
+            </Input>
+          </Row>
           <span className={categoryClasses}>{category.message}</span>
         </div>
       </div>
-    </div>
+    </div> */ }
     <div className="row center-align">
       <button
         className={navbarPurpleClasses}
@@ -109,11 +101,6 @@ const EventsForm = ({
 );
 EventsForm.propTypes = {
   name: PropTypes.shape({
-    value: PropTypes.string,
-    message: PropTypes.string,
-    isValid: PropTypes.bool
-  }).isRequired,
-  time: PropTypes.shape({
     value: PropTypes.string,
     message: PropTypes.string,
     isValid: PropTypes.bool
@@ -133,23 +120,17 @@ EventsForm.propTypes = {
     message: PropTypes.string,
     isValid: PropTypes.bool
   }).isRequired,
-  category: PropTypes.shape({
-    value: PropTypes.number,
-    message: PropTypes.string,
-    isValid: PropTypes.bool
-  }).isRequired,
   nameClasses: PropTypes.string.isRequired,
   detailClasses: PropTypes.string.isRequired,
   dateClasses: PropTypes.string.isRequired,
   guestsClasses: PropTypes.string.isRequired,
-  categoryClasses: PropTypes.string.isRequired,
   component: PropTypes.string,
   saveOrUpdate: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleSelectCategoryChange: PropTypes.func.isRequired,
-  SelectField: PropTypes.func.isRequired
+  handleDateChange: PropTypes.func
 };
 EventsForm.defaultProps = {
-  component: ''
+  component: '',
+  handleDateChange: () => {}
 };
 export default EventsForm;

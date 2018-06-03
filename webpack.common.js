@@ -24,11 +24,11 @@ module.exports = {
         ],
         "plugins": ["transform-regenerator"]
       }, exclude: /node_modules/ },
-      { test: /\.css$/, loader: 'style-loader', include: __dirname + '/client'},
+      { test: /\.css$/, loader: 'style-loader' },
       { test: /\.css$/, loader: 'css-loader', query: {
         modules: true,
         localIdentName: '[name]__[local]___[hash:base64:5]'
-      }, include: __dirname + '/client'},
+      }},
       { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=8192' }
     ]
   },
