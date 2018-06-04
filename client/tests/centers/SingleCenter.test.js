@@ -82,10 +82,17 @@ describe('<SingleCenter />', () => {
   });
   it('calls componentDidMount', () => {
     sinon.spy(SingleCenter.prototype, 'componentDidMount');
-    const mountedWrapper = mount(<Provider store={store}><SingleCenter /></Provider>, {
-      attachTo: document.getElementById('app')
-    });
-    console.log(mountedWrapper.debug());
+    const mountedWrapper = mount(
+      <Provider store={store}>
+        <SingleCenter
+          actions={actions}
+          pages={4}
+          center={center}
+          events={events}
+        />
+      </Provider>, {
+        attachTo: document.getElementById('app')
+      });
     expect(SingleCenter.prototype.componentDidMount.calledOnce).to.equal(true);
   });
   it('should render a connected component', () => {

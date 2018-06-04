@@ -29,50 +29,6 @@ export class AddEvent extends Component {
     // this.handleSelectCategoryChange = this.handleSelectCategoryChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
   }
-  componentDidMount() {
-    // if (this.props.centers.length === 0) {
-    //   this.props.actions.fetchCenters();
-    // }
-    // $('.datepicker').pickadate({
-    //   selectMonths: true, // Creates a dropdown to control month
-    //   selectYears: 15, // Creates a dropdown of 15 years to control year,
-    //   today: 'Today',
-    //   clear: 'Clear',
-    //   close: 'Ok',
-    //   closeOnSelect: true, // Close upon selecting a date,
-    //   onSet: this.handleDateChange,
-    //   container: 'body'
-    // });
-    // const time = $('#event-time');
-    // const value = $('#event-time').attr('value');
-    // $('.timepicker').pickatime({
-    //   default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    //   fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-    //   twelvehour: false, // Use AM/PM or 24-hour format
-    //   donetext: 'OK', // text for done-button
-    //   cleartext: 'Clear', // text for clear-button
-    //   canceltext: 'Cancel', // Text for cancel-button
-    //   autoclose: false, // automatic close timepicker
-    //   ampmclickable: true, // make AM PM clickable
-    //   aftershow: () => {},
-    //   container: 'body'
-    // });
-    // $('.timepicker').on('change', () => {
-    //   this.handleTimeChange(time.val());
-    // });
-    // $('select').material_select();
-    // const center = $('#event-center');
-    // const category = $('#event-category');
-    // $('#event-center').on('change', () => {
-    //   this.handleSelectCenterChange(center.val());
-    // });
-    // $('#event-category').on('change', () => {
-    //   this.handleSelectCategoryChange(category.val());
-    // });
-    // $('select').on('contentChanged', () => {
-    //   $(this).material_select();
-    // });
-  }
   // componentWillReceiveProps(nextProps) {
   //   // console.log(nextProps);
   //   if (nextProps.centers && nextProps.centers.length > 0) {

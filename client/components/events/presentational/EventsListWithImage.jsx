@@ -24,7 +24,7 @@ const EventsListWithImage = ({
     {events.map(event => (
       <div className={hvrClasses} key={event.id}>
         <div className="card z-depth-2">
-          <Link to={`/events/${event.id}`}>
+          <a to={`/events/${event.id}`}>
             <div className="card-image">
               <img src={owenShaw} alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>
@@ -33,7 +33,7 @@ const EventsListWithImage = ({
               <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
               <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
             </div>
-          </Link>
+          </a>
           { isAdmin || loggedIn ? (
             <div className="card-action">
               <React.Fragment>
