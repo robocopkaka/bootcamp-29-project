@@ -42,10 +42,10 @@ describe('<Home />', () => {
     />);
   });
 
-  it('should have a parent div with a class - home-container', () => {
-    const divs = wrapper.find('.home-container');
-    expect(divs.length).to.equal(1);
-  });
+  // it('should have a parent div with a class - home-container', () => {
+  //   const divs = wrapper.find('.home-container');
+  //   expect(divs.length).to.equal(1);
+  // });
   it('should have two rows that contains some centers and events', () => {
     const rows = wrapper.find('.row');
     expect(rows.length).to.equal(2);

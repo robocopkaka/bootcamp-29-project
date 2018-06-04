@@ -19,7 +19,6 @@ export class AddEvent extends Component {
       detail: { value: '', isValid: true, message: '' },
       guests: { value: '', isValid: true, message: '' },
       date: { value: '', isValid: true, message: '' },
-      time: { value: '', isValid: true, message: '' },
       center: { value: 1, isValid: true, message: '' },
       category: { value: 1, isValid: true, message: '' },
       centers: []
@@ -87,13 +86,6 @@ export class AddEvent extends Component {
       this.setState({ date: state.date });
       fieldCheck = false;
     }
-    // if (validator.isEmpty((state.category.value).toString())) {
-    //   state.category.isValid = false;
-    //   state.category.message = 'Select a category';
-    //
-    //   this.setState({ category: state.category });
-    //   fieldCheck = false;
-    // }
     if (!fieldCheck) {
       return false;
     }
@@ -149,7 +141,6 @@ export class AddEvent extends Component {
     const detailClasses = classNames('help-block', { [styles['has-error']]: !this.state.detail.isValid });
     const guestsClasses = classNames('help-block', { [styles['has-error']]: !this.state.guests.isValid });
     const dateClasses = classNames('help-block', { [styles['has-error']]: !this.state.date.isValid });
-    const timeClasses = classNames('help-block', { [styles['has-error']]: !this.state.time.isValid });
     const centerClasses = classNames('help-block', { [styles['has-error']]: !this.state.center.isValid });
     const containerClasses = classNames('container', styles['max-width-six-hundred']);
     return (
@@ -168,7 +159,6 @@ export class AddEvent extends Component {
             nameClasses={nameClasses}
             guestsClasses={guestsClasses}
             dateClasses={dateClasses}
-            timeClasses={timeClasses}
             centerClasses={centerClasses}
             detailClasses={detailClasses}
             saveOrUpdate={this.addEvent}

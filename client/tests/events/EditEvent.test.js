@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import { expect } from 'chai';
+import { shallow, configure, mount } from 'enzyme';
+import expect from 'expect';
+import { Provider } from 'react-redux';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import ConnectedEditEvent, { EditEvent } from '../../components/events/container/EditEvent';
@@ -29,34 +30,80 @@ describe('<EditEvent />', () => {
     store = mockStore(initialState);
     container = shallow(<ConnectedEditEvent store={store} />);
   });
-  it('should have parent div with a .max-width-six-hundred class', () => {
-    expect(wrapper.find('.max-width-six-hundred').length).to.equal(1);
-  });
-  it('should have a method for handling input change', () => {
-    expect(wrapper.instance().handleChange).to.be.a('function');
-  });
-  it('should have a method for handling change to the date field', () => {
-    expect(wrapper.instance().handleDateChange).to.be.a('function');
-  });
-  it('should have a method for handling change to the select field for centers', () => {
-    expect(wrapper.instance().handleSelectCategoryChange).to.be.a('function');
-  });
-  it('should have a method for checking of a form is valid', () => {
-    expect(wrapper.instance().formIsValid).to.be.a('function');
-  });
-  it('should have a method for resetting validation states', () => {
-    expect(wrapper.instance().resetValidationStates).to.be.a('function');
-  });
-  it('should have a method for updating an event', () => {
-    expect(wrapper.instance().updateEvent).to.be.a('function');
-  });
   it('should have a h3 element with text matching - Edit an Event', () => {
-    expect(wrapper.find('h3').text()).to.equal('Edit an Event');
+    expect(wrapper.find('h3').text()).toEqual('Edit an Event');
   });
   it('should render a connected component', () => {
-    expect(container.length).to.equal(1);
+    expect(container.length).toBe(1);
   });
   it('should have props in the container match those in state', () => {
-    expect(container.prop('event')).to.equal(initialState.events.event);
+    expect(container.prop('event')).toEqual(initialState.events.event);
+  });
+
+  describe('handle change methods', () => {
+    it('should set name in state if the value in the name field changes', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'name', value: 'kachi' } });
+      expect(instance.state.name.value).toEqual('kachi');
+    });
+    it('should set detail in state if the value in the detail field changes', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'detail', value: 'kachi' } });
+      expect(instance.state.detail.value).toEqual('kachi');
+    });
+    it('should set guests in state if the value in the guests field changes', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'guests', value: '1000' } });
+      expect(instance.state.guests.value).toEqual('1000');
+    });
+    it('should set date in state if the value in the date field changes', () => {
+      const instance = wrapper.instance();
+      instance.handleDateChange({}, '2018-08-08');
+      expect(instance.state.date.value).toEqual('2018-08-08');
+    });
+  });
+  describe('helper instance methods', () => {
+    it('should return true if form is valid', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'name', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'detail', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'guests', value: '1000' } });
+      instance.handleDateChange({}, '2018-08-08');
+      expect(instance.formIsValid()).toEqual(true);
+    });
+    it('should return false if form is not valid', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'name', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'detail', value: 'kachi' } });
+      instance.handleDateChange({}, '2018-08-08');
+      expect(instance.formIsValid()).toEqual(false);
+    });
+    it('should reset validation states', () => {
+      const instance = wrapper.instance();
+      instance.setState({
+        name: Object.assign({}, instance.state.name, { isValid: false }),
+        detail: Object.assign({}, instance.state.name, { isValid: false })
+      });
+      // console.log(instance)
+      instance.resetValidationStates();
+      expect(instance.state.name.isValid).toBe(true);
+      expect(instance.state.detail.isValid).toBe(true);
+    });
+  });
+  describe('spy method interactions', () => {
+    it('should call the updateEvent method on button click', () => {
+      const dispatchActions = {
+        updateEvent: jest.fn().mockImplementation(() => Promise.resolve()),
+        fetchSingleEvent: jest.fn().mockImplementation(() => Promise.resolve())
+      };
+      const hideModal = () => {};
+      const spy = jest.spyOn(EditEvent.prototype, 'updateEvent');
+      const wrapperWithSpy = mount(
+        <Provider store={store}>
+          <EditEvent actions={dispatchActions} someActionProp={spy} hideModal={hideModal} />
+        </Provider>);
+      wrapperWithSpy.find('button').simulate('click');
+      expect(EditEvent.prototype.updateEvent).toHaveBeenCalledTimes(1);
+    });
   });
 });

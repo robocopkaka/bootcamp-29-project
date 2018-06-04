@@ -1,5 +1,6 @@
 // import $ from 'jquery';
 import localStorage from 'mock-local-storage';
+import chai from 'chai';
 // // var jsdom = require('jsdom');
 // // const { JSDOM } = jsdom;
 // //
@@ -74,4 +75,6 @@ const jQueryMock = {
   // top: {}
 };
 
- global.$ = () => jQueryMock;
+global.jestExpect = global.expect;
+global.expect = chai.expect;
+global.$ = () => jQueryMock;

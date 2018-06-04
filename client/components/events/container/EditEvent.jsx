@@ -46,9 +46,6 @@ export class EditEvent extends Component {
         date: Object.assign({}, this.state.name, {
           value: moment(nextProps.event.date).format('LL')
         }),
-        time: Object.assign({}, this.state.name, {
-          value: moment(nextProps.event.date).format('LT')
-        })
       });
     }
   }
