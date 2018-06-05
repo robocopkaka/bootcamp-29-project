@@ -16,7 +16,7 @@ import events from './fixtures/events';
 
 configure({ adapter: new Adapter() });
 
-jest.dontMock('jquery');
+// jest.dontMock('jquery');
 
 describe('<Main />', () => {
   let wrapper, store;
@@ -66,12 +66,6 @@ describe('<Main />', () => {
     expect(wrapper.find(Centers)).to.have.length(1);
   });
   it('should display the SingleCenter component when the user navigates to /centers/:id', () => {
-    const onCloseMock = jest.fn();
-    global.$ = () => ({
-      on: onCloseMock,
-    });
-    div = global.document.createElement('div');
-    global.document.body.appendChild(div);
     wrapper = mount(
       <MemoryRouter initialEntries={['/centers/1']} initialIndex={0}>
         <Provider store={store}>
@@ -79,7 +73,9 @@ describe('<Main />', () => {
             <Main />
           </MuiThemeProvider>
         </Provider>
-      </MemoryRouter>, { attachTo: div });
+      </MemoryRouter>, {
+        attachTo: document.getElementById('app')
+      });
     expect(wrapper.find(SingleCenter)).to.have.length(1);
   });
 });

@@ -1,56 +1,74 @@
 import React from 'react';
 import { shallow, configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
 import expect from 'expect';
 import configureStore from 'redux-mock-store';
-import Adapter from 'enzyme-adapter-react-16';
 import '../../../__mocks__/xhr-mock';
-import ConnectedEditCenter, { EditCenter } from '../../components/centers/containers/EditCenter';
-import center from '../fixtures/center';
+import ConnectedAddCenter, { AddCenter } from '../../components/centers/containers/AddCenter';
+import CentersForm from '../../components/centers/presentational/CentersForm';
+import Preloader from '../../components/common/Preloader';
+// import centers from '../fixtures/centers';
 
 configure({ adapter: new Adapter() });
 
-describe('<EditCenter />', () => {
-  let wrapper;
-  const actions = {
-    fetchSingleCenter: () => {}
-  };
-  const match = {
-    params: {
-      id: 0
-    }
-  };
+describe('<AddCenter />', () => {
+  let wrapper, loadingWrapper;
+  const isLoading = false;
+  const loading = true;
+  const centerActions = {};
   const initialState = {
     centers: {
-      center
+      isLoading: false
     }
   };
   let store, container;
   const mockStore = configureStore();
   beforeEach(() => {
-    wrapper = shallow(<EditCenter
-      center={center}
-      actions={actions}
-      match={match}
+    wrapper = shallow(<AddCenter
+      isLoading={isLoading}
+      centerActions={centerActions}
+    />);
+    loadingWrapper = shallow(<AddCenter
+      isLoading={loading}
+      centerActions={centerActions}
     />);
     store = mockStore(initialState);
-    container = shallow(<ConnectedEditCenter
+    container = shallow(<ConnectedAddCenter
       store={store}
-      center={center}
-      actions={actions}
-      match={match}
+      isLoading={isLoading}
+      centerActions={centerActions}
     />);
   });
-
-  describe('connected component', () => {
-    it('should have the connected component', () => {
-      expect(container.length).toBe(1);
-    });
-    it('should have the same props in the container that was passed in from initial state', () => {
-      expect(container.prop('center')).toEqual(initialState.centers.center);
-    });
+  it('should have two divs with a .container class', () => {
+    expect(wrapper.find('.container').length).toBe(2);
   });
-  describe('handle change and related methods', () => {
+  it('should have text matching -Add a Center, in the second container', () => {
+    expect(wrapper.find('.container').at(1).children('h3').text()).toBe('Add a Center');
+  });
+  it('should have a method that checks if the fields in the form are valid', () => {
+    expect(wrapper.instance().formIsValid).toBeDefined();
+  });
+  it('should have a method that resets validation states', () => {
+    expect(wrapper.instance().resetValidationStates).toBeDefined();
+  });
+  it('should render a CentersForm component', () => {
+    expect(wrapper.find(CentersForm).length).toBe(1);
+  });
+  it('should have a method that handles change to each input element', () => {
+    expect(wrapper.instance().handleChange).toBeDefined();
+  });
+  it('should have a method that gets a signed request from S3', () => {
+    expect(wrapper.instance().getSignedRequest).toBeDefined();
+  });
+  it('should have a method that uploads a file to S3', () => {
+    expect(wrapper.instance().uploadFile).toBeDefined();
+  });
+  it('should have a circular loader if isLoading is true', () => {
+    expect(loadingWrapper.find(Preloader).length).toBe(1);
+  });
+
+  describe('handle change methods', () => {
     it('should set name in state when handleChange is called with name', () => {
       const instance = wrapper.instance();
       instance.handleChange({ target: { name: 'name', value: 'kachi' } });
@@ -104,60 +122,42 @@ describe('<EditCenter />', () => {
 
   describe('XMLHttpRequest methods', () => {
     it('should get signed request', () => {
-      const spy = jest.spyOn(EditCenter.prototype, 'getSignedRequest');
+      const spy = jest.spyOn(AddCenter.prototype, 'getSignedRequest');
       const instance = wrapper.instance();
       instance.getSignedRequest('file');
-      expect(EditCenter.prototype.getSignedRequest).toHaveBeenCalledTimes(1);
+      expect(AddCenter.prototype.getSignedRequest).toHaveBeenCalledTimes(1);
     });
     it('should upload file', () => {
-      const spy = jest.spyOn(EditCenter.prototype, 'uploadFile');
+      const spy = jest.spyOn(AddCenter.prototype, 'uploadFile');
       const instance = wrapper.instance();
       instance.uploadFile('file', 'request', 'url');
-      expect(EditCenter.prototype.uploadFile).toHaveBeenCalledTimes(1);
+      expect(AddCenter.prototype.uploadFile).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('updateCenter', () => {
+  describe('container component', () => {
+    it('return the container component', () => {
+      expect(container.length).toBe(1);
+    });
+    it('should have the same props in the container component as in initialState', () => {
+      expect(container.prop('isLoading')).toEqual(initialState.centers.isLoading);
+    });
+  });
+
+  describe('addCenter', () => {
     it('should add a center on button click', () => {
       const dispatchActions = {
-        updateCenter: jest.fn().mockImplementation(() => Promise.resolve()),
-        fetchSingleCenter: jest.fn().mockImplementation(() => Promise.resolve())
+        addCenter: jest.fn().mockImplementation(() => Promise.resolve())
       };
       const hideModal = jest.fn();
-      const clearFields = jest.fn();
-      const spy = jest.spyOn(EditCenter.prototype, 'updateCenter');
+      const spy = jest.spyOn(AddCenter.prototype, 'addCenter');
       const wrapperWithSpy = mount(
         <Provider store={store}>
-          <EditCenter
-            actions={dispatchActions}
-            center={center}
-            someActionProp={spy}
-            hideModal={hideModal}
-          />
+          <AddCenter actions={dispatchActions} someActionProp={spy} hideModal={hideModal} />
         </Provider>);
       wrapperWithSpy.find('button').simulate('click', { preventDefault() {} });
-      expect(EditCenter.prototype.updateCenter).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('componentDidMount', () => {
-    it('calls componentDidMount', () => {
-      const dispatchActions = {
-        fetchSingleCenter: jest.fn().mockImplementation(() => Promise.resolve()),
-      };
-      const hideModal = jest.fn();
-      const clearFields = jest.fn();
-      const spy = jest.spyOn(EditCenter.prototype, 'componentDidMount');
-      const mountedWrapper = mount(
-        <Provider store={store}>
-          <EditCenter
-            actions={dispatchActions}
-            center={center}
-            someActionProp={spy}
-            hideModal={hideModal}
-          />
-        </Provider>);
-      expect(EditCenter.prototype.componentDidMount).toHaveBeenCalledTimes(1);
+      expect(AddCenter.prototype.addCenter).toHaveBeenCalledTimes(1);
+      // console.log(wrapperWithSpy.debug());
     });
   });
 });

@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import configureStore from 'redux-mock-store';
 import Adapter from 'enzyme-adapter-react-16';
 import ConnectedSingleEvent, { SingleEvent } from '../../components/events/container/SingleEvent';
+import EventDetails from '../../components/events/presentational/EventDetails';
 import event from '../fixtures/event';
 
 
@@ -39,8 +40,12 @@ describe('<SingleEvent />', () => {
       match={match}
     />);
   });
-  it('should have a div with a .show-center-top class', () => {
-    expect(wrapper.find('.show-center-top').length).to.equal(1);
+  it('should render event details', () => {
+    expect(wrapper.find(EventDetails).length).to.equal(1);
+  });
+  it('should have events in prop', () => {
+    const instance = wrapper.instance();
+    expect(instance.props.event).to.equal(event);
   });
   it('should render the connected component', () => {
     expect(container.length).to.equal(1);

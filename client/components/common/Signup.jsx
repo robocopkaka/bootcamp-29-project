@@ -27,9 +27,6 @@ export class Signup extends React.Component {
       }
     };
   }
-  componentDidMount() {
-    // $('.tooltipped').tooltip({ delay: 50 });
-  }
   handleFirstNameChange(e) {
     const firstName = Object.assign({}, this.state.firstName);
     firstName.value = e.target.value;

@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 import { Row, Input } from 'react-materialize';
 import * as styles from '../../../css/index.module.css';
 

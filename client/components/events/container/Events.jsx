@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Pagination } from 'react-materialize';
 import qs from 'query-string';
 import * as eventActions from '../../../actions/eventActions';
@@ -18,11 +18,10 @@ export class Events extends Component {
     super(props);
     this.state = {
       page: 1,
-      eventId: ''
     };
     this.deleteEvent = this.deleteEvent.bind(this);
     this.changePage = this.changePage.bind(this);
-    this.changeEvent = this.changeEvent.bind(this);
+    // this.changeEvent = this.changeEvent.bind(this);
   }
   componentDidMount() {
     const values = qs.parse(this.props.location.search);
@@ -46,11 +45,11 @@ export class Events extends Component {
     history.push(`/events/?page=${e}`);
     this.props.actions.fetchEvents(e);
   }
-  changeEvent(eventId) {
-    this.setState({
-      eventId
-    });
-  }
+  // changeEvent(eventId) {
+  //   this.setState({
+  //     eventId
+  //   });
+  // }
   render() {
     const { events = [] } = this.props;
     const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
@@ -92,12 +91,12 @@ export class Events extends Component {
           />
         ) : '' }
         <div className="fixed-action-btn horizontal click-to-toggle">
-          <Link
+          <a
             to="/add-event"
             className={whiteColorClasses}
           >
             <i className="material-icons">add</i>
-          </Link>
+          </a>
         </div>
       </div>
     );

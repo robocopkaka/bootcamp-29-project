@@ -28,7 +28,7 @@ export class AddCenter extends Component {
   }
   getSignedRequest(file) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `${process.env.API_HOST}/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+    xhr.open('GET', `/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
@@ -40,15 +40,6 @@ export class AddCenter extends Component {
       }
     };
     xhr.send();
-    // axios.get(`http://localhost:8000/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //     JSON.parse(response);
-    //     this.uploadFile(file, response.signedRequest, response.url);
-    //   })
-    //   .catch(() => {
-    //     console.log('Could not get signed URL.');
-    //   });
   }
   uploadFile(file, signedRequest, url) {
     const xhr = new XMLHttpRequest();

@@ -101,7 +101,7 @@ export class Login extends React.Component {
     }
   }
   render() {
-    const { isLoading = [] } = this.props;
+    const { isLoading = false } = this.props;
     const emailClasses = classNames('help-block', { [styles['has-error']]: !this.state.email.isValid });
     const passwordClasses = classNames('help-block', { [styles['has-error']]: !this.state.password.isValid });
     const signupFormClasses = classNames('row', 'center-align', 'valign-wrapper', styles['signup-form']);
