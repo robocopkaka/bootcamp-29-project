@@ -24,7 +24,7 @@ const EventsListWithImage = ({
     {events.map(event => (
       <div className={hvrClasses} key={event.id}>
         <div className="card z-depth-2">
-          <a to={`/events/${event.id}`}>
+          <a href={`/events/${event.id}`}>
             <div className="card-image">
               <img src={owenShaw} alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>

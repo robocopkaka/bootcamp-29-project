@@ -18,7 +18,7 @@ const CenterList = ({
     {centers.map(center => (
       <div className={hvrClasses} key={center.id}>
         <div className="card z-depth-2">
-          <a to={`/centers/${center.id}`}>
+          <a href={`/centers/${center.id}`}>
             <div className="card-image">
               <img src={center.image} className={indexStyles['center-image']} alt={`${center.name}`} />
               { /*
