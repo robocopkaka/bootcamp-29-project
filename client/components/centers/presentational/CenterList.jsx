@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import * as styles from '../../../css/centers.module.css';
 import * as indexStyles from '../../../css/index.module.css';
@@ -18,7 +18,7 @@ const CenterList = ({
     {centers.map(center => (
       <div className={hvrClasses} key={center.id}>
         <div className="card z-depth-2">
-          <Link to={`/centers/${center.id}`}>
+          <a to={`/centers/${center.id}`}>
             <div className="card-image">
               <img src={center.image} className={indexStyles['center-image']} alt={`${center.name}`} />
               { /*
@@ -33,7 +33,7 @@ const CenterList = ({
               </span><br />
               <span className={styles['center-address']}>{center.address}</span>
             </div>
-          </Link>
+          </a>
           { isAdmin ? (
             <div className="card-action">
               <button

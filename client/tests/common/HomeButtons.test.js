@@ -16,7 +16,7 @@ describe('<HomeButtons />', () => {
   it('should have a wrapping div', () => {
     expect(wrapper.find('div').length).to.equal(1);
   });
-  it('should render two Link components', () => {
-    expect(wrapper.find(Link).length).to.equal(2);
+  it('should render two anchor tags', () => {
+    expect(wrapper.find('a').length).to.equal(2);
   });
 });
