@@ -92,11 +92,11 @@ export class Login extends React.Component {
     if (this.formIsValid()) {
       this.props.actions.loginUser(credentials)
         .then((response) => {
-          Materialize.toast(response, 4000, 'green');
+          Materialize.toast(response, 10000, 'green');
           this.clearFields();
           this.props.hideModal();
         })
-        .catch(error => Materialize.toast(error, 4000, 'red'));
+        .catch(error => Materialize.toast(error, 10000, 'red'));
       // this.clearFields();
     }
   }

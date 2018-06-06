@@ -18,7 +18,7 @@ const CenterList = ({
     {centers.map(center => (
       <div className={hvrClasses} key={center.id}>
         <div className="card z-depth-2">
-          <a href={`/centers/${center.id}`}>
+          <a href={`/centers/${center.id}`} id={`view-center-${center.id}`}>
             <div className="card-image">
               <img src={center.image} className={indexStyles['center-image']} alt={`${center.name}`} />
               { /*
@@ -39,6 +39,7 @@ const CenterList = ({
               <button
                 onClick={() => { showModal(); toggleEdit(); changeCenter(center.id); }}
                 className={navbarPurpleClasses}
+                id={`center-${center.id}`}
               >
                 <i className="material-icons">edit</i>
               </button>

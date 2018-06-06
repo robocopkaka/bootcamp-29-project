@@ -40,12 +40,14 @@ const EventsListWithImage = ({
                 <button
                   onClick={() => { changeEvent(event.id); toggleEdit(); showModal(); }}
                   className={navbarPurpleLeftClasses}
+                  id={`edit-event-${event.id}`}
                 >
                   <i className="material-icons">edit</i>
                 </button>
                 <button
                   onClick={() => deleteEvent(event.id)}
                   className={navbarPurpleRightClasses}
+                  id={`delete-event-${event.id}`}
                 >
                   <i className="material-icons">delete</i>
                 </button>

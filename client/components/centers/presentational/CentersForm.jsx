@@ -142,6 +142,7 @@ const CentersForm = ({
           <input
             type="file"
             name="imageUpload"
+            id="imageUpload"
             onChange={handleChange}
           />
         </div>
@@ -159,6 +160,7 @@ const CentersForm = ({
       {component === 'Edit' ? (
         <button
           className={navbarPurpleClasses}
+          id="add-or-update-button"
           type="submit"
           name="action"
           onClick={saveOrUpdate}
@@ -169,6 +171,7 @@ const CentersForm = ({
       ) : (
         <button
           className={navbarPurpleClasses}
+          id="add-or-update-button"
           type="submit"
           name="action"
           onClick={saveOrUpdate}

@@ -1,7 +1,8 @@
 require('babel-register');
+const path = require('path');
 
 module.exports = {
-  'Successful login tests': (client) => {
+  'Admins can edit centers': (client) => {
     client
       .url('http://localhost:8000')
       .waitForElementVisible('body', 2000)
@@ -22,17 +23,29 @@ module.exports = {
       // .pause(4000)
       .click('button.btn.waves-effect.waves-light.index-module__navbar-purple.index-module__round-btn', () => {
         client
-          .pause(5000)
+          .pause(2000)
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      // .waitForElementPresent('div#toast-container', 5000)
-      // .waitForElementVisible('.toast', 3000)
-      // .assert.visible('div.green.toast.panning')
-      // .assert.containsText('div.green.toast.panning', 'Signed in successfully')
+      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+        client
+          .pause(4000)
+          .assert.visible('div.container.index-module__min-height-hundred-vh')
+          .assert.visible('button#center-1')
+          .click('button#center-1')
+          .pause(3000)
+          .assert.visible('h3.index-module__center-heading')
+          .assert.containsText('h3.index-module__center-heading', 'Edit a Center')
+          .clearValue('input#center-name')
+          .setValue('input#center-name', 'outrageous')
+          .click('button#add-or-update-button')
+          .pause(3000)
+          .assert.visible('div.toast.green')
+          .assert.containsText('div.toast.green', 'Center updated successfully');
+      })
       .end();
   },
-  'Unsuccessful login tests': (client) => {
+  'Regular users should not see edit button': (client) => {
     client
       .url('http://localhost:8000')
       .waitForElementVisible('body', 2000)
@@ -48,14 +61,21 @@ module.exports = {
       .assert.visible('h3.index-module__center-heading')
       .assert.containsText('h3.index-module__center-heading', 'Login')
       .pause(2000)
-      .setValue('#email', 'robocopkaka@gmil.com')
-      .setValue('#password', 'mkmkmmk')
+      .setValue('#email', 'wilson@kachi.com')
+      .setValue('#password', 'password')
       // .pause(4000)
       .click('button.btn.waves-effect.waves-light.index-module__navbar-purple.index-module__round-btn', () => {
         client
-          .pause(5000)
+          .pause(2000)
           .assert.visible('#toast-container')
-          .assert.containsText('div.red.toast', 'Invalid email/password');
-      });
+          .assert.containsText('div.green.toast', 'Signed in successfully');
+      })
+      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+        client
+          .pause(4000)
+          .assert.visible('div.container.index-module__min-height-hundred-vh')
+          .assert.elementNotPresent('button#center-1');
+      })
+      .end();
   }
 };
