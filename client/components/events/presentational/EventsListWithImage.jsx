@@ -24,7 +24,7 @@ const EventsListWithImage = ({
     {events.map(event => (
       <div className={hvrClasses} key={event.id}>
         <div className="card z-depth-2">
-          <a to={`/events/${event.id}`}>
+          <a href={`/events/${event.id}`}>
             <div className="card-image">
               <img src={owenShaw} alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>
@@ -40,12 +40,14 @@ const EventsListWithImage = ({
                 <button
                   onClick={() => { changeEvent(event.id); toggleEdit(); showModal(); }}
                   className={navbarPurpleLeftClasses}
+                  id={`edit-event-${event.id}`}
                 >
                   <i className="material-icons">edit</i>
                 </button>
                 <button
                   onClick={() => deleteEvent(event.id)}
                   className={navbarPurpleRightClasses}
+                  id={`delete-event-${event.id}`}
                 >
                   <i className="material-icons">delete</i>
                 </button>

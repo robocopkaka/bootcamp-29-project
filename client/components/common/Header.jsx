@@ -86,9 +86,9 @@ export class Header extends React.Component {
     return (
       <React.Fragment>
         <ul id="signup-dropdown" className="dropdown-content">
-          <li><a onClick={this.props.showModal}>Login</a></li>
+          <li><a id="login-button" onClick={this.props.showModal}>Login</a></li>
           <li>
-            <a onClick={() => { this.props.showModal(); this.props.toggleSignup(); }}>Signup</a>
+            <a id="signup-button" onClick={() => { this.props.showModal(); this.props.toggleSignup(); }}>Signup</a>
           </li>
         </ul>
         <nav className={styles['navbar-purple']}>

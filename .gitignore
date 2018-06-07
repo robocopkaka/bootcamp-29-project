@@ -7,3 +7,6 @@ server/.nyc_output/
 .env
 dist/
 .DS_STORE
+bin/
+reports/
+selenium-debug.log

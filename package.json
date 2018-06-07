@@ -12,6 +12,7 @@
     "start": "nodemon --exec npm run babel-node ./server/bin/www",
     "start:react": "webpack --config webpack.dev.js",
     "start:dev": "nodemon --exec npm run babel-node ./server/bin/www",
+    "start:test": "NODE_ENV=test nodemon --exec npm run babel-node ./server/bin/www",
     "start:all": "npm run start:react && npm run start:dev",
     "build:express": "babel lib -d dist --presets=latest",
     "build:react": "webpack --config webpack.prod.js",
@@ -26,6 +27,8 @@
     "test": "nyc --reporter=html --reporter=text npm run test:express && npm run test:jest",
     "test:react": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/karma/bin/karma start karma.conf.js",
     "test:express": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill --recursive ./server/test/ --timeout 10000 --exit",
+    "prep:e2e": "NODE_ENV=test npm run db:migrations && npm run start:react && npm run start:test",
+    "test:e2e": "NODE_ENV=test nightwatch",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
@@ -97,6 +100,8 @@
   },
   "devDependencies": {
     "babel-jest": "^22.4.3",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "chai": "^4.1.2",
     "chai-enzyme": "^1.0.0-beta.0",
     "chai-http": "^3.0.0",
@@ -129,6 +134,7 @@
     "mocha": "^4.0.1",
     "mock-local-storage": "^1.0.5",
     "moxios": "^0.4.0",
+    "nightwatch": "^0.9.21",
     "nyc": "^11.3.0",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.16",

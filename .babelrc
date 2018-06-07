@@ -2,5 +2,5 @@
     "presets":[
         "latest", "react",  "stage-0"
     ],
-    "plugins": ["transform-regenerator"]
+    "plugins": ["transform-regenerator", "transform-runtime", "transform-async-to-generator"]
 }

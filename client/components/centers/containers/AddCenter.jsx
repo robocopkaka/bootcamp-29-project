@@ -155,11 +155,11 @@ export class AddCenter extends Component {
     if (this.formIsValid()) {
       this.props.centerActions.addCenter(center)
         .then((response) => {
-          Materialize.toast(response, 4000, 'green');
+          Materialize.toast(response, 10000, 'green');
           this.clearFields();
           this.props.hideModal();
         })
-        .catch(error => Materialize.toast(error, 4000, 'red'));
+        .catch(error => Materialize.toast(error, 10000, 'red'));
     }
   }
   render() {

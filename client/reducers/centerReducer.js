@@ -35,9 +35,10 @@ export default function centerReducer(state = initialState.centers, action) {
       });
       return newState;
     case types.ADD_CENTER_FAILURE:
+      console.log(action)
       newState = update(state, {
         isLoading: { $set: false },
-        message: { $set: action.center.data.message }
+        // message: { $set: action.center.data.message }
       });
       return newState;
     case types.ADD_CENTER_LOADING:

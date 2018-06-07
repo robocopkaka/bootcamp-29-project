@@ -54,7 +54,7 @@ export default function eventReducer(state = initialState.events, action) {
     case types.UPDATE_EVENT_FAILURE:
       theState = update(state, {
         isLoading: { $set: false },
-        message: { $set: action.event.data.message }
+        // message: { $set: action.event.data.message }
       });
       return theState;
     case types.DELETE_EVENT_SUCCESS:

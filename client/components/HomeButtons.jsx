@@ -9,13 +9,13 @@ const homeButtonLeft = classNames('waves-effect', 'waves-light', 'btn', styles['
 const HomeButtons = () => (
   <div>
     <a
-      to="/events"
+      href="/events"
       className={homeButtonRight}
     >
     Events
     </a>
     <a
-      to="/centers"
+      href="/centers"
       className={homeButtonLeft}
     >Centers
     </a>

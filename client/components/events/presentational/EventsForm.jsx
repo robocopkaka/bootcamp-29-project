@@ -66,7 +66,7 @@ const EventsForm = ({
       </div>
       <div className="input-field col s6">
         <Row>
-          <Input name="on" type="date" onChange={handleDateChange} value={date.value} />
+          <Input name="on" type="date" onChange={handleDateChange} value={date.value} id="event-date" />
         </Row>
         { component !== 'Edit' ? (
           <label htmlFor="event-date" className="active">Date</label>
@@ -93,6 +93,7 @@ const EventsForm = ({
         className={navbarPurpleClasses}
         type="submit"
         name="action"
+        id="add-or-update-event"
         onClick={saveOrUpdate}
       > { component !== 'Edit' ? 'Add Event' : 'Update Event' }
         <i className="material-icons right">send</i>
