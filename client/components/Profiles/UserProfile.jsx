@@ -57,7 +57,7 @@ export class UserProfile extends Component {
     this.props.actions.fetchEventsForUser(parseInt(this.props.userId, 10), e);
   }
   changeEvent(eventId) {
-    // this.props.actions.fetchSingleEvent(parseInt(eventId, 10));
+    this.props.actions.fetchSingleEvent(parseInt(eventId, 10));
     this.setState({
       eventId
     });
