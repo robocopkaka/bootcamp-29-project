@@ -19,6 +19,7 @@ import eventDBWithParams from '../validators/eventDBWithParams';
 import eventDBWithIdSchema from '../validators/eventsDBWithId';
 import eventsInCenterSchema from '../validators/eventsInCenterValidators';
 import centerDBWithIdSchema from '../validators/centerDBWithIdSchema';
+import eventsForUserSchema from '../validators/eventsForUserValidator';
 import pagination from '../validators/pagination';
 
 import * as v2 from '../controllers/v2';
@@ -69,6 +70,7 @@ module.exports = (app) => {
   // v2 routes
   app.post('/api/v2/users', expressJoi(userSchema), usersController.create);
   app.post('/api/v2/users/login', expressJoi(userLoginSchema), usersController.login);
+  app.get('/api/v2/users/:userId/events', expressJoi(eventsForUserSchema), eventsDBController.getEventsForUser);
 
   app.post('/api/v2/centers', expressJoi(centerDBSchema), apiRoutes, centersDBController.create);
   app.put('/api/v2/centers/:centerId', expressJoi(centerDBWithIdSchema), apiRoutes, centersDBController.edit);

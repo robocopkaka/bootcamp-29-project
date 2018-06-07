@@ -636,4 +636,51 @@ module.exports = {
     //   message: 'An error occured'
     // }));
   },
+
+  getEventsForUser(req, res) {
+    const { userId } = req.params;
+    let { limit = 9 } = req.query;
+    const { page = 1 } = req.query;
+    let offset = 0;
+    Event.findAndCountAll({
+      where: { userId }
+    })
+      .then((data) => {
+        const pages = Math.ceil(data.count / limit);
+        offset = limit * (page - 1);
+        Event.findAll({
+          where: { userId },
+          limit,
+          offset,
+          order: [
+            ['id', 'ASC']
+          ]
+        })
+          .then((events) => {
+            const next = parseInt(page, 10) + 1;
+            let prev = 1;
+            if (page > 1) {
+              prev = page - 1;
+            }
+            limit = parseInt(limit, 10);
+            res.status(200).send({
+              success: true,
+              data: {
+                events
+              },
+              meta: {
+                pagination: {
+                  limit,
+                  offset,
+                  page,
+                  pages,
+                  total: data.count,
+                  prev: `http://localhost:8000/api/v2/users/${parseInt(userId, 10)}/events?page=${prev}`,
+                  next: `http://localhost:8000/api/v2/users/${parseInt(userId, 10)}/events?page=${next}`
+                }
+              }
+            });
+          });
+      });
+  }
 };

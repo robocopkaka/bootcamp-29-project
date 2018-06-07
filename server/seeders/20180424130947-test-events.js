@@ -9,6 +9,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -19,6 +20,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -29,6 +31,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -39,6 +42,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -49,6 +53,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -59,6 +64,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -69,6 +75,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -79,6 +86,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -89,6 +97,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -99,6 +108,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -109,6 +119,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -119,6 +130,7 @@ module.exports = {
       guests: 1000,
       categoryId: 1,
       centerId: 1,
+      userId: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     }

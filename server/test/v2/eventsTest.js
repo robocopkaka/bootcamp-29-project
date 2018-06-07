@@ -411,4 +411,69 @@ describe('Events endpoints', () => {
         })
     ));
   });
+  describe('GET /api/v2/users/<userId>/events', () => {
+    it('should return a 200 and all the events for the user specified', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(9);
+          res.body.meta.pagination.limit.should.equal(9);
+          res.body.meta.pagination.page.should.equal(1);
+        });
+    });
+    it('should return a 200 and all the events for the user specified', () => {
+      request(app)
+        .get(`/api/v2/users/${2}/events`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(2);
+          res.body.meta.pagination.limit.should.equal(9);
+          res.body.meta.pagination.page.should.equal(1);
+        });
+    });
+    it('should return the appropriate number of events for the limit specified', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events?limit=${4}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.data.should.have.property('events');
+          res.body.data.events.length.should.equal(4);
+          res.body.meta.pagination.limit.should.equal(4);
+        });
+    });
+    it('should return the appropriate page number if one is specified', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events?page=${2}&limit=${4}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.meta.pagination.page.should.equal(2);
+        });
+    });
+    it('should a 400 if an invalid page number is used', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events?page=${'ox'}`)
+        .then((error) => {
+          error.should.have.status(400);
+        });
+    });
+    it('should a 400 if an invalid limit number is used', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events?limit=${'ox'}`)
+        .then((error) => {
+          error.should.have.status(400);
+        });
+    });
+    it('should links for the previous and next pages', () => {
+      request(app)
+        .get(`/api/v2/users/${1}/events?limit=${4}&page=${2}`)
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.meta.pagination.prev.should.equal(`http://localhost:8000/api/v2/users/${1}/events?page=${1}`);
+          res.body.meta.pagination.next.should.equal(`http://localhost:8000/api/v2/users/${1}/events?page=${3}`);
+        });
+    });
+  });
 });
