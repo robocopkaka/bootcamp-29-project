@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const EVENTS_BASE_API = '/api/v2/events';
+const USERS_BASE_API = '/api/v2/users';
 
 class EventApi {
   static getAll(page) {
@@ -106,6 +107,19 @@ class EventApi {
     //   console.log('CATCH = ', error.response);
     //   return error;
     // });
+  }
+  static getEventsForUser(userId, page) {
+    return axios.get(
+      `${USERS_BASE_API}/${userId}/events?page=${page}&limit=${6}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+      .then((response) => {
+        return response;
+      });
   }
 }
 export default EventApi;

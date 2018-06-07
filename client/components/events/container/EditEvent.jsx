@@ -115,13 +115,14 @@ export class EditEvent extends Component {
     e.preventDefault();
     this.resetValidationStates();
     const datetime = `${this.state.date.value}`;
+    const centerId = this.props.centerId || this.props.event.Center.id;
     const eventObject = {
       id: parseInt(this.props.eventId, 10),
       name: this.state.name.value,
       detail: this.state.detail.value,
       guests: this.state.guests.value,
       date: moment(datetime).format('YYYY-MM-DD HH:mm:ss'),
-      centerId: this.props.centerId,
+      centerId,
       categoryId: 1
     };
     if (this.formIsValid()) {

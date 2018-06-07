@@ -36,6 +36,15 @@ export function fetchEventsInCenter(centerId, page) {
     // });
   };
 }
+export function fetchEventsForUser(userId, page) {
+  return (dispatch) => {
+    dispatch(fetchEventsLoading());
+    return EventApi.getEventsForUser(userId, page)
+      .then((response) => {
+        dispatch(fetchEventsSuccess(response.data));
+      });
+  };
+}
 export function fetchSingleEventSuccess(event) {
   return { type: types.FETCH_SINGLE_EVENT_SUCCESS, event };
 }
