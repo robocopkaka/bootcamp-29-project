@@ -191,4 +191,26 @@ describe('Event actions', () => {
       });
     });
   });
+  describe('fetch events for users', () => {
+    it('should dispatch FETCH_EVENTS_SUCCESS if events for users are fetched successfully', () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: events,
+        });
+      });
+
+      const expectedActions = [
+        { type: types.FETCH_EVENTS_LOADING },
+        { type: types.FETCH_EVENTS_SUCCESS, data: events }
+      ];
+
+      const store = mockStore({ events: [] });
+
+      return store.dispatch(actions.fetchEventsForUser(1, 1)).then(() => {
+        expect(store.getActions()).to.deep.equal(expectedActions);
+      });
+    });
+  });
 });
