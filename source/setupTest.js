@@ -67,6 +67,7 @@ const jQueryMock = {
   on() {},
   sideNav() {},
   pickadate() {},
+  tabs() {},
   // offset() {
   //   let top = () => {};
   //   return top;

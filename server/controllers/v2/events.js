@@ -426,48 +426,54 @@ module.exports = {
         where: { id: req.decoded.id }
       })
       .then((user) => {
-        if (!user.isAdmin) {
-          res.status(403).send({
-            success: false,
-            message: 'User is not an admin'
-          });
-        } else {
-          Event
-            .findOne({
-              where: { id: req.params.eventId }
-            })
-            .then((event) => {
-              if (!event) {
-                res.status(404).send({
-                  success: false,
-                  message: 'Event not found'
-                });
-              } else {
-                Event
-                  .destroy({
-                    where: { id: req.params.eventId }
-                  })
-                  .then(() => {
-                    res.status(200).send({
-                      success: true,
-                      message: 'Event deleted successfully'
-                    });
+        // if (!user.isAdmin) {
+        //   res.status(403).send({
+        //     success: false,
+        //     message: 'User is not an admin'
+        //   });
+        // } else {
+        Event
+          .findOne({
+            where: { id: req.params.eventId }
+          })
+          .then((event) => {
+            if (!event) {
+              res.status(404).send({
+                success: false,
+                message: 'Event not found'
+              });
+            } else if (!user.isAdmin && event.dataValues.userId !== user.dataValues.id) {
+              console.log(user.dataValues.id, event.dataValues.userId)
+              res.status(403).send({
+                success: false,
+                message: 'User is either not an admin or did not create this event'
+              });
+            } else {
+              Event
+                .destroy({
+                  where: { id: req.params.eventId }
+                })
+                .then(() => {
+                  res.status(200).send({
+                    success: true,
+                    message: 'Event deleted successfully'
                   });
-                // .catch(() => {
-                //   res.status(500).send({
-                //     success: false,
-                //     message: 'Internal server error'
-                //   });
-                // });
-              }
-            });
-          // .catch(() => {
-          //   res.status(400).send({
-          //     success: false,
-          //     message: 'An error occured finding the event'
-          //   });
-          // });
-        }
+                });
+              // .catch(() => {
+              //   res.status(500).send({
+              //     success: false,
+              //     message: 'Internal server error'
+              //   });
+              // });
+            }
+          });
+        // .catch(() => {
+        //   res.status(400).send({
+        //     success: false,
+        //     message: 'An error occured finding the event'
+        //   });
+        // });
+        // }
       })
       .catch(() => {
         res.status(400).send({
