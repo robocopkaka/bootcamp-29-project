@@ -1,3 +1,4 @@
+import decode from 'jwt-decode';
 import * as types from './actionTypes';
 import RegisterApi from '../api/registerApi';
 
@@ -18,7 +19,10 @@ export function registerUser(credentials) {
     dispatch(registerLoading());
     return RegisterApi.register(credentials)
       .then((response) => {
+        const decodedToken = decode(response.data.token);
         sessionStorage.setItem('registered', true);
+        sessionStorage.setItem('jwt', response.data.token);
+        sessionStorage.setItem('userId', decodedToken.id);
         dispatch(registerSuccess(response.data));
         return response.data.message;
       })

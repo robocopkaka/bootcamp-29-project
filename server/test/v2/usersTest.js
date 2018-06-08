@@ -21,6 +21,7 @@ describe('/Users', () => {
           res.body.should.have.property('user');
           res.body.user.should.be.an('object');
           res.body.user.email.should.equal('kachis@kachi.com');
+          res.body.should.have.property('token');
           res.body.user.name.should.equal('Onyekachi');
         })
     ));

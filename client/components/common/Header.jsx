@@ -154,8 +154,9 @@ Header.defaultProps = {
   actions: {}
 };
 function mapStateToProps(state) {
+  const loggedIn = state.session.jwt || state.register.jwt;
   return {
-    loggedIn: state.session.jwt,
+    loggedIn,
     isAdmin: state.session.isAdmin,
   };
 }
