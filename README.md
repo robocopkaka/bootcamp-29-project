@@ -10,7 +10,7 @@ https://rocky-meadow-55707.herokuapp.com/docs/
 * Clone this repo
 * Run `npm install` to install all dependencies
 * Setup your databases on `Postgres`. Info needed can be gotten at `server/config/config.js`
-* Sign up for an account on Amazon
+* Go to [Amazon AWS](https://aws.amazon.com/s3/)
   * Sign in to the console
   * Go to `IAM`
   * Generate a pair of developer access keys from the console and save somewhere private
