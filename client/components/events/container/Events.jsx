@@ -91,14 +91,14 @@ export class Events extends Component {
             maxButtons={pages}
           />
         ) : '' }
-        <div className="fixed-action-btn horizontal click-to-toggle">
+        { /* <div className="fixed-action-btn horizontal click-to-toggle">
           <a
             to="/add-event"
             className={whiteColorClasses}
           >
             <i className="material-icons">add</i>
           </a>
-        </div>
+        </div> */}
       </div>
     );
   }

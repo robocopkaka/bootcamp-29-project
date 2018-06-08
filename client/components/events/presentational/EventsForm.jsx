@@ -23,7 +23,7 @@ const EventsForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="event-name">Name</label>
+          <label htmlFor="event-name" className="active">Name</label>
         ) : (
           <label htmlFor="event-name" className="active">Name</label>
         )}
@@ -40,7 +40,7 @@ const EventsForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="event-detail">Detail</label>
+          <label htmlFor="event-detail" className="active">Detail</label>
         ) : (
           <label htmlFor="event-detail" className="active">Detail</label>
         )}
@@ -58,7 +58,7 @@ const EventsForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="event-guests">Guests</label>
+          <label htmlFor="event-guests" className="active">Guests</label>
         ) : (
           <label htmlFor="event-guests" className="active">Guests</label>
         )}

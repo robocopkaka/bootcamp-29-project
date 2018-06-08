@@ -8,7 +8,7 @@ const EventDetails = ({ event, center }) => (
   <div className="single-event-container">
     <div className="row" id={eventStyles['single-event-row']}>
       <div>
-        <img src={center.image} alt="" className="responsive-img col s12 m12 l8 large-event-image" />
+        <img src="https://s3-us-west-1.amazonaws.com/event-managers/ramsey.jpg" alt="Event image" className="responsive-img col s12 m12 l8 large-event-image" />
       </div>
       <div className="col s12 m12 l4" id={eventStyles['event-details-padding']}>
         <h1 id={eventStyles['break-word']}>{event.name}</h1>

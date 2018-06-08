@@ -26,7 +26,7 @@ const EventsListWithImage = ({
         <div className="card z-depth-2">
           <a href={`/events/${event.id}`}>
             <div className="card-image">
-              <img src={owenShaw} alt={`${event.name}`} className={indexStyles['event-image']} />
+              <img src="https://event-managers.s3.amazonaws.com/rentals.jpg" alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>
             <div className="card-content">
               <span className={styles['event-focus']}>{event.name}</span><br />
