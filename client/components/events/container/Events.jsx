@@ -19,7 +19,7 @@ export class Events extends Component {
     this.state = {
       page: 1,
     };
-    this.deleteEvent = this.deleteEvent.bind(this);
+    // this.deleteEvent = this.deleteEvent.bind(this);
     this.changePage = this.changePage.bind(this);
     // this.changeEvent = this.changeEvent.bind(this);
   }
@@ -35,9 +35,9 @@ export class Events extends Component {
       this.props.actions.fetchEvents(page);
     }
   }
-  deleteEvent(id) {
-    this.props.actions.deleteEvent(parseInt(id, 10));
-  }
+  // deleteEvent(id) {
+  //   this.props.actions.deleteEvent(parseInt(id, 10));
+  // }
   changePage(e) {
     this.setState({
       page: e
@@ -78,7 +78,6 @@ export class Events extends Component {
         <div className="row">
           <EventsListWithImage
             events={events}
-            deleteEvent={this.deleteEvent}
             isAdmin={notAdmin}
             changeEvent={this.changeEvent}
           />

@@ -84,9 +84,9 @@ describe('<Centers />', () => {
     expect(divs.length).toBeGreaterThan(0);
     expect(wrapper.find('div').text()).toEqual('Sorry no centers found');
   });
-  it('should have four divs if there are centers in props', () => {
+  it('should have five divs if there are centers in props', () => {
     const divs = wrapperWithProps.find('div');
-    expect(divs.length).toEqual(4);
+    expect(divs.length).toEqual(5);
   });
   it('should have a button if there are centers in props', () => {
     const buttons = wrapperWithProps.find('button');
