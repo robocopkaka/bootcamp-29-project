@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as styles from '../css/index.module.css';
 
-const homeButtonRight = classNames('waves-effect', 'waves-light', 'btn', styles['home-button-right']);
-const homeButtonLeft = classNames('waves-effect', 'waves-light', 'btn', styles['home-button-left']);
+const homeButtonRight = classNames('waves-light', 'btn', styles['home-button-right']);
+const homeButtonLeft = classNames('waves-light', 'btn', styles['home-button-left']);
 
 const LoginButtons = ({ showModal, toggleSignup }) => (
   <React.Fragment>

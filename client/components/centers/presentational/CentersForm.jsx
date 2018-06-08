@@ -27,7 +27,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-name">Name</label>
+          <label htmlFor="center-name" className="active">Name</label>
         ) : (
           <label htmlFor="center-name" className="active">Name</label>
         )}
@@ -45,7 +45,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-address">Address</label>
+          <label htmlFor="center-address" className="active">Address</label>
         ) : (
           <label htmlFor="center-address" className="active">Address</label>
         )}
@@ -63,7 +63,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-state">State</label>
+          <label htmlFor="center-state" className="active">State</label>
         ) : (
           <label htmlFor="center-state" className="active">State</label>
         )}
@@ -81,7 +81,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-capacity">Capacity</label>
+          <label htmlFor="center-capacity" className="active">Capacity</label>
         ) : (
           <label htmlFor="center-capacity" className="active">Capacity</label>
         )}
@@ -97,7 +97,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-chairs">Chairs</label>
+          <label htmlFor="center-chairs" className="active">Chairs</label>
         ) : (
           <label htmlFor="center-chairs" className="active">Chairs</label>
         )}
@@ -112,7 +112,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-projector">Projector</label>
+          <label htmlFor="center-projector" className="active">Projector</label>
         ) : (
           <label htmlFor="center-projector" className="active">Projector</label>
         )}
@@ -128,7 +128,7 @@ const CentersForm = ({
           onChange={handleChange}
         />
         { component !== 'Edit' ? (
-          <label htmlFor="center-detail">Detail</label>
+          <label htmlFor="center-detail" className="active">Detail</label>
         ) : (
           <label htmlFor="center-detail" className="active">Detail</label>
         )}

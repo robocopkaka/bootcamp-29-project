@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import { Pagination } from 'react-materialize';
-import Search from '../common/Search';
 import EventsListWithImage from '../events/presentational/EventsListWithImage';
 import Preloader from '../common/Preloader';
 import Modal from '../common/Modal';
@@ -92,7 +91,6 @@ export class UserProfile extends Component {
         </ul>
         <div id="all-events" className={leftTenPadding}>
           <div className="container">
-            <Search />
             <div className="row">
               <EventsListWithImage
                 events={events}

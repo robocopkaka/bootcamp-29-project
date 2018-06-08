@@ -199,3 +199,8 @@ a, a:link, a:visited, a:active {
     text-decoration: none;
     cursor: pointer;
 }
+.event-heading {
+  text-align: center;
+  font-size: 50px;
+  padding: 20px;
+}

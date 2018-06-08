@@ -9,13 +9,13 @@ import qs from 'query-string';
 import classNames from 'classnames';
 import * as centerActions from '../../../actions/centerActions';
 import CenterList from '../presentational/CenterList';
-import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 import Modal from '../../common/Modal';
 import AddCenter from './AddCenter';
 import EditCenter from './EditCenter';
 import history from '../../../history';
 import * as styles from '../../../css/index.module.css';
+import * as centerStyles from '../../../css/centers.module.css';
 
 export class Centers extends Component {
   constructor(props) {
@@ -91,8 +91,8 @@ export class Centers extends Component {
     return (
       <React.Fragment>
         <div className={containerClasses}>
-          <Search />
           <div className={styles['top-ten-padding']} />
+          <div className={centerStyles['center-heading']}>Centers</div>
           <div className="row">
             <CenterList
               centers={centers}
