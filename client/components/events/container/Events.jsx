@@ -8,10 +8,10 @@ import { Pagination } from 'react-materialize';
 import qs from 'query-string';
 import * as eventActions from '../../../actions/eventActions';
 import EventsListWithImage from '../presentational/EventsListWithImage';
-import Search from '../../common/Search';
 import Preloader from '../../common/Preloader';
 import history from '../../../history';
 import * as styles from '../../../css/index.module.css';
+import * as eventStyles from '../../../css/events.module.css';
 
 export class Events extends Component {
   constructor(props) {
@@ -52,6 +52,7 @@ export class Events extends Component {
   // }
   render() {
     const { events = [] } = this.props;
+    const notAdmin = false;
     const whiteColorClasses = classNames('btn-floating', 'btn-large', 'red', styles['white-color']);
     const containerClasses = classNames('container', styles['min-height-hundred-vh']);
     let { pages = 1 } = this.props;
@@ -72,13 +73,13 @@ export class Events extends Component {
     }
     return (
       <div className={containerClasses}>
-        <Search />
         <div className={styles['top-ten-padding']} />
+        <div className={eventStyles['event-heading']}>Events</div>
         <div className="row">
           <EventsListWithImage
             events={events}
             deleteEvent={this.deleteEvent}
-            isAdmin={this.props.isAdmin}
+            isAdmin={notAdmin}
             changeEvent={this.changeEvent}
           />
         </div>

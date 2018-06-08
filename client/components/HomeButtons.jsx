@@ -3,8 +3,8 @@ import classNames from 'classnames';
 // import { Link } from 'react-router-dom';
 import * as styles from '../css/index.module.css';
 
-const homeButtonRight = classNames('waves-effect', 'waves-light', 'btn', styles['home-button-right']);
-const homeButtonLeft = classNames('waves-effect', 'waves-light', 'btn', styles['home-button-left']);
+const homeButtonRight = classNames('waves-light', 'btn', styles['home-button-right']);
+const homeButtonLeft = classNames('waves-light', 'btn', styles['home-button-left']);
 
 const HomeButtons = () => (
   <div>

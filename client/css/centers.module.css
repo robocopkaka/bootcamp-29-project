@@ -182,3 +182,8 @@ a, a:link, a:visited, a:active {
 .remove-margin-left {
   margin-left: -10px;
 }
+.center-heading {
+  text-align: center;
+  font-size: 50px;
+  padding: 20px;
+}
