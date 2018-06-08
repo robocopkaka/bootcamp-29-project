@@ -140,7 +140,7 @@ module.exports = {
                           });
                         })
                         .catch(() => {
-                          res.status(400).send({
+                          res.status(500).send({
                             success: false,
                             message: 'An error occured creating the event'
                           });
@@ -148,7 +148,7 @@ module.exports = {
                     }
                   })
                   .catch(() => {
-                    res.status(400).send({
+                    res.status(500).send({
                       success: false,
                       message: 'An error occured when checking if event exists'
                     });
@@ -257,7 +257,7 @@ module.exports = {
                         });
                       })
                       .catch(() => {
-                        res.status(400).send({
+                        res.status(500).send({
                           success: false,
                           message: 'An error occured updating events'
                         });
@@ -353,7 +353,7 @@ module.exports = {
                                             });
                                           })
                                           .catch(() => {
-                                            res.status(400).send({
+                                            res.status(500).send({
                                               success: false,
                                               message: 'An error occured updating event'
                                             });
@@ -362,7 +362,7 @@ module.exports = {
                                     }
                                   })
                                   .catch(() => {
-                                    res.status(400).send({
+                                    res.status(500).send({
                                       success: false,
                                       message: 'An error occured finding the center'
                                     });
@@ -370,7 +370,7 @@ module.exports = {
                               }
                             })
                             .catch(() => {
-                              res.status(400).send({
+                              res.status(500).send({
                                 success: false,
                                 message: 'An error occured finding the event'
                               });
@@ -378,7 +378,7 @@ module.exports = {
                         }
                       })
                       .catch(() => {
-                        res.status(400).send({
+                        res.status(500).send({
                           success: false,
                           message: 'An error occured finding if the event exists'
                         });
@@ -388,7 +388,7 @@ module.exports = {
               }
             })
             .catch(() => {
-              res.status(400).send({
+              res.status(500).send({
                 success: false,
                 message: 'An error occured finding the event'
               });
@@ -396,7 +396,7 @@ module.exports = {
         }
       })
       .catch(() => {
-        res.status(400).send({
+        res.status(500).send({
           success: false,
           message: 'An error occured finding the user'
         });
@@ -476,7 +476,7 @@ module.exports = {
         // }
       })
       .catch(() => {
-        res.status(400).send({
+        res.status(500).send({
           success: false,
           message: 'An error occured finding the user'
         });

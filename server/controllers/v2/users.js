@@ -101,10 +101,18 @@ module.exports = {
                   updatedAt: response.dataValues.updatedAt
 
                 };
+                const payload = {
+                  email: response.dataValues.email,
+                  name: response.dataValues.fullName,
+                  id: response.dataValues.id,
+                  isAdmin: response.dataValues.isAdmin
+                };
+                const token = jwt.sign(payload, process.env.secret, { expiresIn: '1440m' });
                 res.status(201).send({
                   success: true,
                   message: `Account created for ${aUser.name}`,
-                  user: aUser
+                  user: aUser,
+                  token
                 });
               })
               .catch(() => {
@@ -178,7 +186,7 @@ module.exports = {
         }
       })
       .catch((error) => {
-        res.status(400).send({
+        res.status(500).send({
           success: false,
           error
         });

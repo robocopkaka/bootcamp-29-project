@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b19a1ec2c2c0aec9689a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e3ec833bb5891a1d7c92"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -60385,7 +60385,6 @@ function centerReducer() {
       });
       return newState;
     case types.ADD_CENTER_FAILURE:
-      console.log(action);
       newState = (0, _immutabilityHelper2.default)(state, {
         isLoading: { $set: false }
         // message: { $set: action.center.data.message }
@@ -83087,7 +83086,7 @@ var Events = exports.Events = function (_Component) {
     _this.state = {
       page: 1
     };
-    _this.deleteEvent = _this.deleteEvent.bind(_this);
+    // this.deleteEvent = this.deleteEvent.bind(this);
     _this.changePage = _this.changePage.bind(_this);
     // this.changeEvent = this.changeEvent.bind(this);
     return _this;
@@ -83107,11 +83106,10 @@ var Events = exports.Events = function (_Component) {
         this.props.actions.fetchEvents(page);
       }
     }
-  }, {
-    key: 'deleteEvent',
-    value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(parseInt(id, 10));
-    }
+    // deleteEvent(id) {
+    //   this.props.actions.deleteEvent(parseInt(id, 10));
+    // }
+
   }, {
     key: 'changePage',
     value: function changePage(e) {
@@ -83170,7 +83168,6 @@ var Events = exports.Events = function (_Component) {
           { className: 'row' },
           _react2.default.createElement(_EventsListWithImage2.default, {
             events: events,
-            deleteEvent: this.deleteEvent,
             isAdmin: notAdmin,
             changeEvent: this.changeEvent
           })

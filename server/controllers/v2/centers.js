@@ -128,14 +128,14 @@ module.exports = {
                       }
                     });
                   })
-                  .catch(() => res.status(400).send({
+                  .catch(() => res.status(500).send({
                     success: false,
                     message: 'Center not created'
                   }));
               }
             })
             .catch(() => {
-              res.status(400).send({
+              res.status(500).send({
                 success: false,
                 message: 'An error occured'
               });
@@ -350,7 +350,7 @@ module.exports = {
                       });
                     })
                     .catch(() => {
-                      res.status(400).send({
+                      res.status(500).send({
                         success: false,
                         message: 'An error occured in the centers update'
                       });
@@ -390,7 +390,7 @@ module.exports = {
                             });
                           })
                           .catch(() => {
-                            res.status(400).send({
+                            res.status(500).send({
                               success: false,
                               message: 'An error occured in the centers update'
                             });
@@ -398,7 +398,7 @@ module.exports = {
                       }
                     })
                     .catch(() => {
-                      res.status(400).send({
+                      res.status(500).send({
                         success: false,
                         message: 'An error occured finding if a center exists'
                       });
@@ -407,7 +407,7 @@ module.exports = {
               }
             })
             .catch(() => {
-              res.status(400).send({
+              res.status(500).send({
                 success: false,
                 message: 'An error occured in finding the center'
               });
@@ -415,7 +415,7 @@ module.exports = {
         }
       })
       .catch(() => {
-        res.status(400).send({
+        res.status(500).send({
           success: false,
           message: 'An error occured in finding users'
         });
