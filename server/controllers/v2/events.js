@@ -443,7 +443,7 @@ module.exports = {
                 message: 'Event not found'
               });
             } else if (!user.isAdmin && event.dataValues.userId !== user.dataValues.id) {
-              console.log(user.dataValues.id, event.dataValues.userId)
+              // console.log(user.dataValues.id, event.dataValues.userId)
               res.status(403).send({
                 success: false,
                 message: 'User is either not an admin or did not create this event'

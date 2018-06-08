@@ -103,7 +103,7 @@ module.exports = {
                 };
                 const payload = {
                   email: response.dataValues.email,
-                  name: response.dataValues.fullName,
+                  name: response.dataValues.name,
                   id: response.dataValues.id,
                   isAdmin: response.dataValues.isAdmin
                 };

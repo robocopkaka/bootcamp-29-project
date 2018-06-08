@@ -13,6 +13,9 @@ export default function registerReducer(state = initialState.register, action) {
     case types.REGISTER_SUCCESS:
       newState = update(state, {
         isRegistered: { $set: !!sessionStorage.registered },
+        jwt: { $set: !!sessionStorage.jwt },
+        isAdmin: { $set: !!sessionStorage.isAdmin },
+        userId: { $set: !!sessionStorage.userId },
         message: { $set: action.response.message },
         isLoading: { $set: false }
       });

@@ -18,6 +18,7 @@ describe('register reducer', () => {
     it('should handle REGISTER_SUCCESS', () => {
       const state = initialState.register;
       state.message = 'vv';
+      state.userId = false;
       expect(registerReducer(initialState.register, {
         type: types.REGISTER_SUCCESS,
         response

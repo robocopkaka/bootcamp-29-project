@@ -9,7 +9,10 @@ export default {
   register: {
     isRegistered: !!sessionStorage.registered,
     message: '',
-    isLoading: false
+    isLoading: false,
+    jwt: !!sessionStorage.jwt,
+    isAdmin: !!sessionStorage.isAdmin,
+    userId: sessionStorage.userId,
   },
   centers: {
     centers: [],
