@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a07e983979aeada40da2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1337e6d563531d83e393"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -66586,8 +66586,6 @@ var Home = exports.Home = function (_React$Component) {
   (0, _createClass3.default)(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      // $('.parallax').parallax();
-      // $('.button-collapse').sideNav();
       if (this.props.centers.length === 0) {
         this.props.actions.fetchCenters(1);
       }
@@ -83162,9 +83160,7 @@ var Events = exports.Events = function (_Component) {
       } else {
         page = parseInt(values.page, 10);
       }
-      if (this.props.events.length === 0) {
-        this.props.actions.fetchEvents(page);
-      }
+      this.props.actions.fetchEvents(page);
     }
     // deleteEvent(id) {
     //   this.props.actions.deleteEvent(parseInt(id, 10));
@@ -83264,9 +83260,9 @@ function mapStateToProps(state) {
   if (state.events.events && state.events.events.length > 0) {
     events = state.events.events;
   }
-  if (state.session.isAdmin && state.session.isAdmin === true) {
-    isAdmin = state.session.isAdmin;
-  }
+  // if (state.session.isAdmin && state.session.isAdmin === true) {
+  //   ({ session: { isAdmin } } = state);
+  // }
   return {
     events: events,
     isAdmin: isAdmin,

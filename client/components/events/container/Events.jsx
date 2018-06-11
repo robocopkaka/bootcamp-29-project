@@ -31,9 +31,7 @@ export class Events extends Component {
     } else {
       page = parseInt(values.page, 10);
     }
-    if (this.props.events.length === 0) {
-      this.props.actions.fetchEvents(page);
-    }
+    this.props.actions.fetchEvents(page);
   }
   // deleteEvent(id) {
   //   this.props.actions.deleteEvent(parseInt(id, 10));
@@ -119,13 +117,13 @@ Events.defaultProps = {
 
 function mapStateToProps(state) {
   let events = [];
-  let isAdmin = false;
+  const isAdmin = false;
   if (state.events.events && state.events.events.length > 0) {
     ({ events: { events } } = state);
   }
-  if (state.session.isAdmin && state.session.isAdmin === true) {
-    ({ session: { isAdmin } } = state);
-  }
+  // if (state.session.isAdmin && state.session.isAdmin === true) {
+  //   ({ session: { isAdmin } } = state);
+  // }
   return {
     events,
     isAdmin,
