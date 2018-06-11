@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d5dcb051fabeda00f42f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7fbd26c3e5af2ef675a9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -72292,7 +72292,6 @@ var SingleCenter = exports.SingleCenter = function (_Component) {
   (0, _createClass3.default)(SingleCenter, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      $('.modal').modal();
       this.props.actions.fetchSingleCenter(parseInt(this.props.match.params.id, 10));
       this.props.actions.fetchEventsInCenter(parseInt(this.props.match.params.id, 10), 1);
     }
@@ -72337,7 +72336,9 @@ var SingleCenter = exports.SingleCenter = function (_Component) {
   }, {
     key: 'deleteEvent',
     value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(parseInt(id, 10));
+      this.props.actions.deleteEvent(parseInt(id, 10)).then(function (response) {
+        Materialize.toast('Event successfully deleted', 10000, 'green');
+      });
     }
   }, {
     key: 'render',

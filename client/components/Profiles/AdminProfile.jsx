@@ -83,7 +83,9 @@ export class AdminProfile extends Component {
     });
   }
   deleteEvent(id) {
-    this.props.actions.deleteEvent(id);
+    this.props.actions.deleteEvent(id).then(() => {
+      Materialize.toast('Event successfully deleted', 10000, 'green');
+    });
   }
   render() {
     const { centers = [] } = this.props;

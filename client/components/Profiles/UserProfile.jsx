@@ -62,7 +62,9 @@ export class UserProfile extends Component {
     });
   }
   deleteEvent(id) {
-    this.props.actions.deleteEvent(parseInt(id, 10));
+    this.props.actions.deleteEvent(parseInt(id, 10)).then(() => {
+      Materialize.toast('Event successfully deleted', 10000, 'green');
+    });
   }
   render() {
     const { events = [] } = this.props;
