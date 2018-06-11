@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7fbd26c3e5af2ef675a9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a07e983979aeada40da2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -61173,6 +61173,11 @@ var Header = exports.Header = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Header, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $('.button-collapse').sideNav();
+    }
+  }, {
     key: 'logOut',
     value: function logOut(e) {
       e.preventDefault();
@@ -66582,7 +66587,7 @@ var Home = exports.Home = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // $('.parallax').parallax();
-      $('.button-collapse').sideNav();
+      // $('.button-collapse').sideNav();
       if (this.props.centers.length === 0) {
         this.props.actions.fetchCenters(1);
       }
@@ -66598,7 +66603,7 @@ var Home = exports.Home = function (_React$Component) {
       var _props$events = this.props.events,
           events = _props$events === undefined ? [] : _props$events;
 
-      var containerClasses = (0, _classnames2.default)(styles['home-container'], styles['min-height-fifty-vh']);
+      var containerClasses = (0, _classnames2.default)(styles['min-height-fifty-vh']);
       return _react2.default.createElement(
         'div',
         { className: containerClasses },
@@ -72336,7 +72341,7 @@ var SingleCenter = exports.SingleCenter = function (_Component) {
   }, {
     key: 'deleteEvent',
     value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(parseInt(id, 10)).then(function (response) {
+      this.props.actions.deleteEvent(parseInt(id, 10)).then(function () {
         Materialize.toast('Event successfully deleted', 10000, 'green');
       });
     }
@@ -83775,7 +83780,9 @@ var AdminProfile = exports.AdminProfile = function (_Component) {
   }, {
     key: 'deleteEvent',
     value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(id);
+      this.props.actions.deleteEvent(id).then(function () {
+        Materialize.toast('Event successfully deleted', 10000, 'green');
+      });
     }
   }, {
     key: 'render',
@@ -84176,7 +84183,9 @@ var UserProfile = exports.UserProfile = function (_Component) {
   }, {
     key: 'deleteEvent',
     value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(parseInt(id, 10));
+      this.props.actions.deleteEvent(parseInt(id, 10)).then(function () {
+        Materialize.toast('Event successfully deleted', 10000, 'green');
+      });
     }
   }, {
     key: 'render',
