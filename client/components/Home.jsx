@@ -16,8 +16,6 @@ import * as styles from '../css/index.module.css';
 
 export class Home extends React.Component {
   componentDidMount() {
-    // $('.parallax').parallax();
-    $('.button-collapse').sideNav();
     if (this.props.centers.length === 0) {
       this.props.actions.fetchCenters(1);
     }
@@ -28,7 +26,7 @@ export class Home extends React.Component {
   render() {
     const { centers = [] } = this.props;
     const { events = [] } = this.props;
-    const containerClasses = classNames(styles['home-container'], styles['min-height-fifty-vh']);
+    const containerClasses = classNames(styles['min-height-fifty-vh']);
     return (
       <div className={containerClasses}>
         <div className={styles['home-image']}>

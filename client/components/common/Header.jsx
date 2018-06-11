@@ -12,6 +12,9 @@ export class Header extends React.Component {
     super(props);
     this.logOut = this.logOut.bind(this);
   }
+  componentDidMount() {
+    $('.button-collapse').sideNav();
+  }
   logOut(e) {
     e.preventDefault();
     this.props.actions.logOutUser();
