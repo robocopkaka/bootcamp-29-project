@@ -18,6 +18,18 @@ describe('center actions', () => {
     moxios.uninstall();
   });
 
+  it('should dispatch FETCH_CENTERS_LOADING when centersLoading is called', () => {
+    const expectedActions = [
+      { type: types.FETCH_CENTERS_LOADING },
+    ];
+
+    const store = mockStore({ centers: [] });
+
+    store.dispatch(actions.centersLoading());
+    expect(store.getActions()).to.deep.equal(expectedActions);
+    // });
+  });
+
   it('creates FETCH_CENTERS_SUCCESS after all centers have been fetched', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
