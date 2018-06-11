@@ -16,7 +16,10 @@ describe('<AddCenter />', () => {
   let wrapper, loadingWrapper;
   const isLoading = false;
   const loading = true;
-  const centerActions = {};
+  const centerActions = {
+    centersLoading: jest.fn().mockImplementation(() => Promise.resolve()),
+    addCenter: jest.fn().mockImplementation(() => Promise.resolve())
+  };
   const initialState = {
     centers: {
       isLoading: false
@@ -74,6 +77,11 @@ describe('<AddCenter />', () => {
       instance.handleChange({ target: { name: 'name', value: 'kachi' } });
       expect(instance.state.name.value).toEqual('kachi');
     });
+    it('should set image  when handleChange is called with imageUpload', () => {
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'imageUpload', files: [{ name: 'kachi' }] } });
+      expect(instance.state.image.value).toEqual('kachi');
+    });
     it('should clearFields', () => {
       const instance = wrapper.instance();
       instance.handleChange({ target: { name: 'name', value: 'kachi' } });
@@ -96,14 +104,6 @@ describe('<AddCenter />', () => {
     });
     it('should return false if form is not valid', () => {
       const instance = wrapper.instance();
-      instance.handleChange({ target: { name: 'name', value: 'kachi' } });
-      instance.handleChange({ target: { name: 'detail', value: 'kachi' } });
-      instance.handleChange({ target: { name: 'address', value: 'kachi' } });
-      instance.handleChange({ target: { name: 'chairs', value: '100' } });
-      instance.handleChange({ target: { name: 'projector', value: '100' } });
-      instance.setState({
-        image: Object.assign({}, instance.state.image, { value: 'image' })
-      });
       expect(instance.formIsValid()).toBe(false);
     });
     it('should reset validation state', () => {
@@ -147,17 +147,40 @@ describe('<AddCenter />', () => {
   describe('addCenter', () => {
     it('should add a center on button click', () => {
       const dispatchActions = {
-        addCenter: jest.fn().mockImplementation(() => Promise.resolve())
+        addCenter: jest.fn().mockImplementation(() => Promise.resolve()),
+        centersLoading: jest.fn().mockImplementation(() => Promise.resolve())
       };
-      const hideModal = jest.fn();
+      const getSignedRequest = jest.fn().mockImplementation(() => Promise.resolve());
+      const hideModal = jest.fn().mockImplementation(() => Promise.resolve());
       const spy = jest.spyOn(AddCenter.prototype, 'addCenter');
       const wrapperWithSpy = mount(
         <Provider store={store}>
-          <AddCenter actions={dispatchActions} someActionProp={spy} hideModal={hideModal} />
+          <AddCenter
+            centerActions={dispatchActions}
+            someActionProp={spy}
+            hideModal={hideModal}
+            getSignedRequest={getSignedRequest}
+          />
         </Provider>);
       wrapperWithSpy.find('button').simulate('click', { preventDefault() {} });
       expect(AddCenter.prototype.addCenter).toHaveBeenCalledTimes(1);
       // console.log(wrapperWithSpy.debug());
+    });
+    it('should add center directly', () => {
+      const spy = jest.spyOn(AddCenter.prototype, 'addCenter');
+      const instance = wrapper.instance();
+      instance.handleChange({ target: { name: 'name', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'detail', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'address', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'state', value: 'kachi' } });
+      instance.handleChange({ target: { name: 'capacity', value: '100' } });
+      instance.handleChange({ target: { name: 'chairs', value: '100' } });
+      instance.handleChange({ target: { name: 'projector', value: '100' } });
+      instance.setState({
+        image: Object.assign({}, instance.state.image, { value: 'image' })
+      });
+      instance.addCenter({ preventDefault() {} });
+      expect(AddCenter.prototype.addCenter).toHaveBeenCalledTimes(2);
     });
   });
 });

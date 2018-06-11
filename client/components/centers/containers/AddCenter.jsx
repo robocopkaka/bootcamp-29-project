@@ -25,35 +25,46 @@ export class AddCenter extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.addCenter = this.addCenter.bind(this);
+    this.image = '';
   }
   getSignedRequest(file) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          this.uploadFile(file, response.signedRequest, response.url);
-        } else {
-          console.log('Could not get signed URL.');
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `/sign-s3?file-name=${encodeURIComponent(file.name)}&file-type=${encodeURIComponent(file.type)}`);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            this.uploadFile(file, response.signedRequest, response.url).then((res) => {
+              resolve(res);
+            })
+              .catch((err) => {
+                reject(Error(err));
+              });
+          } else {
+            console.log('Could not get signed URL.');
+          }
         }
-      }
-    };
-    xhr.send();
+      };
+      xhr.send();
+    });
   }
   uploadFile(file, signedRequest, url) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', signedRequest);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          this.setState({ image: Object.assign({}, this.state.image, { value: url }) });
-        } else {
-          console.log('Could not upload file.');
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', signedRequest);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(url);
+            this.url = url;
+          } else {
+            reject(Error('Could not upload file.'));
+          }
         }
-      }
-    };
-    xhr.send(file);
+      };
+      xhr.send(file);
+    });
   }
   handleChange(event) {
     const { state } = this;
@@ -61,7 +72,12 @@ export class AddCenter extends Component {
     const field = state[name];
     switch (name) {
       case 'imageUpload':
-        this.getSignedRequest(event.target.files[0]);
+        // this.getSignedRequest(event.target.files[0]);
+        this.image = event.target.files[0];
+        this.setState({
+          image: Object.assign({}, this.state.image, { value: event.target.files[0].name })
+        });
+        // console.log(event.target.files[0].name);
         break;
       default:
         field.value = value;
@@ -142,25 +158,27 @@ export class AddCenter extends Component {
   addCenter(event) {
     event.preventDefault();
     this.resetValidationStates();
-    const center = {
-      name: this.state.name.value,
-      capacity: this.state.capacity.value,
-      address: this.state.address.value,
-      state: this.state.state.value,
-      chairs: this.state.chairs.value,
-      projector: this.state.projector.value,
-      detail: this.state.detail.value,
-      image: this.state.image.value,
-    };
-    if (this.formIsValid()) {
-      this.props.centerActions.addCenter(center)
-        .then((response) => {
-          Materialize.toast(response, 10000, 'green');
-          this.clearFields();
-          this.props.hideModal();
-        })
-        .catch(error => Materialize.toast(error, 10000, 'red'));
-    }
+    this.props.centerActions.centersLoading();
+    this.getSignedRequest(this.image).then((res) => {
+      const center = {
+        name: this.state.name.value,
+        capacity: this.state.capacity.value,
+        address: this.state.address.value,
+        state: this.state.state.value,
+        chairs: this.state.chairs.value,
+        projector: this.state.projector.value,
+        detail: this.state.detail.value,
+        image: res
+      };
+      if (this.formIsValid()) {
+        this.props.centerActions.addCenter(center)
+          .then((response) => {
+            Materialize.toast(response, 10000, 'green');
+            this.props.hideModal();
+          })
+          .catch(error => Materialize.toast(error, 10000, 'red'));
+      }
+    });
   }
   render() {
     const nameClasses = classNames('help-block', { [styles['has-error']]: !this.state.name.isValid });

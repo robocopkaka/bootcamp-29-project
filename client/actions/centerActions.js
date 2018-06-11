@@ -55,6 +55,11 @@ export function fetchCenters(page) {
     // });
   };
 }
+export function centersLoading() {
+  return (dispatch) => {
+    dispatch(fetchCentersLoading());
+  };
+}
 export function updateCenter(center) {
   return (dispatch) => {
     dispatch(updateCenterLoading());
