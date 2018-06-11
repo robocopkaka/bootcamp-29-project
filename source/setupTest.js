@@ -68,6 +68,7 @@ const jQueryMock = {
   sideNav() {},
   pickadate() {},
   tabs() {},
+  modal() {},
   // offset() {
   //   let top = () => {};
   //   return top;
@@ -75,7 +76,7 @@ const jQueryMock = {
   // scrollTop() {},
   // top: {}
 };
-
+global.confirm = () => true
 global.jestExpect = global.expect;
 global.expect = chai.expect;
 global.$ = () => jQueryMock;

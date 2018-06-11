@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6c8994ce18118a396c4e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7fbd26c3e5af2ef675a9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -8354,7 +8354,7 @@ var EventsListWithImage = function EventsListWithImage(_ref) {
                 'button',
                 {
                   onClick: function onClick() {
-                    return deleteEvent(event.id);
+                    if (window.confirm('Are you sure you wish to delete ' + event.name + '?')) deleteEvent(event.id);
                   },
                   className: navbarPurpleRightClasses,
                   id: 'delete-event-' + event.id
@@ -72336,7 +72336,9 @@ var SingleCenter = exports.SingleCenter = function (_Component) {
   }, {
     key: 'deleteEvent',
     value: function deleteEvent(id) {
-      this.props.actions.deleteEvent(parseInt(id, 10));
+      this.props.actions.deleteEvent(parseInt(id, 10)).then(function (response) {
+        Materialize.toast('Event successfully deleted', 10000, 'green');
+      });
     }
   }, {
     key: 'render',

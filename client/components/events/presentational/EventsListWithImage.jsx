@@ -45,7 +45,7 @@ const EventsListWithImage = ({
                   <i className="material-icons">edit</i>
                 </button>
                 <button
-                  onClick={() => deleteEvent(event.id)}
+                  onClick={() => { if (window.confirm(`Are you sure you wish to delete ${event.name}?`)) deleteEvent(event.id); }}
                   className={navbarPurpleRightClasses}
                   id={`delete-event-${event.id}`}
                 >
