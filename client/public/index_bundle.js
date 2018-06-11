@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1337e6d563531d83e393"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "02728dd97eafe7336e2e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -60528,8 +60528,8 @@ function centerReducer() {
       return newState;
     case types.UPDATE_CENTER_FAILURE:
       newState = (0, _immutabilityHelper2.default)(state, {
-        isLoading: { $set: false },
-        message: { $set: action.center.data.message }
+        isLoading: { $set: false }
+        // message: { $set: action.center.data.message }
       });
       return newState;
     case types.UPDATE_CENTER_LOADING:

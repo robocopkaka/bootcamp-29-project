@@ -99,7 +99,6 @@ export default function centerReducer(state = initialState.centers, action) {
     case types.UPDATE_CENTER_FAILURE:
       newState = update(state, {
         isLoading: { $set: false },
-        message: { $set: action.center.data.message }
       });
       return newState;
     case types.UPDATE_CENTER_LOADING:
