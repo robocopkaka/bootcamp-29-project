@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fcbf44d958008122c43d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b4b23f1fa1203f166412"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12431,24 +12431,24 @@ var EditCenter = exports.EditCenter = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (this.props.center.id !== nextProps.center.id) {
-        this.setState({
-          name: (0, _assign2.default)({}, this.state.name, { value: nextProps.center.name }),
-          address: (0, _assign2.default)({}, this.state.address, { value: nextProps.center.address }),
-          state: (0, _assign2.default)({}, this.state.state, { value: nextProps.center.state }),
-          detail: (0, _assign2.default)({}, this.state.detail, { value: nextProps.center.detail }),
-          chairs: (0, _assign2.default)({}, this.state.chairs, {
-            value: nextProps.center.chairs.toString()
-          }),
-          projector: (0, _assign2.default)({}, this.state.projector, {
-            value: nextProps.center.projector.toString()
-          }),
-          capacity: (0, _assign2.default)({}, this.state.capacity, {
-            value: nextProps.center.capacity.toString()
-          }),
-          image: (0, _assign2.default)({}, this.state.image, { value: nextProps.center.image })
-        });
-      }
+      // if (this.props.center.id !== nextProps.center.id) {
+      this.setState({
+        name: (0, _assign2.default)({}, this.state.name, { value: nextProps.center.name }),
+        address: (0, _assign2.default)({}, this.state.address, { value: nextProps.center.address }),
+        state: (0, _assign2.default)({}, this.state.state, { value: nextProps.center.state }),
+        detail: (0, _assign2.default)({}, this.state.detail, { value: nextProps.center.detail }),
+        chairs: (0, _assign2.default)({}, this.state.chairs, {
+          value: nextProps.center.chairs.toString()
+        }),
+        projector: (0, _assign2.default)({}, this.state.projector, {
+          value: nextProps.center.projector.toString()
+        }),
+        capacity: (0, _assign2.default)({}, this.state.capacity, {
+          value: nextProps.center.capacity.toString()
+        }),
+        image: (0, _assign2.default)({}, this.state.image, { value: nextProps.center.image })
+      });
+      // }
     }
   }, {
     key: 'getSignedRequest',
@@ -12593,35 +12593,47 @@ var EditCenter = exports.EditCenter = function (_Component) {
       this.setState({ image: { value: '', isValid: true, message: '' } });
     }
   }, {
+    key: 'dispatchUpdate',
+    value: function dispatchUpdate(center) {
+      var _this4 = this;
+
+      this.props.actions.updateCenter(center).then(function (response) {
+        Materialize.toast(response.message, 10000, 'green');
+        // this.clearFields();
+        _this4.props.hideModal();
+      }).catch(function (error) {
+        return Materialize.toast(error, 10000, 'red');
+      });
+    }
+  }, {
     key: 'updateCenter',
     value: function updateCenter(event) {
-      var _this4 = this;
+      var _this5 = this;
 
       event.preventDefault();
       this.resetValidationStates();
       this.props.actions.centersLoading();
-      this.getSignedRequest(this.image).then(function (res) {
-        var center = {
-          id: _this4.props.centerId,
-          name: _this4.state.name.value,
-          capacity: _this4.state.capacity.value,
-          address: _this4.state.address.value,
-          state: _this4.state.state.value,
-          chairs: _this4.state.chairs.value,
-          projector: _this4.state.projector.value,
-          detail: _this4.state.detail.value,
-          image: res
-        };
-        if (_this4.formIsValid()) {
-          _this4.props.actions.updateCenter(center).then(function (response) {
-            Materialize.toast(response.message, 10000, 'green');
-            // this.clearFields();
-            _this4.props.hideModal();
-          }).catch(function (error) {
-            return Materialize.toast(error, 10000, 'red');
-          });
-        }
-      });
+      var center = {
+        id: this.props.centerId,
+        name: this.state.name.value,
+        capacity: this.state.capacity.value,
+        address: this.state.address.value,
+        state: this.state.state.value,
+        chairs: this.state.chairs.value,
+        projector: this.state.projector.value,
+        detail: this.state.detail.value
+      };
+      if (this.image === '') {
+        center.image = this.state.image.value;
+        this.dispatchUpdate(center);
+      } else {
+        this.getSignedRequest(this.image).then(function (res) {
+          center.image = res;
+          if (_this5.formIsValid()) {
+            _this5.dispatchUpdate(center);
+          }
+        });
+      }
     }
   }, {
     key: 'render',
@@ -12680,31 +12692,19 @@ EditCenter.propTypes = {
     state: _propTypes2.default.string,
     image: _propTypes2.default.string,
     events: _propTypes2.default.array
-  }).isRequired,
+  }),
   actions: _propTypes2.default.objectOf(_propTypes2.default.func).isRequired,
   hideModal: _propTypes2.default.func,
   centerId: _propTypes2.default.number
 };
 EditCenter.defaultProps = {
   hideModal: function hideModal() {},
-  centerId: 1
+  centerId: 1,
+  center: {}
 };
 function mapStateToProps(state) {
   var center = void 0;
-  if (state.centers.center && state.centers.center.id === '') {
-    center = {
-      id: '',
-      name: '',
-      capacity: '',
-      state: '',
-      address: '',
-      chairs: '',
-      detail: '',
-      projector: '',
-      image: '',
-      events: []
-    };
-  } else {
+  if (state.centers.center && state.centers.center.id !== '') {
     center = state.centers.center;
   }
   return {
@@ -60315,9 +60315,7 @@ function sessionReducer() {
   var decodedToken = {};
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      console.log(action);
       decodedToken = (0, _jwtDecode2.default)(action.response.token);
-      console.log(decodedToken);
       newState = (0, _immutabilityHelper2.default)(state, {
         jwt: { $set: !!sessionStorage.jwt },
         isAdmin: { $set: !!sessionStorage.isAdmin },
@@ -60355,7 +60353,6 @@ function sessionReducer() {
       return newState;
 
     case types.REGISTER_SUCCESS:
-      console.log(action.response);
       newState = (0, _immutabilityHelper2.default)(state, {
         jwt: { $set: !!sessionStorage.jwt },
         isAdmin: { $set: !!sessionStorage.isAdmin },
