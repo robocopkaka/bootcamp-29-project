@@ -14,7 +14,7 @@ describe('<Signup />', () => {
   let store, container;
   const isLoading = false;
   const initialState = {
-    register: {
+    session: {
       isLoading: false
     }
   };
@@ -49,7 +49,7 @@ describe('<Signup />', () => {
     expect(container.length).toBe(1);
   });
   it('should have props in the container match those in initial state', () => {
-    expect(container.prop('isLoading')).toEqual(initialState.register.isLoading);
+    expect(container.prop('isLoading')).toEqual(initialState.session.isLoading);
   });
   it('should set firstName in state on handleFirstNameChange', () => {
     const instance = wrapper.instance();

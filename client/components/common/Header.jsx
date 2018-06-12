@@ -52,7 +52,7 @@ export class Header extends React.Component {
                     href="#!"
                     data-activates="signup-dropdown"
                   >
-                      Profile<i className="material-icons right">arrow_drop_down</i>
+                      {this.props.name}<i className="material-icons right">arrow_drop_down</i>
                   </a>
                 </li>
               </ul>
@@ -70,9 +70,9 @@ export class Header extends React.Component {
                       <div className="collapsible-body">
                         <ul>
                           { this.props.isAdmin ? (
-                            <li><a id="admin-profile" href="/admin">Profile</a></li>
+                            <li><a id="admin-profile" href="/admin">{this.props.name}</a></li>
                           ) : (
-                            <li><a id="user-profile" href="/user">Profile</a></li>
+                            <li><a id="user-profile" href="/user">{this.props.name}</a></li>
                           )}
                           <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
                         </ul>
@@ -150,17 +150,21 @@ export class Header extends React.Component {
 Header.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
   isAdmin: PropTypes.bool,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  name: PropTypes.string
 };
 Header.defaultProps = {
   isAdmin: false,
-  actions: {}
+  actions: {},
+  name: ''
 };
 function mapStateToProps(state) {
-  const loggedIn = state.session.jwt || state.register.jwt;
+  const loggedIn = state.session.jwt;
+  const name = state.session.name || 'Profile';
   return {
     loggedIn,
     isAdmin: state.session.isAdmin,
+    name
   };
 }
 function mapDispatchToProps(dispatch) {

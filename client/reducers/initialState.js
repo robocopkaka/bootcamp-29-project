@@ -6,14 +6,6 @@ export default {
     message: '',
     isLoading: false
   },
-  register: {
-    isRegistered: !!sessionStorage.registered,
-    message: '',
-    isLoading: false,
-    jwt: !!sessionStorage.jwt,
-    isAdmin: !!sessionStorage.isAdmin,
-    userId: sessionStorage.userId,
-  },
   centers: {
     centers: [],
     isLoading: false,

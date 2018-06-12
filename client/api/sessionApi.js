@@ -19,5 +19,22 @@ class SessionApi {
         throw err.response;
       });
   }
+  static register(credentials) {
+    return axios.post(
+      `${SESSION_BASE_API}`,
+      JSON.stringify({
+        name: credentials.name,
+        email: credentials.email,
+        password: credentials.password
+      }),
+      { headers: { 'Content-Type': 'application/json' } }
+    )
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        throw err.response;
+      });
+  }
 }
 export default SessionApi;
