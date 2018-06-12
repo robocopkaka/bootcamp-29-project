@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
@@ -19,7 +19,6 @@ export class UserProfile extends Component {
       isAdmin: false,
       show: false,
       editMode: false,
-      eventId: '',
       page: 1
     };
     this.changePage = this.changePage.bind(this);

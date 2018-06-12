@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "02728dd97eafe7336e2e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "98c5998cad0745ccdc0a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -60529,7 +60529,6 @@ function centerReducer() {
     case types.UPDATE_CENTER_FAILURE:
       newState = (0, _immutabilityHelper2.default)(state, {
         isLoading: { $set: false }
-        // message: { $set: action.center.data.message }
       });
       return newState;
     case types.UPDATE_CENTER_LOADING:
@@ -84120,7 +84119,6 @@ var UserProfile = exports.UserProfile = function (_Component) {
       isAdmin: false,
       show: false,
       editMode: false,
-      eventId: '',
       page: 1
     };
     _this.changePage = _this.changePage.bind(_this);
