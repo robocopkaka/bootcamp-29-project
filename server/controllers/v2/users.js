@@ -171,7 +171,7 @@ module.exports = {
             } else if (hash) {
               const payload = {
                 email: user.email,
-                name: user.fullName,
+                name: user.name,
                 id: user.id,
                 isAdmin: user.isAdmin
               };

@@ -4,7 +4,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as registerActions from '../../actions/registerActions';
+import * as sessionActions from '../../actions/sessionActions';
 import Preloader from './Preloader';
 import * as styles from '../../css/index.module.css';
 
@@ -302,12 +302,12 @@ Signup.defaultProps = {
 };
 function mapStateToProps(state) {
   return {
-    isLoading: state.register.isLoading
+    isLoading: state.session.isLoading
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(registerActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

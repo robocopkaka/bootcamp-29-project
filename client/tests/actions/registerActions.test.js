@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import { expect } from 'chai';
-import * as actions from '../../actions/registerActions';
+import * as actions from '../../actions/sessionActions';
 import * as types from '../../actions/actionTypes';
 import signup from '../fixtures/signup';
 import user from '../fixtures/user';
@@ -28,11 +28,11 @@ describe('register actions', () => {
     });
 
     const expectedActions = [
-      { type: types.REGISTER_LOADING },
+      { type: types.LOGIN_REQUEST },
       { type: types.REGISTER_SUCCESS, response: signup }
     ];
 
-    const store = mockStore({ register: {} });
+    const store = mockStore({ session: {} });
 
     return store.dispatch(actions.registerUser(user)).then(() => {
       expect(store.getActions()).to.deep.equal(expectedActions);
@@ -49,11 +49,11 @@ describe('register actions', () => {
     });
 
     const expectedActions = [
-      { type: types.REGISTER_LOADING },
+      { type: types.LOGIN_REQUEST },
       { type: types.REGISTER_FAILURE, response: error }
     ];
 
-    const store = mockStore({ register: {} });
+    const store = mockStore({ session: {} });
 
     return store.dispatch(actions.registerUser(user)).catch(() => {
       expect(store.getActions()).to.deep.equal(expectedActions);

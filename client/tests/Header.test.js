@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, configure, mount } from 'enzyme';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
+import expect from 'expect';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import ConnectedHeader, { Header } from '../components/common/Header';
@@ -9,12 +10,13 @@ import App from '../components/App';
 configure({ adapter: new Adapter() });
 
 describe('<Header />', () => {
-  let wrapper, wrapperLoggedIn;
+  let wrapper, wrapperLoggedIn, adminWrapper;
   let store, container;
   const mockStore = configureStore();
   const loggedIn = false;
   const loggedInUser = true;
   const isAdmin = false;
+  const admin = true;
   const initialState = {
     session: {
       jwt: true,
@@ -25,6 +27,10 @@ describe('<Header />', () => {
     wrapper = shallow(<Header
       loggedIn={loggedIn}
       isAdmin={isAdmin}
+    />);
+    adminWrapper = shallow(<Header
+      loggedIn={loggedInUser}
+      isAdmin={admin}
     />);
     wrapperLoggedIn = shallow(<Header
       loggedIn={loggedInUser}
@@ -61,6 +67,9 @@ describe('<Header />', () => {
     expect(wrapper.find('li').children().first().text()).toEqual('Login');
     expect(wrapper.find('li').at(1).children().text()).toEqual('Signup');
   });
+  it('should have two admin-profile ids if an admin is logged in', () => {
+    expect(adminWrapper.find('#admin-profile').length).toBe(2);
+  })
   it('should render the connected component', () => {
     expect(container.length).toBe(1);
   });
