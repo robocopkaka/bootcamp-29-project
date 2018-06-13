@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fb60fc52a7f6d3f40ff9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b4774f58031463560d7c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -8657,7 +8657,8 @@ exports.default = {
     isAdmin: !!sessionStorage.isAdmin,
     userId: sessionStorage.userId,
     message: '',
-    isLoading: false
+    isLoading: false,
+    name: sessionStorage.name
   },
   centers: {
     centers: [],
@@ -9131,7 +9132,7 @@ EditEvent.propTypes = {
       image: _propTypes2.default.string,
       events: _propTypes2.default.array
     })
-  }).isRequired,
+  }),
   actions: _propTypes2.default.objectOf(_propTypes2.default.func).isRequired,
   eventId: _propTypes2.default.number,
   centerId: _propTypes2.default.number,
@@ -9142,7 +9143,8 @@ EditEvent.defaultProps = {
   eventId: 1,
   centerId: 1,
   toggleEdit: function toggleEdit() {},
-  hideModal: function hideModal() {}
+  hideModal: function hideModal() {},
+  event: {}
 };
 function mapStateToProps(state) {
   var event = {
@@ -11261,6 +11263,7 @@ function loginUser(credentials) {
       var decodedToken = (0, _jwtDecode2.default)(response.data.token);
       sessionStorage.setItem('jwt', response.data.token);
       sessionStorage.setItem('userId', decodedToken.id);
+      sessionStorage.setItem('name', decodedToken.name);
       if (decodedToken.isAdmin) {
         sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
       }
@@ -16739,12 +16742,13 @@ var Signup = exports.Signup = function (_React$Component) {
 
 Signup.propTypes = {
   actions: _propTypes2.default.objectOf(_propTypes2.default.func),
-  isLoading: _propTypes2.default.bool.isRequired,
+  isLoading: _propTypes2.default.bool,
   hideModal: _propTypes2.default.func
 };
 Signup.defaultProps = {
   hideModal: function hideModal() {},
-  actions: {}
+  actions: {},
+  isLoading: false
 };
 function mapStateToProps(state) {
   return {
@@ -29060,11 +29064,12 @@ var AddCenter = exports.AddCenter = function (_Component) {
 
 AddCenter.propTypes = {
   centerActions: _propTypes2.default.objectOf(_propTypes2.default.func).isRequired,
-  isLoading: _propTypes2.default.bool.isRequired,
+  isLoading: _propTypes2.default.bool,
   hideModal: _propTypes2.default.func
 };
 AddCenter.defaultProps = {
-  hideModal: function hideModal() {}
+  hideModal: function hideModal() {},
+  isLoading: false
 };
 function mapStateToProps(state) {
   return {

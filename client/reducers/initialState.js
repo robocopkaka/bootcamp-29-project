@@ -4,7 +4,8 @@ export default {
     isAdmin: !!sessionStorage.isAdmin,
     userId: sessionStorage.userId,
     message: '',
-    isLoading: false
+    isLoading: false,
+    name: sessionStorage.name
   },
   centers: {
     centers: [],

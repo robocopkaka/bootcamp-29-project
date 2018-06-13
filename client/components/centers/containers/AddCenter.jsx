@@ -220,11 +220,12 @@ export class AddCenter extends Component {
 }
 AddCenter.propTypes = {
   centerActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   hideModal: PropTypes.func
 };
 AddCenter.defaultProps = {
-  hideModal: () => {}
+  hideModal: () => {},
+  isLoading: false
 };
 function mapStateToProps(state) {
   return {

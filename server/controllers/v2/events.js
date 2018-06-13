@@ -53,6 +53,12 @@ module.exports = {
  *         description: User is not an admin
  *         schema:
  *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Name has been taken
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   create(req, res) {
@@ -186,6 +192,12 @@ module.exports = {
  *         description: User is not an admin
  *         schema:
  *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Name has been taken
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   edit(req, res) {
@@ -493,10 +505,10 @@ module.exports = {
   *       - application/json
   *     responses:
   *       200:
-  *         description: An array with all the events in it
+  *         description: An object containing an array with all the events in it
   *       404:
   *         description: Resource not found
-  *       400:
+  *       500:
   *         description: An error occured
   */
   /**/
@@ -555,6 +567,22 @@ module.exports = {
     //   });
     // });
   },
+  /**
+  * @swagger
+  * /api/v2/centers/:centerId/events:
+  *   get:
+  *     tags:
+  *       - V2 Events
+  *     description: Get all events for a particular center
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An object containing an array with all the events for the center in it
+  *       500:
+  *         description: An error occured
+  */
+  /**/
   getEventsInCenter(req, res) {
     const { centerId } = req.params;
     const { limit = 9 } = req.query;
@@ -642,7 +670,22 @@ module.exports = {
     //   message: 'An error occured'
     // }));
   },
-
+  /**
+ * @swagger
+ * /api/v2/users/:userId/events:
+ *   get:
+ *     tags:
+ *       - V2 Events
+ *     description: Get all events for a specific user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An object containing an array with all the events for the user in it
+ *       500:
+ *         description: An error occured
+ */
+  /**/
   getEventsForUser(req, res) {
     const { userId } = req.params;
     let { limit = 9 } = req.query;

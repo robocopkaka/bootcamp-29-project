@@ -295,6 +295,8 @@ module.exports = {
  *         description: Center not found
  *         schema:
  *           $ref: '#definitions/CenterV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   edit(req, res) {
