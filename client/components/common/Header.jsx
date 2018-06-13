@@ -70,9 +70,9 @@ export class Header extends React.Component {
                       <div className="collapsible-body">
                         <ul>
                           { this.props.isAdmin ? (
-                            <li><a id="admin-profile" href="/admin">{this.props.name}</a></li>
+                            <li><a id="admin-profile-side" href="/admin">{this.props.name}</a></li>
                           ) : (
-                            <li><a id="user-profile" href="/user">{this.props.name}</a></li>
+                            <li><a id="user-profile-side" href="/user">{this.props.name}</a></li>
                           )}
                           <li><a href="/logout" onClick={this.logOut}>Logout</a></li>
                         </ul>

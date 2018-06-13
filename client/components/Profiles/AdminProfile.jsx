@@ -106,7 +106,7 @@ export class AdminProfile extends Component {
       <React.Fragment>
         <ul className={navbarPurpleClasses}>
           <li className="tab col s3"><a className="active" href="#all-events">All Events</a></li>
-          <li className="tab col s3"><a href="#all-centers">All Centers</a></li>
+          <li className="tab col s3"><a id="centers-link" href="#all-centers">All Centers</a></li>
         </ul>
         <div id="all-events" className={leftTenPadding}>
           <div className="container">

@@ -67,9 +67,9 @@ describe('<Header />', () => {
     expect(wrapper.find('li').children().first().text()).toEqual('Login');
     expect(wrapper.find('li').at(1).children().text()).toEqual('Signup');
   });
-  it('should have two admin-profile ids if an admin is logged in', () => {
-    expect(adminWrapper.find('#admin-profile').length).toBe(2);
-  })
+  it('should have one admin-profile ids if an admin is logged in', () => {
+    expect(adminWrapper.find('#admin-profile').length).toBe(1);
+  });
   it('should render the connected component', () => {
     expect(container.length).toBe(1);
   });

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b4b23f1fa1203f166412"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fb60fc52a7f6d3f40ff9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -61418,7 +61418,7 @@ var Header = exports.Header = function (_React$Component) {
                             null,
                             _react2.default.createElement(
                               'a',
-                              { id: 'admin-profile', href: '/admin' },
+                              { id: 'admin-profile-side', href: '/admin' },
                               this.props.name
                             )
                           ) : _react2.default.createElement(
@@ -61426,7 +61426,7 @@ var Header = exports.Header = function (_React$Component) {
                             null,
                             _react2.default.createElement(
                               'a',
-                              { id: 'user-profile', href: '/user' },
+                              { id: 'user-profile-side', href: '/user' },
                               this.props.name
                             )
                           ),
@@ -83705,7 +83705,7 @@ var AdminProfile = exports.AdminProfile = function (_Component) {
             { className: 'tab col s3' },
             _react2.default.createElement(
               'a',
-              { href: '#all-centers' },
+              { id: 'centers-link', href: '#all-centers' },
               'All Centers'
             )
           )

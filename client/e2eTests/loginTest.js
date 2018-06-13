@@ -10,7 +10,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -41,7 +41,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -56,6 +56,7 @@ module.exports = {
           .pause(5000)
           .assert.visible('#toast-container')
           .assert.containsText('div.red.toast', 'Invalid email/password');
-      });
+      })
+      .end();
   }
 };
