@@ -37,7 +37,11 @@ a, a:link, a:visited, a:active {
   line-height: 1.25;
   font-weight: 500;
   letter-spacing: -.02em;
-  word-wrap: break-word;
+  /* word-wrap: break-word; */
+  text-overflow: ellipsis;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .center-name a{

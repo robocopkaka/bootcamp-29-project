@@ -29,7 +29,9 @@ const EventsListWithImage = ({
               <img src="https://event-managers.s3.amazonaws.com/rentals.jpg" alt={`${event.name}`} className={indexStyles['event-image']} />
             </div>
             <div className="card-content">
-              <span className={styles['event-focus']}>{event.name}</span><br />
+              <span className={styles['event-focus']}>
+                <div className="truncate">{event.name}</div>
+              </span><br />
               <span className={styles['event-date']}>{moment(event.date).format('LL')}</span><br />
               <span className={styles['fifteen-percent']}>{moment(event.date).format('LT')}</span>
             </div>

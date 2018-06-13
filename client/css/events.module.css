@@ -108,8 +108,10 @@ a, a:link, a:visited, a:active {
   text-rendering: optimizeLegibility;
 }
 #break-word {
-  overflow-wrap: break-word;
-  width: 5em;
+  /* overflow-wrap: break-word; */
+  word-break: break-all;
+  /* width: 10em; */
+  font-size: 50px;
 }
 .tiny {
   font-size: 1.3rem;
