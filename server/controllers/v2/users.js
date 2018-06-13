@@ -68,6 +68,8 @@ module.exports = {
  *         description: Bad requests
  *         schema:
  *           $ref: '#definitions/InvalidUserV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   create(req, res) {
@@ -149,6 +151,8 @@ module.exports = {
  *         description: Bad requests
  *         schema:
  *           $ref: '#definitions/InvalidLoginUserV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   login(req, res) {

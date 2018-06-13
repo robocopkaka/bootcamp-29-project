@@ -293,12 +293,13 @@ export class Signup extends React.Component {
 }
 Signup.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   hideModal: PropTypes.func
 };
 Signup.defaultProps = {
   hideModal: () => {},
-  actions: {}
+  actions: {},
+  isLoading: false
 };
 function mapStateToProps(state) {
   return {

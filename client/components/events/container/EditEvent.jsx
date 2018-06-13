@@ -191,7 +191,7 @@ EditEvent.propTypes = {
       image: PropTypes.string,
       events: PropTypes.array
     })
-  }).isRequired,
+  }),
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   eventId: PropTypes.number,
   centerId: PropTypes.number,
@@ -203,6 +203,7 @@ EditEvent.defaultProps = {
   centerId: 1,
   toggleEdit: () => {},
   hideModal: () => {},
+  event: {}
 };
 function mapStateToProps(state) {
   let event = {

@@ -145,16 +145,16 @@ module.exports = {
   },
   /**
   * @swagger
-  * /api/v2/centers/:
+  * /api/v2/centers/:centerId
   *   get:
   *     tags:
   *       - V2 Centers
-  *     description: Get all centers
+  *     description: Get a single center
   *     produces:
   *       - application/json
   *     responses:
   *       200:
-  *         description: An array of centers
+  *         description: An object with the center in it
   *       404:
   *         description: Resource not found
   */
@@ -184,18 +184,18 @@ module.exports = {
   },
   /**
   * @swagger
-  * /api/v2/centers/:
+  * /api/v2/centers/?page=page&limit=limit:
   *   get:
   *     tags:
   *       - V2 Centers
-  *     description: Get a single center
+  *     description: Get all centers
   *     produces:
   *       - application/json
   *     responses:
   *       200:
-  *         description: An object with a center in it
-  *       404:
-  *         description: Resource not found
+  *         description: An object containing an array with the centers in it
+  *       500:
+  *         description: Internal server error
   */
   /**/
   // getAllCenters(req, res) {
@@ -295,6 +295,8 @@ module.exports = {
  *         description: Center not found
  *         schema:
  *           $ref: '#definitions/CenterV2'
+ *       500:
+ *         description: Internal server error
  */
   /**/
   edit(req, res) {

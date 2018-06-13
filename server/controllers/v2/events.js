@@ -45,12 +45,24 @@ module.exports = {
  *         description: A successful message
  *         schema:
  *           $ref: '#/definitions/EventV2'
- *       400:
+ *       500:
  *         description: Bad requests
  *         schema:
  *           $ref: '#definitions/InvalidEventV2'
  *       403:
  *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       403:
+ *         description: Date has passed
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Name has been taken
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Date has been taken
  *         schema:
  *           $ref: '#definitions/EventV2'
  */
@@ -175,15 +187,27 @@ module.exports = {
  *       - application/json
  *     responses:
  *       200:
- *         description: A successful message
+ *         description: A successful message with the updated event
  *         schema:
  *           $ref: '#/definitions/EventV2'
- *       400:
+ *       500:
  *         description: Bad requests
  *         schema:
  *           $ref: '#definitions/InvalidEventV2'
  *       403:
  *         description: User is not an admin
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       403:
+ *         description: Date has passed
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Name has been taken
+ *         schema:
+ *           $ref: '#definitions/EventV2'
+ *       409:
+ *         description: Date has been taken
  *         schema:
  *           $ref: '#definitions/EventV2'
  */
@@ -418,6 +442,8 @@ module.exports = {
  *         description: Not found
  *       403:
  *         description: User is not an admin
+ *       500:
+ *         description: Internal server error
  */
   /**/
   delete(req, res) {
@@ -484,7 +510,7 @@ module.exports = {
   },
   /**
   * @swagger
-  * /api/v2/events/:
+  * /api/v2/events/?page=page&limit=limit:
   *   get:
   *     tags:
   *       - V2 Events
@@ -493,10 +519,8 @@ module.exports = {
   *       - application/json
   *     responses:
   *       200:
-  *         description: An array with all the events in it
-  *       404:
-  *         description: Resource not found
-  *       400:
+  *         description: An object containing an array with all the events in it
+  *       500:
   *         description: An error occured
   */
   /**/
@@ -555,6 +579,22 @@ module.exports = {
     //   });
     // });
   },
+  /**
+  * @swagger
+  * /api/v2/centers/:centerId/events/?page=page&limit=limit:
+  *   get:
+  *     tags:
+  *       - V2 Events
+  *     description: Get all events for a particular center
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An array with all the events for the specified center in it
+  *       500:
+  *         description: An error occured
+  */
+  /**/
   getEventsInCenter(req, res) {
     const { centerId } = req.params;
     const { limit = 9 } = req.query;
@@ -602,7 +642,7 @@ module.exports = {
   },
   /**
   * @swagger
-  * /api/v2/events/:
+  * /api/v2/events/?page=page&limit=limit:
   *   get:
   *     tags:
   *       - V2 Events
@@ -642,7 +682,22 @@ module.exports = {
     //   message: 'An error occured'
     // }));
   },
-
+  /**
+  * @swagger
+  * /api/v2/users/:userId/events/:
+  *   get:
+  *     tags:
+  *       - V2 Events
+  *     description: Get all events for a specific user
+  *     produces:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: An array with all the events for the specified user in it
+  *       500:
+  *         description: An error occured
+  */
+  /**/
   getEventsForUser(req, res) {
     const { userId } = req.params;
     let { limit = 9 } = req.query;
