@@ -31,24 +31,24 @@ export class EditCenter extends Component {
     this.props.actions.fetchSingleCenter(this.props.centerId);
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.center.id !== nextProps.center.id) {
-      this.setState({
-        name: Object.assign({}, this.state.name, { value: nextProps.center.name }),
-        address: Object.assign({}, this.state.address, { value: nextProps.center.address }),
-        state: Object.assign({}, this.state.state, { value: nextProps.center.state }),
-        detail: Object.assign({}, this.state.detail, { value: nextProps.center.detail }),
-        chairs: Object.assign({}, this.state.chairs, {
-          value: (nextProps.center.chairs).toString()
-        }),
-        projector: Object.assign({}, this.state.projector, {
-          value: (nextProps.center.projector).toString()
-        }),
-        capacity: Object.assign({}, this.state.capacity, {
-          value: (nextProps.center.capacity).toString()
-        }),
-        image: Object.assign({}, this.state.image, { value: nextProps.center.image }),
-      });
-    }
+    // if (this.props.center.id !== nextProps.center.id) {
+    this.setState({
+      name: Object.assign({}, this.state.name, { value: nextProps.center.name }),
+      address: Object.assign({}, this.state.address, { value: nextProps.center.address }),
+      state: Object.assign({}, this.state.state, { value: nextProps.center.state }),
+      detail: Object.assign({}, this.state.detail, { value: nextProps.center.detail }),
+      chairs: Object.assign({}, this.state.chairs, {
+        value: (nextProps.center.chairs).toString()
+      }),
+      projector: Object.assign({}, this.state.projector, {
+        value: (nextProps.center.projector).toString()
+      }),
+      capacity: Object.assign({}, this.state.capacity, {
+        value: (nextProps.center.capacity).toString()
+      }),
+      image: Object.assign({}, this.state.image, { value: nextProps.center.image }),
+    });
+    // }
   }
   getSignedRequest(file) {
     return new Promise((resolve, reject) => {
@@ -176,32 +176,40 @@ export class EditCenter extends Component {
     this.setState({ projector: { value: '', isValid: true, message: '' } });
     this.setState({ image: { value: '', isValid: true, message: '' } });
   }
+  dispatchUpdate(center) {
+    this.props.actions.updateCenter(center)
+      .then((response) => {
+        Materialize.toast(response.message, 10000, 'green');
+        // this.clearFields();
+        this.props.hideModal();
+      })
+      .catch(error => Materialize.toast(error, 10000, 'red'));
+  }
   updateCenter(event) {
     event.preventDefault();
     this.resetValidationStates();
     this.props.actions.centersLoading();
-    this.getSignedRequest(this.image).then((res) => {
-      const center = {
-        id: this.props.centerId,
-        name: this.state.name.value,
-        capacity: this.state.capacity.value,
-        address: this.state.address.value,
-        state: this.state.state.value,
-        chairs: this.state.chairs.value,
-        projector: this.state.projector.value,
-        detail: this.state.detail.value,
-        image: res,
-      };
-      if (this.formIsValid()) {
-        this.props.actions.updateCenter(center)
-          .then((response) => {
-            Materialize.toast(response.message, 10000, 'green');
-            // this.clearFields();
-            this.props.hideModal();
-          })
-          .catch(error => Materialize.toast(error, 10000, 'red'));
-      }
-    });
+    const center = {
+      id: this.props.centerId,
+      name: this.state.name.value,
+      capacity: this.state.capacity.value,
+      address: this.state.address.value,
+      state: this.state.state.value,
+      chairs: this.state.chairs.value,
+      projector: this.state.projector.value,
+      detail: this.state.detail.value,
+    };
+    if (this.image === '') {
+      center.image = this.state.image.value;
+      this.dispatchUpdate(center);
+    } else {
+      this.getSignedRequest(this.image).then((res) => {
+        center.image = res;
+        if (this.formIsValid()) {
+          this.dispatchUpdate(center)
+        }
+      });
+    }
   }
   render() {
     const nameClasses = classNames('help-block', { [styles['has-error']]: !this.state.name.isValid });
@@ -249,31 +257,19 @@ EditCenter.propTypes = {
     state: PropTypes.string,
     image: PropTypes.string,
     events: PropTypes.array
-  }).isRequired,
+  }),
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   hideModal: PropTypes.func,
   centerId: PropTypes.number
 };
 EditCenter.defaultProps = {
   hideModal: () => {},
-  centerId: 1
+  centerId: 1,
+  center: {}
 };
 function mapStateToProps(state) {
   let center;
-  if (state.centers.center && state.centers.center.id === '') {
-    center = {
-      id: '',
-      name: '',
-      capacity: '',
-      state: '',
-      address: '',
-      chairs: '',
-      detail: '',
-      projector: '',
-      image: '',
-      events: []
-    };
-  } else {
+  if (state.centers.center && state.centers.center.id !== '') {
     ({ centers: { center } } = state);
   }
   return {

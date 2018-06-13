@@ -146,7 +146,7 @@ describe('<EditCenter />', () => {
         centersLoading: jest.fn().mockImplementation(() => Promise.resolve()),
       };
       const hideModal = jest.fn();
-      const clearFields = jest.fn();
+      // const clearFields = jest.fn();
       const spy = jest.spyOn(EditCenter.prototype, 'componentDidMount');
       const mountedWrapper = mount(
         <Provider store={store}>
