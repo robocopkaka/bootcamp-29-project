@@ -11,7 +11,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -27,7 +27,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh')
@@ -39,7 +39,7 @@ module.exports = {
           .clearValue('input#center-name')
           .setValue('input#center-name', 'outrageous')
           .click('button#add-or-update-button')
-          .pause(3000)
+          .waitForElementVisible('#toast-container', 20000)
           .assert.visible('div.toast.green')
           .assert.containsText('div.toast.green', 'Center updated successfully');
       })
@@ -54,7 +54,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -70,7 +70,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh')

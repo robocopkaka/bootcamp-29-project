@@ -10,7 +10,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -25,7 +25,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh');
@@ -57,7 +57,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -72,7 +72,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh');
@@ -84,11 +84,6 @@ module.exports = {
       .pause(5000)
       .clearValue('input#event-name')
       .setValue('input#event-name', 'First event')
-      // .setValue('input#event-date', '29 June, 2018')
-      // .pause(2000)
-      // .click('div[data-pick="1529103600000"]')
-      // .pause(1000)
-      // .click('button.btn-flat.picker__close.waves-effect')
       .click('button#add-or-update-event')
       .pause(4000)
       .assert.visible('div.toast.red')
@@ -96,7 +91,7 @@ module.exports = {
       .pause(2000)
       .end();
   },
-  'Users should not be able to save an event if the date has been taken': (client) => {
+  'Users should not be able to update an event if the date has been taken': (client) => {
     client
       .url('http://localhost:8000')
       .waitForElementVisible('body', 2000)
@@ -105,8 +100,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
-      // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
+      .click('button.waves-light.btn.index-module__home-button-right')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
       .assert.visible('h3.index-module__center-heading')
@@ -120,7 +114,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh');
@@ -147,7 +141,7 @@ module.exports = {
       .pause(2000)
       .end();
   },
-  'Users should not be able to create an event if the date entered is in the past': (client) => {
+  'Users should not be able to update an event if the date entered is in the past': (client) => {
     client
       .url('http://localhost:8000')
       .waitForElementVisible('body', 2000)
@@ -156,7 +150,7 @@ module.exports = {
       .assert.visible('h2#index-module__home-center-horizontally')
       .assert.containsText('h2#index-module__home-center-horizontally', 'Featured events')
       .assert.visible('div.col.s12.m6.l4.index-module__hvr-grow')
-      .click('.index-module__home-button-group button.waves-effect.waves-light.btn.index-module__home-button-right')
+      .click('button.waves-light.btn.index-module__home-button-right')
       // .click('.nav-wrapper ul#nav-mobile li ul#signup-dropdown li a#signup-button')
       .waitForElementVisible('div.modal', 10000)
       .assert.visible('div.modal')
@@ -171,7 +165,7 @@ module.exports = {
           .assert.visible('#toast-container')
           .assert.containsText('div.green.toast', 'Signed in successfully');
       })
-      .click('a.waves-effect.waves-light.btn.index-module__home-button-left', () => {
+      .click('a.waves-light.btn.index-module__home-button-left', () => {
         client
           .pause(4000)
           .assert.visible('div.container.index-module__min-height-hundred-vh');
@@ -187,7 +181,7 @@ module.exports = {
       .pause(1500)
       .setValue('input#event-date', '29 June, 2018')
       .pause(2000)
-      .click('div[data-pick="1528153200000"]')
+      .click('div[data-pick="1528239600000"]')
       .pause(1000)
       .click('button.btn-flat.picker__close.waves-effect')
       .pause(2000)
