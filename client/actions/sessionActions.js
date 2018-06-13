@@ -27,6 +27,7 @@ export function loginUser(credentials) {
         const decodedToken = decode(response.data.token);
         sessionStorage.setItem('jwt', response.data.token);
         sessionStorage.setItem('userId', decodedToken.id);
+        sessionStorage.setItem('name', decodedToken.name);
         if (decodedToken.isAdmin) {
           sessionStorage.setItem('isAdmin', decodedToken.isAdmin);
         }
