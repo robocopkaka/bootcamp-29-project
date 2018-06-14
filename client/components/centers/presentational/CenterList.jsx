@@ -21,7 +21,7 @@ const CenterList = ({
         <div className="card z-depth-2">
           <a href={`/centers/${center.id}`} id={`view-center-${center.id}`}>
             <div className="card-image">
-              <img src={center.image} className={indexStyles['center-image']} alt={`${center.name}`} />
+              <img src={center.image} className={indexStyles['center-image']} alt={`${center.name.split(' ').shift()}`} />
               { /*
                <Link to={`/centers/${center.id}`}><img src={center.image} alt="" /></Link> */ }
             </div>
