@@ -12,7 +12,7 @@ const CenterDetail = ({ center }) => {
           <img src={center.image} alt={`${center.name}`} className={styles['show-center-image']} />
         </div>
         <div className="col s12 l4 m12">
-          <h1>{center.name}</h1>
+          <div className={styles['center-detail-name']}>{center.name}</div>
           <React.Fragment>
             <p className={styles.tiny}>
               <span className={styles['tiny-span']}>Location</span>
