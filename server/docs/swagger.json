@@ -404,6 +404,12 @@
               "$ref": "#/definitions/DeleteEventSuccess"
             }
           },
+          "404": {
+            "description": "Event not found",
+            "schema": {
+              "$ref": "#/definitions/DeleteEventNotFound"
+            }
+          },
           "500": {
             "description": "Internal server error",
             "schema": {
@@ -686,12 +692,6 @@
               "$ref": "#/definitions/BadRequest"
             }
           },
-          "404": {
-            "description": "Center not found",
-            "schema": {
-              "$ref": "#/definitions/FetchSingleCenteEventsrNotFound"
-            }
-          },
           "500": {
             "description": "Internal server error",
             "schema": {
@@ -766,7 +766,7 @@
           "type": "string"
         },
         "password": {
-          "type": "password"
+          "type": "string"
         }
       }
     },
@@ -827,7 +827,7 @@
           "type": "string"
         },
         "password": {
-          "type": "password"
+          "type": "string"
         }
       }
     },
@@ -846,7 +846,7 @@
       "type": "object",
       "properties": {
         "success": {
-          "type": "string"
+          "type": "boolean"
         },
         "message": {
           "type": "string"
@@ -890,6 +890,687 @@
         },
         "event": {
           "type": "object"
+        }
+      }
+    },
+    "CreateEventDatePassed": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateEventNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateEventCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchCentersSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "centers": {
+              "type": "array",
+              "properties": {
+                "center": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleUserEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleCenterEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "EditEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "centerId": {
+          "type": "integer"
+        },
+        "categoryId": {
+          "type": "integer"
+        },
+        "guests": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdateEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "event": {
+          "type": "object"
+        }
+      }
+    },
+    "UpdateEventDatePassed": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateEventNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateEventCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Center": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "chairs": {
+          "type": "integer"
+        },
+        "projector": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "EditCenter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "chairs": {
+          "type": "integer"
+        },
+        "projector": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "UpdateCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "CreateCenterUnauthorizedAccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterUnauthorizedAccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateCenterNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleEventNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "guests": {
+              "type": "integer"
+            },
+            "date": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "Center": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "capacity": {
+                  "type": "integer"
+                },
+                "chairs": {
+                  "type": "integer"
+                },
+                "projector": {
+                  "type": "integer"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "integer"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "DeleteEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DeleteEventNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
         }
       }
     }
