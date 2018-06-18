@@ -3,64 +3,6 @@ import moment from 'moment';
 import { Event, Center, User } from '../../models/index';
 
 module.exports = {
-  /**
- * @swagger
- * definitions:
- *   EventV2:
- *     properties:
- *       name:
- *         type: string
- *       date:
- *         type: date
- *       centerId:
- *         type: number
- *       categoryId:
- *         type: number
- */
-  /**
-* @swagger
-* definitions:
-*   InvalidEventV2:
-*     properties:
-*       name:
-*         type: undefined
-*       date:
-*         type: undefined
-*       centerId:
-*         type: undefined
-*       categoryId:
-*         type: undefined
-*/
-  /**
- * @swagger
- * /api/v2/events:
- *   post:
- *     tags:
- *       - V2 Events
- *     description: Create a new event
- *     produces:
- *       - application/json
- *     responses:
- *       201:
- *         description: A successful message
- *         schema:
- *           $ref: '#/definitions/EventV2'
- *       400:
- *         description: Bad requests
- *         schema:
- *           $ref: '#definitions/InvalidEventV2'
- *       403:
- *         description: User is not an admin
- *         schema:
- *           $ref: '#definitions/EventV2'
- *       409:
- *         description: Name has been taken
- *         schema:
- *           $ref: '#definitions/EventV2'
- *       500:
- *         description: Internal server error
- */
-  /**/
   create(req, res) {
     User
       .findOne({
@@ -170,36 +112,6 @@ module.exports = {
         });
       });
   },
-  /**
- * @swagger
- * /api/v2/events/:eventId:
- *   put:
- *     tags:
- *       - V2 Events
- *     description: Edit an event
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: A successful message
- *         schema:
- *           $ref: '#/definitions/EventV2'
- *       400:
- *         description: Bad requests
- *         schema:
- *           $ref: '#definitions/InvalidEventV2'
- *       403:
- *         description: User is not an admin
- *         schema:
- *           $ref: '#definitions/EventV2'
- *       409:
- *         description: Name has been taken
- *         schema:
- *           $ref: '#definitions/EventV2'
- *       500:
- *         description: Internal server error
- */
-  /**/
   edit(req, res) {
     User
       .findOne({
@@ -414,24 +326,6 @@ module.exports = {
         });
       });
   },
-  /**
- * @swagger
- * /api/v2/events/:eventId:
- *   delete:
- *     tags:
- *       - V2 Events
- *     description: Delete an event
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: A successful message
- *       404:
- *         description: Not found
- *       403:
- *         description: User is not an admin
- */
-  /**/
   delete(req, res) {
     User
       .findOne({
@@ -494,24 +388,6 @@ module.exports = {
         });
       });
   },
-  /**
-  * @swagger
-  * /api/v2/events/:
-  *   get:
-  *     tags:
-  *       - V2 Events
-  *     description: Get all events
-  *     produces:
-  *       - application/json
-  *     responses:
-  *       200:
-  *         description: An object containing an array with all the events in it
-  *       404:
-  *         description: Resource not found
-  *       500:
-  *         description: An error occured
-  */
-  /**/
   getAllEvents(req, res) {
     const { limit = 9 } = req.query;
     let offset = 0;
@@ -567,22 +443,6 @@ module.exports = {
     //   });
     // });
   },
-  /**
-  * @swagger
-  * /api/v2/centers/:centerId/events:
-  *   get:
-  *     tags:
-  *       - V2 Events
-  *     description: Get all events for a particular center
-  *     produces:
-  *       - application/json
-  *     responses:
-  *       200:
-  *         description: An object containing an array with all the events for the center in it
-  *       500:
-  *         description: An error occured
-  */
-  /**/
   getEventsInCenter(req, res) {
     const { centerId } = req.params;
     const { limit = 9 } = req.query;
@@ -670,22 +530,6 @@ module.exports = {
     //   message: 'An error occured'
     // }));
   },
-  /**
- * @swagger
- * /api/v2/users/:userId/events:
- *   get:
- *     tags:
- *       - V2 Events
- *     description: Get all events for a specific user
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: An object containing an array with all the events for the user in it
- *       500:
- *         description: An error occured
- */
-  /**/
   getEventsForUser(req, res) {
     const { userId } = req.params;
     let { limit = 9 } = req.query;
