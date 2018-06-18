@@ -6,72 +6,6 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
 module.exports = {
-  /**
- * @swagger
- * definitions:
- *   UserV2:
- *     properties:
- *       name:
- *         type: string
- *       email:
- *         type: string
- *       password:
- *         type: string
- */
-  /**
-* @swagger
-* definitions:
-*   LoginUserV2:
-*     properties:
-*       email:
-*         type: string
-*       password:
-*         type: string
-*/
-/**
-* @swagger
-* definitions:
-*   InvalidLoginUserV2:
-*     properties:
-*       email:
-*         type: undefined
-*       password:
-*         type: undefined
-*/
-  /**
-* @swagger
-* definitions:
-*   InvalidUserV2:
-*     properties:
-*       name:
-*         type: undefined
-*       email:
-*         type: undefined
-*       password:
-*         type: undefined
-*/
-  /**
- * @swagger
- * /api/v2/users:
- *   post:
- *     tags:
- *       - V2 Users
- *     description: Create a new user
- *     produces:
- *       - application/json
- *     responses:
- *       201:
- *         description: A successful message
- *         schema:
- *           $ref: '#/definitions/UserV2'
- *       400:
- *         description: Bad requests
- *         schema:
- *           $ref: '#definitions/InvalidUserV2'
- *       500:
- *         description: Internal server error
- */
-  /**/
   create(req, res) {
     // Generate hash with bcrypt's async
     bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -133,28 +67,6 @@ module.exports = {
         });
     });
   },
-  /**
- * @swagger
- * /api/v2/users/login:
- *   post:
- *     tags:
- *       - V2 Users
- *     description: Login an existing user
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: A successful message with a token
- *         schema:
- *           $ref: '#/definitions/LoginUserV2'
- *       400:
- *         description: Bad requests
- *         schema:
- *           $ref: '#definitions/InvalidLoginUserV2'
- *       500:
- *         description: Internal server error
- */
-  /**/
   login(req, res) {
     db.User.findOne({
       where: { email: req.body.email }

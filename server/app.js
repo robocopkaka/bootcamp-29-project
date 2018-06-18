@@ -7,12 +7,14 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import AWS from 'aws-sdk';
+import swaggerJson from './docs/swagger.json'
 
 // Set up the express app
 const app = express();
 const auth = express.Router();
 const swaggerPath = path.join(__dirname, './controllers/v1/*.js');
 const swaggerPathV2 = path.join(__dirname, './controllers/v2/*.js');
+// const swaggerJson = path.resolve('./docs/swagger.json');
 
 // swagger definition
 const swaggerDefinition = {
@@ -21,7 +23,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Event Manager App',
   },
-  host: 'localhost:8000',
+  host: process.env.BASE_URL,
   basePath: '/',
 };
 
@@ -30,18 +32,19 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: [swaggerPath, swaggerPathV2],
+  // apis: [swaggerPath, swaggerPathV2],
+  apis: [swaggerJson]
 };
 
 // initialize swagger-jsdoc
-const swaggerSpec = swaggerJSDoc(options);
+// const swaggerSpec = swaggerJSDoc(options);
 
 // serve swagger
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
+  res.send(swaggerJson);
 });
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 // AWS Config
 const s3 = new AWS.S3();

@@ -1,0 +1,1669 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Event manager documentation",
+    "version": "1.0.0",
+    "description": "Event manager app"
+  },
+  "basePath": "/api/v2",
+  "tags": [
+    {
+      "name": "Centers",
+      "description": "Create, update and fetch centers"
+    },
+    {
+      "name": "Events",
+      "description": "Create, update, delete and fetch events"
+    },
+    {
+      "name": "Users",
+      "description": "Create and login users"
+    }
+  ],
+  "schemas": [
+    "https", "http"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "operationId": "usersController.create",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details required to create a new user account",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created successfully",
+            "schema": {
+              "$ref": "#/definitions/SignupSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "409": {
+            "description": "Email taken",
+            "schema": {
+              "$ref": "#/definitions/SignupEmailTaken"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login an existiong user",
+        "operationId": "usersController.login",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login credentials of the existing user",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logged in successfully",
+            "schema": {
+              "$ref": "#/definitions/LoginSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "401": {
+            "description": "Invalid email/password",
+            "schema": {
+              "$ref": "#/definitions/LoginInvalidEmailOrPassword"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Create a new event",
+        "operationId": "eventsDBController.create",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "ApiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of the event",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/CreateEvent"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Event created successfully",
+            "schema": {
+              "$ref": "#/definitions/CreateEventSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Center not found",
+            "schema": {
+              "$ref": "#/definitions/CreateEventCenterNotFound"
+            }
+          },
+          "409": {
+            "description": "Name taken",
+            "schema": {
+              "$ref": "#/definitions/CreateEventNameTaken"
+            }
+          },
+          "403": {
+            "description": "Date passed",
+            "schema": {
+              "$ref": "#/definitions/CreateEventDatePassed"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get all events",
+        "operationId": "eventsDBController.getAllEvents",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of events to be returned",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page to be returned",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned events",
+            "schema": {
+              "$ref": "#/definitions/FetchEventsSuccess"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Edit an existing event",
+        "operationId": "eventsDBController.edit",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "ApiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of the event to be updated",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/EditEvent"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "ID of the event to be updated",
+            "required": "true",
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Event updated successfully",
+            "schema": {
+              "$ref": "#/definitions/UpdateEventSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Center not found",
+            "schema": {
+              "$ref": "#/definitions/UpdateEventCenterNotFound"
+            }
+          },
+          "409": {
+            "description": "Name taken",
+            "schema": {
+              "$ref": "#/definitions/UpdateEventNameTaken"
+            }
+          },
+          "403": {
+            "description": "Date passed",
+            "schema": {
+              "$ref": "#/definitions/UpdateEventDatePassed"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get a single event",
+        "operationId": "eventsDBController.getSingleEvent",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "description": "Id of the event to be fetched",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleEventSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleEventNotFound"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Delete an existing event",
+        "operationId": "eventsDBController.delete",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "ApiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the event to be deleted",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/DeleteEventSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "schema": {
+              "$ref": "#/definitions/DeleteEventNotFound"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/centers": {
+      "post": {
+        "tags": [
+          "Centers"
+        ],
+        "summary": "Create a new center",
+        "operationId": "centersDBController.create",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "ApiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details required to create a new center",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/Center"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created successfully",
+            "schema": {
+              "$ref": "#/definitions/CreateCenterSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/CreateCenterUnauthorizedAccess"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
+            }
+          },
+          "409": {
+            "description": "Center already exists",
+            "schema": {
+              "$ref": "#/definitions/CreateCenterNameTaken"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Centers"
+        ],
+        "summary": "Get all centers",
+        "operationId": "eventsDBController.getAllCenters",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of centers to be returned",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page to be returned",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned centers",
+            "schema": {
+              "$ref": "#/definitions/FetchCentersSuccess"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/centers/{centerId}": {
+      "put": {
+        "tags": [
+          "Centers"
+        ],
+        "summary": "Edit a existing center",
+        "operationId": "centersDBController.edit",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "ApiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of the center to be updated",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/EditCenter"
+            }
+          },
+          {
+            "name": "centerId",
+            "in": "path",
+            "description": "ID of the center to be updated",
+            "required": "true",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Center updated successfully",
+            "schema": {
+              "$ref": "#/definitions/UpdateCenterSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized access",
+            "schema": {
+              "$ref": "#/definitions/UpdateCenterUnauthorizedAccess"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
+            }
+          },
+          "404": {
+            "description": "Center not found",
+            "schema": {
+              "$ref": "#/definitions/UpdateCenterNotFound"
+            }
+          },
+          "409": {
+            "description": "Center name exists",
+            "schema": {
+              "$ref": "#/definitions/UpdateCenterNameTaken"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Centers"
+        ],
+        "summary": "Get a single center",
+        "operationId": "centersDBController.getSingleCenter",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "centerId",
+            "in": "path",
+            "reqired": true,
+            "description": "Id of the center to be fetched",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Center fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleCenterSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Center not found",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleCenterNotFound"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/centers/{centerId}/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get events for a single center",
+        "operationId": "eventsDBController.getEventsInCenter",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "centerId",
+            "in": "path",
+            "reqired": true,
+            "description": "Id of the center with events to be fetched",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Events fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleCenterEventsSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get events for a single user",
+        "operationId": "eventsDBController.getEventsForUser",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "reqired": true,
+            "description": "Id of the user with events to be fetched",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Events fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/FetchSingleUserEventsSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyHeader": {
+      "name": "x-access-token",
+      "in": "header",
+      "type": "apiKey"
+    }
+  },
+  "definitions": {
+    "Signup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "SignupSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "SignupEmailTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "BadRequest": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "InternalServerError": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginInvalidEmailOrPassword": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "centerId": {
+          "type": "integer"
+        },
+        "categoryId": {
+          "type": "integer"
+        },
+        "guests": {
+          "type": "integer"
+        }
+      }
+    },
+    "CreateEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "guests": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "CreateEventDatePassed": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateEventNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateEventCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchCentersSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "centers": {
+              "type": "array",
+              "properties": {
+                "center": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleUserEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleCenterEventsSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "properties": {
+                "event": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string"
+                },
+                "prev": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "EditEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "centerId": {
+          "type": "integer"
+        },
+        "categoryId": {
+          "type": "integer"
+        },
+        "guests": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdateEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "guests": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "UpdateEventDatePassed": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateEventNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateEventCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Center": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "chairs": {
+          "type": "integer"
+        },
+        "projector": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "EditCenter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "chairs": {
+          "type": "integer"
+        },
+        "projector": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "UpdateCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "CreateCenterUnauthorizedAccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterUnauthorizedAccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateCenterNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterNameTaken": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleCenterSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "center": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "chairs": {
+              "type": "integer"
+            },
+            "projector": {
+              "type": "integer"
+            },
+            "image": {
+              "type": "string"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "FetchSingleCenterNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleEventNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchSingleEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "guests": {
+              "type": "integer"
+            },
+            "date": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "Center": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "capacity": {
+                  "type": "integer"
+                },
+                "chairs": {
+                  "type": "integer"
+                },
+                "projector": {
+                  "type": "integer"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "integer"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "DeleteEventSuccess": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DeleteEventNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "NoTokenProvided": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
