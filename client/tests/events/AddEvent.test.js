@@ -24,9 +24,6 @@ describe('<AddEvent />', () => {
     store = mockStore(initialState);
     container = shallow(<ConnectedAddEvent store={store} />);
   });
-  it('should have a h3 element with text matching - Add an Event', () => {
-    expect(wrapper.find('h3').text()).toEqual('Add an Event');
-  });
   it('should render the connected component', () => {
     expect(container.length).toBe(1);
   });

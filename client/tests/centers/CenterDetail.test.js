@@ -29,16 +29,10 @@ describe('<CenterDetail />', () => {
       singleCenterActions={singleCenterActions}
     />);
   });
-  // it('should have a div with a .valign-wrapper class', () => {
-  //   expect(wrapper.find('.valign-wrapper').length).to.equal(1);
-  // });
   it('should have a div with a .center-detail-container class', () => {
     expect(wrapper.find('.center-detail-container').length).to.equal(1);
   });
   it('should have an image tag', () => {
     expect(wrapper.find('img').length).to.equal(1);
-  });
-  it('should have eight tags', () => {
-    expect(wrapper.find('p').length).to.equal(8);
   });
 });

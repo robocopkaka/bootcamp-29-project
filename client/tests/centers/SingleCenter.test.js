@@ -59,18 +59,8 @@ describe('<SingleCenter />', () => {
       />);
     container = shallow(<ConnectedSingleCenter store={store} />);
   });
-  // it('should have a div with a .min-height-hundred-vh class', () => {
-  //   // (`${indexStyles['min-height-hundred-vh']}`
-  //   // expect(wrapper.find(`${indexStyles['min-height-hundred-vh']}`).length).to.equal(1);
-  //   expect(wrapper.find('div').first().hasClass(`${indexStyles['min-height-hundred-vh']}`)).to.equal(true);
-  // });
-  // it('should have 5 child divs inisde the parent div', () => {
-  //   const divs = wrapper.find(`${indexStyles['min-height-hundred-vh']}`).children();
-  //   expect(divs.length).to.equal(5);
-  // });
   it('should render the Modal component', () => {
     expect(wrapper.find(Modal).length).toBe(1);
-    // console.log(wrapper.debug());
   });
   it('should render the CenterDetail component', () => {
     expect(wrapper.find(CenterDetail).length).toBe(1);
@@ -126,7 +116,6 @@ describe('<SingleCenter />', () => {
             isAdmin={admin}
           />
         </Provider>);
-      // console.log(wrapperWithSpy.debug());
       wrapperWithSpy.find('li').last().simulate('click');
       expect(SingleCenter.prototype.changePage).toHaveBeenCalledTimes(1);
     });
@@ -165,7 +154,6 @@ describe('<SingleCenter />', () => {
         isAdmin={admin}
       />);
       const instance = wrapperWithSpy.instance();
-      // console.log(instance);
       instance.changeEvent(1);
       expect(instance.state.eventId).toBe(1);
     });

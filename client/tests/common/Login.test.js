@@ -1,12 +1,10 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-// import chai, { expect } from 'chai';
-import spies from 'chai-spies';
-import sinon from 'sinon';
+import expect from 'expect';
 import configureStore from 'redux-mock-store';
-import ConnectedLogin, { Login } from '../components/common/Login';
-import Preloader from '../components/common/Preloader';
+import ConnectedLogin, { Login } from '../../components/common/Login';
+import Preloader from '../../components/common/Preloader';
 
 // chai.use(spies);
 
@@ -33,12 +31,6 @@ describe('<Login />', () => {
     store = mockStore(initialState);
     container = shallow(<ConnectedLogin store={store} />);
   });
-  // it('should have two input elements', () => {
-  //   expect(wrapper.find('input').length).to.equal(2);
-  // });
-  // it('should have a button', () => {
-  //   expect(wrapper.find('button').length).to.equal(1);
-  // });
   it('should call the login method on click', () => {
     const spy = jest.spyOn(Login.prototype, 'login');
     const wrapper2 = shallow(<Login
@@ -46,12 +38,6 @@ describe('<Login />', () => {
     />);
     wrapper2.find('button').simulate('click', { preventDefault() {} });
     expect(Login.prototype.login).toHaveBeenCalledTimes(1);
-  });
-  it('should have a method that logins a user', () => {
-    expect(wrapper.instance().login).toBeDefined();
-  });
-  it('should have a method that validates a form', () => {
-    expect(wrapper.instance().formIsValid()).toBeDefined();
   });
   it('should render the connected component', () => {
     expect(container.length).toBe(1);
@@ -70,13 +56,11 @@ describe('<Login />', () => {
     const instance = wrapper.instance();
     instance.handleEmailChange({ target: { value: 'email' } });
     expect(instance.state.email.value).toBe('email');
-    // console.log(instance, 'instance');
   });
   it('should set password state on handlePasswordChange', () => {
     const instance = wrapper.instance();
     instance.handlePasswordChange({ target: { value: 'password' } });
     expect(instance.state.password.value).toBe('password');
-    // console.log(instance, 'instance');
   });
   it('should clear state when clearFields is called', () => {
     const instance = wrapper.instance();

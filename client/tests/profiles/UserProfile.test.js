@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow, configure, mount } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import expect from 'expect';
-import configureStore from 'redux-mock-store';
+// import configureStore from 'redux-mock-store';
 import Adapter from 'enzyme-adapter-react-16';
-import { Provider } from 'react-redux';
+import { Pagination } from 'react-materialize';
+// import { Provider } from 'react-redux';
 import Preloader from '../../components/common/Preloader';
 import { UserProfile } from '../../components/Profiles/UserProfile';
 import events from '../fixtures/events';
@@ -11,31 +12,40 @@ import events from '../fixtures/events';
 configure({ adapter: new Adapter() });
 
 describe('<UserProfile />', () => {
-  let wrapper, loadingWrapper;
+  let wrapper, loadingWrapper, emptyWrapper;
   const userId = 1;
   const loading = true;
   const loggedIn = true;
   const isLoading = false;
+  const emptyEvents = [];
   const actions = {
     fetchEventsForUser: () => {}
   };
-  const initialState = {
-    events: {
-      events,
-      isLoading: false
-    },
-    session: {
-      userId: 1,
-      loggedIn: true
-    }
-  };
-  const mockStore = configureStore();
+  // const initialState = {
+  //   events: {
+  //     events,
+  //     isLoading: false
+  //   },
+  //   session: {
+  //     userId: 1,
+  //     loggedIn: true
+  //   }
+  // };
+  // const mockStore = configureStore();
   beforeEach(() => {
     wrapper = shallow(<UserProfile
       isLoading={isLoading}
       loggedIn={loggedIn}
       userId={userId}
       events={events}
+      actions={actions}
+      pages={4}
+    />);
+    emptyWrapper = shallow(<UserProfile
+      isLoading={isLoading}
+      loggedIn={loggedIn}
+      userId={userId}
+      events={emptyEvents}
       actions={actions}
     />);
     loadingWrapper = shallow(<UserProfile
@@ -46,11 +56,14 @@ describe('<UserProfile />', () => {
       actions={actions}
     />);
   });
-  it('should have a div with an all-events ID', () => {
-    expect(wrapper.find('#all-events').length).toEqual(1);
-  });
   it('should show a Preloader if isLoading is true', () => {
     expect(loadingWrapper.find(Preloader).length).toBe(1);
+  });
+  it('should render a Pagination component', () => {
+    expect(wrapper.find(Pagination).length).toBe(1);
+  });
+  it('should have one div if there are no events in props', () => {
+    expect(emptyWrapper.find('div').length).toBe(1);
   });
 
   describe('instance methods', () => {

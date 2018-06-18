@@ -53,9 +53,6 @@ describe('<SingleEvent />', () => {
   it('should have the same props in the container as in state', () => {
     expect(container.prop('event')).to.equal(initialState.events.event);
   });
-  it('should render the connected component', () => {
-    expect(container.length).to.equal(1);
-  });
   it('should have the same props in the container as in state', () => {
     expect(container.prop('event')).to.equal(initialState.events.event);
   });

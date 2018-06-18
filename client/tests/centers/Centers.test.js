@@ -76,21 +76,9 @@ describe('<Centers />', () => {
   it('should have a CenterList component in it', () => {
     expect(wrapperWithProps.find(CenterList).length).toBe(1);
   });
-  // it('should have a Search component in it', () => {
-  //   expect(wrapper.find(Search).length).toBe(1);
-  // });
-  it('should render a div with a simple text if no centers are in props', () => {
+  it('should have one div if no centers are in props', () => {
     const divs = wrapper.find('div');
-    expect(divs.length).toBeGreaterThan(0);
-    expect(wrapper.find('div').text()).toEqual('Sorry no centers found');
-  });
-  it('should have five divs if there are centers in props', () => {
-    const divs = wrapperWithProps.find('div');
-    expect(divs.length).toEqual(5);
-  });
-  it('should have a button if there are centers in props', () => {
-    const buttons = wrapperWithProps.find('button');
-    expect(buttons.length).toEqual(1);
+    expect(divs.length).toBe(1);
   });
   it('should render the connected component', () => {
     expect(container.length).toEqual(1);

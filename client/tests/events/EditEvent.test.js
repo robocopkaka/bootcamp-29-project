@@ -19,7 +19,7 @@ describe('<EditEvent />', () => {
     events: {
       event
     }
-  }
+  };
   let store, container;
   const mockStore = configureStore();
   beforeEach(() => {
@@ -29,9 +29,6 @@ describe('<EditEvent />', () => {
     />);
     store = mockStore(initialState);
     container = shallow(<ConnectedEditEvent store={store} />);
-  });
-  it('should have a h3 element with text matching - Edit an Event', () => {
-    expect(wrapper.find('h3').text()).toEqual('Edit an Event');
   });
   it('should render a connected component', () => {
     expect(container.length).toBe(1);
