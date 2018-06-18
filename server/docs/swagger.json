@@ -143,7 +143,7 @@
         ],
         "security": [
           {
-            "apiKey": []
+            "ApiKeyHeader": []
           }
         ],
         "parameters": [
@@ -257,7 +257,7 @@
         ],
         "security": [
           {
-            "apiKey": []
+            "ApiKeyHeader": []
           }
         ],
         "parameters": [
@@ -273,7 +273,7 @@
           {
             "name": "eventId",
             "in": "path",
-            "description": "IF of the event to be updated",
+            "description": "ID of the event to be updated",
             "required": "true",
             "schema": {
               "type": "path"
@@ -383,12 +383,12 @@
         ],
         "security": [
           {
-            "apiKey": []
+            "ApiKeyHeader": []
           }
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "eventId",
             "in": "path",
             "required": true,
             "description": "ID of the event to be deleted",
@@ -402,6 +402,18 @@
             "description": "Event deleted successfully",
             "schema": {
               "$ref": "#/definitions/DeleteEventSuccess"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
             }
           },
           "404": {
@@ -434,7 +446,7 @@
         ],
         "security": [
           {
-            "apiKey": []
+            "ApiKeyHeader": []
           }
         ],
         "parameters": [
@@ -465,6 +477,12 @@
             "description": "Unauthorized access",
             "schema": {
               "$ref": "#/definitions/CreateCenterUnauthorizedAccess"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
             }
           },
           "409": {
@@ -542,7 +560,7 @@
         ],
         "security": [
           {
-            "apiKey": []
+            "ApiKeyHeader": []
           }
         ],
         "parameters": [
@@ -582,6 +600,12 @@
             "description": "Unauthorized access",
             "schema": {
               "$ref": "#/definitions/UpdateCenterUnauthorizedAccess"
+            }
+          },
+          "403": {
+            "description": "No token provided",
+            "schema": {
+              "$ref": "#/definitions/NoTokenProvided"
             }
           },
           "404": {
@@ -750,9 +774,10 @@
     }
   },
   "securityDefinitions": {
-    "apiKey": {
+    "ApiKeyHeader": {
       "name": "x-access-token",
-      "in": "header"
+      "in": "header",
+      "type": "apiKey"
     }
   },
   "definitions": {
@@ -815,6 +840,9 @@
     "InternalServerError": {
       "type": "object",
       "properties": {
+        "success": {
+          "type": "boolean"
+        },
         "message": {
           "type": "string"
         }
@@ -889,7 +917,30 @@
           "type": "string"
         },
         "event": {
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "guests": {
+              "type": "integer"
+            }
+          }
         }
       }
     },
@@ -1167,7 +1218,30 @@
           "type": "string"
         },
         "event": {
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "centerId": {
+              "type": "integer"
+            },
+            "categoryId": {
+              "type": "integer"
+            },
+            "guests": {
+              "type": "integer"
+            }
+          }
         }
       }
     },
@@ -1274,6 +1348,9 @@
         "center": {
           "type": "object",
           "properties": {
+            "id": {
+              "type": "integer"
+            },
             "name": {
               "type": "string"
             },
@@ -1314,6 +1391,9 @@
         "center": {
           "type": "object",
           "properties": {
+            "id": {
+              "type": "integer"
+            },
             "name": {
               "type": "string"
             },
@@ -1564,6 +1644,17 @@
       }
     },
     "DeleteEventNotFound": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "NoTokenProvided": {
       "type": "object",
       "properties": {
         "success": {
