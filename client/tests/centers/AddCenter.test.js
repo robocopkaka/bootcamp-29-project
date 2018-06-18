@@ -46,27 +46,6 @@ describe('<AddCenter />', () => {
   it('should have two divs with a .container class', () => {
     expect(wrapper.find('.container').length).toBe(2);
   });
-  it('should have text matching -Add a Center, in the second container', () => {
-    expect(wrapper.find('.container').at(1).children('h3').text()).toBe('Add a Center');
-  });
-  it('should have a method that checks if the fields in the form are valid', () => {
-    expect(wrapper.instance().formIsValid).toBeDefined();
-  });
-  it('should have a method that resets validation states', () => {
-    expect(wrapper.instance().resetValidationStates).toBeDefined();
-  });
-  it('should render a CentersForm component', () => {
-    expect(wrapper.find(CentersForm).length).toBe(1);
-  });
-  it('should have a method that handles change to each input element', () => {
-    expect(wrapper.instance().handleChange).toBeDefined();
-  });
-  it('should have a method that gets a signed request from S3', () => {
-    expect(wrapper.instance().getSignedRequest).toBeDefined();
-  });
-  it('should have a method that uploads a file to S3', () => {
-    expect(wrapper.instance().uploadFile).toBeDefined();
-  });
   it('should have a circular loader if isLoading is true', () => {
     expect(loadingWrapper.find(Preloader).length).toBe(1);
   });
@@ -164,7 +143,6 @@ describe('<AddCenter />', () => {
         </Provider>);
       wrapperWithSpy.find('button').simulate('click', { preventDefault() {} });
       expect(AddCenter.prototype.addCenter).toHaveBeenCalledTimes(1);
-      // console.log(wrapperWithSpy.debug());
     });
     it('should add center directly', () => {
       const spy = jest.spyOn(AddCenter.prototype, 'addCenter');

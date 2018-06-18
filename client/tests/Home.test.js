@@ -58,15 +58,6 @@ describe('<Home />', () => {
       loggedIn={loggedIn}
     />);
   });
-
-  // it('should have a parent div with a class - home-container', () => {
-  //   const divs = wrapper.find('.home-container');
-  //   expect(divs.length).to.equal(1);
-  // });
-  it('should have two rows that contains some centers and events', () => {
-    const rows = wrapper.find('.row');
-    expect(rows.length).toBe(2);
-  });
   it('should render the connected component', () => {
     expect(container.length).toBe(1);
   });

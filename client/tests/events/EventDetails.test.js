@@ -26,7 +26,4 @@ describe('<EventDetails />', () => {
     const divs = wrapper.find('.single-event-container').children();
     expect(divs.length).to.equal(2);
   });
-  it('should have a h1 tag with text matching the name value in the event prop', () => {
-    expect(wrapper.find('h1').text()).to.equal(event.name);
-  });
 });

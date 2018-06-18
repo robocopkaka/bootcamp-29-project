@@ -4,7 +4,6 @@ import { MemoryRouter, browserHistory } from 'react-router-dom';
 import { expect } from 'chai';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import jQuery from 'jquery';
 import { Provider } from 'react-redux';
 import Adapter from 'enzyme-adapter-react-16';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,7 +15,6 @@ import events from './fixtures/events';
 
 configure({ adapter: new Adapter() });
 
-// jest.dontMock('jquery');
 
 describe('<Main />', () => {
   let wrapper, store;
@@ -73,9 +71,7 @@ describe('<Main />', () => {
             <Main />
           </MuiThemeProvider>
         </Provider>
-      </MemoryRouter>, {
-        attachTo: document.getElementById('app')
-      });
+      </MemoryRouter>);
     expect(wrapper.find(SingleCenter)).to.have.length(1);
   });
 });
